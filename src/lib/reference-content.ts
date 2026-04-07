@@ -106,6 +106,13 @@ const operationsReference = [
 
 const externalReference = [
   {
+    href: "/reference/paper-to-code",
+    title: "Paper-to-Code 시스템",
+    summary:
+      "논문을 코드 저장소로 바꾸는 agentic workflow와 관련 오픈소스 프로젝트를 확인된 범위 안에서 정리한 페이지입니다.",
+    badge: "내부 정리",
+  },
+  {
     href: "/reference/open-source-stack",
     title: "오픈소스 에이전트와 모델 스택",
     summary:
