@@ -9,7 +9,9 @@
     "lint": "eslint",
     "spacing:ko": "python3 scripts/check_korean_spacing.py src/app src/components docs",
     "readability:audit": "python3 scripts/check_readability.py",
-    "verify:harness": "bash scripts/verify_codex_harness.sh"
+    "verify:harness": "bash scripts/verify_codex_harness.sh",
+    "setup:codex": "bash scripts/setup-codex-harness.sh",
+    "setup:claude": "bash scripts/setup-claude-harness.sh"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

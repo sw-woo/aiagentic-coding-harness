@@ -69,6 +69,11 @@ type QuickStart = {
   starterQueries: string[];
 };
 
+type ApplyRecipe = {
+  targetPath: string;
+  prompt: string;
+};
+
 const TONE_STYLES = {
   default: "border-border text-foreground-muted",
   success: "border-success/50 text-success",
@@ -323,6 +328,52 @@ function getQuickStart(type: Props["type"]): QuickStart {
   };
 }
 
+function getApplyRecipe(type: Props["type"], platform: "all" | Platform): ApplyRecipe {
+  const normalized = platform === "all" ? "codex" : platform;
+
+  if (type === "skills") {
+    return {
+      targetPath:
+        normalized === "claude-code"
+          ? ".claude/skills/<name>/SKILL.md"
+          : ".agents/skills/<name>/SKILL.md",
+      prompt:
+        "이 프로젝트 주제에 맞춰서 먼저 review와 verify 계열 스킬부터 최소한으로 구성해줘. 반복 작업만 남기고, 실제 검증 명령도 같이 정리해줘.",
+    };
+  }
+
+  if (type === "agents") {
+    return {
+      targetPath:
+        normalized === "claude-code"
+          ? ".claude/agents/<name>.md"
+          : ".codex/agents/<name>.toml",
+      prompt:
+        "이 프로젝트에 맞는 reviewer, verifier, docs researcher 같은 좁은 역할의 서브에이전트를 최소 구조로 구성해줘. 각 역할의 책임도 짧게 적어줘.",
+    };
+  }
+
+  if (type === "hooks") {
+    return {
+      targetPath:
+        normalized === "claude-code"
+          ? ".claude/settings.json + .claude/hooks/*"
+          : ".codex/hooks.json + .codex/hooks/*",
+      prompt:
+        "이 프로젝트에 맞는 SessionStart와 PreToolUse 중심의 최소 hooks 구조를 만들어줘. 위험 명령 차단과 세션 컨텍스트 주입부터 넣어줘.",
+    };
+  }
+
+  return {
+    targetPath:
+      normalized === "claude-code"
+        ? ".claude/settings.json permissions 또는 .claude/rules/*"
+        : ".codex/rules/default.rules",
+    prompt:
+      "이 프로젝트에 맞는 최소 rules를 구성해줘. 먼저 forbidden과 prompt 규칙만 만들고, 정말 위험한 명령과 승인 대상 명령을 구분해줘.",
+  };
+}
+
 /**
  * 카탈로그 페이지의 클라이언트 셸입니다.
  * type 별로 어떤 카드를 그릴지 내부에서 분기합니다 (RSC 경계 함수 prop 회피).
@@ -334,6 +385,7 @@ export function CatalogPageShell(props: Props) {
   const guideCards = React.useMemo(() => getGuideCards(type), [type]);
   const externalLinks = React.useMemo(() => getExternalLinks(type), [type]);
   const quickStart = React.useMemo(() => getQuickStart(type), [type]);
+  const applyRecipe = React.useMemo(() => getApplyRecipe(type, platform), [platform, type]);
 
   const filtered = React.useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -472,6 +524,32 @@ export function CatalogPageShell(props: Props) {
             </pre>
             <p className="mt-4 text-sm leading-7 text-foreground-muted">
               위 구조를 기준으로 자기 프로젝트에 동일한 파일/디렉터리를 만들고, 카드에서 고른 항목 내용을 옮기면 됩니다.
+            </p>
+          </article>
+        </div>
+
+        <div className="grid gap-4 xl:grid-cols-[0.9fr_1.1fr]">
+          <article className="rounded-2xl border border-border bg-surface px-5 py-5 shadow-[0_10px_30px_rgba(15,23,42,0.04)]">
+            <p className="font-mono text-xs uppercase tracking-[0.18em] text-foreground-subtle">
+              실제로 옮길 위치
+            </p>
+            <code className="mt-4 block rounded-xl border border-border bg-background px-4 py-4 font-mono text-[12px] text-foreground">
+              {applyRecipe.targetPath}
+            </code>
+            <p className="mt-4 text-sm leading-7 text-foreground-muted">
+              플랫폼 필터를 먼저 고른 뒤, 카드의 파일 경로와 위 위치를 참고해서 자기 프로젝트에 같은 구조를 만드시면 됩니다.
+            </p>
+          </article>
+
+          <article className="rounded-2xl border border-border bg-surface px-5 py-5 shadow-[0_10px_30px_rgba(15,23,42,0.04)]">
+            <p className="font-mono text-xs uppercase tracking-[0.18em] text-foreground-subtle">
+              바로 붙여넣을 프롬프트
+            </p>
+            <pre className="mt-4 overflow-x-auto rounded-xl border border-border bg-background px-4 py-4 font-mono text-[12px] leading-6 text-foreground">
+              <code>{applyRecipe.prompt}</code>
+            </pre>
+            <p className="mt-4 text-sm leading-7 text-foreground-muted">
+              카탈로그에서 항목을 읽은 뒤, 위 문장을 그대로 붙여 넣고 프로젝트에 맞는 최소 구조부터 요청하시는 방식이 가장 빠릅니다.
             </p>
           </article>
         </div>

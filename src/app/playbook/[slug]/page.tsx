@@ -382,6 +382,9 @@ function CodexWikiPage({
                   반면 Codex 쪽은 이번 검토 범위에서 그와 동급으로 검증된 하네스 생성 플러그인은 확인하지 못했습니다.
                   그래서 Codex는 지금 단계에서 설치형 생성 플러그인보다, <strong>프롬프트 기반 부트스트랩 + tracked starter files</strong> 로 시작하는 편이 더 정확합니다.
                 </p>
+                <CodeBlock filename="Codex starter 복사" language="bash">
+{`bash scripts/setup-codex-harness.sh /path/to/your-project`}
+                </CodeBlock>
                 <CodeBlock filename="Codex 하네스 부트스트랩 프롬프트" language="text">
 {`Goal:
 이 저장소에 최소한의 Codex 하네스를 설계합니다.
@@ -984,6 +987,21 @@ claude --version`}
           이후에 프로젝트 규칙과 검증 명령에 맞게 손봐야 합니다.
         </p>
       </Callout>
+
+      <ProseHeading level={2}>0-2. 바로 복사해서 시작하려면 스크립트가 가장 빠릅니다</ProseHeading>
+      <ProseParagraph>
+        이 저장소 자체에도 최소 Claude 하네스 표면이 들어 있기 때문에, 현재는 아래 스크립트로 starter 파일을 복사한 뒤
+        자연어 프롬프트 한 줄로 프로젝트 특화 구성을 요청하는 방식이 가장 빠릅니다.
+      </ProseParagraph>
+      <CodeBlock filename="Claude starter 복사" language="bash">
+{`bash scripts/setup-claude-harness.sh /path/to/your-project`}
+      </CodeBlock>
+      <CodeBlock filename="설치 후 바로 붙여넣을 프롬프트" language="text">
+{`이 프로젝트 주제에 맞춰서 하네스를 구성해줘.
+현재 있는 CLAUDE.md 와 .claude/ 를 기준으로
+이 프로젝트에 필요한 agents, skills, rules, hooks 를 최소 구조부터 보강해줘.
+검증 명령과 운영 안전선도 같이 정리해줘.`}
+      </CodeBlock>
       <Callout tone="note" title="더 자세한 검증 정리">
         <p>
           설치 방식, 6가지 아키텍처 패턴, 생성 산출물, harness-100 / 연구 저장소 관계는{" "}
