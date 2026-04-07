@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { Callout } from "@/components/content/callout";
 import { ProseHeading } from "@/components/content/prose";
+import { HandbookTimeline } from "@/components/diagrams/handbook-timeline";
+import { HarnessLandscape } from "@/components/diagrams/harness-landscape";
 
 const TOC = [
   { id: "intro", label: "왜 이 주제가 중요한가" },
@@ -393,14 +394,8 @@ export default function HandbookPage() {
                 <h2 className="text-2xl font-semibold tracking-tight text-foreground">
                   과거 발전 과정: 자동완성에서 하네스 공학으로
                 </h2>
-                <div className="mt-6 overflow-hidden rounded-2xl border border-border bg-background">
-                  <Image
-                    src="/infographics/agentic-handbook-timeline.svg"
-                    alt="2017부터 2026까지 agentic coding harness engineering 흐름을 보여주는 타임라인"
-                    width={1600}
-                    height={900}
-                    className="h-auto w-full"
-                  />
+                <div className="mt-6">
+                  <HandbookTimeline />
                 </div>
                 <div className="mt-6 space-y-4 text-[16px] leading-8 text-foreground-muted">
                   <p>
@@ -441,14 +436,8 @@ export default function HandbookPage() {
                   모델 자체보다 런타임의 능력, 외부 맥락의 품질, 자동화된 검증, 관측성, 조직 정책과 더 강하게 얽혀 있습니다.
                   같은 모델을 써도 누군가는 매우 강한 결과를 얻고, 누군가는 실망하는 이유가 여기 있습니다.
                 </p>
-                <div className="mt-6 overflow-hidden rounded-2xl border border-border bg-background">
-                  <Image
-                    src="/infographics/agentic-harness-landscape.svg"
-                    alt="모델, 하네스, 외부 확장을 한 장에 정리한 현재 agentic coding stack landscape"
-                    width={1600}
-                    height={900}
-                    className="h-auto w-full"
-                  />
+                <div className="mt-6">
+                  <HarnessLandscape />
                 </div>
                 <div className="mt-6 grid gap-4 md:grid-cols-2">
                   {CURRENT_STACK.map((item) => (
