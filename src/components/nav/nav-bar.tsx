@@ -24,6 +24,7 @@ const NAV_ITEMS = [
   { href: "/architecture/overview", label: "아키텍처" },
   { href: "/catalog/skills", label: "카탈로그" },
   { href: "/playbook/setup-claude-code", label: "플레이북" },
+  { href: "/reference", label: "참고자료" },
 ] as const;
 
 /**

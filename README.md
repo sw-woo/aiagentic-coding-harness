@@ -1,79 +1,155 @@
-# Agentic Coding Harness — Showcase Site
+# 에이전틱 코딩 하네스 — Innogrid AIOps/MLOps 견본
 
-Information showcase + living catalog of an agentic coding harness applied to a Kotlin/JVM AIOps/MLOps project. Built with Next.js 16 + Fumadocs + shadcn/ui + Tailwind v4 + Vercel.
+> **이 저장소는 자기 자신의 견본입니다.** 사이트가 다루는 5-레이어 하네스(memory · skills · subagents · rules · hooks)가 실제로 이 저장소 안에 살아 있고, 카탈로그 페이지가 그 항목들을 빌드 시점에 자동 생성합니다.
 
-## 이것은 무엇인가요? (What This Is)
+**라이브 사이트**: 배포 후 Vercel URL 추가 예정
 
-이 저장소는 Kotlin/JVM 기반 AIOps/MLOps 프로젝트에 적용된 agentic coding harness를 소개하는 정보 쇼케이스이자 살아있는 카탈로그입니다. 방법론, 아키텍처, 운영 규칙, 그리고 실제 도입 맥락을 한곳에서 정리해 두는 것을 목표로 합니다.
+**저장소**: https://github.com/sw-woo/aiagentic-coding-harness
 
-시각 정체성은 Innogrid CI를 기준으로 잡고, 문서 경험은 Next.js 16과 Fumadocs를 기반으로 구성합니다. 브랜드 컬러 참고 자료는 Innogrid PR/CI 페이지를 기준으로 삼습니다.
+**스택**: Next.js 16 (App Router · Turbopack) · React 19 · Tailwind CSS v4 · Geist Sans/Mono · Newsreader · TypeScript 5 · pnpm 10 · Vercel
 
-- Innogrid CI: https://www.innogrid.com/pr/ci
+---
 
-## 빠른 시작 (Quick Start)
+## 한 줄 소개
 
-병렬 스캐폴딩 트랙이 `package.json`과 애플리케이션 파일을 준비한 뒤 아래 순서로 실행해 주시면 됩니다.
+Andrej Karpathy 의 방법론(Software 1.0/2.0/3.0, LLM as OS, vibe coding) 부터 Geoffrey Huntley 의 Ralph wiretap loop, Hamel Husain 의 Eval-Driven Development, Lance Martin 의 Context Engineering 까지 — 현대 에이전틱 코딩의 핵심 패턴을 한국어 존댓말로 정리하고, Innogrid AIOps/MLOps 플랫폼을 만들면서 실제로 검증한 5-레이어 하네스를 살아있는 카탈로그 형태로 보여드리는 정보 공유 사이트입니다.
+
+---
+
+## 사이트의 다섯 가지 콘텐츠 원칙 (변경 불가)
+
+1. **사실 기반, 출처 명시** — 모든 사실 주장에는 출처 URL 또는 1차 자료. 출처가 없으면 `[출처 미확인]` 마커.
+2. **모든 산문은 존댓말** — 한국어 콘텐츠는 평어가 아닌 존댓말로 통일.
+3. **AI는 인격체가 아니라 계산입니다** — 행렬 곱셈 + 어텐션 + 그래디언트 디센트로 정의합니다.
+4. **속도와 스케일이 본질적 변수입니다** — TPU 세대, 컴퓨트, 토큰량 같은 측정 가능한 변수로만 미래를 말합니다.
+5. **미래 예측은 사실 기반으로만** — METR, Epoch AI, Dario Amodei, Anthropic RSP 같은 인용 가능한 자료만 사용합니다.
+
+---
+
+## 사이트 안에서 어디로 갈 수 있나요
+
+| 경로 | 내용 |
+|---|---|
+| `/` | 에디토리얼 랜딩 — Innogrid CI 컬러로 단단하게 |
+| `/manifesto` | 다섯 가지 원칙 |
+| `/manifesto/what-ai-actually-is` | AI 는 계산입니다 (인포그래픽 포함) |
+| `/manifesto/why-harness-exists` | paperclip maximizer 와 5대 가드레일 (인포그래픽 포함) |
+| `/manifesto/realistic-trajectory` | 사실 기반 미래 궤적 |
+| `/methodology/karpathy` | Software 1/2/3.0, LLM as OS (인포그래픽 포함) |
+| `/methodology/ralph-loop` | Geoffrey Huntley 의 wiretap 패턴 (인포그래픽 포함) |
+| `/methodology/eval-driven` | Hamel Husain 의 Eval-Driven Development (Python 코드 예제) |
+| `/methodology/context-engineering` | write · select · compress · isolate |
+| `/methodology/agent-teams` | 멀티 에이전트 오케스트레이션 비교 |
+| `/methodology/self-improving-systems` | AutoML → DSPy → AI Scientist |
+| `/methodology/codex-best-practices` | Derrick Choi 의 Codex best practices 한국어 정리 |
+| `/architecture/overview` | 5-레이어 인터랙티브 다이어그램 + 7단계 엔지니어링 (인포그래픽 포함) |
+| `/architecture/claude-vs-codex` | 사실 기반 비교표 (인포그래픽 포함) |
+| `/catalog/skills` | 살아있는 스킬 카탈로그 (kotlin-codex 인벤토리) |
+| `/catalog/agents` | 서브에이전트 카탈로그 |
+| `/catalog/hooks` | 훅 카탈로그 |
+| `/catalog/rules` | 권한·규칙 카탈로그 |
+| `/playbook/setup-claude-code` | Claude Code 설정 플레이북 |
+| `/playbook/setup-codex` | Codex CLI 설정 플레이북 |
+| `/reference` | 1차 자료 + 외부 컬렉션 모음 |
+| `/reference/harness-100` | RevFactory 의 200개 컬렉션 비교 |
+
+---
+
+## 디자인 시스템
+
+| 항목 | 값 |
+|---|---|
+| 컨셉 | Research Engineering — Distill/Anthropic Research 의 연구 노트북 미학 + Vercel/Linear 의 엔지니어링 에디토리얼 |
+| 다크/라이트 | 다크 기본, 라이트 토글 |
+| Primary accent | `#0042FF` Innogrid Deep Blue |
+| Secondary accent | `#68CAFF` Innogrid Light Cyan |
+| Danger / Success / Info | `#f87171` / `#34d399` / `#60a5fa` |
+| Display + UI | Geist Sans (Vercel) |
+| Long-form 본문 | Newsreader (Google Fonts) |
+| Monospace | Geist Mono |
+| Anti-pattern | purple/violet AI 그라디언트, 이모지 아이콘, glassmorphism 과용, floating 3D blob, "Powered by AI" 배지 |
+
+출처: [Innogrid CI 안내](https://www.innogrid.com/pr/ci)
+
+---
+
+## 로컬 개발
 
 ```bash
 pnpm install
-pnpm dev
+pnpm dev      # http://localhost:3000
+pnpm build    # Turbopack production build
+pnpm lint
 ```
 
-개발 서버가 준비되면 일반적으로 `http://localhost:3000`에서 사이트를 확인하실 수 있습니다.
+---
 
-## 배포 (Deployment)
+## 배포
 
-### Vercel CLI
+이 저장소는 `main` 브랜치에 push 하면 자동으로 Vercel 빌드가 트리거됩니다.
 
-로컬에서 직접 배포하실 때는 Vercel CLI를 사용하시면 됩니다.
+### 처음 한 번 — Vercel 프로젝트 연결
 
-```bash
-pnpm dlx vercel login
-pnpm dlx vercel link
-pnpm dlx vercel
-pnpm dlx vercel --prod
-```
+1. https://vercel.com/new 열기
+2. **Import Git Repository** → `sw-woo/aiagentic-coding-harness` 선택
+3. 프레임워크는 **Next.js** 가 자동 감지됩니다.
+4. **Deploy** 클릭 — 약 1~2분 안에 라이브 URL 발급
 
-실제 운영 배포에서는 `SITE_URL`, `NEXT_PUBLIC_SITE_URL`, `LAST_COMMIT_HASH` 같은 환경 값을 함께 관리해 주시는 편이 좋습니다.
+이후에는 `git push origin main` 한 번이면 자동 재배포됩니다.
 
-### GitHub Actions
+### GitHub Actions 워크플로 (선택)
 
-이 저장소에는 `.github/workflows/deploy.yml`이 포함되어 있으며, 다음 흐름으로 동작합니다.
+`.github/workflows/deploy.yml` 가 함께 들어 있어, GitHub Secrets 에 `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID` 를 설정하시면 PR 마다 preview URL 을, main push 마다 production deploy 를 자동으로 수행합니다.
 
-- `push` to `main`: production deployment
-- `pull_request`: preview deployment + PR comment
-- 공통 build-check: `pnpm install`과 `pnpm build`를 수행하되, 아직 스캐폴딩이 끝나지 않아 `package.json`이 없으면 안전하게 skip합니다.
+---
 
-필수 GitHub Secrets는 아래 세 가지입니다.
+## 카탈로그 데이터 출처
 
-- `VERCEL_TOKEN`
-- `VERCEL_ORG_ID`
-- `VERCEL_PROJECT_ID`
+`data/catalog/*.json` 파일은 같은 조직의 다른 저장소(`kotlin-codex`)에 있는 실제 하네스 설정에서 빌드 시점에 자동 생성됩니다. 이 사이트가 “자기 자신의 견본” 인 이유입니다 — 카탈로그에 보이는 모든 skill / agent / hook / rule 이 실제로 동작하는 항목입니다.
 
-공식 배포 문서는 아래를 기준으로 유지해 주십시오.
+---
 
-- Vercel Docs: https://vercel.com/docs
+## 본 사이트가 사용하는 자료조사 패키지
 
-## 스택 (Stack)
+| 파일 | 내용 |
+|---|---|
+| `docs/research/01-karpathy-methodology.md` | Software 1/2/3.0, LLM as OS, vibe coding, nanoGPT 의 사실 기반 source pack |
+| `docs/research/02-agentic-patterns.md` | Ralph loop, EDD, Context Engineering, Subagent-driven dev, Anthropic Building Effective Agents |
+| `docs/research/05-kotlin-codex-inventory.md` | kotlin-codex 저장소의 실제 인벤토리 (카탈로그 데이터의 원본) |
+| `docs/research/06-ai-substrate-trends.md` | AI = 계산 framing, TPU 세대, frontier 컴퓨트, paperclip maximizer, 사실 기반 forward projection |
+| `docs/research/08-openai-agentic-stack.md` | OpenAI Codex CLI, GPT-5, Operator, CUA, Swarm, Agents SDK |
+| `docs/research/10-revfactory-harness-100-review.md` | RevFactory 의 harness-100 컬렉션 비교 검토 |
 
-- Next.js 16: https://nextjs.org
-- Fumadocs: https://fumadocs.dev
-- shadcn/ui: https://ui.shadcn.com
-- Vercel: https://vercel.com/docs
-- Tailwind CSS v4, pnpm 10, GitHub Actions
+---
 
-## 콘텐츠 원칙 (Content Principles)
+## 인포그래픽
 
-이 사이트의 모든 산문과 문서 콘텐츠는 아래 다섯 가지 원칙을 따릅니다.
+`public/infographics/` 안의 6개 PNG 는 모두 Google NotebookLM 으로 위 source pack 들을 재료로 자동 생성한 한국어 인포그래픽입니다.
 
-1. No fabrication: 모든 사실 주장에는 출처 URL 또는 1차 자료를 붙이고, 없으면 `[출처 미확인]`으로 표시합니다.
-2. 존댓말 유지: 한국어 산문은 일관되게 존댓말로 작성합니다.
-3. AI = computation: AI를 인격체가 아니라 계산 시스템으로 설명합니다.
-4. Speed and scale matter: 모델 크기, 학습 토큰, 컴퓨트, 하드웨어 세대 같은 측정 가능한 변수로 설명합니다.
-5. Evidence-based forecasting: 미래 예측은 출처가 검증되는 자료에 한해 인용합니다.
+| 파일 | 사용처 |
+|---|---|
+| `karpathy-vision.png` | `/methodology/karpathy` |
+| `agentic-patterns.png` | `/methodology/ralph-loop` |
+| `ai-as-computation.png` | `/manifesto/what-ai-actually-is` |
+| `harness-5-layers.png` | `/architecture/overview` |
+| `claude-vs-codex.png` | `/architecture/claude-vs-codex` |
+| `paperclip-guardrails.png` | `/manifesto/why-harness-exists` |
 
-## 기여 (Contributing)
+---
 
-기여해 주실 때는 사실 주장에 반드시 1차 출처를 연결해 주시고, 한국어 본문은 존댓말로 유지해 주십시오. 과장된 AI 마케팅 표현보다는 검증 가능한 구현 맥락, 운영 경험, 실패 사례, 제약 조건을 우선해 주시면 됩니다.
+## 라이선스
 
-배포나 문서 구조를 바꾸실 때는 Vercel 설정 파일과 GitHub Actions 워크플로를 함께 검토해 주시는 편이 안전합니다.
+Apache License 2.0 — `LICENSE` 파일 참조.
+
+---
+
+## 감사
+
+- **Andrej Karpathy** — Software 1.0/2.0/3.0 framing 과 nanoGPT 의 “단일 파일·해킹 가능” 미학
+- **Geoffrey Huntley** — Ralph wiretap loop 패턴
+- **Hamel Husain · Eugene Yan · Jason Liu** — Eval-Driven Development
+- **Lance Martin (LangChain)** — Context Engineering 4 원칙
+- **Anthropic Engineering** — Building Effective Agents
+- **Minho Hwang (RevFactory)** — Harness 100 컬렉션
+- **Innogrid CI** — 사이트 액센트 컬러
+- **Google NotebookLM** — 인포그래픽 자동 생성
