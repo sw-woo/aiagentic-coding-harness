@@ -399,20 +399,20 @@ export default function HandbookPage() {
                 </div>
                 <div className="mt-6 space-y-4 text-[16px] leading-8 text-foreground-muted">
                   <p>
-                    <strong>2017</strong> 에 Karpathy의 Software 2.0은 오늘날 하네스 엔지니어링으로 이어지는 출발점 중 하나였습니다.
-                    여기서 중요한 변화는 “규칙을 사람이 직접 쓰는 소프트웨어” 외에, 데이터와 최적화로 만들어지는 또 하나의 소프트웨어 층을 명확히 제시했다는 점입니다.
+                    <strong>2017</strong> 에는 “사람이 직접 코드를 다 쓰지 않아도, 학습된 모델 자체가 하나의 소프트웨어처럼 작동할 수 있다”는 관점이 널리 정리되기 시작했습니다.
+                    지금 우리가 LLM을 도구로 다루는 흐름의 출발점 중 하나가 여기입니다.
                   </p>
                   <p>
-                    <strong>2023</strong> 에는 LLM을 운영체제처럼 보는 관점이 등장했습니다. 이때부터 중요한 것은 모델 내부보다
-                    컨텍스트, 도구, 메모리, 파일 구조를 어떻게 연결하느냐로 이동했습니다.
+                    <strong>2023</strong> 에는 LLM 하나만 보는 게 아니라, 프롬프트, 컨텍스트, 메모리, 도구를 함께 관리하는 방식이 중요하다는 관점이 강해졌습니다.
+                    즉, 모델보다 “모델을 둘러싼 실행 환경”이 더 중요해지기 시작한 시기입니다.
                   </p>
                   <p>
-                    <strong>2024</strong> 의 Building Effective Agents는 “workflow와 agent를 구분하라”는 메시지를 남겼습니다.
-                    에이전트를 쓰기 위해 반드시 에이전트를 써야 하는 것은 아니고, 간단한 체인과 검증 루프가 더 나을 수 있다는 기준점이 생겼습니다.
+                    <strong>2024</strong> 에는 “무조건 복잡한 에이전트를 만들기보다, 단순한 작업 흐름이 더 나을 때가 많다”는 기준이 정리됐습니다.
+                    에이전트를 어디에 써야 하고, 어디에는 단순 workflow가 더 좋은지를 구분하는 감각이 생겼습니다.
                   </p>
                   <p>
-                    <strong>2025~2026</strong> 에는 Ralph loop, eval-driven development, context engineering, MCP가 서로 합쳐지면서
-                    하네스 엔지니어링이라는 실전 감각이 형성됐습니다. 지금은 단순 프롬프트 장인이 아니라, 작업 환경을 설계하는 사람이 더 중요한 시기입니다.
+                    <strong>2025~2026</strong> 에는 Ralph loop, 평가 루프, 컨텍스트 관리, MCP 같은 기법이 한데 모이면서
+                    지금의 하네스 엔지니어링으로 이어졌습니다. 이제는 프롬프트를 잘 쓰는 것보다, 작업 환경을 잘 설계하는 것이 더 중요해졌습니다.
                   </p>
                 </div>
                 <div className="mt-6 rounded-xl border border-border bg-background p-4">

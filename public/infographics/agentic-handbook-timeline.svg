@@ -9,44 +9,42 @@
   <circle cx="200" cy="450" r="18" fill="#0042FF"/>
   <rect x="110" y="255" width="180" height="130" rx="20" fill="#EFF6FF" stroke="#BFDBFE"/>
   <text x="136" y="300" fill="#0042FF" font-family="Arial, sans-serif" font-size="28" font-weight="700">2017</text>
-  <text x="136" y="336" fill="#111827" font-family="Arial, sans-serif" font-size="22" font-weight="700">Software 2.0</text>
-  <text x="136" y="366" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">Karpathy가</text>
-  <text x="136" y="390" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">가중치 기반 소프트웨어를</text>
-  <text x="136" y="414" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">정식 패러다임으로 제시</text>
+  <text x="136" y="336" fill="#111827" font-family="Arial, sans-serif" font-size="22" font-weight="700">학습된 모델도</text>
+  <text x="136" y="362" fill="#111827" font-family="Arial, sans-serif" font-size="22" font-weight="700">소프트웨어가 됨</text>
+  <text x="136" y="392" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">사람이 규칙을 다 쓰지 않아도</text>
+  <text x="136" y="416" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">학습된 모델이 기능을 수행</text>
 
   <circle cx="470" cy="450" r="18" fill="#0042FF"/>
   <rect x="380" y="520" width="180" height="134" rx="20" fill="#F5F3FF" stroke="#DDD6FE"/>
   <text x="406" y="565" fill="#6D28D9" font-family="Arial, sans-serif" font-size="28" font-weight="700">2023</text>
-  <text x="406" y="601" fill="#111827" font-family="Arial, sans-serif" font-size="22" font-weight="700">LLM as OS</text>
-  <text x="406" y="631" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">LLM을 커널처럼 보고</text>
-  <text x="406" y="655" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">컨텍스트와 도구를</text>
-  <text x="406" y="679" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">관리 자원으로 해석</text>
+  <text x="406" y="601" fill="#111827" font-family="Arial, sans-serif" font-size="22" font-weight="700">모델보다</text>
+  <text x="406" y="627" fill="#111827" font-family="Arial, sans-serif" font-size="22" font-weight="700">실행 환경이 중요</text>
+  <text x="406" y="657" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">프롬프트, 컨텍스트, 메모리,</text>
+  <text x="406" y="681" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">도구를 함께 관리</text>
 
   <circle cx="740" cy="450" r="18" fill="#0042FF"/>
   <rect x="650" y="255" width="180" height="142" rx="20" fill="#ECFDF5" stroke="#A7F3D0"/>
   <text x="676" y="300" fill="#059669" font-family="Arial, sans-serif" font-size="28" font-weight="700">2024</text>
-  <text x="676" y="336" fill="#111827" font-family="Arial, sans-serif" font-size="22" font-weight="700">Effective Agents</text>
-  <text x="676" y="366" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">Anthropic이</text>
-  <text x="676" y="390" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">workflow vs agent</text>
-  <text x="676" y="414" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">구분을 명확히 정리</text>
+  <text x="676" y="336" fill="#111827" font-family="Arial, sans-serif" font-size="22" font-weight="700">복잡한 agent보다</text>
+  <text x="676" y="362" fill="#111827" font-family="Arial, sans-serif" font-size="22" font-weight="700">단순 workflow가 나을 때</text>
+  <text x="676" y="392" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">어디에 agent를 쓰고</text>
+  <text x="676" y="416" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">어디는 단순화할지 구분</text>
 
   <circle cx="1010" cy="450" r="18" fill="#0042FF"/>
   <rect x="920" y="520" width="180" height="142" rx="20" fill="#FFF7ED" stroke="#FDBA74"/>
   <text x="946" y="565" fill="#EA580C" font-family="Arial, sans-serif" font-size="28" font-weight="700">2025</text>
-  <text x="946" y="601" fill="#111827" font-family="Arial, sans-serif" font-size="22" font-weight="700">Ralph · Evals ·</text>
-  <text x="946" y="627" fill="#111827" font-family="Arial, sans-serif" font-size="22" font-weight="700">Context Engineering</text>
-  <text x="946" y="657" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">루프, 평가, 컨텍스트</text>
-  <text x="946" y="681" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">관리 기법이 묶여</text>
-  <text x="946" y="705" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">하네스 공학으로 이동</text>
+  <text x="946" y="601" fill="#111827" font-family="Arial, sans-serif" font-size="22" font-weight="700">운영 기법이</text>
+  <text x="946" y="627" fill="#111827" font-family="Arial, sans-serif" font-size="22" font-weight="700">하나의 묶음이 됨</text>
+  <text x="946" y="657" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">루프, 평가, 컨텍스트 관리,</text>
+  <text x="946" y="681" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">도구 연결이 함께 설계됨</text>
 
   <circle cx="1280" cy="450" r="18" fill="#0042FF"/>
   <rect x="1180" y="255" width="220" height="154" rx="20" fill="#F0F9FF" stroke="#BAE6FD"/>
   <text x="1208" y="300" fill="#0369A1" font-family="Arial, sans-serif" font-size="28" font-weight="700">2026</text>
-  <text x="1208" y="336" fill="#111827" font-family="Arial, sans-serif" font-size="22" font-weight="700">Hot Stack</text>
-  <text x="1208" y="366" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">Codex / Claude Code</text>
-  <text x="1208" y="390" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">MCP · Playwright ·</text>
-  <text x="1208" y="414" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">Context7 · open 30B coder</text>
-  <text x="1208" y="438" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">관측성과 검증 루프 강화</text>
+  <text x="1208" y="336" fill="#111827" font-family="Arial, sans-serif" font-size="22" font-weight="700">지금은 모델보다</text>
+  <text x="1208" y="362" fill="#111827" font-family="Arial, sans-serif" font-size="22" font-weight="700">하네스 전체가 중요</text>
+  <text x="1208" y="392" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">런타임, MCP, 검증,</text>
+  <text x="1208" y="416" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">관측성이 한 스택으로 묶임</text>
 
   <rect x="120" y="722" width="1360" height="94" rx="22" fill="#111827"/>
   <text x="154" y="772" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="24" font-weight="700">핵심 메시지</text>
