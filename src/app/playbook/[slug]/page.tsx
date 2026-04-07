@@ -373,6 +373,42 @@ function CodexWikiPage({
                 </p>
               </section>
 
+              <section className="rounded-2xl border border-border bg-surface p-7">
+                <h2 className="text-2xl font-semibold tracking-tight text-foreground">
+                  현재 확인 기준으로는 프롬프트 기반 부트스트랩이 더 현실적입니다
+                </h2>
+                <p className="mt-4 text-[16px] leading-8 text-foreground-muted">
+                  Claude Code 쪽은 `revfactory/harness`처럼 하네스 자체를 생성하는 검증된 플러그인이 확인됩니다.
+                  반면 Codex 쪽은 이번 검토 범위에서 그와 동급으로 검증된 하네스 생성 플러그인은 확인하지 못했습니다.
+                  그래서 Codex는 지금 단계에서 설치형 생성 플러그인보다, <strong>프롬프트 기반 부트스트랩 + tracked starter files</strong> 로 시작하는 편이 더 정확합니다.
+                </p>
+                <CodeBlock filename="Codex 하네스 부트스트랩 프롬프트" language="text">
+{`Goal:
+이 저장소에 최소한의 Codex 하네스를 설계합니다.
+
+Context:
+- AGENTS.md 를 둡니다.
+- .codex/config.toml, .codex/hooks.json, .codex/rules/default.rules 를 만듭니다.
+- .codex/agents/ 에 reviewer, verifier, docs_researcher 를 둡니다.
+- .agents/skills/ 에 review, verify 두 개의 최소 스킬을 둡니다.
+
+Constraints:
+- 파괴적 명령은 금지합니다.
+- 검증 명령은 실제 이 저장소에서 바로 복붙 가능한 형태여야 합니다.
+- 과장된 설명 없이 최소한의 tracked harness surface 만 만듭니다.
+
+Done when:
+- 파일이 실제로 생성되고
+- lint/build 또는 verify 스크립트가 통과합니다.`}
+                </CodeBlock>
+                <Callout tone="note" title="왜 이 방식이 좋은가">
+                  <p>
+                    Codex 쪽은 현재 공식 문서와 실제 저장소 표면이 빠르게 변하고 있어서, 설치형 생성 플러그인을 찾는 것보다
+                    저장소에 맞는 작업 계약 프롬프트와 starter 파일을 같이 관리하는 편이 재현성과 검증성이 높습니다.
+                  </p>
+                </Callout>
+              </section>
+
               <section id="docs" className="rounded-2xl border border-border bg-surface p-7">
                 <h2 className="text-2xl font-semibold tracking-tight text-foreground">
                   현재 공식 Codex 기준 문서
@@ -922,6 +958,39 @@ claude --version`}
         <p>
           개인 구독(Pro / Max) 또는 팀 구독(Team / Enterprise) 어느 쪽이든 같은 CLI 가 동작합니다. 회사 결제로
           쓰실 때는 SSO 가 적용된 워크스페이스로 로그인하시는 것이 가장 안전합니다.
+        </p>
+      </Callout>
+
+      <ProseHeading level={2}>0-1. 하네스를 자연어로 생성하는 플러그인도 있습니다</ProseHeading>
+      <ProseParagraph>
+        Claude Code 쪽은 `revfactory/harness`처럼 하네스 자체를 생성하는 검증된 플러그인이 확인됩니다.
+        이 플러그인은 프로젝트 도메인을 분석해 `.claude/agents/` 와 `.claude/skills/` 골격을 자동 생성하는 방향을 제공합니다.
+      </ProseParagraph>
+      <CodeBlock filename="revfactory/harness 설치" language="bash">
+{`# 1) 마켓플레이스 등록
+/plugin marketplace add revfactory/harness
+
+# 2) 플러그인 설치
+/plugin install harness@harness`}
+      </CodeBlock>
+      <CodeBlock filename="설치 후 바로 써볼 프롬프트" language="text">
+{`하네스 구성해줘
+이 프로젝트에 맞는 에이전트 팀 구축해줘
+풀스택 웹사이트 개발 하네스를 구성해줘`}
+      </CodeBlock>
+      <Callout tone="tip" title="언제 유용한가">
+        <p>
+          초기 하네스 골격을 빨리 만들고 싶을 때 유용합니다. 다만 생성 결과는 그대로 믿기보다,
+          이후에 프로젝트 규칙과 검증 명령에 맞게 손봐야 합니다.
+        </p>
+      </Callout>
+      <Callout tone="note" title="더 자세한 검증 정리">
+        <p>
+          설치 방식, 6가지 아키텍처 패턴, 생성 산출물, harness-100 / 연구 저장소 관계는{" "}
+          <Link href="/reference/revfactory-harness" className="text-accent hover:underline">
+            RevFactory Harness 플러그인
+          </Link>
+          {" "}페이지에 따로 정리했습니다.
         </p>
       </Callout>
 
