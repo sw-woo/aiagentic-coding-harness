@@ -375,35 +375,47 @@ function CodexWikiPage({
 
               <section className="rounded-2xl border border-border bg-surface p-7">
                 <h2 className="text-2xl font-semibold tracking-tight text-foreground">
-                  현재 확인 기준으로는 프롬프트 기반 부트스트랩이 더 현실적입니다
+                  현재 확인 기준으로는 starter 복사 + 프롬프트 붙여넣기 순서가 가장 현실적입니다
                 </h2>
                 <p className="mt-4 text-[16px] leading-8 text-foreground-muted">
                   Claude Code 쪽은 `revfactory/harness`처럼 하네스 자체를 생성하는 검증된 플러그인이 확인됩니다.
                   반면 Codex 쪽은 이번 검토 범위에서 그와 동급으로 검증된 하네스 생성 플러그인은 확인하지 못했습니다.
-                  그래서 Codex는 지금 단계에서 설치형 생성 플러그인보다, <strong>프롬프트 기반 부트스트랩 + tracked starter files</strong> 로 시작하는 편이 더 정확합니다.
+                  그래서 Codex는 지금 단계에서 설치형 생성 플러그인보다, <strong>tracked starter files를 먼저 복사하고 그 다음 프롬프트로 보강하는 방식</strong> 이 더 정확합니다.
                 </p>
-                <CodeBlock filename="Codex starter 복사" language="bash">
+                <div className="mt-6 grid gap-4 xl:grid-cols-2">
+                  <article className="rounded-xl border border-border bg-background px-5 py-5">
+                    <p className="font-mono text-xs uppercase tracking-[0.18em] text-foreground-subtle">
+                      Step 1
+                    </p>
+                    <h3 className="mt-2 text-lg font-semibold text-foreground">
+                      starter 파일 먼저 복사
+                    </h3>
+                    <p className="mt-2 text-sm leading-7 text-foreground-muted">
+                      아래 명령을 복사해서 실행하면 최소 Codex 하네스 표면이 먼저 생깁니다.
+                    </p>
+                    <CodeBlock filename="복사할 명령" language="bash" className="mt-4">
 {`bash scripts/setup-codex-harness.sh /path/to/your-project`}
-                </CodeBlock>
-                <CodeBlock filename="Codex 하네스 부트스트랩 프롬프트" language="text">
-{`Goal:
-이 저장소에 최소한의 Codex 하네스를 설계합니다.
+                    </CodeBlock>
+                  </article>
 
-Context:
-- AGENTS.md 를 둡니다.
-- .codex/config.toml, .codex/hooks.json, .codex/rules/default.rules 를 만듭니다.
-- .codex/agents/ 에 reviewer, verifier, docs_researcher 를 둡니다.
-- .agents/skills/ 에 review, verify 두 개의 최소 스킬을 둡니다.
-
-Constraints:
-- 파괴적 명령은 금지합니다.
-- 검증 명령은 실제 이 저장소에서 바로 복붙 가능한 형태여야 합니다.
-- 과장된 설명 없이 최소한의 tracked harness surface 만 만듭니다.
-
-Done when:
-- 파일이 실제로 생성되고
-- lint/build 또는 verify 스크립트가 통과합니다.`}
-                </CodeBlock>
+                  <article className="rounded-xl border border-border bg-background px-5 py-5">
+                    <p className="font-mono text-xs uppercase tracking-[0.18em] text-foreground-subtle">
+                      Step 2
+                    </p>
+                    <h3 className="mt-2 text-lg font-semibold text-foreground">
+                      CLI에 프롬프트 붙여넣기
+                    </h3>
+                    <p className="mt-2 text-sm leading-7 text-foreground-muted">
+                      starter가 생긴 뒤에는 아래 프롬프트를 그대로 붙여넣어 프로젝트 주제에 맞게 보강을 요청합니다.
+                    </p>
+                    <CodeBlock filename="붙여넣을 프롬프트" language="text" className="mt-4">
+{`이 프로젝트 주제에 맞춰서 Codex 하네스를 구성해줘.
+현재 있는 AGENTS.md, .codex/, .agents/skills/ 를 기준으로
+이 프로젝트에 꼭 필요한 rules, hooks, skills, subagents 를 보강해줘.
+과장 없이 최소한의 구조부터 맞추고, 변경 후 검증 명령까지 정리해줘.`}
+                    </CodeBlock>
+                  </article>
+                </div>
                 <Callout tone="note" title="왜 이 방식이 좋은가">
                   <p>
                     Codex 쪽은 현재 공식 문서와 실제 저장소 표면이 빠르게 변하고 있어서, 설치형 생성 플러그인을 찾는 것보다
