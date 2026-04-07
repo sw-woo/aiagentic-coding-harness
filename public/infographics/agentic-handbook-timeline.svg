@@ -1,0 +1,54 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" rx="36" fill="#F7F7F2"/>
+  <rect x="48" y="48" width="1504" height="804" rx="28" fill="#FFFFFF" stroke="#D9DEE8" stroke-width="2"/>
+  <text x="96" y="130" fill="#111827" font-family="Arial, sans-serif" font-size="44" font-weight="700">Agentic Coding Handbook Timeline</text>
+  <text x="96" y="172" fill="#4B5563" font-family="Arial, sans-serif" font-size="22">2017부터 2026까지: 패러다임 변화, 하네스 엔지니어링, 현재의 확장 스택</text>
+
+  <line x1="120" y1="450" x2="1480" y2="450" stroke="#0042FF" stroke-width="8" stroke-linecap="round"/>
+
+  <circle cx="200" cy="450" r="18" fill="#0042FF"/>
+  <rect x="110" y="255" width="180" height="130" rx="20" fill="#EFF6FF" stroke="#BFDBFE"/>
+  <text x="136" y="300" fill="#0042FF" font-family="Arial, sans-serif" font-size="28" font-weight="700">2017</text>
+  <text x="136" y="336" fill="#111827" font-family="Arial, sans-serif" font-size="22" font-weight="700">Software 2.0</text>
+  <text x="136" y="366" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">Karpathy가</text>
+  <text x="136" y="390" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">가중치 기반 소프트웨어를</text>
+  <text x="136" y="414" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">정식 패러다임으로 제시</text>
+
+  <circle cx="470" cy="450" r="18" fill="#0042FF"/>
+  <rect x="380" y="520" width="180" height="134" rx="20" fill="#F5F3FF" stroke="#DDD6FE"/>
+  <text x="406" y="565" fill="#6D28D9" font-family="Arial, sans-serif" font-size="28" font-weight="700">2023</text>
+  <text x="406" y="601" fill="#111827" font-family="Arial, sans-serif" font-size="22" font-weight="700">LLM as OS</text>
+  <text x="406" y="631" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">LLM을 커널처럼 보고</text>
+  <text x="406" y="655" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">컨텍스트와 도구를</text>
+  <text x="406" y="679" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">관리 자원으로 해석</text>
+
+  <circle cx="740" cy="450" r="18" fill="#0042FF"/>
+  <rect x="650" y="255" width="180" height="142" rx="20" fill="#ECFDF5" stroke="#A7F3D0"/>
+  <text x="676" y="300" fill="#059669" font-family="Arial, sans-serif" font-size="28" font-weight="700">2024</text>
+  <text x="676" y="336" fill="#111827" font-family="Arial, sans-serif" font-size="22" font-weight="700">Effective Agents</text>
+  <text x="676" y="366" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">Anthropic이</text>
+  <text x="676" y="390" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">workflow vs agent</text>
+  <text x="676" y="414" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">구분을 명확히 정리</text>
+
+  <circle cx="1010" cy="450" r="18" fill="#0042FF"/>
+  <rect x="920" y="520" width="180" height="142" rx="20" fill="#FFF7ED" stroke="#FDBA74"/>
+  <text x="946" y="565" fill="#EA580C" font-family="Arial, sans-serif" font-size="28" font-weight="700">2025</text>
+  <text x="946" y="601" fill="#111827" font-family="Arial, sans-serif" font-size="22" font-weight="700">Ralph · Evals ·</text>
+  <text x="946" y="627" fill="#111827" font-family="Arial, sans-serif" font-size="22" font-weight="700">Context Engineering</text>
+  <text x="946" y="657" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">루프, 평가, 컨텍스트</text>
+  <text x="946" y="681" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">관리 기법이 묶여</text>
+  <text x="946" y="705" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">하네스 공학으로 이동</text>
+
+  <circle cx="1280" cy="450" r="18" fill="#0042FF"/>
+  <rect x="1180" y="255" width="220" height="154" rx="20" fill="#F0F9FF" stroke="#BAE6FD"/>
+  <text x="1208" y="300" fill="#0369A1" font-family="Arial, sans-serif" font-size="28" font-weight="700">2026</text>
+  <text x="1208" y="336" fill="#111827" font-family="Arial, sans-serif" font-size="22" font-weight="700">Hot Stack</text>
+  <text x="1208" y="366" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">Codex / Claude Code</text>
+  <text x="1208" y="390" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">MCP · Playwright ·</text>
+  <text x="1208" y="414" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">Context7 · open 30B coder</text>
+  <text x="1208" y="438" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">관측성과 검증 루프 강화</text>
+
+  <rect x="120" y="722" width="1360" height="94" rx="22" fill="#111827"/>
+  <text x="154" y="772" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="24" font-weight="700">핵심 메시지</text>
+  <text x="154" y="806" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="22">좋은 agentic coding은 모델 이름 하나가 아니라 memory, skills, subagents, rules, hooks, evals, observability를 함께 설계하는 문제입니다.</text>
+</svg>

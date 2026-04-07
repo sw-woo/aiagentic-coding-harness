@@ -1,7 +1,7 @@
-# kotlin-codex Inventory (Catalog Source-of-Truth)
+# Source Repository Inventory (Catalog Source-of-Truth)
 
 **Generated**: 2026-04-07  
-**Repository**: `/Users/usermackbookpro/innogrid-prj/kotlin-codex/`  
+**Repository**: `[internal source repository]`  
 **Harness Status**: Active (Claude Code + Codex dual support)
 
 ---
@@ -249,13 +249,13 @@ Legacy slash commands are defined in `.claude/commands/*.md` for backward compat
 ## 11. Project Memory Files
 
 ### CLAUDE.md
-- **File Path**: `/Users/usermackbookpro/innogrid-prj/kotlin-codex/CLAUDE.md`
+- **File Path**: `[internal source repository]/CLAUDE.md`
 - **Line Count**: 139
 - **Has @import**: No (imports `@AGENTS.md` which is in same directory)
 - **Purpose**: Primary project memory for Claude Code. Contains tech stack, module structure, architecture boundaries, coding conventions, Gradle commands, Python commands, frontend commands, validation bar, local infra, security rules, Git workflow, subagent patterns, PRD contract, and slash command reference.
 
 ### AGENTS.md
-- **File Path**: `/Users/usermackbookpro/innogrid-prj/kotlin-codex/AGENTS.md`
+- **File Path**: `[internal source repository]/AGENTS.md`
 - **Line Count**: 156
 - **Purpose**: Primary project guidelines for Codex. References harness documentation, product-complete verification bar, development loop orchestration keywords, escalation criteria, Python MLOps section, and includes all module documentation alongside instruction sets.
 
@@ -263,7 +263,7 @@ Legacy slash commands are defined in `.claude/commands/*.md` for backward compat
 
 ## 12. Verification Scripts
 
-**File Path**: `/Users/usermackbookpro/innogrid-prj/kotlin-codex/scripts/`
+**File Path**: `[internal source repository]/scripts/`
 
 | Script | Purpose |
 |--------|---------|
@@ -327,7 +327,7 @@ From `CLAUDE.md` section "모듈 구조" (lines 13-22):
 
 ## Manifest Summary
 
-This kotlin-codex harness implements a **dual-agent, dual-rules, single-verification** architecture:
+This source harness implements a **dual-agent, dual-rules, single-verification** architecture:
 
 - **Claude Code** uses frontmatter-based SKILL.md, path-specific rules (.md), and hooks in settings.json
 - **Codex** uses TOML agents, prefix_rule() policy language, and separate hooks.json

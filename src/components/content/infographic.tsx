@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 type InfographicProps = {
   src: string;
@@ -7,6 +8,7 @@ type InfographicProps = {
   source?: { label: string; href?: string };
   width?: number;
   height?: number;
+  maxDisplayWidth?: number;
 };
 
 /**
@@ -20,22 +22,34 @@ export function Infographic({
   source,
   width = 1536,
   height = 2752,
+  maxDisplayWidth = 980,
 }: InfographicProps) {
   return (
-    <figure className="my-12 overflow-hidden rounded-lg border border-border bg-surface">
-      <div className="relative w-full bg-background">
+    <figure className="my-12 rounded-lg border border-border bg-surface">
+      <div className="relative flex justify-center bg-background p-4 sm:p-6">
         <Image
           src={src}
           alt={alt}
           width={width}
           height={height}
-          sizes="(min-width: 768px) 768px, 100vw"
-          className="h-auto w-full"
+          sizes={`(min-width: 1280px) ${Math.min(maxDisplayWidth, width)}px, (min-width: 768px) 80vw, 100vw`}
+          className="h-auto w-auto max-w-full rounded-md border border-border object-contain"
+          style={{ maxWidth: `${Math.min(maxDisplayWidth, width)}px` }}
+          quality={100}
+          unoptimized
           priority={false}
         />
       </div>
       <figcaption className="space-y-1 border-t border-border bg-surface-2 px-5 py-3 font-sans text-xs text-foreground-muted">
         <p className="text-foreground">{caption}</p>
+        <p className="font-mono text-foreground-subtle">
+          텍스트가 작게 보이면 원본 크게 보기로 확인하시는 편이 좋습니다.
+        </p>
+        <p className="font-mono text-foreground-subtle">
+          <Link href={src} target="_blank" rel="noreferrer" className="hover:text-accent-2">
+            원본 크게 보기 ↗
+          </Link>
+        </p>
         {source ? (
           <p className="font-mono text-foreground-subtle">
             출처:{" "}

@@ -1,43 +1,41 @@
 @import "tailwindcss";
 
 /*
- * 디자인 토큰 — Innogrid CI (출처: https://www.innogrid.com/pr/ci)
- * 다크 모드 기본, 라이트 모드 토글 시 같은 토큰명으로 값만 swap 됩니다.
- * Tailwind v4 의 @theme 안에 정의해 두면 bg-background, text-foreground,
- * border-border 같은 기본 유틸리티가 그대로 동작합니다.
+ * 디자인 토큰
+ * 라이트 모드를 기본으로 두고, dark 클래스가 붙으면 같은 토큰명으로 값을 전환합니다.
  */
 :root {
-  --background: #0a0a0a;
-  --surface: #18181b;
-  --surface-2: #27272a;
-  --border: #27272a;
-  --foreground: #fafafa;
-  --foreground-muted: #a1a1aa;
-  --foreground-subtle: #71717a;
-  --accent: #0042ff;
-  --accent-soft: #1f4dff;
-  --accent-2: #68caff;
-  --danger: #f87171;
-  --success: #34d399;
-  --info: #60a5fa;
-  color-scheme: dark;
-}
-
-html.light {
-  --background: #fafafa;
+  --background: #f7f7f2;
   --surface: #ffffff;
-  --surface-2: #f4f4f5;
-  --border: #e4e4e7;
-  --foreground: #0a0a0a;
-  --foreground-muted: #52525b;
-  --foreground-subtle: #71717a;
+  --surface-2: #f1f3f7;
+  --border: #d9dee8;
+  --foreground: #111827;
+  --foreground-muted: #4b5563;
+  --foreground-subtle: #6b7280;
   --accent: #0042ff;
-  --accent-soft: #003ad6;
-  --accent-2: #0066cc;
+  --accent-soft: #0039db;
+  --accent-2: #0f5dd9;
   --danger: #dc2626;
   --success: #059669;
   --info: #2563eb;
   color-scheme: light;
+}
+
+html.dark {
+  --background: #111827;
+  --surface: #182131;
+  --surface-2: #243043;
+  --border: #2d3b52;
+  --foreground: #f9fafb;
+  --foreground-muted: #c1cad8;
+  --foreground-subtle: #94a3b8;
+  --accent: #0042ff;
+  --accent-soft: #3b82f6;
+  --accent-2: #7dd3fc;
+  --danger: #f87171;
+  --success: #34d399;
+  --info: #60a5fa;
+  color-scheme: dark;
 }
 
 @theme inline {
@@ -73,6 +71,16 @@ body {
   background: var(--background);
   color: var(--foreground);
   min-height: 100dvh;
+}
+
+.balanced-korean-heading {
+  text-wrap: balance;
+  word-break: keep-all;
+}
+
+.pretty-korean-copy {
+  text-wrap: pretty;
+  word-break: keep-all;
 }
 
 ::selection {

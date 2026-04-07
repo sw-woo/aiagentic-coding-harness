@@ -1,0 +1,173 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "agentic-harness v0.1" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - text: agentic-harness
+        - generic [ref=e6]: v0.1
+      - navigation "주요 섹션" [ref=e7]:
+        - link "가이드" [ref=e8] [cursor=pointer]:
+          - /url: /guide
+        - link "핸드북" [ref=e9] [cursor=pointer]:
+          - /url: /handbook
+        - link "방법론" [ref=e10] [cursor=pointer]:
+          - /url: /methodology/karpathy
+        - link "아키텍처" [ref=e11] [cursor=pointer]:
+          - /url: /architecture/overview
+        - link "카탈로그" [ref=e12] [cursor=pointer]:
+          - /url: /catalog/skills
+        - link "플레이북" [ref=e13] [cursor=pointer]:
+          - /url: /playbook/setup-claude-code
+        - link "참고자료" [ref=e14] [cursor=pointer]:
+          - /url: /reference
+      - generic [ref=e15]:
+        - link "GitHub 저장소 열기" [ref=e16] [cursor=pointer]:
+          - /url: https://github.com/sw-woo/aiagentic-coding-harness
+          - img [ref=e17]
+        - button "테마 전환" [ref=e19]:
+          - img [ref=e20]
+  - main [ref=e22]:
+    - generic [ref=e23]:
+      - complementary [ref=e24]:
+        - generic [ref=e25]:
+          - paragraph [ref=e26]: 카탈로그
+          - heading "살아있는 인벤토리" [level=1] [ref=e27]
+          - paragraph [ref=e28]:
+            - text: 아래 데이터는 실제
+            - code [ref=e29]: kotlin-codex
+            - text: 저장소에서 빌드 시점에 자동 생성됩니다.
+        - navigation "카탈로그 카테고리" [ref=e30]:
+          - link "스킬" [ref=e31] [cursor=pointer]:
+            - /url: /catalog/skills
+          - link "서브에이전트" [ref=e32] [cursor=pointer]:
+            - /url: /catalog/agents
+          - link "훅" [ref=e33] [cursor=pointer]:
+            - /url: /catalog/hooks
+          - link "규칙" [ref=e34] [cursor=pointer]:
+            - /url: /catalog/rules
+        - paragraph [ref=e35]: "생성일: 2026-04-07"
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - heading "스킬 (15)" [level=2] [ref=e38]
+          - paragraph [ref=e39]: 재사용 가능한 워크플로 스킬 목록입니다. /review, /test-all 같은 슬래시 명령부터 자동 활성화 스킬까지 모두 포함합니다.
+        - generic [ref=e40]:
+          - article [ref=e41]:
+            - heading "무엇을 보는 페이지인가" [level=3] [ref=e42]
+            - paragraph [ref=e43]: 반복해서 다시 쓸 수 있는 작업 흐름을 모아 둔 곳입니다. review, verify, gradle 같은 이름의 스킬부터 보는 편이 좋습니다.
+          - article [ref=e44]:
+            - heading "어떻게 고르면 좋은가" [level=3] [ref=e45]
+            - paragraph [ref=e46]: 먼저 플랫폼 필터를 고르고, 설명에 현재 작업과 가장 가까운 워크플로가 있는지 확인한 뒤, 경로를 따라 실제 SKILL 파일까지 내려가면 됩니다.
+          - article [ref=e47]:
+            - heading "다음 단계" [level=3] [ref=e48]
+            - paragraph [ref=e49]: 스킬을 이해한 뒤에는 플레이북에서 실제 설정 구조를 보고, reference에서 hooks나 MCP 같은 심화 문서로 이어가면 됩니다.
+            - link "Codex 플레이북 보기 →" [ref=e50] [cursor=pointer]:
+              - /url: /playbook/setup-codex
+        - generic [ref=e51]:
+          - generic [ref=e52]:
+            - img
+            - searchbox "이름·경로·설명으로 검색..." [ref=e53]
+          - generic [ref=e54]:
+            - button "전체" [ref=e55]
+            - button "Claude Code" [ref=e56]
+            - button "Codex" [ref=e57]
+        - paragraph [ref=e58]: 15개 결과 / 전체 15개
+        - generic [ref=e59]:
+          - article [ref=e60]:
+            - generic [ref=e61]:
+              - heading "aiops-kotlin-service" [level=3] [ref=e62]
+              - generic [ref=e63]: Codex
+            - paragraph [ref=e64]: Implement or review Kotlin service changes for an AIOps platform, especially APIs, orchestration, alerting, and backend integrations.
+            - code [ref=e66]: .agents/skills/aiops-kotlin-service/SKILL.md
+          - article [ref=e67]:
+            - generic [ref=e68]:
+              - heading "bootstrap" [level=3] [ref=e69]
+              - generic [ref=e70]: Claude Code
+            - paragraph [ref=e71]: 새 Kotlin 모듈 또는 기능을 프로젝트 컨벤션에 따라 스캐폴딩. 모듈명을 인자로 받는다.
+            - code [ref=e73]: .claude/skills/bootstrap/SKILL.md
+          - article [ref=e74]:
+            - generic [ref=e75]:
+              - heading "codex-sandbox-shell" [level=3] [ref=e76]
+              - generic [ref=e77]: Codex
+            - paragraph [ref=e78]: Write and run AIOps shell scripts that work cleanly with Codex sandbox, approval rules, local env files, and fixed review/E2E port contracts.
+            - code [ref=e80]: .agents/skills/codex-sandbox-shell/SKILL.md
+          - article [ref=e81]:
+            - generic [ref=e82]:
+              - heading "deploy" [level=3] [ref=e83]
+              - generic [ref=e84]: Claude Code
+            - paragraph [ref=e85]: staging 배포 준비. 빌드 검증 후 브랜치 생성 및 배포 체크리스트 실행.
+            - code [ref=e87]: .claude/skills/deploy/SKILL.md
+          - article [ref=e88]:
+            - generic [ref=e89]:
+              - heading "deploy-check" [level=3] [ref=e90]
+              - generic [ref=e91]: Claude Code
+            - paragraph [ref=e92]: 프로젝트가 staging 배포 준비가 되었는지 8항목 체크리스트로 검증.
+            - code [ref=e94]: .claude/skills/deploy-check/SKILL.md
+          - article [ref=e95]:
+            - generic [ref=e96]:
+              - heading "document" [level=3] [ref=e97]
+              - generic [ref=e98]: Claude Code
+            - paragraph [ref=e99]: 현재 코드 상태 기반으로 모듈 맵, API 표면, 모델 카탈로그, 테스트 커버리지 문서를 자동 생성/갱신.
+            - code [ref=e101]: .claude/skills/document/SKILL.md
+          - article [ref=e102]:
+            - generic [ref=e103]:
+              - heading "gradle-codex" [level=3] [ref=e104]
+              - generic [ref=e105]: Codex
+            - paragraph [ref=e106]: Run Gradle commands safely in this repository's Codex sandbox by loading shell setup and keeping Gradle state inside the workspace.
+            - code [ref=e108]: .agents/skills/gradle-codex/SKILL.md
+          - article [ref=e109]:
+            - generic [ref=e110]:
+              - heading "kotlin-review" [level=3] [ref=e111]
+              - generic [ref=e112]: Codex
+            - paragraph [ref=e113]: Review Kotlin changes in this repository with emphasis on behavior regressions, missing tests, and Gradle-safe verification.
+            - code [ref=e115]: .agents/skills/kotlin-review/SKILL.md
+          - article [ref=e116]:
+            - generic [ref=e117]:
+              - heading "mlops-python-platform" [level=3] [ref=e118]
+              - generic [ref=e119]: Codex
+            - paragraph [ref=e120]: Implement or review Python MLOps changes such as pipelines, drift detection, model registry integration, and offline validation workflows.
+            - code [ref=e122]: .agents/skills/mlops-python-platform/SKILL.md
+          - article [ref=e123]:
+            - generic [ref=e124]:
+              - heading "platform-safety" [level=3] [ref=e125]
+              - generic [ref=e126]: Codex
+            - paragraph [ref=e127]: Review or change platform operations safely in an AIOps/MLOps repository, with emphasis on production guardrails and non-destructive workflows.
+            - code [ref=e129]: .agents/skills/platform-safety/SKILL.md
+          - article [ref=e130]:
+            - generic [ref=e131]:
+              - heading "ralphup-codex" [level=3] [ref=e132]
+              - generic [ref=e133]: Codex
+            - paragraph [ref=e134]: "Use when the user wants Codex to act as the project's Ralphup: a spec-first semi-automated builder for repetitive, low-risk scaffolding across Kotlin, Python, and frontend layers, while deferring RBAC, approval, audit, and operational safety decisions to human review."
+            - code [ref=e136]: .agents/skills/ralphup-codex/SKILL.md
+          - article [ref=e137]:
+            - generic [ref=e138]:
+              - heading "refactor" [level=3] [ref=e139]
+              - generic [ref=e140]: Claude Code
+            - paragraph [ref=e141]: 지정된 코드 영역의 중복, 복잡도, 네이밍, 아키텍처 경계 위반을 분석하고 리팩토링을 제안. 즉시 수정하지 않고 사용자 확인 후 진행.
+            - code [ref=e143]: .claude/skills/refactor/SKILL.md
+          - article [ref=e144]:
+            - generic [ref=e145]:
+              - heading "review" [level=3] [ref=e146]
+              - generic [ref=e147]: Claude Code
+            - paragraph [ref=e148]: 현재 변경사항의 코드 리뷰. git diff 기반으로 Kotlin/Python/Frontend/인프라 변경을 검토하고 품질, 안전성, 누락 테스트를 보고한다.
+            - code [ref=e150]: .claude/skills/review/SKILL.md
+          - article [ref=e151]:
+            - generic [ref=e152]:
+              - heading "test-all" [level=3] [ref=e153]
+              - generic [ref=e154]: Claude Code
+            - paragraph [ref=e155]: 전체 테스트 스위트 실행. Kotlin(Gradle), Python(unittest), 프론트엔드(npm build), E2E를 순서대로 실행하고 결과를 요약한다.
+            - code [ref=e157]: .claude/skills/test-all/SKILL.md
+          - article [ref=e158]:
+            - generic [ref=e159]:
+              - heading "verify" [level=3] [ref=e160]
+              - generic [ref=e161]: Claude Code
+            - paragraph [ref=e162]: 하네스와 제품의 전체 검증 파이프라인 실행. Kotlin 린트+테스트, Python 테스트, 프론트엔드 빌드, E2E를 모두 통과해야 성공.
+            - code [ref=e164]: .claude/skills/verify/SKILL.md
+  - contentinfo [ref=e165]:
+    - generic [ref=e166]:
+      - generic [ref=e167]:
+        - paragraph [ref=e168]: agentic-harness
+        - paragraph [ref=e170]: 에이전틱 코딩 하네스를 설계하고 운영할 때 필요한 구조, 자료, 플레이북을 한곳에 정리했습니다.
+      - navigation "푸터 링크" [ref=e171]:
+        - link "소스 저장소 ↗" [ref=e172] [cursor=pointer]:
+          - /url: https://github.com/sw-woo/aiagentic-coding-harness
+  - alert [ref=e173]

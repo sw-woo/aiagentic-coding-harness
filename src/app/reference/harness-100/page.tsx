@@ -7,7 +7,6 @@ import {
   ProseQuote,
 } from "@/components/content/prose";
 import { Callout } from "@/components/content/callout";
-import { CodeBlock } from "@/components/content/code-block";
 
 export const metadata = {
   title: "Harness 100 — RevFactory의 200개 production-grade 컬렉션",

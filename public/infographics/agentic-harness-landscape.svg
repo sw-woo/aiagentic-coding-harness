@@ -1,0 +1,47 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" rx="36" fill="#F7F7F2"/>
+  <rect x="48" y="48" width="1504" height="804" rx="28" fill="#FFFFFF" stroke="#D9DEE8" stroke-width="2"/>
+  <text x="96" y="128" fill="#111827" font-family="Arial, sans-serif" font-size="44" font-weight="700">Modern Agentic Coding Landscape</text>
+  <text x="96" y="170" fill="#4B5563" font-family="Arial, sans-serif" font-size="22">모델, 하네스, 외부 확장을 한 장으로 보는 현재 스택 지도</text>
+
+  <rect x="110" y="240" width="1380" height="150" rx="26" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="2"/>
+  <text x="140" y="286" fill="#0042FF" font-family="Arial, sans-serif" font-size="22" font-weight="700">Layer 1 · Foundation Models</text>
+  <rect x="140" y="308" width="250" height="58" rx="16" fill="#FFFFFF" stroke="#BFDBFE"/>
+  <rect x="410" y="308" width="250" height="58" rx="16" fill="#FFFFFF" stroke="#BFDBFE"/>
+  <rect x="680" y="308" width="250" height="58" rx="16" fill="#FFFFFF" stroke="#BFDBFE"/>
+  <rect x="950" y="308" width="250" height="58" rx="16" fill="#FFFFFF" stroke="#BFDBFE"/>
+  <rect x="1220" y="308" width="230" height="58" rx="16" fill="#FFFFFF" stroke="#BFDBFE"/>
+  <text x="205" y="345" fill="#111827" font-family="Arial, sans-serif" font-size="24" font-weight="700">GPT-5-Codex</text>
+  <text x="478" y="345" fill="#111827" font-family="Arial, sans-serif" font-size="24" font-weight="700">GPT-5.4 mini</text>
+  <text x="736" y="345" fill="#111827" font-family="Arial, sans-serif" font-size="24" font-weight="700">Gemma 4 31B</text>
+  <text x="992" y="345" fill="#111827" font-family="Arial, sans-serif" font-size="24" font-weight="700">Qwen3-Coder</text>
+  <text x="1273" y="345" fill="#111827" font-family="Arial, sans-serif" font-size="24" font-weight="700">작은 verifier</text>
+
+  <rect x="110" y="426" width="1380" height="220" rx="26" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="2"/>
+  <text x="140" y="472" fill="#059669" font-family="Arial, sans-serif" font-size="22" font-weight="700">Layer 2 · Harness Runtime</text>
+  <rect x="140" y="504" width="200" height="96" rx="18" fill="#FFFFFF" stroke="#A7F3D0"/>
+  <rect x="360" y="504" width="200" height="96" rx="18" fill="#FFFFFF" stroke="#A7F3D0"/>
+  <rect x="580" y="504" width="200" height="96" rx="18" fill="#FFFFFF" stroke="#A7F3D0"/>
+  <rect x="800" y="504" width="200" height="96" rx="18" fill="#FFFFFF" stroke="#A7F3D0"/>
+  <rect x="1020" y="504" width="200" height="96" rx="18" fill="#FFFFFF" stroke="#A7F3D0"/>
+  <rect x="1240" y="504" width="210" height="96" rx="18" fill="#FFFFFF" stroke="#A7F3D0"/>
+  <text x="192" y="542" fill="#111827" font-family="Arial, sans-serif" font-size="24" font-weight="700">Memory</text>
+  <text x="182" y="572" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">AGENTS.md / docs</text>
+  <text x="416" y="542" fill="#111827" font-family="Arial, sans-serif" font-size="24" font-weight="700">Skills</text>
+  <text x="394" y="572" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">반복 워크플로</text>
+  <text x="620" y="542" fill="#111827" font-family="Arial, sans-serif" font-size="24" font-weight="700">Subagents</text>
+  <text x="620" y="572" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">review / verify</text>
+  <text x="872" y="542" fill="#111827" font-family="Arial, sans-serif" font-size="24" font-weight="700">Rules</text>
+  <text x="852" y="572" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">승인 / 금지</text>
+  <text x="1082" y="542" fill="#111827" font-family="Arial, sans-serif" font-size="24" font-weight="700">Hooks</text>
+  <text x="1056" y="572" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">자동 guardrail</text>
+  <text x="1276" y="542" fill="#111827" font-family="Arial, sans-serif" font-size="24" font-weight="700">Evals</text>
+  <text x="1268" y="572" fill="#4B5563" font-family="Arial, sans-serif" font-size="18">회귀 / 품질 바</text>
+
+  <rect x="110" y="682" width="1380" height="130" rx="26" fill="#FFF7ED" stroke="#FDBA74" stroke-width="2"/>
+  <text x="140" y="728" fill="#EA580C" font-family="Arial, sans-serif" font-size="22" font-weight="700">Layer 3 · External Extensions</text>
+  <text x="140" y="768" fill="#111827" font-family="Arial, sans-serif" font-size="22">Playwright MCP · Context7 · Figma MCP · Linear MCP · Slack MCP · Atlassian MCP · Sentry AI Monitoring</text>
+
+  <path d="M800 390L800 426" stroke="#94A3B8" stroke-width="4" stroke-linecap="round"/>
+  <path d="M800 646L800 682" stroke="#94A3B8" stroke-width="4" stroke-linecap="round"/>
+</svg>

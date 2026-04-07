@@ -32,7 +32,13 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: { params: { slug: string } }) {
   if (!SLUGS.includes(params.slug as Slug)) return {};
-  return { title: TITLES[params.slug as Slug] };
+  return {
+    title: TITLES[params.slug as Slug],
+    robots: {
+      index: false,
+      follow: false,
+    },
+  };
 }
 
 export default async function ManifestoSubPage({

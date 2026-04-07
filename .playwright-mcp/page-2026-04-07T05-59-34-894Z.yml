@@ -1,0 +1,117 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "agentic-harness v0.1" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - text: agentic-harness
+        - generic [ref=e6]: v0.1
+      - navigation "주요 섹션" [ref=e7]:
+        - link "가이드" [ref=e8] [cursor=pointer]:
+          - /url: /guide
+        - link "핸드북" [ref=e9] [cursor=pointer]:
+          - /url: /handbook
+        - link "방법론" [ref=e10] [cursor=pointer]:
+          - /url: /methodology/karpathy
+        - link "아키텍처" [ref=e11] [cursor=pointer]:
+          - /url: /architecture/overview
+        - link "카탈로그" [ref=e12] [cursor=pointer]:
+          - /url: /catalog/skills
+        - link "플레이북" [ref=e13] [cursor=pointer]:
+          - /url: /playbook/setup-claude-code
+        - link "참고자료" [ref=e14] [cursor=pointer]:
+          - /url: /reference
+      - generic [ref=e15]:
+        - link "GitHub 저장소 열기" [ref=e16] [cursor=pointer]:
+          - /url: https://github.com/sw-woo/aiagentic-coding-harness
+          - img [ref=e17]
+        - button "테마 전환" [ref=e19]:
+          - img [ref=e20]
+  - main [ref=e22]:
+    - article [ref=e24]:
+      - paragraph [ref=e25]: 방법론 · 01
+      - heading "Karpathy 방법론" [level=1] [ref=e27]
+      - paragraph [ref=e28]: Software 1.0 · 2.0 · 3.0, LLM as Operating System, vibe coding 의 진짜 의미와 한계를 풀어 적었습니다.
+      - paragraph [ref=e29]: 혹시 이런 의문을 가져보신 적이 있으신가요. “LLM 으로 코드를 만든다는 게 결국 어떤 의미인가요? 이게 단순히 자동완성이 좀 똑똑해진 건가요, 아니면 정말 새로운 프로그래밍 패러다임인가요?” Andrej Karpathy 는 이 질문에 대해 지난 8년간 가장 명확한 답을 내놓아 온 사람입니다. 그가 만든 framing 인 Software 1.0 · 2.0 · 3.0 은 지금 우리가 만들고 있는 모든 에이전틱 코딩 하네스의 출발점입니다. 이 글에서는 그 framing 을 사실 기반으로 정리해 드립니다.
+      - heading "Software 1.0 — 사람이 손으로 적는 코드" [level=2] [ref=e30]
+      - paragraph [ref=e31]: Software 1.0 은 우리가 잘 아는 그것입니다. Python, Java, Kotlin, TypeScript 같은 언어로 사람이 직접 알고리즘을 적습니다. 모든 분기와 모든 변수, 모든 정렬 알고리즘이 사람의 손으로 결정됩니다. 정확하지만 도메인이 좁고, 사람이 모르는 패턴은 다룰 수 없습니다. 지금까지 50년 동안의 거의 모든 소프트웨어가 여기에 속합니다.
+      - heading "Software 2.0 — 신경망 가중치가 곧 코드" [level=2] [ref=e32]
+      - paragraph [ref=e33]: Karpathy 는 2017년 11월 11일 Medium 에 “Software 2.0” 글을 발표했습니다. 그의 핵심 주장은 한 줄로 요약됩니다 — “신경망의 가중치 자체가 코드” 입니다. Software 2.0 에서는 사람이 알고리즘을 적지 않습니다. 사람은 데이터셋과 목표 함수만 정하고, 학습이라는 자동 최적화 과정이 그 목표를 만족하는 가중치 행렬을 찾아 줍니다. 이미지 분류, 음성 인식, 번역, 강화학습 — 사람이 손으로는 절대 적을 수 없었던 작업들이 이 패러다임으로 풀렸습니다.
+      - blockquote [ref=e34]:
+        - generic [ref=e35]: Software 2.0 is written in much more abstract, human unfriendly language, such as the weights of a neural network. No human is involved in writing this code because there are a lot of weights (typical networks might have millions), and coding directly in weights is kind of hard.
+        - link "Andrej Karpathy, “Software 2.0”, Medium, 2017년 11월 11일 ↗" [ref=e37] [cursor=pointer]:
+          - /url: https://karpathy.medium.com/software-2-0-a64152b37c35
+      - paragraph [ref=e38]: 쉽게 풀어 드리면 이렇습니다 — Software 1.0 에서는 “고양이 사진을 알아내는 함수를 적어 보세요” 라고 하면 사람이 직접 if 문을 쌓아야 했습니다. Software 2.0 에서는 같은 요청에 대해 사람이 데이터셋(고양이 사진 10만 장)과 목표(정답 라벨) 만 주고, 그 다음은 학습이 가중치를 찾아 줍니다. 사람은 가중치를 읽지 못하지만, 함수는 동작합니다.
+      - heading "Software 3.0 — LLM 이 컴퓨터, 영어가 코드" [level=2] [ref=e39]
+      - paragraph [ref=e40]: 2025년 6월 Karpathy 는 Y Combinator AI Startup School 에서 “Software is Changing (Again)” 키노트를 통해 Software 3.0 을 공식화했습니다. 그의 새로운 주장은 더 강합니다 — “LLM 자체가 새로운 종류의 컴퓨터이며, 영어(자연어) 가 그 위에서 동작하는 새로운 프로그래밍 언어다”.
+      - blockquote [ref=e41]:
+        - generic [ref=e42]: It’s actually fair to say that software is changing again, fundamentally. LLMs are a new kind of computer, and you program them in English. Therefore, I think this counts as a major version upgrade.
+        - 'link "Y Combinator Library — Andrej Karpathy: Software Is Changing (Again), 2025년 6월 ↗" [ref=e44] [cursor=pointer]':
+          - /url: https://www.ycombinator.com/library/MW-andrej-karpathy-software-is-changing-again
+      - paragraph [ref=e45]: Software 3.0 의 코드는 영어(또는 한국어) 로 적은 프롬프트입니다. 같은 LLM 이라는 컴퓨터 위에서 다른 프롬프트가 다른 동작을 만듭니다. 이건 농담이 아니라 실제 운영의 변화입니다. ChatGPT 의 “GPT” 도, Cursor 의 Composer 도, Claude Code 의 슬래시 명령도 모두 자연어 프롬프트가 주된 “코드” 입니다. 이 사이트의 카탈로그에 들어 있는 스킬과 서브에이전트 정의도 사실 대부분 자연어입니다.
+      - complementary [ref=e46]:
+        - img [ref=e47]
+        - generic [ref=e50]:
+          - paragraph [ref=e51]: 세 가지를 한 줄로
+          - generic [ref=e52]: Software 1.0 = 사람이 적은 코드. Software 2.0 = 학습된 신경망 가중치. Software 3.0 = LLM 위에서 동작하는 자연어 프롬프트. 세 가지는 서로를 대체하는 것이 아니라 위에 쌓입니다 — 지금 우리가 만드는 시스템은 1.0(엔지니어링 글루) + 2.0(모델 추론) + 3.0(프롬프트) 가 동시에 작동합니다.
+      - heading "LLM as Operating System — 운영체제 비유" [level=2] [ref=e53]
+      - paragraph [ref=e54]: 2023년 11월 23일 공개된 “[1hr Talk] Intro to Large Language Models” 강연에서 Karpathy 는 LLM 을 운영체제 커널에 비유했습니다. 이 비유 하나가 지금 우리가 만드는 모든 하네스 설계의 토대입니다.
+      - generic [ref=e55]:
+        - generic [ref=e57]: LLM OS 비유
+        - code [ref=e59]: LLM ≈ CPU — 토큰을 받아 다음 토큰을 계산하는 연산 유닛 context window ≈ RAM — 지금 이 순간에 모델이 “보고 있는” 정보 tools / browser ≈ I/O — 외부 세계와 통신하는 주변 장치 memory file ≈ disk — 세션 너머에서 살아남는 영속 저장소 hooks ≈ device driver — 이벤트마다 자동 실행되는 작은 프로그램 sandbox ≈ process — 실행 권한과 격리 경계를 결정하는 단위 permissions ≈ syscall ACL — 어떤 명령을 누가 호출할 수 있는지의 정책
+      - paragraph [ref=e60]: 이 비유가 단순히 멋진 표현이 아닌 이유는, 이 비유에서 도출되는 설계 원칙이 실제로 동작하기 때문입니다. RAM 이 작으면 OS 가 swap 을 쓰듯이, context window 가 차오르면 우리는 메모리 파일과 서브에이전트로 “swap out” 합니다. 시스템 콜 ACL 이 위험 명령을 막듯이, 우리는 settings.json 의 permissions 와 .codex/rules/default.rules 로 위험 명령을 막습니다. driver 가 하드웨어 이벤트마다 동작하듯이, 우리는 PreToolUse 훅으로 도구 호출 직전마다 사전 검사를 돌립니다. 이 사이트의 5-레이어 아키텍처 페이지가 이 비유의 직접적인 구현입니다.
+      - 'figure "Karpathy 의 AI 소프트웨어 비전 — Software 1/2/3.0, LLM as Operating System, vibe coding, nanoGPT 의 단일 파일 교육 철학을 한 페이지로 시각화한 자료입니다. 원본 크게 보기 ↗ 출처: Google NotebookLM (사이트 docs/research/01 source pack 기반 자동 생성) ↗" [ref=e61]':
+        - img "Karpathy 의 Software 1/2/3.0 과 LLM as OS 비전을 한 페이지로 정리한 인포그래픽" [ref=e63]
+        - generic [ref=e64]:
+          - paragraph [ref=e65]: Karpathy 의 AI 소프트웨어 비전 — Software 1/2/3.0, LLM as Operating System, vibe coding, nanoGPT 의 단일 파일 교육 철학을 한 페이지로 시각화한 자료입니다.
+          - paragraph [ref=e66]:
+            - link "원본 크게 보기 ↗" [ref=e67] [cursor=pointer]:
+              - /url: /infographics/karpathy-vision.png
+          - paragraph [ref=e68]:
+            - text: "출처:"
+            - link "Google NotebookLM (사이트 docs/research/01 source pack 기반 자동 생성) ↗" [ref=e69] [cursor=pointer]:
+              - /url: https://notebooklm.google.com
+      - heading "Vibe coding 의 진짜 의미" [level=2] [ref=e70]
+      - paragraph [ref=e71]: 2025년 2월 Karpathy 는 트위터에서 “vibe coding” 이라는 표현을 썼습니다. 원래 의도는 “LLM 을 옆에 두고 즉흥적으로 프로토타입을 만드는 즐거움” 을 묘사한 것이었습니다. 그러나 표현이 빠르게 확산되면서 “계획·검증·리뷰 없이 LLM 출력을 그대로 commit” 하는 행동까지 같은 이름으로 포장되는 부작용이 생겼습니다.
+      - paragraph [ref=e72]: Karpathy 자신은 vibe coding 을 production 시스템의 권장 방법론으로 제시한 적이 없습니다. 즉흥성이 즐거움의 본질이지만, 같은 즉흥성이 production 의 사고로 이어지면 다른 이름이 필요합니다. 진지한 에이전틱 코딩 하네스(이 사이트가 견본으로 보여드리는 그것) 는 vibe coding 의 즉흥성과 검증 가능한 엔지니어링 사이의 차이를 명시적으로 다룹니다 — hooks, rules, eval loops, verification gates 가 그 답입니다.
+      - complementary [ref=e73]:
+        - img [ref=e74]
+        - generic [ref=e76]:
+          - paragraph [ref=e77]: vibe coding 과 진지한 하네스의 차이
+          - generic [ref=e78]: vibe coding 은 빠른 프로토타입과 학습용으로는 훌륭합니다. 하지만 production 으로 가면 hooks(위험 명령 차단), rules(권한 정책), eval loops(자동 회귀 검증), verification gates(사실 기반 완료 선언) 가 반드시 필요합니다. 이 사이트의 카탈로그가 그 도구들의 살아있는 예시입니다.
+      - heading "nanoGPT 의 단일 파일 미학" [level=2] [ref=e79]
+      - paragraph [ref=e80]: Karpathy 의 또 다른 큰 영향은 “단일 파일·해킹 가능·교육적” 이라는 미학입니다. nanoGPT 는 약 300줄의 PyTorch 코드 한 파일로 GPT 를 재현하고, micrograd 는 약 100줄로 자동미분을 재현합니다. 두 저장소 모두 “이건 너무 작아서 거짓말이 끼어들 자리가 없다” 라는 메시지를 던집니다.
+      - blockquote [ref=e81]:
+        - generic [ref=e82]: nanoGPT — The simplest, fastest repository for training/finetuning medium-sized GPTs.
+        - link "github.com/karpathy/nanoGPT ↗" [ref=e84] [cursor=pointer]:
+          - /url: https://github.com/karpathy/nanoGPT
+      - paragraph [ref=e85]: 이 미학은 이 사이트의 디자인에도 반영되어 있습니다. 사이트 자체가 자기 자신의 견본이고, 모든 페이지가 출처와 함께 짧고 정직하게 작성됩니다. “단순한 것 위에 사실을 쌓는다” 가 nanoGPT 의 메시지이고, 이 사이트의 메시지이기도 합니다.
+      - separator [ref=e86]
+      - paragraph [ref=e87]:
+        - text: 다른 방법론 글도 있습니다 →
+        - link "Ralph Loop" [ref=e89] [cursor=pointer]:
+          - /url: /methodology/ralph-loop
+        - generic [ref=e90]:
+          - text: ·
+          - link "Eval-Driven Development" [ref=e91] [cursor=pointer]:
+            - /url: /methodology/eval-driven
+        - generic [ref=e92]:
+          - text: ·
+          - link "Context Engineering" [ref=e93] [cursor=pointer]:
+            - /url: /methodology/context-engineering
+        - generic [ref=e94]:
+          - text: ·
+          - link "Agent Teams" [ref=e95] [cursor=pointer]:
+            - /url: /methodology/agent-teams
+        - generic [ref=e96]:
+          - text: ·
+          - link "Self-Improving Systems" [ref=e97] [cursor=pointer]:
+            - /url: /methodology/self-improving-systems
+  - contentinfo [ref=e98]:
+    - generic [ref=e99]:
+      - generic [ref=e100]:
+        - paragraph [ref=e101]: agentic-harness
+        - paragraph [ref=e103]: 에이전틱 코딩 하네스를 설계하고 운영할 때 필요한 구조, 자료, 플레이북을 한곳에 정리했습니다.
+      - navigation "푸터 링크" [ref=e104]:
+        - link "소스 저장소 ↗" [ref=e105] [cursor=pointer]:
+          - /url: https://github.com/sw-woo/aiagentic-coding-harness
+  - alert [ref=e106]

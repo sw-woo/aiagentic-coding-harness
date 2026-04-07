@@ -1,0 +1,208 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "agentic-harness v0.1" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - text: agentic-harness
+        - generic [ref=e6]: v0.1
+      - navigation "주요 섹션" [ref=e7]:
+        - link "가이드" [ref=e8] [cursor=pointer]:
+          - /url: /guide
+        - link "핸드북" [ref=e9] [cursor=pointer]:
+          - /url: /handbook
+        - link "방법론" [ref=e10] [cursor=pointer]:
+          - /url: /methodology/karpathy
+        - link "아키텍처" [ref=e11] [cursor=pointer]:
+          - /url: /architecture/overview
+        - link "카탈로그" [ref=e12] [cursor=pointer]:
+          - /url: /catalog/skills
+        - link "플레이북" [ref=e13] [cursor=pointer]:
+          - /url: /playbook/setup-claude-code
+        - link "참고자료" [ref=e14] [cursor=pointer]:
+          - /url: /reference
+      - generic [ref=e15]:
+        - link "GitHub 저장소 열기" [ref=e16] [cursor=pointer]:
+          - /url: https://github.com/sw-woo/aiagentic-coding-harness
+          - img [ref=e17]
+        - button "테마 전환" [ref=e19]:
+          - img [ref=e20]
+  - main [ref=e22]:
+    - generic [ref=e24]:
+      - generic [ref=e25]:
+        - paragraph [ref=e26]: Practical Agentic Patterns
+        - heading "에이전틱 코딩 하네스" [level=1] [ref=e28]:
+          - text: 에이전틱 코딩
+          - text: 하네스
+        - paragraph [ref=e29]: 이 사이트는 agentic coding harness 엔지니어링을 이해하고, 실제 저장소에 설정하고, 팀 단위로 운영하는 방법까지 이어서 읽을 수 있게 정리한 안내형 문서 사이트입니다.
+        - paragraph [ref=e30]: 처음이라면 큰그림부터, 바로 적용하려면 셋업 가이드부터, 세부 설정이 궁금하면 레퍼런스와 카탈로그부터 보시면 됩니다.
+        - generic [ref=e31]:
+          - link "어디서부터 읽을지 보기 →" [ref=e32] [cursor=pointer]:
+            - /url: /guide
+          - link "큰그림부터 읽기" [ref=e33] [cursor=pointer]:
+            - /url: /handbook
+          - link "바로 셋업하기 →" [ref=e34] [cursor=pointer]:
+            - /url: /playbook/setup-codex
+      - generic [ref=e36]:
+        - paragraph [ref=e37]: 이 사이트를 읽는 세 가지 방식
+        - generic [ref=e38]:
+          - generic [ref=e39]:
+            - paragraph [ref=e40]: "01"
+            - heading "처음 이해하려면" [level=2] [ref=e41]
+            - paragraph [ref=e42]: "`핸드북`에서 과거 발전사, 현재 핫한 스택, 미래 방향까지 한 흐름으로 읽으시면 됩니다."
+          - generic [ref=e43]:
+            - paragraph [ref=e44]: "02"
+            - heading "바로 적용하려면" [level=2] [ref=e45]
+            - paragraph [ref=e46]: "`플레이북`에서 AGENTS.md, config.toml, rules, hooks, subagents, MCP 순서로 따라가시면 됩니다."
+          - generic [ref=e47]:
+            - paragraph [ref=e48]: "03"
+            - heading "세부 자료를 찾으려면" [level=2] [ref=e49]
+            - paragraph [ref=e50]: "`카탈로그`와 `레퍼런스`에서 실제 파일, 공식 문서, 심화 가이드로 바로 내려가시면 됩니다."
+    - generic [ref=e51]:
+      - generic [ref=e52]:
+        - paragraph [ref=e53]: 시작 가이드
+        - heading "어떤 목적으로 오셨는지에 따라 읽는 순서가 다릅니다" [level=2] [ref=e54]
+      - generic [ref=e55]:
+        - article [ref=e56]:
+          - heading "처음 보는 사람" [level=3] [ref=e57]
+          - paragraph [ref=e58]: 핸드북으로 큰그림을 먼저 잡고, 그다음 아키텍처와 가이드를 보면 전체 구조가 가장 빨리 잡힙니다.
+          - generic [ref=e59]:
+            - link "핸드북" [ref=e60] [cursor=pointer]:
+              - /url: /handbook
+            - link "가이드" [ref=e61] [cursor=pointer]:
+              - /url: /guide
+            - link "아키텍처" [ref=e62] [cursor=pointer]:
+              - /url: /architecture/overview
+        - article [ref=e63]:
+          - heading "바로 설정하려는 사람" [level=3] [ref=e64]
+          - paragraph [ref=e65]: 플레이북에서 실제 설정 파일을 먼저 보고, 필요한 세부는 Codex 도입 패턴과 hooks 심화로 내려가면 됩니다.
+          - generic [ref=e66]:
+            - link "Codex 플레이북" [ref=e67] [cursor=pointer]:
+              - /url: /playbook/setup-codex
+            - link "도입 패턴" [ref=e68] [cursor=pointer]:
+              - /url: /reference/codex-adoption
+            - link "Hooks 심화" [ref=e69] [cursor=pointer]:
+              - /url: /reference/codex-hooks
+        - article [ref=e70]:
+          - heading "공식 자료부터 확인하려는 사람" [level=3] [ref=e71]
+          - paragraph [ref=e72]: Codex 공식 자료 맵과 MCP 지형도, 참고자료 인덱스를 통해 원전과 최신 문서부터 따라갈 수 있습니다.
+          - generic [ref=e73]:
+            - link "Codex 공식 자료 맵" [ref=e74] [cursor=pointer]:
+              - /url: /reference/codex-official
+            - link "MCP 지형도" [ref=e75] [cursor=pointer]:
+              - /url: /reference/mcp-landscape
+            - link "참고자료" [ref=e76] [cursor=pointer]:
+              - /url: /reference
+    - generic [ref=e77]:
+      - generic [ref=e78]:
+        - paragraph [ref=e79]: 핵심 축
+        - heading "이 사이트에서 먼저 봐야 할 세 가지" [level=2] [ref=e80]
+      - generic [ref=e81]:
+        - link "01 하네스 엔지니어링 큰그림 과거 발전사, 현재의 최신 스택, 미래 방향까지 agentic coding harness 전체 그림을 장문으로 설명합니다. 핵심 축" [ref=e82] [cursor=pointer]:
+          - /url: /handbook
+          - generic [ref=e83]: "01"
+          - heading "하네스 엔지니어링 큰그림" [level=3] [ref=e84]
+          - paragraph [ref=e85]: 과거 발전사, 현재의 최신 스택, 미래 방향까지 agentic coding harness 전체 그림을 장문으로 설명합니다.
+          - generic [ref=e86]:
+            - generic [ref=e87]: 핵심 축
+            - generic [ref=e88]: →
+        - link "02 운영 구조와 아키텍처 역할 분리, 검토 루프, 스킬 연결, 실패 복구까지 실제로 돌아가는 팀 구조를 다이어그램과 함께 보여줍니다. 구조 설명" [ref=e89] [cursor=pointer]:
+          - /url: /architecture/overview
+          - generic [ref=e90]: "02"
+          - heading "운영 구조와 아키텍처" [level=3] [ref=e91]
+          - paragraph [ref=e92]: 역할 분리, 검토 루프, 스킬 연결, 실패 복구까지 실제로 돌아가는 팀 구조를 다이어그램과 함께 보여줍니다.
+          - generic [ref=e93]:
+            - generic [ref=e94]: 구조 설명
+            - generic [ref=e95]: →
+        - link "03 실전 셋업과 운영 패턴 실제 저장소에 Codex나 Claude 하네스를 넣고 운영 가능한 상태로 끌어올리는 방법을 정리했습니다. 실전 플레이북" [ref=e96] [cursor=pointer]:
+          - /url: /playbook/setup-codex
+          - generic [ref=e97]: "03"
+          - heading "실전 셋업과 운영 패턴" [level=3] [ref=e98]
+          - paragraph [ref=e99]: 실제 저장소에 Codex나 Claude 하네스를 넣고 운영 가능한 상태로 끌어올리는 방법을 정리했습니다.
+          - generic [ref=e100]:
+            - generic [ref=e101]: 실전 플레이북
+            - generic [ref=e102]: →
+    - generic [ref=e104]:
+      - generic [ref=e105]:
+        - paragraph [ref=e106]: 이해를 돕는 이미지
+        - heading "글보다 먼저 구조를 보여주는 두 장의 도식" [level=2] [ref=e107]
+      - generic [ref=e108]:
+        - article [ref=e109]:
+          - generic [ref=e110]:
+            - heading "워크플로 치트시트" [level=3] [ref=e111]
+            - paragraph [ref=e112]: 시작, 파일 구조, 스킬, 훅, 메모리, 반복 작업 흐름까지 전체 작업면을 한 장으로 요약한 자료입니다. 원본 해상도가 아주 크지는 않아서, 본문에서는 무리하게 확대하지 않고 보여줍니다.
+          - img "Claude Code workflow cheatsheet" [ref=e114]
+          - link "원본 크게 보기 ↗" [ref=e116] [cursor=pointer]:
+            - /url: /landing/claude-workflow-cheatsheet.png
+        - article [ref=e117]:
+          - generic [ref=e118]:
+            - 'heading "`.claude/` 폴더 해부도" [level=3] [ref=e119]'
+            - paragraph [ref=e120]: 설정, 커맨드, 규칙, 스킬, 에이전트가 어떤 위치에서 역할을 나누는지 직관적으로 보여줍니다. 텍스트 중심 이미지라서 본문에서는 원본 크기 가까이 유지합니다.
+          - img "Anatomy of the .claude folder" [ref=e122]
+          - link "원본 크게 보기 ↗" [ref=e124] [cursor=pointer]:
+            - /url: /landing/claude-folder-anatomy.png
+    - generic [ref=e126]:
+      - generic [ref=e127]:
+        - link "스킬 15 자세히 보기 →" [ref=e128] [cursor=pointer]:
+          - /url: /catalog/skills
+          - generic [ref=e129]: 스킬
+          - generic [ref=e130]: "15"
+          - generic [ref=e131]: 자세히 보기 →
+        - link "서브에이전트 10 자세히 보기 →" [ref=e132] [cursor=pointer]:
+          - /url: /catalog/agents
+          - generic [ref=e133]: 서브에이전트
+          - generic [ref=e134]: "10"
+          - generic [ref=e135]: 자세히 보기 →
+        - link "훅 6 자세히 보기 →" [ref=e136] [cursor=pointer]:
+          - /url: /catalog/hooks
+          - generic [ref=e137]: 훅
+          - generic [ref=e138]: "6"
+          - generic [ref=e139]: 자세히 보기 →
+        - link "규칙 33 자세히 보기 →" [ref=e140] [cursor=pointer]:
+          - /url: /catalog/rules
+          - generic [ref=e141]: 규칙
+          - generic [ref=e142]: "33"
+          - generic [ref=e143]: 자세히 보기 →
+      - paragraph [ref=e144]: 위 숫자는 실제 하네스 인벤토리에서 빌드 시점에 생성됩니다. 설명만 있는 사이트가 아니라, 바로 확인하고 가져다 쓸 수 있는 구조를 기준으로 정리했습니다.
+    - generic [ref=e145]:
+      - paragraph [ref=e146]: 바로 살펴보기
+      - heading "필요한 페이지로 바로 이동할 수 있습니다" [level=2] [ref=e147]
+      - generic [ref=e148]:
+        - link "01 사이트 가이드 보기 이 사이트를 어떤 순서로 읽어야 하는지, 각 페이지가 무슨 역할인지 자세히 설명합니다." [ref=e149] [cursor=pointer]:
+          - /url: /guide
+          - generic [ref=e150]: "01"
+          - heading "사이트 가이드 보기" [level=3] [ref=e151]
+          - paragraph [ref=e152]: 이 사이트를 어떤 순서로 읽어야 하는지, 각 페이지가 무슨 역할인지 자세히 설명합니다.
+          - generic [ref=e154]: →
+        - link "02 핸드북부터 읽기 하네스 엔지니어링의 전체 큰그림을 과거-현재-미래 흐름으로 설명합니다." [ref=e155] [cursor=pointer]:
+          - /url: /handbook
+          - generic [ref=e156]: "02"
+          - heading "핸드북부터 읽기" [level=3] [ref=e157]
+          - paragraph [ref=e158]: 하네스 엔지니어링의 전체 큰그림을 과거-현재-미래 흐름으로 설명합니다.
+          - generic [ref=e160]: →
+        - link "03 아키텍처 이해하기 스킬, 규칙, 훅, 서브에이전트가 어떻게 연결되는지 바로 확인합니다." [ref=e161] [cursor=pointer]:
+          - /url: /architecture/overview
+          - generic [ref=e162]: "03"
+          - heading "아키텍처 이해하기" [level=3] [ref=e163]
+          - paragraph [ref=e164]: 스킬, 규칙, 훅, 서브에이전트가 어떻게 연결되는지 바로 확인합니다.
+          - generic [ref=e166]: →
+        - link "04 카탈로그 탐색하기 실제로 복사해 쓸 수 있는 항목을 유형별로 찾습니다." [ref=e167] [cursor=pointer]:
+          - /url: /catalog/skills
+          - generic [ref=e168]: "04"
+          - heading "카탈로그 탐색하기" [level=3] [ref=e169]
+          - paragraph [ref=e170]: 실제로 복사해 쓸 수 있는 항목을 유형별로 찾습니다.
+          - generic [ref=e172]: →
+        - link "05 참고자료 보기 공식 문서, 비교 자료, 외부 컬렉션, Codex 공식 자료 맵으로 이동합니다." [ref=e173] [cursor=pointer]:
+          - /url: /reference
+          - generic [ref=e174]: "05"
+          - heading "참고자료 보기" [level=3] [ref=e175]
+          - paragraph [ref=e176]: 공식 문서, 비교 자료, 외부 컬렉션, Codex 공식 자료 맵으로 이동합니다.
+          - generic [ref=e178]: →
+  - contentinfo [ref=e179]:
+    - generic [ref=e180]:
+      - generic [ref=e181]:
+        - paragraph [ref=e182]: agentic-harness
+        - paragraph [ref=e184]: 에이전틱 코딩 하네스를 설계하고 운영할 때 필요한 구조, 자료, 플레이북을 한곳에 정리했습니다.
+      - navigation "푸터 링크" [ref=e185]:
+        - link "소스 저장소 ↗" [ref=e186] [cursor=pointer]:
+          - /url: https://github.com/sw-woo/aiagentic-coding-harness
+  - alert [ref=e187]

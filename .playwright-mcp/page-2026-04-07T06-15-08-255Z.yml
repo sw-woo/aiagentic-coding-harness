@@ -1,0 +1,189 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "agentic-harness v0.1" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - text: agentic-harness
+        - generic [ref=e6]: v0.1
+      - navigation "주요 섹션" [ref=e7]:
+        - link "가이드" [ref=e8] [cursor=pointer]:
+          - /url: /guide
+        - link "핸드북" [ref=e9] [cursor=pointer]:
+          - /url: /handbook
+        - link "방법론" [ref=e10] [cursor=pointer]:
+          - /url: /methodology/karpathy
+        - link "아키텍처" [ref=e11] [cursor=pointer]:
+          - /url: /architecture/overview
+        - link "카탈로그" [ref=e12] [cursor=pointer]:
+          - /url: /catalog/skills
+        - link "플레이북" [ref=e13] [cursor=pointer]:
+          - /url: /playbook/setup-claude-code
+        - link "참고자료" [ref=e14] [cursor=pointer]:
+          - /url: /reference
+      - generic [ref=e15]:
+        - link "GitHub 저장소 열기" [ref=e16] [cursor=pointer]:
+          - /url: https://github.com/sw-woo/aiagentic-coding-harness
+          - img [ref=e17]
+        - button "테마 전환" [ref=e19]:
+          - img [ref=e20]
+  - main [ref=e22]:
+    - article [ref=e24]:
+      - paragraph [ref=e25]: 참고자료
+      - heading "공식 문서, 운영 가이드, 외부 원전" [level=1] [ref=e27]
+      - paragraph [ref=e28]: 이 사이트는 사실 기반으로 작성됩니다. 그래서 참고자료도 한 리스트로 쌓기보다, “어떤 목적의 자료인가”에 따라 나누어 보는 편이 더 좋습니다. 아래에서는 Codex 설정과 운영에 직접 필요한 자료, 하네스 운영 패턴을 깊게 설명하는 자료, 그리고 바깥의 원전과 외부 컬렉션을 분리해 두었습니다.
+      - heading "1. Codex 공식 문서와 설정 레이어" [level=2] [ref=e29]
+      - paragraph [ref=e30]: 설정, profiles, subagents, hooks, MCP 같은 실제 Codex 하네스 구성 요소를 확인하거나 바로 적용하려면 이 묶음부터 보시면 됩니다.
+      - generic [ref=e31]:
+        - link "내부 정리 OpenAI Codex 공식 자료 맵 설정, 운영, 모델, 릴리스, 학습 자료를 OpenAI 공식 문서 기준으로 다시 묶은 내부 레퍼런스 페이지입니다. Codex 자료층이 부족해 보일 때 여기서 시작하면 됩니다. 자세히 보기 →" [ref=e32] [cursor=pointer]:
+          - /url: /reference/codex-official
+          - generic [ref=e33]: 내부 정리
+          - heading "OpenAI Codex 공식 자료 맵" [level=3] [ref=e34]
+          - paragraph [ref=e35]: 설정, 운영, 모델, 릴리스, 학습 자료를 OpenAI 공식 문서 기준으로 다시 묶은 내부 레퍼런스 페이지입니다. Codex 자료층이 부족해 보일 때 여기서 시작하면 됩니다.
+          - generic [ref=e36]: 자세히 보기 →
+        - link "내부 정리 Codex Hooks 심화 가이드 Codex hooks를 위치, 이벤트, JSON payload, Kotlin/JVM용 guardrail 예시, 디버깅 포인트까지 상세하게 풀어 쓴 내부 가이드입니다. 자세히 보기 →" [ref=e37] [cursor=pointer]:
+          - /url: /reference/codex-hooks
+          - generic [ref=e38]: 내부 정리
+          - heading "Codex Hooks 심화 가이드" [level=3] [ref=e39]
+          - paragraph [ref=e40]: Codex hooks를 위치, 이벤트, JSON payload, Kotlin/JVM용 guardrail 예시, 디버깅 포인트까지 상세하게 풀어 쓴 내부 가이드입니다.
+          - generic [ref=e41]: 자세히 보기 →
+        - link "내부 정리 Codex 도입 패턴과 설치 가이드 최소 설치, 표준 설치, 선택 설치, copy-ready 예시, 문제 해결 패턴까지 실무 중심으로 정리한 내부 가이드입니다. 자세히 보기 →" [ref=e42] [cursor=pointer]:
+          - /url: /reference/codex-adoption
+          - generic [ref=e43]: 내부 정리
+          - heading "Codex 도입 패턴과 설치 가이드" [level=3] [ref=e44]
+          - paragraph [ref=e45]: 최소 설치, 표준 설치, 선택 설치, copy-ready 예시, 문제 해결 패턴까지 실무 중심으로 정리한 내부 가이드입니다.
+          - generic [ref=e46]: 자세히 보기 →
+        - link "내부 정리 에이전트 자동화 패턴 headless 실행, 구조화된 출력, 최소 권한 승인, 세션 이어가기, CI/CD 통합 같은 자동화 패턴을 정리한 내부 가이드입니다. 자세히 보기 →" [ref=e47] [cursor=pointer]:
+          - /url: /reference/automation-patterns
+          - generic [ref=e48]: 내부 정리
+          - heading "에이전트 자동화 패턴" [level=3] [ref=e49]
+          - paragraph [ref=e50]: headless 실행, 구조화된 출력, 최소 권한 승인, 세션 이어가기, CI/CD 통합 같은 자동화 패턴을 정리한 내부 가이드입니다.
+          - generic [ref=e51]: 자세히 보기 →
+        - link "내부 정리 하네스 보안과 가드레일 sandbox, rules, hooks, MCP governance를 한 층으로 묶어 보안과 운영 가드레일을 설명하는 내부 가이드입니다. 자세히 보기 →" [ref=e52] [cursor=pointer]:
+          - /url: /reference/security-guardrails
+          - generic [ref=e53]: 내부 정리
+          - heading "하네스 보안과 가드레일" [level=3] [ref=e54]
+          - paragraph [ref=e55]: sandbox, rules, hooks, MCP governance를 한 층으로 묶어 보안과 운영 가드레일을 설명하는 내부 가이드입니다.
+          - generic [ref=e56]: 자세히 보기 →
+        - link "내부 정리 에이전트 디버깅 플레이북 실패 분류, 재현, root cause, 최소 수정, 회귀 방지 흐름으로 디버깅을 정리한 내부 가이드입니다. 자세히 보기 →" [ref=e57] [cursor=pointer]:
+          - /url: /reference/debugging-playbook
+          - generic [ref=e58]: 내부 정리
+          - heading "에이전트 디버깅 플레이북" [level=3] [ref=e59]
+          - paragraph [ref=e60]: 실패 분류, 재현, root cause, 최소 수정, 회귀 방지 흐름으로 디버깅을 정리한 내부 가이드입니다.
+          - generic [ref=e61]: 자세히 보기 →
+        - link "내부 정리 Metrics 와 Observability trace, latency, tool calls, validation pass rate, observability 도구까지 포함해 계측 층을 설명하는 내부 가이드입니다. 자세히 보기 →" [ref=e62] [cursor=pointer]:
+          - /url: /reference/metrics-observability
+          - generic [ref=e63]: 내부 정리
+          - heading "Metrics 와 Observability" [level=3] [ref=e64]
+          - paragraph [ref=e65]: trace, latency, tool calls, validation pass rate, observability 도구까지 포함해 계측 층을 설명하는 내부 가이드입니다.
+          - generic [ref=e66]: 자세히 보기 →
+        - link "내부 정리 Profiles 와 Subagents 설계 Codex 하네스에서 profiles와 subagents를 어떻게 역할 중심으로 나눠야 하는지 정리한 내부 가이드입니다. 자세히 보기 →" [ref=e67] [cursor=pointer]:
+          - /url: /reference/profiles-subagents
+          - generic [ref=e68]: 내부 정리
+          - heading "Profiles 와 Subagents 설계" [level=3] [ref=e69]
+          - paragraph [ref=e70]: Codex 하네스에서 profiles와 subagents를 어떻게 역할 중심으로 나눠야 하는지 정리한 내부 가이드입니다.
+          - generic [ref=e71]: 자세히 보기 →
+      - heading "2. 운영 패턴과 심화 가이드" [level=2] [ref=e72]
+      - paragraph [ref=e73]: 보안, 가드레일, 자동화, 디버깅, metrics, observability처럼 팀 단위 운영에서 중요한 주제를 깊게 보는 묶음입니다.
+      - generic [ref=e74]:
+        - link "내부 정리 최신 MCP 툴링 지형도 2026년 기준 실제 가치가 큰 MCP 서버, endpoint 변화, 도입 순서를 정리한 내부 가이드입니다. 자세히 보기 →" [ref=e75] [cursor=pointer]:
+          - /url: /reference/mcp-landscape
+          - generic [ref=e76]: 내부 정리
+          - heading "최신 MCP 툴링 지형도" [level=3] [ref=e77]
+          - paragraph [ref=e78]: 2026년 기준 실제 가치가 큰 MCP 서버, endpoint 변화, 도입 순서를 정리한 내부 가이드입니다.
+          - generic [ref=e79]: 자세히 보기 →
+        - link "내부 정리 하네스 보안과 가드레일 sandbox, rules, hooks, MCP governance를 한 층으로 묶어 보안과 운영 가드레일을 설명하는 내부 가이드입니다. 자세히 보기 →" [ref=e80] [cursor=pointer]:
+          - /url: /reference/security-guardrails
+          - generic [ref=e81]: 내부 정리
+          - heading "하네스 보안과 가드레일" [level=3] [ref=e82]
+          - paragraph [ref=e83]: sandbox, rules, hooks, MCP governance를 한 층으로 묶어 보안과 운영 가드레일을 설명하는 내부 가이드입니다.
+          - generic [ref=e84]: 자세히 보기 →
+        - link "내부 정리 에이전트 디버깅 플레이북 실패 분류, 재현, root cause, 최소 수정, 회귀 방지 흐름으로 디버깅을 정리한 내부 가이드입니다. 자세히 보기 →" [ref=e85] [cursor=pointer]:
+          - /url: /reference/debugging-playbook
+          - generic [ref=e86]: 내부 정리
+          - heading "에이전트 디버깅 플레이북" [level=3] [ref=e87]
+          - paragraph [ref=e88]: 실패 분류, 재현, root cause, 최소 수정, 회귀 방지 흐름으로 디버깅을 정리한 내부 가이드입니다.
+          - generic [ref=e89]: 자세히 보기 →
+        - link "내부 정리 Metrics 와 Observability trace, latency, tool calls, validation pass rate, observability 도구까지 포함해 계측 층을 설명하는 내부 가이드입니다. 자세히 보기 →" [ref=e90] [cursor=pointer]:
+          - /url: /reference/metrics-observability
+          - generic [ref=e91]: 내부 정리
+          - heading "Metrics 와 Observability" [level=3] [ref=e92]
+          - paragraph [ref=e93]: trace, latency, tool calls, validation pass rate, observability 도구까지 포함해 계측 층을 설명하는 내부 가이드입니다.
+          - generic [ref=e94]: 자세히 보기 →
+        - link "내부 정리 에이전트 자동화 패턴 headless 실행, 구조화된 출력, 최소 권한 승인, 세션 이어가기, CI/CD 통합 같은 자동화 패턴을 정리한 내부 가이드입니다. 자세히 보기 →" [ref=e95] [cursor=pointer]:
+          - /url: /reference/automation-patterns
+          - generic [ref=e96]: 내부 정리
+          - heading "에이전트 자동화 패턴" [level=3] [ref=e97]
+          - paragraph [ref=e98]: headless 실행, 구조화된 출력, 최소 권한 승인, 세션 이어가기, CI/CD 통합 같은 자동화 패턴을 정리한 내부 가이드입니다.
+          - generic [ref=e99]: 자세히 보기 →
+        - link "외부 참고 codexmaster docs workflow, guardrails, metrics, debugging playbook 중심으로 Codex를 운영 시스템처럼 설명하는 문서 구조 참고자료입니다. 원문 열기 ↗" [ref=e100] [cursor=pointer]:
+          - /url: https://github.com/robbiecalvin/codexmaster/tree/main/docs
+          - generic [ref=e101]: 외부 참고
+          - heading "codexmaster docs" [level=3] [ref=e102]
+          - paragraph [ref=e103]: workflow, guardrails, metrics, debugging playbook 중심으로 Codex를 운영 시스템처럼 설명하는 문서 구조 참고자료입니다.
+          - generic [ref=e104]: 원문 열기 ↗
+      - heading "3. 외부 컬렉션과 원전 자료" [level=2] [ref=e105]
+      - paragraph [ref=e106]: 바깥의 하네스 컬렉션, 원전 글, 논문, 교육용 코드 저장소 같은 자료를 따라가고 싶을 때 보는 묶음입니다.
+      - generic [ref=e107]:
+        - link "외부 컬렉션 Harness 100 (RevFactory) Minho Hwang(@revfactory) 가 공개한 200개의 production-grade Claude Code 하네스 컬렉션입니다. 콘텐츠·개발·데이터·전략 등 10개 도메인에 걸쳐 978개 에이전트와 630개 스킬을 모아 두었습니다. 자세히 보기 →" [ref=e108] [cursor=pointer]:
+          - /url: /reference/harness-100
+          - generic [ref=e109]: 외부 컬렉션
+          - heading "Harness 100 (RevFactory)" [level=3] [ref=e110]
+          - paragraph [ref=e111]: Minho Hwang(@revfactory) 가 공개한 200개의 production-grade Claude Code 하네스 컬렉션입니다. 콘텐츠·개발·데이터·전략 등 10개 도메인에 걸쳐 978개 에이전트와 630개 스킬을 모아 두었습니다.
+          - generic [ref=e112]: 자세히 보기 →
+        - link "공식 Claude Code 공식 문서 Anthropic 의 Claude Code 공식 문서입니다. memory, skills, subagents, hooks, permissions, plugins 의 모든 사양이 정리되어 있습니다. 원문 열기 ↗" [ref=e113] [cursor=pointer]:
+          - /url: https://docs.anthropic.com/en/docs/claude-code/overview
+          - generic [ref=e114]: 공식
+          - heading "Claude Code 공식 문서" [level=3] [ref=e115]
+          - paragraph [ref=e116]: Anthropic 의 Claude Code 공식 문서입니다. memory, skills, subagents, hooks, permissions, plugins 의 모든 사양이 정리되어 있습니다.
+          - generic [ref=e117]: 원문 열기 ↗
+        - link "공식 OpenAI Codex CLI OpenAI 의 Codex CLI 저장소입니다. 오픈소스 CLI 자체와 릴리스, README 기반 빠른 시작을 확인할 수 있습니다. 원문 열기 ↗" [ref=e118] [cursor=pointer]:
+          - /url: https://github.com/openai/codex
+          - generic [ref=e119]: 공식
+          - heading "OpenAI Codex CLI" [level=3] [ref=e120]
+          - paragraph [ref=e121]: OpenAI 의 Codex CLI 저장소입니다. 오픈소스 CLI 자체와 릴리스, README 기반 빠른 시작을 확인할 수 있습니다.
+          - generic [ref=e122]: 원문 열기 ↗
+        - link "1차 자료 Building Effective Agents (Anthropic) Anthropic 엔지니어링 블로그(2024년 12월) 의 에이전트 빌드 권고문입니다. workflows vs agents 구분, 가장 단순한 패턴부터 시작하라는 메시지를 담고 있습니다. 원문 열기 ↗" [ref=e123] [cursor=pointer]:
+          - /url: https://www.anthropic.com/engineering/building-effective-agents
+          - generic [ref=e124]: 1차 자료
+          - heading "Building Effective Agents (Anthropic)" [level=3] [ref=e125]
+          - paragraph [ref=e126]: Anthropic 엔지니어링 블로그(2024년 12월) 의 에이전트 빌드 권고문입니다. workflows vs agents 구분, 가장 단순한 패턴부터 시작하라는 메시지를 담고 있습니다.
+          - generic [ref=e127]: 원문 열기 ↗
+        - link "1차 자료 Everything is a Ralph Loop (Geoffrey Huntley) Ralph wiretap loop 패턴의 원전 글입니다. 단일 셸 루프로 자율 에이전트를 돌리는 가장 단순한 방법을 설명합니다. 원문 열기 ↗" [ref=e128] [cursor=pointer]:
+          - /url: https://ghuntley.com/loop/
+          - generic [ref=e129]: 1차 자료
+          - heading "Everything is a Ralph Loop (Geoffrey Huntley)" [level=3] [ref=e130]
+          - paragraph [ref=e131]: Ralph wiretap loop 패턴의 원전 글입니다. 단일 셸 루프로 자율 에이전트를 돌리는 가장 단순한 방법을 설명합니다.
+          - generic [ref=e132]: 원문 열기 ↗
+        - link "1차 자료 Your AI Product Needs Evals (Hamel Husain) Eval-Driven Development 의 핵심 글입니다. “LLM 제품 실패의 거의 모든 뿌리는 평가의 부재” 라는 메시지를 담고 있습니다. 원문 열기 ↗" [ref=e133] [cursor=pointer]:
+          - /url: https://hamel.dev/blog/posts/evals/
+          - generic [ref=e134]: 1차 자료
+          - heading "Your AI Product Needs Evals (Hamel Husain)" [level=3] [ref=e135]
+          - paragraph [ref=e136]: Eval-Driven Development 의 핵심 글입니다. “LLM 제품 실패의 거의 모든 뿌리는 평가의 부재” 라는 메시지를 담고 있습니다.
+          - generic [ref=e137]: 원문 열기 ↗
+        - link "1차 자료 Context Engineering for Agents (Lance Martin) Context Engineering 4가지 원칙(write · select · compress · isolate) 을 처음으로 정리한 LangChain 의 글입니다. 원문 열기 ↗" [ref=e138] [cursor=pointer]:
+          - /url: https://rlancemartin.github.io/2025/06/23/context_engineering/
+          - generic [ref=e139]: 1차 자료
+          - heading "Context Engineering for Agents (Lance Martin)" [level=3] [ref=e140]
+          - paragraph [ref=e141]: Context Engineering 4가지 원칙(write · select · compress · isolate) 을 처음으로 정리한 LangChain 의 글입니다.
+          - generic [ref=e142]: 원문 열기 ↗
+        - link "논문 Attention Is All You Need (Vaswani et al. 2017) Transformer 아키텍처를 처음 발표한 NeurIPS 2017 논문입니다. 이 사이트의 “AI = 계산” 정의의 출발점입니다. 원문 열기 ↗" [ref=e143] [cursor=pointer]:
+          - /url: https://arxiv.org/abs/1706.03762
+          - generic [ref=e144]: 논문
+          - heading "Attention Is All You Need (Vaswani et al. 2017)" [level=3] [ref=e145]
+          - paragraph [ref=e146]: Transformer 아키텍처를 처음 발표한 NeurIPS 2017 논문입니다. 이 사이트의 “AI = 계산” 정의의 출발점입니다.
+          - generic [ref=e147]: 원문 열기 ↗
+        - link "코드 nanoGPT (Andrej Karpathy) 약 300줄의 PyTorch 코드 한 파일로 GPT 를 재현하는 교육용 저장소입니다. LLM 이 무엇인지에 대한 가장 정직한 정의입니다. 원문 열기 ↗" [ref=e148] [cursor=pointer]:
+          - /url: https://github.com/karpathy/nanoGPT
+          - generic [ref=e149]: 코드
+          - heading "nanoGPT (Andrej Karpathy)" [level=3] [ref=e150]
+          - paragraph [ref=e151]: 약 300줄의 PyTorch 코드 한 파일로 GPT 를 재현하는 교육용 저장소입니다. LLM 이 무엇인지에 대한 가장 정직한 정의입니다.
+          - generic [ref=e152]: 원문 열기 ↗
+  - contentinfo [ref=e153]:
+    - generic [ref=e154]:
+      - generic [ref=e155]:
+        - paragraph [ref=e156]: agentic-harness
+        - paragraph [ref=e158]: 에이전틱 코딩 하네스를 설계하고 운영할 때 필요한 구조, 자료, 플레이북을 한곳에 정리했습니다.
+      - navigation "푸터 링크" [ref=e159]:
+        - link "소스 저장소 ↗" [ref=e160] [cursor=pointer]:
+          - /url: https://github.com/sw-woo/aiagentic-coding-harness
+  - alert [ref=e161]

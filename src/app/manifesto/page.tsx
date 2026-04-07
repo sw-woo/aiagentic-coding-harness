@@ -12,6 +12,10 @@ export const metadata = {
   title: "선언문",
   description:
     "이 사이트의 모든 콘텐츠가 따르는 다섯 가지 원칙입니다. 출처 없는 주장은 사이트에 올라가지 않습니다.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 const SUB_PAGES = [

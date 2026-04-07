@@ -1,6 +1,6 @@
 /**
  * 카탈로그 데이터 로더
- * data/catalog/*.json 은 kotlin-codex 인벤토리에서 자동 생성된 사실 기반 데이터입니다.
+ * data/catalog/*.json 은 내부 하네스 인벤토리에서 자동 생성된 사실 기반 데이터입니다.
  * 빌드 시점에 정적으로 import 되며, 런타임 fetch 가 일어나지 않습니다.
  */
 import skillsRaw from "../../data/catalog/skills.json";

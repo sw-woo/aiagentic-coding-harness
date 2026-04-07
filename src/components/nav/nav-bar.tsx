@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ThemeToggle } from "./theme-toggle";
 import { siteConfig } from "@/lib/site-config";
+import { topNavLinks } from "@/lib/site-navigation";
 
 /**
  * lucide-react 1.7.0 에는 Github 아이콘 export 가 빠져 있어, 공식 GitHub octicon 을 inline SVG 로 사용합니다.
@@ -17,15 +18,6 @@ function GithubIcon({ className }: { className?: string }) {
     </svg>
   );
 }
-
-const NAV_ITEMS = [
-  { href: "/manifesto", label: "선언문" },
-  { href: "/methodology/karpathy", label: "방법론" },
-  { href: "/architecture/overview", label: "아키텍처" },
-  { href: "/catalog/skills", label: "카탈로그" },
-  { href: "/playbook/setup-claude-code", label: "플레이북" },
-  { href: "/reference", label: "참고자료" },
-] as const;
 
 /**
  * 사이트 상단 고정 네비게이션입니다.
@@ -52,13 +44,13 @@ export function NavBar() {
         </Link>
 
         <nav className="hidden items-center gap-6 md:flex" aria-label="주요 섹션">
-          {NAV_ITEMS.map((item) => (
+          {topNavLinks.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className="text-sm text-foreground-muted transition-colors hover:text-foreground"
             >
-              {item.label}
+              {item.title}
             </Link>
           ))}
         </nav>

@@ -9,7 +9,6 @@ import {
   decisionLabel,
   decisionTone,
   platformLabel,
-  type CatalogType,
   type Platform,
   type SkillItem,
   type AgentItem,
@@ -49,6 +48,18 @@ type Props =
       items: RuleItem[];
       meta: Meta;
     };
+
+type GuideCard = {
+  title: string;
+  description: string;
+  href?: string;
+  hrefLabel?: string;
+};
+
+type ExternalLink = {
+  label: string;
+  href: string;
+};
 
 const TONE_STYLES = {
   default: "border-border text-foreground-muted",
@@ -115,6 +126,130 @@ function CardShell({
   );
 }
 
+function getGuideCards(type: Props["type"]): GuideCard[] {
+  if (type === "skills") {
+    return [
+      {
+        title: "무엇을 보는 페이지인가",
+        description:
+          "반복해서 다시 쓸 수 있는 작업 흐름을 모아 둔 곳입니다. review, verify, gradle 같은 이름의 스킬부터 보는 편이 좋습니다.",
+      },
+      {
+        title: "어떻게 고르면 좋은가",
+        description:
+          "먼저 플랫폼 필터를 고르고, 설명에 현재 작업과 가장 가까운 워크플로가 있는지 확인한 뒤, 경로를 따라 실제 SKILL 파일까지 내려가면 됩니다.",
+      },
+      {
+        title: "다음 단계",
+        description:
+          "스킬을 이해한 뒤에는 플레이북에서 실제 설정 구조를 보고, reference에서 hooks나 MCP 같은 심화 문서로 이어가면 됩니다.",
+        href: "/playbook/setup-codex",
+        hrefLabel: "Codex 플레이북 보기",
+      },
+    ];
+  }
+
+  if (type === "agents") {
+    return [
+      {
+        title: "무엇을 보는 페이지인가",
+        description:
+          "메인 에이전트가 병렬로 맡길 수 있는 좁은 역할 목록입니다. reviewer, verifier, docs researcher처럼 역할이 작을수록 실전성이 높습니다.",
+      },
+      {
+        title: "어떻게 고르면 좋은가",
+        description:
+          "현재 작업이 리뷰인지, 검증인지, 문서 확인인지부터 먼저 분류하십시오. 그 다음 가장 좁은 역할의 subagent를 고르는 편이 좋습니다.",
+      },
+      {
+        title: "다음 단계",
+        description:
+          "profiles와 subagents 역할 설계를 같이 보면, 메인 세션과 작은 모델의 배치 기준까지 한 번에 이해할 수 있습니다.",
+        href: "/reference/profiles-subagents",
+        hrefLabel: "Profiles / Subagents 보기",
+      },
+    ];
+  }
+
+  if (type === "hooks") {
+    return [
+      {
+        title: "무엇을 보는 페이지인가",
+        description:
+          "세션 시작, 도구 실행 전후 같은 순간에 자동으로 붙는 guardrail 목록입니다. 문맥 주입, 위험 명령 차단, 자동 검증이 여기에 속합니다.",
+      },
+      {
+        title: "어떻게 고르면 좋은가",
+        description:
+          "먼저 event를 보고, 그 다음 matcher와 command를 읽으십시오. hooks는 기능 소개보다 실행 시점과 트리거 조건이 더 중요합니다.",
+      },
+      {
+        title: "다음 단계",
+        description:
+          "hooks는 rules나 sandbox를 대체하지 않으므로, 심화 가이드와 보안 문서를 같이 보는 편이 좋습니다.",
+        href: "/reference/codex-hooks",
+        hrefLabel: "Hooks 심화 보기",
+      },
+    ];
+  }
+
+  return [
+    {
+      title: "무엇을 보는 페이지인가",
+      description:
+        "에이전트가 무엇을 허용받고, 무엇을 차단당하고, 무엇은 승인 후에만 실행해야 하는지를 선언적으로 적어 둔 정책 목록입니다.",
+    },
+    {
+      title: "어떻게 고르면 좋은가",
+      description:
+        "결정값부터 보십시오. 허용보다 prompt와 forbidden이 먼저 중요합니다. 실무에서는 위험 명령과 외부 반영 명령이 어디에 걸리는지가 핵심입니다.",
+    },
+    {
+      title: "다음 단계",
+      description:
+        "rules는 보안과 가드레일 관점에서 같이 읽어야 효과가 있습니다. sandbox, hooks, MCP governance와 묶어서 이해하는 편이 정확합니다.",
+      href: "/reference/security-guardrails",
+      hrefLabel: "보안 / 가드레일 보기",
+    },
+  ];
+}
+
+function getExternalLinks(type: Props["type"]): ExternalLink[] {
+  if (type === "skills") {
+    return [
+      { label: "OpenAI Codex 공식 저장소", href: "https://github.com/openai/codex" },
+      { label: "OpenAI skills 예시", href: "https://github.com/openai/codex/tree/main/.codex/skills" },
+      { label: "Harness 100", href: "https://github.com/revfactory/harness-100" },
+      { label: "OpenSkills", href: "https://github.com/BandarLabs/open-skills" },
+    ];
+  }
+
+  if (type === "agents") {
+    return [
+      { label: "OpenAI Subagents 문서", href: "https://developers.openai.com/codex/subagents" },
+      { label: "OpenAI Codex 공식 저장소", href: "https://github.com/openai/codex" },
+      { label: "OpenHands", href: "https://github.com/OpenHands/OpenHands" },
+      { label: "OpenCode", href: "https://github.com/sst/opencode" },
+    ];
+  }
+
+  if (type === "hooks") {
+    return [
+      { label: "OpenAI Hooks 문서", href: "https://developers.openai.com/codex/hooks" },
+      { label: "Claude Code Master Hooks", href: "https://claudecode-master.netlify.app/advanced/hooks/" },
+      { label: "codexmaster security docs", href: "https://github.com/robbiecalvin/codexmaster/tree/main/docs/security" },
+      { label: "OpenAI Codex 저장소", href: "https://github.com/openai/codex" },
+    ];
+  }
+
+  return [
+    { label: "OpenAI Rules 문서", href: "https://developers.openai.com/codex/rules" },
+    { label: "OpenAI Config Reference", href: "https://developers.openai.com/codex/config-reference" },
+    { label: "codexmaster guardrails", href: "https://github.com/robbiecalvin/codexmaster/tree/main/docs/security" },
+    { label: "GitHub MCP Registry 정책", href: "https://docs.github.com/enterprise-cloud@latest/copilot/how-tos/administer-copilot/manage-mcp-usage/configure-mcp-registry" },
+  ];
+}
+
 /**
  * 카탈로그 페이지의 클라이언트 셸입니다.
  * type 별로 어떤 카드를 그릴지 내부에서 분기합니다 (RSC 경계 함수 prop 회피).
@@ -123,6 +258,8 @@ export function CatalogPageShell(props: Props) {
   const { type, title, description, items, meta } = props;
   const [query, setQuery] = React.useState("");
   const [platform, setPlatform] = React.useState<"all" | Platform>("all");
+  const guideCards = React.useMemo(() => getGuideCards(type), [type]);
+  const externalLinks = React.useMemo(() => getExternalLinks(type), [type]);
 
   const filtered = React.useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -181,6 +318,48 @@ export function CatalogPageShell(props: Props) {
           </p>
         </header>
 
+        <div className="grid gap-4 xl:grid-cols-3">
+          {guideCards.map((card) => (
+            <article
+              key={card.title}
+              className="rounded-2xl border border-border bg-surface px-5 py-5 shadow-[0_10px_30px_rgba(15,23,42,0.04)]"
+            >
+              <h3 className="text-lg font-semibold text-foreground">{card.title}</h3>
+              <p className="mt-2 text-sm leading-7 text-foreground-muted">{card.description}</p>
+              {card.href && card.hrefLabel ? (
+                <Link
+                  href={card.href}
+                  className="mt-4 inline-flex items-center gap-2 font-mono text-xs text-accent hover:underline"
+                >
+                  {card.hrefLabel} →
+                </Link>
+              ) : null}
+            </article>
+          ))}
+        </div>
+
+        <div className="rounded-2xl border border-border bg-surface px-5 py-5">
+          <p className="font-mono text-xs uppercase tracking-[0.18em] text-foreground-subtle">
+            바로 열어보기
+          </p>
+          <p className="mt-2 text-sm leading-7 text-foreground-muted">
+            내부 인벤토리만 보지 말고, 관련된 실제 GitHub 저장소와 공식 문서도 같이 열어 보시는 편이 이해가 빠릅니다.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {externalLinks.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-md border border-border bg-background px-3 py-2 font-mono text-xs text-foreground-muted transition hover:border-accent hover:text-foreground"
+              >
+                {item.label} ↗
+              </a>
+            ))}
+          </div>
+        </div>
+
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="relative max-w-md flex-1">
             <Search
@@ -216,6 +395,7 @@ export function CatalogPageShell(props: Props) {
 
         <p className="font-mono text-xs text-foreground-subtle">
           {filtered.length}개 결과 / 전체 {items.length}개
+          {query ? ` / 검색어: "${query}"` : ""}
         </p>
 
         {filtered.length === 0 ? (

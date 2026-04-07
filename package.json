@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "spacing:ko": "python3 scripts/check_korean_spacing.py src/app src/components docs",
+    "readability:audit": "python3 scripts/check_readability.py"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

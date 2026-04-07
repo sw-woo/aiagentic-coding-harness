@@ -2,9 +2,9 @@
 
 > **For Claude:** REQUIRED SUB-SKILL: Use `superpowers:executing-plans` to implement this plan task-by-task. For parallel tracks (Phase 3+), use `superpowers:subagent-driven-development` with `superpowers:dispatching-parallel-agents` and `superpowers:using-git-worktrees`.
 
-**Goal:** Ship a polished, dark-default information showcase site for "agentic coding harness" methodology and a kotlin-codex catalog to Vercel today.
+**Goal:** Ship a polished, dark-default information showcase site for "agentic coding harness" methodology and an internal harness catalog to Vercel today.
 
-**Architecture:** Next.js 16 App Router (RSC, Turbopack) + Fumadocs for docs UX + shadcn/ui + Tailwind CSS v4. Content is MDX. Catalog is generated at build time from a JSON inventory of `/Users/usermackbookpro/innogrid-prj/kotlin-codex/`. Deployed via `vercel` CLI from main branch. Foundation work happens on main; content/catalog/architecture work happens in 3 parallel git worktrees that fast-forward back to main.
+**Architecture:** Next.js 16 App Router (RSC, Turbopack) + Fumadocs for docs UX + shadcn/ui + Tailwind CSS v4. Content is MDX. Catalog is generated at build time from a JSON inventory of an internal harness repository. Deployed via `vercel` CLI from main branch. Foundation work happens on main; content/catalog/architecture work happens in 3 parallel git worktrees that fast-forward back to main.
 
 **Tech Stack:** Next.js 16, React 19, TypeScript 5, Fumadocs (latest), Tailwind CSS v4, shadcn/ui, MDX, Shiki, Mermaid, cmdk, next/font (Geist Sans + Geist Mono + Newsreader), pnpm 10, Vercel CLI.
 
@@ -929,13 +929,13 @@ git push -u origin track/content
 - Create: `scripts/build-catalog.ts`
 - Create: `data/catalog/skills.json`, `data/catalog/agents.json`, `data/catalog/hooks.json`, `data/catalog/rules.json`
 
-**Step 1:** Write a Node TS script that scans `/Users/usermackbookpro/innogrid-prj/kotlin-codex/.claude/skills/*/SKILL.md` and `/Users/usermackbookpro/innogrid-prj/kotlin-codex/.agents/skills/*/SKILL.md`, parses YAML frontmatter, and emits JSON. Same for agents (`.claude/agents/*.md`, `.codex/agents/*.toml`), hooks (`.claude/settings.json` hooks, `.codex/hooks.json`), and permissions/rules (`.claude/settings.json` permissions, `.codex/rules/default.rules`, `.claude/rules/*.md`).
+**Step 1:** Write a Node TS script that scans the source repository's `.claude/skills/*/SKILL.md` and `.agents/skills/*/SKILL.md`, parses YAML frontmatter, and emits JSON. Same for agents (`.claude/agents/*.md`, `.codex/agents/*.toml`), hooks (`.claude/settings.json` hooks, `.codex/hooks.json`), and permissions/rules (`.claude/settings.json` permissions, `.codex/rules/default.rules`, `.claude/rules/*.md`).
 
-The script reads from the kotlin-codex repo path passed as first arg, falling back to `/Users/usermackbookpro/innogrid-prj/kotlin-codex`.
+The script reads from the source repository path passed as first arg.
 
 **Step 2:** Add `pnpm catalog:build` script in `package.json`:
 ```json
-"catalog:build": "tsx scripts/build-catalog.ts /Users/usermackbookpro/innogrid-prj/kotlin-codex"
+"catalog:build": "tsx scripts/build-catalog.ts <source-repository>"
 ```
 Add `tsx` as dev dep: `pnpm add -D tsx js-yaml @types/js-yaml @iarna/toml`
 

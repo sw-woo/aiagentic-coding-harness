@@ -15,8 +15,8 @@ export function Prose({ children, className, size = "default" }: ProseProps) {
   return (
     <article
       className={cn(
-        "mx-auto px-4 font-serif text-[18px] leading-[1.75] text-foreground",
-        size === "default" ? "max-w-[68ch]" : "max-w-[80ch]",
+        "mx-auto px-4 font-serif text-[18px] leading-[1.8] text-foreground",
+        size === "default" ? "max-w-[66ch]" : "max-w-[74ch]",
         className,
       )}
     >
@@ -51,10 +51,10 @@ export function ProseHeading({
 }) {
   const className =
     level === 1
-      ? "font-serif text-4xl leading-tight tracking-tight text-foreground sm:text-5xl"
+      ? "balanced-korean-heading font-serif text-4xl leading-[1.15] tracking-tight text-foreground sm:text-5xl"
       : level === 2
-        ? "mt-14 font-sans text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
-        : "mt-10 font-sans text-xl font-semibold tracking-tight text-foreground";
+        ? "balanced-korean-heading mt-14 font-sans text-2xl font-semibold leading-[1.25] tracking-tight text-foreground sm:text-3xl"
+        : "balanced-korean-heading mt-10 font-sans text-xl font-semibold leading-[1.3] tracking-tight text-foreground";
   if (level === 1) return <h1 id={id} className={className}>{children}</h1>;
   if (level === 2) return <h2 id={id} className={className}>{children}</h2>;
   return <h3 id={id} className={className}>{children}</h3>;
@@ -64,7 +64,7 @@ export function ProseHeading({
  * 본문 단락입니다. serif 본문 톤으로, 단락 간 여백을 조절합니다.
  */
 export function ProseParagraph({ children }: { children: React.ReactNode }) {
-  return <p className="mt-5 font-serif leading-[1.85] text-foreground">{children}</p>;
+  return <p className="pretty-korean-copy mt-5 font-serif leading-[1.9] text-foreground">{children}</p>;
 }
 
 /**
@@ -78,7 +78,7 @@ export function ProseQuote({
   cite?: { label: string; href?: string };
 }) {
   return (
-    <blockquote className="mt-8 rounded-r-md border-l-4 border-accent bg-surface/60 px-5 py-4 font-serif text-foreground">
+    <blockquote className="pretty-korean-copy mt-8 rounded-r-md border-l-4 border-accent bg-surface/60 px-5 py-4 font-serif leading-[1.85] text-foreground">
       <div className="text-foreground">{children}</div>
       {cite ? (
         <footer className="mt-3 text-xs font-sans text-foreground-muted">

@@ -1,6 +1,6 @@
 {
-  "source": "kotlin-codex",
-  "sourceUrl": "ssh://git@rnd-app.innogrid.com:8102/sungwoo/kotlin-codex-harness.git",
+  "source": "internal-harness-catalog",
+  "sourceUrl": "internal-source-repository",
   "generatedAt": "2026-04-07",
   "items": [
     {

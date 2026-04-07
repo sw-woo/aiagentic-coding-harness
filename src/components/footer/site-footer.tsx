@@ -1,9 +1,8 @@
-import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 
 /**
  * 사이트 하단 푸터입니다.
- * 로고, 출처 안내, 그리고 사실 기반 작성 원칙을 명시합니다.
+ * 최소한의 소개와 외부 링크만 유지합니다.
  */
 export function SiteFooter() {
   return (
@@ -15,8 +14,7 @@ export function SiteFooter() {
             {siteConfig.shortName}
           </p>
           <p className="max-w-md text-foreground-muted">
-            {siteConfig.organization} AIOps/MLOps 플랫폼을 만들면서 검증한 에이전틱 코딩 하네스의 견본입니다.
-            모든 사실 주장은 출처가 있고, 출처가 없는 부분은 명시해 두었습니다.
+            에이전틱 코딩 하네스를 설계하고 운영할 때 필요한 구조, 자료, 플레이북을 한곳에 정리했습니다.
           </p>
         </div>
 
@@ -28,25 +26,6 @@ export function SiteFooter() {
             className="transition hover:text-foreground"
           >
             소스 저장소 ↗
-          </a>
-          <a
-            href={siteConfig.organizationUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="transition hover:text-foreground"
-          >
-            Innogrid ↗
-          </a>
-          <Link href="/manifesto" className="transition hover:text-foreground">
-            선언문 다섯 가지 원칙
-          </Link>
-          <a
-            href={siteConfig.ciSourceUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="text-xs text-foreground-subtle transition hover:text-foreground"
-          >
-            액센트 컬러 출처: Innogrid CI
           </a>
         </nav>
       </div>
