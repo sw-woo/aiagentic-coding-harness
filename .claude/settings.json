@@ -1,0 +1,93 @@
+{
+  "$schema": "https://schemas.anthropic.com/claude-code/settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(pnpm *)",
+      "Bash(pnpm install)",
+      "Bash(pnpm lint)",
+      "Bash(pnpm build)",
+      "Bash(pnpm dev)",
+      "Bash(pnpm exec tsc *)",
+      "Bash(git status)",
+      "Bash(git log *)",
+      "Bash(git diff *)",
+      "Bash(git branch *)",
+      "Bash(git show *)",
+      "Bash(git ls-files *)",
+      "Bash(git ls-remote *)",
+      "Bash(rg *)",
+      "Bash(ls *)",
+      "Bash(find *)",
+      "Bash(cat package.json)",
+      "Bash(cat vercel.json)",
+      "Bash(node --version)",
+      "Bash(pnpm --version)",
+      "Read(**/*.md)",
+      "Read(**/*.mdx)",
+      "Read(**/*.tsx)",
+      "Read(**/*.ts)",
+      "Read(**/*.json)",
+      "Read(**/*.css)"
+    ],
+    "ask": [
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(git checkout *)",
+      "Bash(git reset *)",
+      "Bash(gh pr create *)",
+      "Bash(gh pr merge *)",
+      "Bash(gh issue create *)",
+      "Bash(pnpm add *)",
+      "Bash(pnpm remove *)",
+      "Bash(pnpm update *)",
+      "Bash(vercel *)",
+      "Bash(vercel deploy *)",
+      "Bash(vercel rollback *)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(rm -r /*)",
+      "Bash(git push --force *)",
+      "Bash(git push -f *)",
+      "Bash(git reset --hard *)",
+      "Bash(git clean -fd *)",
+      "Bash(git checkout -- *)",
+      "Bash(vercel --prod *)",
+      "Bash(vercel remove *)",
+      "Bash(kubectl delete *)",
+      "Bash(terraform apply *)",
+      "Bash(terraform destroy *)",
+      "Bash(helm uninstall *)",
+      "Bash(DROP TABLE *)",
+      "Bash(sudo *)",
+      "Read(.env)",
+      "Read(.env.*)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)",
+      "Read(**/secrets/**)",
+      "Read(**/credentials*)",
+      "Read(**/.npmrc)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "command": "/usr/bin/python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/session_start_context.py\""
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "command": "/usr/bin/python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/pre_bash_guard.py\""
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/post_tsx_lint.sh\""
+      }
+    ]
+  }
+}

@@ -53,6 +53,13 @@ const operationsReference = [
     badge: "내부 정리",
   },
   {
+    href: "/reference/progress-adoption",
+    title: "AI 발전 속도와 실제 도입 사례",
+    summary:
+      "METR, OECD, TPU, self-improving 연구, 실제 회사 도입 사례를 1차 자료 기준으로 정리한 페이지입니다.",
+    badge: "내부 정리",
+  },
+  {
     href: "/reference/automation-patterns",
     title: "에이전트 자동화 패턴",
     summary:

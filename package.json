@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "spacing:ko": "python3 scripts/check_korean_spacing.py src/app src/components docs",
-    "readability:audit": "python3 scripts/check_readability.py"
+    "readability:audit": "python3 scripts/check_readability.py",
+    "verify:harness": "bash scripts/verify_codex_harness.sh"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
@@ -31,5 +32,6 @@
     "eslint-config-next": "16.2.2",
     "tailwindcss": "^4",
     "typescript": "^5"
-  }
+  },
+  "packageManager": "pnpm@10.29.3+sha512.498e1fb4cca5aa06c1dcf2611e6fafc50972ffe7189998c409e90de74566444298ffe43e6cd2acdc775ba1aa7cc5e092a8b7054c811ba8c5770f84693d33d2dc"
 }

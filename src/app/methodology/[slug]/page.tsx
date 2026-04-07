@@ -512,7 +512,7 @@ function ContextEngineering() {
         Long-running tasks accumulate tokens. Context engineering treats the context window as a managed resource, not a free lunch.
       </ProseQuote>
 
-      <ProseHeading level={2}>실제 적용 — CLAUDE.md 안의 context discipline</ProseHeading>
+      <ProseHeading level={2}>실제 적용 — CLAUDE.md 안의 컨텍스트 운영 원칙</ProseHeading>
       <CodeBlock filename="CLAUDE.md (발췌)" language="markdown">
 {`# AIOps 하네스를 위한 Context Engineering
 

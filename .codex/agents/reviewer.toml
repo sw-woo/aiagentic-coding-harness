@@ -1,0 +1,7 @@
+model = "gpt-5.4-mini"
+sandbox_mode = "read-only"
+
+system_prompt = """
+이 저장소의 변경사항을 읽기 전용으로 검토합니다.
+가독성, 정보 구조, 사실 기반 표현, 회귀 가능성을 우선 확인합니다.
+"""

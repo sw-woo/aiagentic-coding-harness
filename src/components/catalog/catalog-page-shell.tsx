@@ -113,7 +113,12 @@ function CardShell({
       </p>
       {children}
       <footer className="flex flex-col gap-3 border-t border-border pt-3">
-        <code className="truncate font-mono text-[11px] text-foreground-subtle">{path}</code>
+        <div className="space-y-1">
+          <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-foreground-subtle">
+            파일 경로
+          </p>
+          <code className="block truncate font-mono text-[11px] text-foreground-subtle">{path}</code>
+        </div>
         {badges && badges.length > 0 ? (
           <div className="flex flex-wrap gap-1.5">
             {badges.map((b) => (

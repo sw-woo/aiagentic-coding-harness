@@ -53,9 +53,9 @@ html.dark {
   --color-success: var(--success);
   --color-info: var(--info);
 
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo, monospace;
-  --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;
+  --font-sans: "Helvetica Neue", "Apple SD Gothic Neo", "Noto Sans KR", Arial, sans-serif;
+  --font-mono: "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  --font-serif: "Iowan Old Style", "Noto Serif KR", "Times New Roman", Georgia, serif;
 }
 
 html {

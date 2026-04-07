@@ -62,7 +62,7 @@ const HARNESS_SURFACES = [
   {
     title: "Hooks",
     detail:
-      "세션 시작 시 문맥 주입, 위험한 bash 차단, 수정 후 자동 lint/test 같은 동적 guardrail 을 맡깁니다.",
+      "세션 시작 시 컨텍스트 주입, 위험한 bash 차단, 수정 후 자동 lint/test 같은 동적 안전 장치를 맡깁니다.",
   },
 ] as const;
 
@@ -321,7 +321,7 @@ const WHEN_TO_PICK = [
 export const metadata: Metadata = {
   title: "Agentic Coding Harness 엔지니어링 핸드북",
   description:
-    "agentic coding harness 엔지니어링의 과거 발전 과정, 현재의 최신 스택, 모델 해석, MCP 확장, 사내 rollout 방식, 미래 방향을 한 흐름으로 정리한 장문형 핸드북 페이지입니다.",
+    "agentic coding harness 엔지니어링의 과거 발전 과정, 현재의 최신 스택, 모델 해석, MCP 확장, 사내 도입 방식, 미래 방향을 한 흐름으로 정리한 장문형 핸드북 페이지입니다.",
 };
 
 export default function HandbookPage() {
@@ -385,7 +385,7 @@ export default function HandbookPage() {
                 <Callout tone="note" title="이 페이지의 목표">
                   <p>
                     이 핸드북은 사내 개발자에게 “AI 코딩 도구 소개”를 하려는 문서가 아닙니다.
-                    <strong> agentic coding harness 엔지니어링</strong> 을 하나의 엔지니어링 discipline 으로 설명하는 문서입니다.
+                    <strong> agentic coding harness 엔지니어링</strong>을 하나의 독립된 공학 분야로 다루는 문서입니다.
                   </p>
                 </Callout>
               </section>
@@ -450,13 +450,13 @@ export default function HandbookPage() {
                 <Callout tone="warning" title="지금의 핵심 변화">
                   <p>
                     생산성은 더 이상 모델 지능 하나로 결정되지 않습니다. 실제 업무에서는
-                    <strong> 문서 grounding, 브라우저 실행, 이슈 연동, 위험 명령 차단, 검증 루프</strong> 가 없는 모델은
+                    <strong>문서 인용 기반 응답, 브라우저 실행, 이슈 연동, 위험 명령 차단, 검증 루프</strong>가 없는 모델은
                     오래 쓰기 어렵습니다.
                   </p>
                 </Callout>
                 <ProseHeading level={3}>지금 뜨는 조합은 무엇인가</ProseHeading>
                 <p className="mt-4 text-[16px] leading-8 text-foreground-muted">
-                  지금 가장 실용적인 조합은 대체로 비슷합니다. 메인 세션에는 강한 frontier 런타임을 두고, 문서 grounding에는 Context7,
+                  지금 가장 실용적인 조합은 대체로 비슷합니다. 메인 세션에는 강한 최상위 런타임을 두고, 문서 인용에는 Context7,
                   UI 검증에는 Playwright MCP, 작업 추적에는 Linear나 GitHub, 팀 문서와 협업에는 Slack 또는 Atlassian 같은 외부 연결을 붙입니다.
                   여기에 rules와 hooks로 안전 장치를 추가하고, build/test/verify 스크립트로 품질을 닫는 구조가 현재 가장 재현성이 높습니다.
                 </p>
@@ -609,12 +609,12 @@ export default function HandbookPage() {
                 </h2>
                 <p className="mt-4 text-[16px] leading-8 text-foreground-muted">
                   개발자가 많을수록 “각자 알아서 잘 쓰기”는 실패합니다. 공통 검증 명령, 공통 AGENTS.md 구조,
-                  공통 safety bar, 공통 MCP 세트, 공통 rollout 순서가 먼저 있어야 합니다.
+                  공통 safety bar, 공통 MCP 세트, 공통 도입 순서가 먼저 있어야 합니다.
                 </p>
                 <p className="mt-4 text-[16px] leading-8 text-foreground-muted">
                   이건 단순한 교육 문제가 아닙니다. 팀에서 “하네스를 어떻게 표준으로 제공할 것인가”의 문제입니다.
                   예를 들어, 누군가는 hooks를 쓰고 누군가는 안 쓰고, 누군가는 다른 verify 명령을 쓰고, 누군가는 로컬에서만 통과하는 스크립트를 쓰면
-                  에이전트 품질보다 협업 비용이 먼저 커집니다. 그래서 rollout은 항상 문서와 설정을 함께 배포하는 방식으로 가야 합니다.
+                  에이전트 품질보다 협업 비용이 먼저 커집니다. 그래서 도입은 항상 문서와 설정을 함께 배포하는 방식으로 가야 합니다.
                 </p>
                 <div className="mt-5 space-y-3">
                   {ROLLOUT_STEPS.map((step, index) => (
@@ -627,7 +627,7 @@ export default function HandbookPage() {
                   ))}
                 </div>
                 <CodeBlockLike />
-                <ProseHeading level={3}>권장 rollout 단계</ProseHeading>
+                <ProseHeading level={3}>권장 도입 단계</ProseHeading>
                 <div className="mt-5 grid gap-4 md:grid-cols-3">
                   <div className="rounded-xl border border-border bg-background p-5">
                     <h3 className="text-lg font-semibold text-foreground">Phase 1</h3>
@@ -644,7 +644,7 @@ export default function HandbookPage() {
                   <div className="rounded-xl border border-border bg-background p-5">
                     <h3 className="text-lg font-semibold text-foreground">Phase 3</h3>
                     <p className="mt-2 text-sm leading-7 text-foreground-muted">
-                      metrics, traces, team-level MCP governance, role-specific subagents를 조직 표준으로 끌어올립니다.
+                      운영 지표, 도구 호출 추적, 팀 단위 MCP 정책, 역할별 서브에이전트를 조직 표준으로 끌어올립니다.
                     </p>
                   </div>
                 </div>
@@ -736,7 +736,7 @@ export default function HandbookPage() {
                   ))}
                 </div>
 
-                <ProseHeading level={3}>나란히 두는 rollout 설정 예시</ProseHeading>
+                <ProseHeading level={3}>나란히 두는 도입 설정 예시</ProseHeading>
                 <p className="mt-3 max-w-[68ch] text-sm leading-7 text-foreground-muted">
                   같은 팀 안전 기본값을 두 런타임에 어떻게 옮기는지 한 화면에 둡니다. 두 파일은 같은 사상을
                   표현하지만 문법이 다릅니다.
@@ -879,7 +879,7 @@ prefix_rule("git push", prompt)
                   <div className="rounded-xl border border-border bg-background p-5">
                     <h3 className="text-lg font-semibold text-foreground">플레이북</h3>
                     <p className="mt-2 text-sm leading-7 text-foreground-muted">
-                      실제 설정 파일과 rollout 순서를 정리한 실전형 페이지입니다.
+                      실제 설정 파일과 도입 순서를 정리한 실전형 페이지입니다.
                     </p>
                     <div className="mt-3 flex flex-wrap gap-2">
                       <Link
@@ -901,33 +901,184 @@ prefix_rule("git push", prompt)
 
               <section id="future" className="rounded-2xl border border-border bg-surface p-7">
                 <h2 className="text-2xl font-semibold tracking-tight text-foreground">
-                  앞으로의 방향: 모델 경쟁보다 런타임 경쟁이 더 중요해집니다
+                  앞으로의 방향: 모델 경쟁이 런타임 경쟁으로 옮겨갑니다
                 </h2>
-                <div className="mt-5 space-y-4 text-[16px] leading-8 text-foreground-muted">
-                  <p>
-                    앞으로 1년은 모델 자체의 지능 경쟁도 계속되겠지만, 더 큰 차이는 <strong>runtime engineering</strong> 에서 벌어질 가능성이 큽니다.
-                    즉, memory를 어떻게 압축하고, 어떤 MCP를 기본 세트로 붙이고, tool traces를 어떻게 관측하며, 검증 루프를 얼마나 자동화하느냐가 차이를 만듭니다.
-                  </p>
-                  <p>
-                    또 하나의 흐름은 <strong>강한 작은 모델의 역할 고정</strong> 입니다. 앞으로는 모든 작업을 최고 모델에 던지기보다,
-                    메인 세션 / reviewer / verifier / docs researcher / browser operator 를 분리한 멀티에이전트 운영이 더 일반화될 가능성이 높습니다.
-                  </p>
-                  <p>
-                    조직 관점에서는 “누가 더 멋진 프롬프트를 쓰는가”보다 <strong>누가 더 좋은 하네스를 팀 표준으로 만드는가</strong> 가
-                    생산성을 결정합니다. 그래서 이 주제는 도구 사용법이 아니라 엔지니어링 문화와 운영 표준의 문제로 봐야 합니다.
-                  </p>
-                  <p>
-                    앞으로 특히 중요해질 분야는 세 가지입니다. 첫째, <strong>runtime observability</strong> 입니다. 어떤 tool이 병목인지,
-                    어떤 MCP가 자주 실패하는지, 어떤 workflow에서 비용이 튀는지 보지 못하면 다음 단계 개선이 어렵습니다.
-                    둘째, <strong>organizational governance</strong> 입니다. MCP registry, allowlist, profile 표준, approved command 패턴 같은 조직 차원의 정책이 중요해질 것입니다.
-                    셋째, <strong>role-specialized agent teams</strong> 입니다. 메인 세션 하나로 모든 걸 해결하는 대신, 브라우저 전용, 검증 전용, 문서 전용, 보안 전용 역할이 더 선명해질 가능성이 큽니다.
-                  </p>
-                  <p>
-                    그래서 앞으로의 경쟁은 “더 큰 모델”만으로 설명되지 않을 것입니다. 실제 현장에서는
-                    더 좋은 memory discipline, 더 좋은 docs, 더 나은 verify loop, 더 안전한 MCP governance, 더 정교한 traces를 가진 팀이
-                    결국 더 높은 생산성을 가져갈 가능성이 큽니다.
-                  </p>
+                <p className="mt-4 text-[16px] leading-8 text-foreground-muted">
+                  모델 자체의 지능 향상은 앞으로 1~3년도 계속됩니다. Epoch AI 의 컴퓨트 추정에 따르면 최상위 학습
+                  컴퓨트는 매년 4~5배 가까이 늘어 왔고, 단기간에 이 곡선이 꺾일 신호는 보이지 않습니다(
+                  <a
+                    href="https://epoch.ai"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-accent hover:underline"
+                  >
+                    epoch.ai
+                  </a>
+                  ). 그런데 같은 모델을 같은 회사 안에서 두 팀이 써도 체감 생산성이 크게 갈리는 현장을 보면, 결국
+                  차이는 모델 자체가 아니라 그 모델을 둘러싼 작업 환경 — 즉 하네스 — 에서 벌어집니다.
+                </p>
+                <p className="mt-4 text-[16px] leading-8 text-foreground-muted">
+                  그래서 다음 1~3년의 경쟁은 “더 큰 모델”이 아니라 다음 다섯 가지 운영 영역에서 결정될 가능성이
+                  높습니다.
+                </p>
+
+                <ProseHeading level={3}>1. 작업 길이가 늘어나면 감독·검증이 새 병목이 됩니다</ProseHeading>
+                <p className="mt-3 text-[16px] leading-8 text-foreground-muted">
+                  METR 의 2025년 “Measuring AI Ability to Complete Long Tasks” 연구는 모델이 자율적으로
+                  끝낼 수 있는 작업의 길이가 지난 5년 동안 약 7개월마다 두 배가 됐다고 보고했습니다(
+                  <a
+                    href="https://metr.org"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-accent hover:underline"
+                  >
+                    metr.org
+                  </a>
+                  ). 이 곡선이 계속된다면 다음 세대에서 가장 먼저 무너지는 것은 단순 자동완성이 아니라{" "}
+                  <strong>장기 작업을 사람이 어떻게 감독하고 검증할 것인가</strong> 입니다. 모델 벤치마크 숫자로는
+                  이 문제가 잡히지 않고, 메모리 운영, 검증 루프, 관측 인프라처럼 하네스 측 변수로만 잡힙니다.
+                </p>
+
+                <ProseHeading level={3}>2. 강한 작은 모델의 역할 고정</ProseHeading>
+                <p className="mt-3 text-[16px] leading-8 text-foreground-muted">
+                  모든 작업을 최상위 모델 한 곳에 던지는 시대는 비용 측면에서도 곧 끝납니다. 앞으로는 메인 세션
+                  (Claude Opus 4.6 / GPT-5.4)을 두고, reviewer · verifier · docs researcher · browser
+                  operator 같은 좁은 역할은 더 작고 빠른 모델 (Claude Haiku 4.5, GPT-5.4 mini, Gemma 4 31B,
+                  Qwen3-Coder 30B)로 분리하는 멀티 에이전트 운영이 일반화될 가능성이 높습니다. Anthropic 의
+                  “Building Effective Agents”가 강조한 “필요할 때만 agent, 그 외에는 단순 workflow”라는 원칙도
+                  같은 방향입니다(
+                  <a
+                    href="https://www.anthropic.com/news/building-effective-agents"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-accent hover:underline"
+                  >
+                    anthropic.com
+                  </a>
+                  ).
+                </p>
+
+                <ProseHeading level={3}>3. 조직 차원의 정책이 개인 프롬프트보다 중요해집니다</ProseHeading>
+                <p className="mt-3 text-[16px] leading-8 text-foreground-muted">
+                  “누가 더 좋은 프롬프트를 쓰는가”라는 질문은 점점 의미가 줄어듭니다. 같은 팀이 같은 저장소에서
+                  같은 결과를 일관되게 낼 수 있는가가 더 중요해집니다. 그 일관성을 만드는 것은 개인 감각이 아니라
+                  팀 표준 — 공통 CLAUDE.md / AGENTS.md, 공통 검증 스크립트, 공통 MCP 세트, 공통 위험 명령 차단,
+                  공통 회고 지표 — 입니다. 하네스는 도구 사용법이 아니라 엔지니어링 문화와 운영 표준의 문제입니다.
+                </p>
+
+                <ProseHeading level={3}>4. 특히 중요해질 운영 영역 세 가지</ProseHeading>
+                <div className="mt-5 grid gap-4 md:grid-cols-3">
+                  <div className="rounded-xl border border-border bg-background p-5">
+                    <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">하나</p>
+                    <h4 className="mt-2 text-base font-semibold text-foreground">런타임 관측성</h4>
+                    <p className="mt-2 text-sm leading-7 text-foreground-muted">
+                      어떤 도구가 병목인지, 어떤 MCP 가 자주 실패하는지, 어떤 워크플로에서 토큰 비용이 튀는지 보지
+                      못하면 다음 단계 개선이 막힙니다. 도구 호출 추적, MCP 호출 지연시간, 세션당 토큰 사용량을
+                      측정하는 일이 예전 APM 만큼 기본기가 됩니다.
+                    </p>
+                  </div>
+                  <div className="rounded-xl border border-border bg-background p-5">
+                    <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">둘</p>
+                    <h4 className="mt-2 text-base font-semibold text-foreground">조직 단위 정책</h4>
+                    <p className="mt-2 text-sm leading-7 text-foreground-muted">
+                      팀이 사용할 MCP 등록부, 허용 명령 목록, 프로필 표준, 승인 정책, 비밀정보 마스킹 같은 조직
+                      차원의 규칙이 점점 중요해집니다. Anthropic 의 Responsible Scaling Policy 처럼{" "}
+                      <em>안전 기본값은 회사가 미리 정해 놓고 개발자는 그 위에서 작업하는 모델</em> 이 일반화될
+                      가능성이 높습니다(
+                      <a
+                        href="https://www.anthropic.com/news/anthropics-responsible-scaling-policy"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-accent hover:underline"
+                      >
+                        anthropic.com
+                      </a>
+                      ).
+                    </p>
+                  </div>
+                  <div className="rounded-xl border border-border bg-background p-5">
+                    <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">셋</p>
+                    <h4 className="mt-2 text-base font-semibold text-foreground">역할 특화 에이전트 팀</h4>
+                    <p className="mt-2 text-sm leading-7 text-foreground-muted">
+                      메인 세션 하나로 모든 일을 처리하는 대신, 브라우저 전용, 검증 전용, 문서 전용, 보안 감사
+                      전용 에이전트로 역할이 분리됩니다. 이 분리는 비용을 줄일 뿐 아니라, 한 에이전트가 컨텍스트
+                      한도를 다 써 버리는 상황을 막아 결과 품질을 안정시킵니다.
+                    </p>
+                  </div>
                 </div>
+
+                <ProseHeading level={3}>5. 한국 조직에 특히 중요한 변수</ProseHeading>
+                <p className="mt-3 text-[16px] leading-8 text-foreground-muted">
+                  위의 흐름은 글로벌 공통이지만, 한국 조직에는 추가로 고려해야 할 변수가 몇 개 더 있습니다.
+                </p>
+                <ul className="mt-3 list-disc space-y-3 pl-6 text-[16px] leading-8 text-foreground">
+                  <li>
+                    <strong>데이터 주권과 보안 등급:</strong> 공공·금융·국방 도메인은 외부 LLM API 직접 호출이
+                    어려워, 사내 VPC 안에서 돌릴 수 있는 강한 오픈 모델(Gemma 4 31B, Qwen3-Coder 30B 등)과 자체
+                    호스팅 추론 스택의 가치가 더 큽니다. 어느 글로벌 모델이 1등인가보다, 망 분리 환경에서 안정적으로
+                    돌릴 수 있는 모델을 어떻게 운영하는가가 더 실질적인 질문이 됩니다.
+                  </li>
+                  <li>
+                    <strong>한국어 코드 리뷰와 사양서 품질:</strong> 영어 essay 리뷰는 잘 되지만 한국어 코드
+                    코멘트, 한국어 사양서, 한국어 운영 메시지에서는 모델 차이가 더 큽니다. 이 부분은 외부 벤치마크가
+                    아니라 사내 평가 데이터셋(eval)으로만 측정할 수 있습니다.
+                  </li>
+                  <li>
+                    <strong>한국 특화 PII 마스킹:</strong> 주민등록번호, 사업자번호, 한글 주소 같은 한국 특화
+                    개인정보 필터링은 대부분의 글로벌 가드레일에 빠져 있어, 사내 hook 또는 사전 필터로 직접
+                    추가해야 안전합니다.
+                  </li>
+                  <li>
+                    <strong>요금 환경:</strong> 한국 회사 결제 환경에서 OpenAI / Anthropic 구독을 일괄 결제하는
+                    방식이 부서별로 다릅니다. 토큰 비용이 곧 회사 비용이 되는 운영 모델을 미리 정해 두지 않으면,
+                    개인 카드로 시작했다가 회수가 어려운 경우가 자주 생깁니다.
+                  </li>
+                </ul>
+
+                <ProseHeading level={3}>3년 뒤에 무엇이 달라져 있어야 하는가</ProseHeading>
+                <p className="mt-3 text-[16px] leading-8 text-foreground-muted">
+                  Dario Amodei 의 “Machines of Loving Grace”(2024년 10월)는 향후 5~10년의 AI 진보가 과학·헬스
+                  케어·개발 생산성에 큰 변화를 줄 가능성을 정리합니다(
+                  <a
+                    href="https://darioamodei.com/machines-of-loving-grace"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-accent hover:underline"
+                  >
+                    darioamodei.com
+                  </a>
+                  ). 반면 Sam Altman 의 “Three Observations”(2025년 2월)는 같은 곡선을 더 짧은 시간 단위로
+                  봅니다(
+                  <a
+                    href="https://blog.samaltman.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-accent hover:underline"
+                  >
+                    blog.samaltman.com
+                  </a>
+                  ). 어느 쪽이 더 맞는지와 무관하게, 조직이 지금부터 3년 동안 갖춰 둬야 하는 능력은 다음 세 가지로
+                  좁혀집니다.
+                </p>
+                <ol className="mt-3 list-decimal space-y-2 pl-6 text-[16px] leading-8 text-foreground">
+                  <li>
+                    세션 메모리, 검증 명령, MCP 세트, hook 정책을 코드처럼 버전 관리하는 운영 능력
+                  </li>
+                  <li>
+                    도구 호출과 에이전트 비용을 지표로 보는 관측 인프라
+                  </li>
+                  <li>
+                    모델이 언제든 교체될 수 있다는 가정 위에서, 모델 종속성을 최소화한 하네스 설계
+                  </li>
+                </ol>
+
+                <Callout tone="tip" title="한 줄 요약">
+                  <p>
+                    앞으로의 경쟁은 “더 큰 모델”만으로 설명되지 않습니다. 같은 모델을 두고도 더 좋은 메모리 운영,
+                    더 명확한 문서, 더 자동화된 검증 루프, 더 안전한 MCP 정책, 더 정교한 호출 추적을 가진 팀이
+                    결국 더 높은 생산성을 가져갑니다.
+                  </p>
+                </Callout>
               </section>
 
               <section id="sources" className="rounded-2xl border border-border bg-surface p-7">
@@ -955,8 +1106,8 @@ prefix_rule("git push", prompt)
 function CodeBlockLike() {
   return (
     <pre className="mt-6 overflow-x-auto rounded-xl border border-border bg-background px-4 py-4 font-mono text-[13px] leading-relaxed text-foreground">
-      <code>{`# 사내 rollout 예시
-1. 루트 AGENTS.md 초안 배포
+      <code>{`# 사내 도입 예시
+1. 루트 CLAUDE.md / AGENTS.md 초안 배포 (두 런타임 모두)
 2. 표준 verify 스크립트와 build 명령 고정
 3. reviewer / verifier / docs researcher 서브에이전트 제공
 4. Playwright + Context7 MCP 기본 세트 제공

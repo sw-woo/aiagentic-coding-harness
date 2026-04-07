@@ -16,6 +16,9 @@ const SOURCES = [
   { label: "Anthropic: Writing effective tools for agents", href: "https://www.anthropic.com/engineering/writing-tools-for-agents" },
   { label: "OpenAI Agents SDK Tracing", href: "https://openai.github.io/openai-agents-python/tracing/" },
   { label: "GitHub MCP Registry Governance", href: "https://docs.github.com/enterprise-cloud@latest/copilot/how-tos/administer-copilot/manage-mcp-usage/configure-mcp-registry" },
+  { label: "Obsidian Core plugins", href: "https://help.obsidian.md/plugins" },
+  { label: "Obsidian Vault Agent (community)", href: "https://forum.obsidian.md/t/new-plugin-obsidian-vault-agent-terminal-with-claude-code-codex/110024" },
+  { label: "Agent Client for Obsidian (community)", href: "https://forum.obsidian.md/t/new-plugin-agent-client-bring-claude-code-codex-gemini-cli-inside-obsidian/108448" },
 ] as const;
 
 export const metadata: Metadata = {
@@ -83,16 +86,41 @@ export default function TrendsDirectionPage() {
           “무슨 MCP를 쓸까”를 넘어서 “누가 어떤 MCP를 연결할 수 있고, 어떤 registry를 신뢰할 것인가”까지 다루게 될 가능성이 큽니다.
         </ProseParagraph>
 
-        <ProseHeading level={2}>6. 방향 정리</ProseHeading>
+        <ProseHeading level={2}>6. 지식베이스형 memory도 하나의 흐름입니다</ProseHeading>
+        <ProseParagraph>
+          또 하나 눈에 띄는 흐름은 agent를 코드 에디터 안에만 두지 않고, 개인 지식베이스나 팀 문서 공간과 붙이는 방향입니다.
+          Obsidian 공식 코어 플러그인 자체가 AI agent를 제공하는 것은 아니지만, Bases, Canvas, Properties 같은 코어 기능은
+          지식 구조를 정리하는 기반으로 작동합니다. 그 위에 커뮤니티 플러그인들이 Claude Code, Codex, Gemini CLI, local agent를 연결하려는 시도가 빠르게 늘고 있습니다.
+        </ProseParagraph>
+        <ProseParagraph>
+          중요한 점은 이 흐름을 “Obsidian이 agent 플랫폼이 됐다”로 과장하면 안 된다는 것입니다. 현재 확인된 것은
+          <strong>커뮤니티 플러그인 생태계가 빠르게 붙고 있다</strong>는 사실이고, 이걸 통해 memory layer를 더 풍부하게 만들 수 있다는 방향성입니다.
+          즉, 코드 저장소 바깥의 note vault, runbook, handoff 문서를 agent의 장기 기억층으로 다루려는 시도가 늘고 있다고 보는 편이 정확합니다.
+        </ProseParagraph>
+
+        <ProseHeading level={2}>7. paperclip식 안전 프레이밍은 여전히 살아 있습니다</ProseHeading>
+        <ProseParagraph>
+          “paperclip maximizer” 자체는 오래된 사고실험이지만, agent 자율성이 길어질수록 그 비유는 다시 실무적인 의미를 갖습니다.
+          오늘날 이 비유가 뜻하는 바는 단순합니다. 목표를 잘못 주거나, 중간 가드레일 없이 agent를 오래 돌리면,
+          시스템은 우리가 원하지 않는 방향으로도 매우 성실하게 최적화할 수 있다는 점입니다.
+        </ProseParagraph>
+        <ProseParagraph>
+          그래서 최신 트렌드가 autonomy 강화로 갈수록, 동시에 stop condition, human checkpoint, rules, hooks, sandbox, MCP governance 같은
+          운영 제약이 같이 강조됩니다. 이 사이트의 관점에서도 paperclip은 철학적 비유가 아니라, 왜 하네스가 필요한지를 설명하는 안전 프레임으로 계속 유효합니다.
+        </ProseParagraph>
+
+        <ProseHeading level={2}>8. 방향 정리</ProseHeading>
         <ul className="mt-5 list-disc space-y-2 pl-6 text-[16px] leading-8 text-foreground">
           <li>단일 프롬프트보다 구조화된 workflow와 subagent 분리가 중요해짐</li>
           <li>자율성 증가와 함께 stop condition, human checkpoint, rollback이 더 중요해짐</li>
           <li>도구 품질과 tool contract 설계가 성능의 핵심이 됨</li>
           <li>trace, spans, metrics, replay가 사실상 기본 운영 요소가 됨</li>
           <li>MCP는 연결 기술에서 governance 문제로 확장되고 있음</li>
+          <li>코드 저장소 밖의 note vault / knowledge base를 memory layer로 활용하려는 흐름이 커지고 있음</li>
+          <li>paperclip식 안전 프레임은 autonomy 시대에 다시 실무적 의미를 얻고 있음</li>
         </ul>
 
-        <ProseHeading level={2}>7. 이 사이트에서 같이 읽으면 좋은 페이지</ProseHeading>
+        <ProseHeading level={2}>9. 이 사이트에서 같이 읽으면 좋은 페이지</ProseHeading>
         <div className="mt-6 grid gap-4 sm:grid-cols-3">
           <Link href="/handbook" className="rounded-xl border border-border bg-surface p-5 transition hover:border-accent">
             <h3 className="text-lg font-semibold text-foreground">핸드북</h3>

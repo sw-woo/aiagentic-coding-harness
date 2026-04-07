@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { EditorialHero } from "@/components/landing/editorial-hero";
 import { PrincipleCard } from "@/components/landing/principle-card";

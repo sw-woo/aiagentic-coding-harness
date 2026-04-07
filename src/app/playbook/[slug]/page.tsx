@@ -253,11 +253,16 @@ export function generateStaticParams() {
   return SLUGS.map((slug) => ({ slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }) {
-  if (!SLUGS.includes(params.slug as Slug)) return {};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  if (!SLUGS.includes(slug as Slug)) return {};
   return {
-    title: META[params.slug as Slug].title,
-    description: META[params.slug as Slug].description,
+    title: META[slug as Slug].title,
+    description: META[slug as Slug].description,
   };
 }
 
@@ -876,63 +881,523 @@ codex mcp login linear`}
   );
 }
 
+const CLAUDE_DOC_LINKS = [
+  { label: "Claude Code 개요", href: "https://docs.anthropic.com/en/docs/claude-code/overview" },
+  { label: "메모리 (CLAUDE.md)", href: "https://docs.anthropic.com/en/docs/claude-code/memory" },
+  { label: "설정", href: "https://docs.anthropic.com/en/docs/claude-code/settings" },
+  { label: "권한", href: "https://docs.anthropic.com/en/docs/claude-code/iam" },
+  { label: "Skills", href: "https://docs.anthropic.com/en/docs/claude-code/skills" },
+  { label: "Subagents", href: "https://docs.anthropic.com/en/docs/claude-code/sub-agents" },
+  { label: "Hooks", href: "https://docs.anthropic.com/en/docs/claude-code/hooks" },
+  { label: "Slash 명령", href: "https://docs.anthropic.com/en/docs/claude-code/slash-commands" },
+  { label: "MCP", href: "https://docs.anthropic.com/en/docs/claude-code/mcp" },
+  { label: "Plugin 마켓", href: "https://docs.anthropic.com/en/docs/claude-code/plugins" },
+  { label: "베스트 프랙티스", href: "https://www.anthropic.com/engineering/claude-code-best-practices" },
+] as const;
+
 function ClaudePlaybook() {
   return (
     <>
-      <ProseHeading level={2}>1. 프로젝트 메모리부터 적습니다</ProseHeading>
       <ProseParagraph>
-        프로젝트 루트에 <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-sm">CLAUDE.md</code> 파일을 두십시오.
-        모든 Claude Code 세션이 시작 시점에 자동으로 읽습니다. 짧고 검증 가능한 문장만 적으십시오.
+        이 페이지는 사내 개발자가 Anthropic Claude Code 를 처음부터 끝까지 셋업하기 위한 가장 짧은 경로입니다.
+        모든 단계는 검증 가능한 명령과 실제 파일 예시로 채워져 있고, 어느 단계가 어떤 운영 위험을 막는지
+        함께 표시했습니다. Codex 짝 페이지는{" "}
+        <Link href="/playbook/setup-codex" className="text-accent-2 hover:underline">
+          /playbook/setup-codex
+        </Link>{" "}
+        에서 확인하실 수 있습니다.
       </ProseParagraph>
+
+      <Callout tone="note" title="0. 설치와 로그인">
+        <CodeBlock filename="zsh / bash">
+{`# Node 18+ 가 필요합니다
+npm install -g @anthropic-ai/claude-code
+
+# 로그인 (브라우저 OAuth 로 진행됩니다)
+claude login
+
+# 버전 확인
+claude --version`}
+        </CodeBlock>
+        <p>
+          개인 구독(Pro / Max) 또는 팀 구독(Team / Enterprise) 어느 쪽이든 같은 CLI 가 동작합니다. 회사 결제로
+          쓰실 때는 SSO 가 적용된 워크스페이스로 로그인하시는 것이 가장 안전합니다.
+        </p>
+      </Callout>
+
+      <ProseHeading level={2}>1. 프로젝트 메모리 — CLAUDE.md</ProseHeading>
+      <ProseParagraph>
+        프로젝트 루트에{" "}
+        <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-sm">CLAUDE.md</code> 파일을 두십시오.
+        모든 Claude Code 세션이 시작 시점에 자동으로 읽습니다. 다음 세 가지만 지키시면 됩니다.
+      </ProseParagraph>
+      <ul className="my-4 list-disc space-y-2 pl-6 text-foreground">
+        <li>
+          <strong>200줄 이하</strong>로 유지하십시오. 그 이상은 컨텍스트만 차지하고 모델이 자주 무시합니다.
+        </li>
+        <li>
+          짧고 검증 가능한 문장만 두십시오. “좋게 잘 작성하세요” 같은 표현은 모델이 거의 활용하지 못합니다.
+        </li>
+        <li>
+          긴 규칙은{" "}
+          <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-sm">@AGENTS.md</code>{" "}
+          또는{" "}
+          <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-sm">@.claude/rules/security.md</code>{" "}
+          처럼 inline import 로 끌어오십시오. CLAUDE.md 본문은 항상 가벼워야 합니다.
+        </li>
+      </ul>
       <CodeBlock filename="CLAUDE.md">
-{`# 프로젝트 메모리 (사이트 견본)
+{`# 프로젝트 메모리
+
+## 빌드와 검증
 - 빌드: pnpm build
-- 검증: pnpm lint && pnpm build
-- 보안: 운영 계정에 직접 영향이 가는 명령은 반드시 사용자 확인 후 실행
-- 한국어 콘텐츠는 모두 존댓말로 작성
-- @AGENTS.md
+- 검증: pnpm lint && pnpm build && pnpm test
+- 한국어 콘텐츠는 모두 존댓말로 작성합니다
+
+## 안전 기본값
+- 운영 계정에 영향이 가는 명령은 반드시 사용자 확인 후 실행
+- .env 와 *.pem 파일은 읽지 않습니다
+- 마이그레이션은 staging 에서 한 번 확인 후 main 에 머지합니다
+
+## 자세한 규칙
+@AGENTS.md
+@.claude/rules/security.md
 `}
       </CodeBlock>
+      <Callout tone="tip" title="@import 의 의미">
+        <p>
+          <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-sm">@</code>{" "}
+          한 줄은 그 파일을 그대로 끌어와 같은 메모리로 취급합니다. 즉 CLAUDE.md 와 AGENTS.md 를 동시에
+          유지하면, 같은 저장소를 Claude Code 와 Codex 양쪽에서 같은 사실로 운영하실 수 있습니다.
+        </p>
+      </Callout>
 
-      <ProseHeading level={2}>2. 권한과 훅을 한 파일에 묶습니다</ProseHeading>
+      <ProseHeading level={2}>2. 권한과 훅 — .claude/settings.json</ProseHeading>
       <ProseParagraph>
-        <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-sm">.claude/settings.json</code> 한 파일에
-        permissions 와 hooks 를 함께 정의합니다. 위험 명령은 deny, 자주 쓰는 명령은 allow.
+        모든 권한과 훅은{" "}
+        <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-sm">.claude/settings.json</code>{" "}
+        한 파일에 둡니다. 위험 명령은 deny, 자주 쓰는 명령은 allow, 그 사이는 ask 로 둡니다.
+        평가 순서는 항상{" "}
+        <strong>deny &gt; ask &gt; allow</strong>{" "}
+        이므로, 한 번 deny 에 들어간 명령은 어떤 allow 매처로도 풀리지 않습니다.
       </ProseParagraph>
       <CodeBlock filename=".claude/settings.json" language="json">
 {`{
+  "$schema": "https://schemas.anthropic.com/claude-code/settings.json",
   "permissions": {
     "allow": [
       "Bash(pnpm *)",
+      "Bash(./gradlew test)",
+      "Bash(./gradlew ktlintCheck)",
       "Bash(git status)",
-      "Bash(git log *)"
+      "Bash(git log *)",
+      "Bash(git diff *)",
+      "Read(**/*.md)",
+      "Read(**/*.kt)",
+      "Read(**/*.tsx)"
+    ],
+    "ask": [
+      "Bash(git push *)",
+      "Bash(git commit *)",
+      "Bash(gh pr create *)"
     ],
     "deny": [
       "Bash(rm -rf *)",
       "Bash(git push --force *)",
-      "Read(.env)"
+      "Bash(git reset --hard *)",
+      "Bash(kubectl delete *)",
+      "Bash(terraform apply)",
+      "Bash(terraform destroy)",
+      "Read(.env*)",
+      "Read(**/*.pem)",
+      "Read(**/secrets/**)"
     ]
   },
   "hooks": {
+    "SessionStart": [
+      {
+        "command": "/usr/bin/python3 \\"$CLAUDE_PROJECT_DIR/.claude/hooks/session_start_context.py\\""
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "Bash",
         "command": "/usr/bin/python3 \\"$CLAUDE_PROJECT_DIR/.claude/hooks/pre_bash_guard.py\\""
       }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "command": "bash \\"$CLAUDE_PROJECT_DIR/.claude/hooks/post_kt_lint.sh\\""
+      }
     ]
   }
 }`}
       </CodeBlock>
-
-      <ProseHeading level={2}>3. 스킬과 서브에이전트는 천천히 추가합니다</ProseHeading>
       <ProseParagraph>
-        스킬은 진짜 반복되는 워크플로에만 만드십시오 — <code>/review</code>, <code>/test-all</code>, <code>/verify</code> 정도가 보통 충분합니다.
-        서브에이전트는 좁은 read-only 역할(reviewer, gradle_verifier, docs_researcher) 부터 시작합니다.
+        훅 스크립트 안에서 사용 가능한 환경 변수는 다음과 같습니다.
+      </ProseParagraph>
+      <ul className="my-4 list-disc space-y-2 pl-6 text-foreground">
+        <li>
+          <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-sm">$CLAUDE_PROJECT_DIR</code>{" "}
+          — 현재 프로젝트 루트 절대경로
+        </li>
+        <li>
+          <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-sm">$CLAUDE_TOOL_INPUT</code>{" "}
+          — PreToolUse / PostToolUse 에서 도구 인자가 JSON 으로 들어옵니다 (stdin 도 동일)
+        </li>
+        <li>
+          <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-sm">$CLAUDE_HOOK_EVENT</code>{" "}
+          — 이벤트 이름 (SessionStart, PreToolUse, PostToolUse 등)
+        </li>
+      </ul>
+      <Callout tone="warning" title="훅 종료 코드의 의미">
+        <p>
+          PreToolUse 훅이{" "}
+          <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-sm">exit 2</code> 로 종료하면 Claude
+          Code 는 그 도구 호출을 차단합니다. <code>exit 0</code> 은 통과, <code>exit 1</code> 은 비차단 경고입니다.
+          위험 명령 차단 훅은 반드시 <code>exit 2</code> 를 써야 합니다.
+        </p>
+      </Callout>
+
+      <ProseHeading level={2}>3. Skills — 반복 워크플로 자동화</ProseHeading>
+      <ProseParagraph>
+        스킬은{" "}
+        <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-sm">.claude/skills/&lt;name&gt;/SKILL.md</code>{" "}
+        에 둡니다. frontmatter 의{" "}
+        <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-sm">description</code>{" "}
+        가 사용자 메시지와 매칭되면 자동 활성화되고,{" "}
+        <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-sm">/skill-name</code>{" "}
+        으로 명시 호출도 가능합니다.
+      </ProseParagraph>
+      <CodeBlock filename=".claude/skills/verify/SKILL.md" language="markdown">
+{`---
+name: verify
+description: 저장소 전체 검증을 한 번에 실행합니다 (lint + test + build). 사용자가 "검증해줘", "verify", "test all" 같은 표현을 쓰면 자동 활성화됩니다.
+allowed-tools:
+  - Bash
+  - Read
+model: sonnet
+---
+
+# /verify
+
+이 스킬은 저장소 전체 회귀 검증을 실행합니다.
+
+## 절차
+1. \`pnpm lint\` 를 실행합니다
+2. \`pnpm test\` 를 실행합니다
+3. \`pnpm build\` 를 실행합니다
+4. 실패한 항목이 있으면 그대로 출력하고 중단합니다
+5. 모두 통과하면 한 줄 요약과 함께 종료합니다
+
+## 출력 계약
+- 마지막 줄은 항상 "검증 통과" 또는 "검증 실패: <원인>" 으로 끝납니다
+`}
+      </CodeBlock>
+      <ProseParagraph>
+        스킬을 만들 때 가장 중요한 것은{" "}
+        <strong>description 한 문장</strong> 입니다. 이 한 줄로 자동 활성화 정확도가 결정됩니다.
       </ProseParagraph>
 
+      <ProseHeading level={2}>4. 서브에이전트 — 좁은 역할의 병렬 일꾼</ProseHeading>
+      <ProseParagraph>
+        서브에이전트는{" "}
+        <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-sm">.claude/agents/&lt;name&gt;.md</code>{" "}
+        에 두십시오. 메인 세션과 별도의 컨텍스트로 동작하므로 reviewer · verifier · docs-researcher 같은
+        좁은 read-only 역할에 가장 효과적입니다.
+      </ProseParagraph>
+      <CodeBlock filename=".claude/agents/kotlin-reviewer.md" language="markdown">
+{`---
+name: kotlin-reviewer
+description: Kotlin 코드 변경에 대한 정확성·테스트 누락·동시성 문제 중심 리뷰. 사용자가 "리뷰", "review", "검토" 같은 표현을 쓰면 자동 활성화됩니다.
+model: haiku
+tools:
+  - Read
+  - Grep
+  - Glob
+---
+
+당신은 Kotlin 코드 리뷰 전문가입니다. 다음 우선순위로 리뷰를 진행합니다.
+
+1. 회귀 가능성: 변경이 기존 테스트를 깨지 않는가
+2. 테스트 누락: 새 분기·예외 경로에 테스트가 있는가
+3. 동시성: coroutine, mutex, suspend 함수 순서가 안전한가
+4. 포맷 드리프트: ktlint 가 통과하는가
+5. 명명 일관성: 기존 코드 베이스와 같은 패턴인가
+
+각 항목은 한 문단으로 정리하시고, 마지막에 "OK" 또는 "수정 필요: <항목>" 한 줄로 끝내십시오.
+`}
+      </CodeBlock>
+      <Callout tone="tip" title="서브에이전트 모델 선택의 기본">
+        <p>
+          좁은 역할에는 항상 <code>haiku</code> 부터 시작하시는 것을 권장드립니다. 결과 품질이 부족할 때만
+          <code> sonnet</code> 으로 올리시면 비용이 1/10 가까이 절감됩니다. <code>opus</code> 는 메인 세션에만
+          두시는 것이 일반적인 패턴입니다.
+        </p>
+      </Callout>
+
+      <ProseHeading level={2}>5. Path-specific 규칙 — .claude/rules/</ProseHeading>
+      <ProseParagraph>
+        특정 디렉터리에만 적용되는 규칙은{" "}
+        <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-sm">.claude/rules/&lt;name&gt;.md</code>{" "}
+        로 분리해 두십시오. 모듈별로 다른 안전 기준을 적용할 수 있고, CLAUDE.md 본문이 무거워지는 것을 막습니다.
+      </ProseParagraph>
+      <CodeBlock filename=".claude/rules/api-security.md" language="markdown">
+{`---
+glob:
+  - "src/api/**/*.kt"
+  - "src/api/**/*.tsx"
+---
+
+# API 계층 보안 규칙
+
+- 모든 라우트에는 인증 미들웨어가 적용되어야 합니다
+- 외부 입력은 zod 또는 jakarta validation 으로 한 번 더 검증합니다
+- DB 쿼리는 raw SQL 대신 jOOQ 빌더를 사용합니다
+- 응답에는 PII 가 포함되지 않는지 직접 확인합니다
+- 새 엔드포인트를 추가하면 같은 이름의 통합 테스트도 함께 추가합니다
+`}
+      </CodeBlock>
+
+      <ProseHeading level={2}>6. 훅 스크립트 작성 패턴</ProseHeading>
+      <ProseParagraph>
+        훅 스크립트는 짧고 결정적이어야 합니다. 다음 두 개가 가장 자주 쓰이는 패턴입니다.
+      </ProseParagraph>
+      <CodeBlock filename=".claude/hooks/pre_bash_guard.py" language="python">
+{`#!/usr/bin/env python3
+"""
+PreToolUse hook — 위험한 Bash 명령을 사전에 차단합니다.
+exit 2 = 차단, exit 0 = 통과
+"""
+import json, os, re, sys
+
+DENY_PATTERNS = [
+    r"rm\\s+-rf\\s+/",
+    r"git\\s+push\\s+--force",
+    r"git\\s+reset\\s+--hard",
+    r"DROP\\s+TABLE",
+    r"kubectl\\s+delete",
+    r"terraform\\s+(apply|destroy)",
+    r"helm\\s+uninstall",
+    r"mlflow\\s+models\\s+delete",
+]
+
+payload = json.loads(sys.stdin.read() or "{}")
+command = payload.get("tool_input", {}).get("command", "")
+
+for pattern in DENY_PATTERNS:
+    if re.search(pattern, command, re.IGNORECASE):
+        print(f"BLOCKED: 위험 명령 감지 — {pattern}", file=sys.stderr)
+        sys.exit(2)
+
+sys.exit(0)
+`}
+      </CodeBlock>
+      <CodeBlock filename=".claude/hooks/session_start_context.py" language="python">
+{`#!/usr/bin/env python3
+"""
+SessionStart hook — 세션 시작 시 저장소 컨텍스트를 주입합니다.
+출력 텍스트는 모델 컨텍스트에 그대로 들어갑니다.
+"""
+import os, subprocess, sys
+
+root = os.environ.get("CLAUDE_PROJECT_DIR", os.getcwd())
+
+# 마지막 commit hash + 메시지
+last_commit = subprocess.run(
+    ["git", "-C", root, "log", "-1", "--format=%h %s"],
+    capture_output=True, text=True
+).stdout.strip()
+
+print(f"## 세션 컨텍스트 (자동 주입)")
+print(f"- 저장소 루트: {root}")
+print(f"- 최근 커밋: {last_commit}")
+print(f"- 검증 명령: pnpm lint && pnpm test && pnpm build")
+print(f"- 위험 명령은 .claude/hooks/pre_bash_guard.py 가 차단합니다")
+sys.exit(0)
+`}
+      </CodeBlock>
+
+      <ProseHeading level={2}>7. MCP 서버 등록</ProseHeading>
+      <ProseParagraph>
+        MCP 서버는 글로벌(<code>~/.claude/settings.json</code>) 또는 프로젝트(<code>.claude/settings.json</code>)
+        둘 다에서 등록할 수 있습니다. Playwright 와 Context7 은 거의 모든 프로젝트에 가치가 있어서 글로벌에
+        두시는 것을 권장드립니다.
+      </ProseParagraph>
+      <CodeBlock filename=".claude/settings.json (mcp 부분 발췌)" language="json">
+{`{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest", "--headless"]
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp@latest"]
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_..."
+      }
+    }
+  }
+}`}
+      </CodeBlock>
+
+      <ProseHeading level={2}>8. Plugin 마켓 활용</ProseHeading>
+      <ProseParagraph>
+        Claude Code 의 강점 중 하나는 plugin 마켓입니다. 좋은 플러그인 하나가 잘 만든 스킬 5개를 대체합니다.
+        세션 안에서{" "}
+        <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-sm">/plugin marketplace add</code>{" "}
+        과{" "}
+        <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-sm">/plugin install</code>{" "}
+        명령으로 설치하시면 됩니다.
+      </ProseParagraph>
+      <ProseParagraph>
+        가장 자주 쓰이는 플러그인은 다음과 같습니다 — superpowers (브레인스토밍·계획·디버깅·TDD 워크플로),
+        everything-claude-code (언어별 리뷰어·빌드 리졸버·E2E 러너), codex 통합 (Claude 안에서 Codex 로 위임),
+        notebooklm-mcp (NotebookLM 노트북 자동화).
+      </ProseParagraph>
+
+      <ProseHeading level={2}>9. 모델 선택 가이드</ProseHeading>
+      <ul className="my-4 list-disc space-y-2 pl-6 text-foreground">
+        <li>
+          <strong>Opus 4.6</strong> — 메인 세션, 어려운 리팩터링, 다단계 설계 결정. 비싸지만 가장 정확합니다.
+        </li>
+        <li>
+          <strong>Sonnet 4.6</strong> — 일반 구현, 코드 리뷰, 문서 작성. Opus 의 80% 품질을 약 1/5 비용에.
+        </li>
+        <li>
+          <strong>Haiku 4.5</strong> — 서브에이전트, 분류, 단순 검색, 빠른 보조. Sonnet 의 1/3 비용.
+        </li>
+      </ul>
+      <Callout tone="tip" title="Auto 모드">
+        <p>
+          모델 선택을 비워 두면 Claude Code 가 작업 난이도에 따라 자동으로 모델을 라우팅합니다. 처음 시작하시는
+          분에게는 auto 가 가장 안전합니다. 비용에 민감해지면 그때 모델을 명시하시면 됩니다.
+        </p>
+      </Callout>
+
+      <ProseHeading level={2}>10. 권장 도입 순서</ProseHeading>
+      <div className="my-4 grid gap-4 md:grid-cols-3">
+        <div className="rounded-xl border border-border bg-background p-5">
+          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">Phase 1 · 첫 주</p>
+          <h4 className="mt-2 text-base font-semibold text-foreground">최소 안전선</h4>
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm leading-7 text-foreground-muted">
+            <li>CLAUDE.md 와 verify 스크립트 합의</li>
+            <li>위험 명령 deny 목록 확정</li>
+            <li>PreToolUse pre_bash_guard 훅 1개</li>
+          </ul>
+        </div>
+        <div className="rounded-xl border border-border bg-background p-5">
+          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">Phase 2 · 둘째 주</p>
+          <h4 className="mt-2 text-base font-semibold text-foreground">실전 가치 추가</h4>
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm leading-7 text-foreground-muted">
+            <li>reviewer · verifier · docs 서브에이전트</li>
+            <li>Playwright + Context7 MCP 등록</li>
+            <li>SessionStart 컨텍스트 주입 훅</li>
+          </ul>
+        </div>
+        <div className="rounded-xl border border-border bg-background p-5">
+          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">Phase 3 · 한 달 차</p>
+          <h4 className="mt-2 text-base font-semibold text-foreground">조직 표준화</h4>
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm leading-7 text-foreground-muted">
+            <li>path-specific rules 모듈별 분리</li>
+            <li>지표 수집 (도구 호출, 토큰 사용량)</li>
+            <li>plugin 마켓 표준 세트 합의</li>
+          </ul>
+        </div>
+      </div>
+
+      <ProseHeading level={2}>11. 자주 묻는 운영 이슈</ProseHeading>
+      <dl className="my-4 space-y-4">
+        <div className="rounded-xl border border-border bg-background p-5">
+          <dt className="text-base font-semibold text-foreground">
+            Q. 같은 명령을 매번 ask 하는 게 너무 잦습니다.
+          </dt>
+          <dd className="mt-2 text-sm leading-7 text-foreground-muted">
+            허용해도 되는 명령은 allow 매처를 더 구체적으로 잡으십시오. 예를 들어{" "}
+            <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-xs">Bash(pnpm test:*)</code>{" "}
+            처럼 prefix 를 좁히면 ask 빈도를 크게 줄일 수 있습니다. 단, deny 와 충돌하지 않게 평가 순서를 다시
+            확인하셔야 합니다.
+          </dd>
+        </div>
+        <div className="rounded-xl border border-border bg-background p-5">
+          <dt className="text-base font-semibold text-foreground">
+            Q. CLAUDE.md 가 너무 길어집니다.
+          </dt>
+          <dd className="mt-2 text-sm leading-7 text-foreground-muted">
+            본문은 200줄 안쪽으로 두시고, 긴 규칙은 .claude/rules/&lt;name&gt;.md 또는 AGENTS.md 로 분리한 다음
+            <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-xs">@</code> 로 import 하십시오.
+            본문이 무거우면 모델이 마지막에 적힌 규칙만 보고 앞 규칙을 무시합니다.
+          </dd>
+        </div>
+        <div className="rounded-xl border border-border bg-background p-5">
+          <dt className="text-base font-semibold text-foreground">
+            Q. 훅 스크립트가 동작하지 않습니다.
+          </dt>
+          <dd className="mt-2 text-sm leading-7 text-foreground-muted">
+            먼저 실행 권한(<code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-xs">chmod +x</code>)을
+            확인하시고, 절대경로로 셸을 명시하시는 것이 가장 안전합니다(예{" "}
+            <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-xs">/usr/bin/python3 ...</code>).
+            훅이 입력을 어떻게 받는지 모를 때는 stdin 으로{" "}
+            <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-xs">cat &gt;/tmp/payload.json</code>{" "}
+            를 한 번 흘려서 페이로드를 직접 보는 것이 가장 빠릅니다.
+          </dd>
+        </div>
+        <div className="rounded-xl border border-border bg-background p-5">
+          <dt className="text-base font-semibold text-foreground">
+            Q. 토큰 비용이 예상보다 빠르게 늘어납니다.
+          </dt>
+          <dd className="mt-2 text-sm leading-7 text-foreground-muted">
+            거의 모든 경우 메인 세션이 Opus 인 채로 단순 작업까지 다 처리하기 때문입니다. 분류·검색·문서 확인은
+            Haiku 서브에이전트로, 일반 구현은 Sonnet 으로 분리하시는 것만으로도 비용이 절반 이하로 떨어지는
+            경우가 많습니다.
+          </dd>
+        </div>
+      </dl>
+
+      <ProseHeading level={2}>12. 공식 문서 링크 모음</ProseHeading>
+      <ul className="my-4 grid gap-2 sm:grid-cols-2">
+        {CLAUDE_DOC_LINKS.map((link) => (
+          <li key={link.href}>
+            <a
+              href={link.href}
+              target="_blank"
+              rel="noreferrer"
+              className="text-accent hover:underline"
+            >
+              {link.label} ↗
+            </a>
+          </li>
+        ))}
+      </ul>
+
       <Callout tone="tip" title="이 사이트의 견본을 그대로 가져가시려면">
-        본 저장소의 <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-sm">.claude/</code> 디렉터리 전체를 복사해서
-        시작하시는 것이 가장 빠릅니다. 카탈로그 페이지의 각 항목 좌하단에 정확한 파일 경로가 표시되어 있습니다.
+        <p>
+          이 저장소에는{" "}
+          <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-sm">.claude/</code> 최소 예시가 들어
+          있습니다. 실제로 무엇이 어디에 들어가는지 보시려면{" "}
+          <Link href="/catalog/skills" className="text-accent-2 hover:underline">
+            /catalog/skills
+          </Link>{" "}
+          /{" "}
+          <Link href="/catalog/agents" className="text-accent-2 hover:underline">
+            /catalog/agents
+          </Link>{" "}
+          /{" "}
+          <Link href="/catalog/hooks" className="text-accent-2 hover:underline">
+            /catalog/hooks
+          </Link>{" "}
+          /{" "}
+          <Link href="/catalog/rules" className="text-accent-2 hover:underline">
+            /catalog/rules
+          </Link>{" "}
+          카드 하단의 파일 경로 줄을 확인하시면 됩니다.
+        </p>
       </Callout>
     </>
   );

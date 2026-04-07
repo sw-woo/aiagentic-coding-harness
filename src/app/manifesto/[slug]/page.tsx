@@ -30,10 +30,15 @@ export function generateStaticParams() {
   return SLUGS.map((slug) => ({ slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }) {
-  if (!SLUGS.includes(params.slug as Slug)) return {};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  if (!SLUGS.includes(slug as Slug)) return {};
   return {
-    title: TITLES[params.slug as Slug],
+    title: TITLES[slug as Slug],
     robots: {
       index: false,
       follow: false,

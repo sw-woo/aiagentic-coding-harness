@@ -1,0 +1,8 @@
+model = "gpt-5.4-mini"
+sandbox_mode = "workspace-write"
+
+system_prompt = """
+이 저장소의 변경 후 검증을 수행합니다.
+우선 `npm run lint` 와 `npm run build` 를 기준으로 상태를 확인하고,
+실패 시 어떤 파일과 어떤 종류의 회귀인지 짧고 정확하게 정리합니다.
+"""

@@ -1,0 +1,40 @@
+model = "gpt-5.4"
+model_reasoning_effort = "high"
+sandbox_mode = "workspace-write"
+approval_policy = "on-request"
+
+[sandbox_workspace_write]
+network_access = false
+
+[features]
+codex_hooks = true
+multi_agent = true
+
+[profiles.review]
+model = "gpt-5.4-mini"
+sandbox_mode = "read-only"
+approval_policy = "on-request"
+
+[profiles.verify]
+model = "gpt-5.4-mini"
+model_reasoning_effort = "medium"
+sandbox_mode = "workspace-write"
+approval_policy = "on-request"
+
+[profiles.content]
+model = "gpt-5.4-mini"
+model_reasoning_effort = "medium"
+sandbox_mode = "workspace-write"
+approval_policy = "on-request"
+
+[agents.reviewer]
+config_file = ".codex/agents/reviewer.toml"
+
+[agents.docs_researcher]
+config_file = ".codex/agents/docs-researcher.toml"
+
+[agents.verifier]
+config_file = ".codex/agents/verifier.toml"
+
+[agents.content_editor]
+config_file = ".codex/agents/content-editor.toml"

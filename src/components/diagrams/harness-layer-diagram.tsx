@@ -125,10 +125,20 @@ export function HarnessLayerDiagram(): JSX.Element {
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center justify-between gap-3">
                     <div>
-                      <p className="text-xs font-medium uppercase tracking-[0.22em] text-zinc-500">
+                      <p
+                        className={[
+                          'text-xs font-medium uppercase tracking-[0.22em]',
+                          isActive ? 'text-zinc-300' : 'text-zinc-500',
+                        ].join(' ')}
+                      >
                         Layer {index + 1}
                       </p>
-                      <h3 className="mt-1 text-base font-semibold text-foreground sm:text-lg">
+                      <h3
+                        className={[
+                          'mt-1 text-base font-semibold sm:text-lg',
+                          isActive ? 'text-white' : 'text-foreground',
+                        ].join(' ')}
+                      >
                         {layer.title}
                       </h3>
                     </div>
@@ -142,11 +152,23 @@ export function HarnessLayerDiagram(): JSX.Element {
                     </span>
                   </div>
 
-                  <p className="mt-2 line-clamp-2 text-sm text-zinc-400">
+                  <p
+                    className={[
+                      'mt-2 line-clamp-2 text-sm',
+                      isActive ? 'text-zinc-200' : 'text-zinc-400',
+                    ].join(' ')}
+                  >
                     {layer.examples}
                   </p>
 
-                  <code className="mt-3 inline-flex max-w-full rounded-md border border-zinc-800 bg-zinc-950/80 px-2.5 py-1 text-xs text-zinc-300">
+                  <code
+                    className={[
+                      'mt-3 inline-flex max-w-full rounded-md border px-2.5 py-1 text-xs',
+                      isActive
+                        ? 'border-zinc-700 bg-zinc-950/90 text-zinc-100'
+                        : 'border-zinc-800 bg-zinc-950/80 text-zinc-300',
+                    ].join(' ')}
+                  >
                     <span className="truncate">{layer.path}</span>
                   </code>
                 </div>
