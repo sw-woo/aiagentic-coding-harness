@@ -6,6 +6,7 @@ import {
   ProseParagraph,
 } from "@/components/content/prose";
 import { Callout } from "@/components/content/callout";
+import { Infographic } from "@/components/content/infographic";
 
 export const metadata = {
   title: "Claude Code vs Codex CLI",
@@ -137,6 +138,20 @@ export default function ClaudeVsCodexPage() {
             ))}
           </tbody>
         </table>
+      </div>
+
+      <div className="mx-auto mt-16 max-w-5xl px-4 sm:px-6">
+        <Infographic
+          src="/infographics/claude-vs-codex.png"
+          alt="Claude Code 와 Codex CLI 의 핵심 기능 비교 인포그래픽"
+          caption="Claude Code (Anthropic) vs Codex CLI (OpenAI) — 프로젝트 메모리, 런타임 설정, 스킬, 서브에이전트, 권한, 훅, MCP, 샌드박스, 멀티 에이전트까지 한 페이지로 비교한 자료입니다."
+          source={{
+            label: "Google NotebookLM (사이트 source pack 기반 자동 생성)",
+            href: "https://notebooklm.google.com",
+          }}
+          width={2752}
+          height={1536}
+        />
       </div>
 
       <Prose className="mt-16">

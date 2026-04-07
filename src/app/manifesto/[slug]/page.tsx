@@ -146,6 +146,15 @@ function WhyHarnessExists() {
         Sandbox 와 hooks 는 사고를 줄이지만 모든 리스크를 제거하지 않습니다. 인간 검토, 명확한 책임 경계,
         역할 분리는 여전히 필요합니다. 하네스는 그 검토 비용을 줄이는 기반이지, 검토를 대체하는 도구가 아닙니다.
       </Callout>
+      <Infographic
+        src="/infographics/paperclip-guardrails.png"
+        alt="paperclip maximizer 와 그것에 대한 5대 가드레일 인포그래픽"
+        caption="에이전틱 코딩 5대 가드레일 — Bostrom 의 paperclip maximizer 사고실험과 그것에 대한 sandbox · permissions · rules · hooks · verification loops 답을 한 페이지로 정리한 자료입니다."
+        source={{
+          label: "Google NotebookLM (사이트 source pack 기반 자동 생성)",
+          href: "https://notebooklm.google.com",
+        }}
+      />
     </>
   );
 }

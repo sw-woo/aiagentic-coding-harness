@@ -8,6 +8,7 @@ import {
   ProseParagraph,
 } from "@/components/content/prose";
 import { Callout } from "@/components/content/callout";
+import { Infographic } from "@/components/content/infographic";
 
 export const metadata = {
   title: "5-레이어 하네스 아키텍처",
@@ -30,6 +31,18 @@ export default function ArchitectureOverviewPage() {
 
       <div className="mx-auto mt-12 max-w-6xl px-4 sm:px-6">
         <HarnessLayerDiagram />
+      </div>
+
+      <div className="mx-auto mt-12 max-w-3xl px-4 sm:px-6">
+        <Infographic
+          src="/infographics/harness-5-layers.png"
+          alt="에이전트 코딩 5단계 아키텍처 스택을 한 페이지로 정리한 인포그래픽"
+          caption="에이전트 코딩 5단계 아키텍처 스택 — Memory & Context, Skills & Slash Commands, Subagents, Rules & Permissions, Hooks & Sandbox 다섯 레이어를 위에서 아래로 시각화한 자료입니다."
+          source={{
+            label: "Google NotebookLM (사이트 source pack 기반 자동 생성)",
+            href: "https://notebooklm.google.com",
+          }}
+        />
       </div>
 
       <Prose className="mt-20">

@@ -377,6 +377,12 @@ execution: dedicated git worktree`}</CodeExample>
           <li>반복 작업은 skill로 패키지화합니다.</li>
           <li>안정화된 작업만 automation으로 스케줄링합니다.</li>
         </ul>
+        <CodeExample>{`# 시작 체크리스트를 한 번에 요청하는 예시
+Give me:
+1. a plan
+2. an AGENTS.md starter
+3. the exact build/test/review commands
+4. the smallest next step to implement safely.`}</CodeExample>
 
         <ProseHeading level={2}>이 저장소에 적용한 것</ProseHeading>
         <ProseParagraph>
@@ -407,6 +413,11 @@ execution: dedicated git worktree`}</CodeExample>
           <li>hooks: <code>data/catalog/hooks.json</code> 이 Codex/Claude hook 경로와 스크립트를 카탈로그화합니다.</li>
           <li>.omx state: 세션 제어와 상태 지속성은 이미 운용 중인 흔적이 있습니다.</li>
         </ul>
+        <CodeExample>{`# 이 저장소에서 확인된 운영 표면
+AGENTS.md
+.omx/state/notify-hook-state.json
+.omx/state/tmux-hook-state.json
+data/catalog/hooks.json`}</CodeExample>
 
         <ProseHeading level={2}>Sources</ProseHeading>
         <ul className="mt-6 list-disc space-y-2 pl-6 font-serif text-foreground">
