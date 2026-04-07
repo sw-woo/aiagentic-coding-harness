@@ -15,6 +15,7 @@ import {
   type HookItem,
   type RuleItem,
 } from "@/lib/catalog";
+import type { LocalStarterItem } from "@/lib/local-catalog-starters";
 import { cn } from "@/lib/utils";
 
 type Meta = { source: string; sourceUrl: string; generatedAt: string };
@@ -25,6 +26,7 @@ type Props =
       title: string;
       description: string;
       items: SkillItem[];
+      starterItems: LocalStarterItem[];
       meta: Meta;
     }
   | {
@@ -32,6 +34,7 @@ type Props =
       title: string;
       description: string;
       items: AgentItem[];
+      starterItems: LocalStarterItem[];
       meta: Meta;
     }
   | {
@@ -39,6 +42,7 @@ type Props =
       title: string;
       description: string;
       items: HookItem[];
+      starterItems: LocalStarterItem[];
       meta: Meta;
     }
   | {
@@ -46,6 +50,7 @@ type Props =
       title: string;
       description: string;
       items: RuleItem[];
+      starterItems: LocalStarterItem[];
       meta: Meta;
     };
 
@@ -374,12 +379,16 @@ function getApplyRecipe(type: Props["type"], platform: "all" | Platform): ApplyR
   };
 }
 
+function getTargetPathForItem(type: Props["type"], platform: Platform): string {
+  return getApplyRecipe(type, platform).targetPath;
+}
+
 /**
  * 카탈로그 페이지의 클라이언트 셸입니다.
  * type 별로 어떤 카드를 그릴지 내부에서 분기합니다 (RSC 경계 함수 prop 회피).
  */
 export function CatalogPageShell(props: Props) {
-  const { type, title, description, items, meta } = props;
+  const { type, title, description, items, starterItems, meta } = props;
   const [query, setQuery] = React.useState("");
   const [platform, setPlatform] = React.useState<"all" | Platform>("all");
   const guideCards = React.useMemo(() => getGuideCards(type), [type]);
@@ -400,6 +409,95 @@ export function CatalogPageShell(props: Props) {
       return haystack.includes(q);
     });
   }, [items, query, platform]);
+
+  const starterFiltered = React.useMemo(() => {
+    return starterItems.filter((item) => {
+      if (platform !== "all" && item.platform !== platform) return false;
+      return true;
+    });
+  }, [platform, starterItems]);
+
+  async function copyText(text: string) {
+    await navigator.clipboard.writeText(text);
+  }
+
+  function downloadText(filename: string, text: string) {
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = filename;
+    anchor.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function findMatchingStarter(
+    item: SkillItem | AgentItem | HookItem | RuleItem,
+  ): LocalStarterItem | undefined {
+    return starterItems.find(
+      (starter) =>
+        starter.platform === item.platform &&
+        starter.name.toLowerCase() === item.name.toLowerCase(),
+    );
+  }
+
+  function buildItemPrompt(
+    item: SkillItem | AgentItem | HookItem | RuleItem,
+  ): string {
+    const targetPath = getTargetPathForItem(type, item.platform);
+    const detail =
+      "description" in item && typeof item.description === "string"
+        ? item.description
+        : "규칙 또는 설정 항목";
+
+    return [
+      `이 프로젝트에 \`${item.name}\` ${catalogTypeLabels[type]} 항목을 추가해줘.`,
+      `플랫폼: ${platformLabel(item.platform)}`,
+      `권장 위치: ${targetPath}`,
+      `참고 경로: ${item.path}`,
+      `설명: ${detail}`,
+      "",
+      "과장 없이 최소 구조로 만들고, 현재 저장소 규칙과 검증 명령에 맞게 정리해줘.",
+    ].join("\n");
+  }
+
+  function renderItemActions(
+    item: SkillItem | AgentItem | HookItem | RuleItem,
+  ): React.ReactNode {
+    const starter = findMatchingStarter(item);
+
+    return (
+      <div className="mt-4 flex flex-wrap gap-2">
+        <button
+          type="button"
+          onClick={() => copyText(buildItemPrompt(item))}
+          className="rounded-md border border-border bg-surface px-3 py-2 font-mono text-xs text-foreground-muted transition hover:border-accent hover:text-foreground"
+        >
+          프롬프트 복사
+        </button>
+        {starter ? (
+          <>
+            <button
+              type="button"
+              onClick={() => copyText(starter.content)}
+              className="rounded-md border border-border bg-surface px-3 py-2 font-mono text-xs text-foreground-muted transition hover:border-accent hover:text-foreground"
+            >
+              starter 복사
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                downloadText(starter.path.split("/").pop() ?? "starter.txt", starter.content)
+              }
+              className="rounded-md border border-border bg-surface px-3 py-2 font-mono text-xs text-foreground-muted transition hover:border-accent hover:text-foreground"
+            >
+              starter 다운로드
+            </button>
+          </>
+        ) : null}
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[220px_1fr]">
@@ -485,6 +583,57 @@ export function CatalogPageShell(props: Props) {
             ))}
           </div>
         </div>
+
+        {starterFiltered.length > 0 ? (
+          <div className="rounded-2xl border border-border bg-surface px-5 py-5">
+            <p className="font-mono text-xs uppercase tracking-[0.18em] text-foreground-subtle">
+              실제로 바로 가져갈 수 있는 starter
+            </p>
+            <p className="mt-2 text-sm leading-7 text-foreground-muted">
+              아래 항목은 이 저장소에 실제로 들어 있는 starter 파일입니다. 내용 복사나 파일 다운로드로 바로 가져가실 수 있습니다.
+            </p>
+            <div className="mt-4 grid gap-4 xl:grid-cols-3">
+              {starterFiltered.map((item) => (
+                <article
+                  key={item.id}
+                  className="rounded-xl border border-border bg-background px-4 py-4"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <h3 className="font-mono text-sm font-semibold text-foreground">{item.name}</h3>
+                      <p className="mt-1 text-sm text-foreground-muted">{item.description}</p>
+                    </div>
+                    <span className="rounded-sm border border-border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wide text-foreground-muted">
+                      {platformLabel(item.platform)}
+                    </span>
+                  </div>
+                  <div className="mt-4 space-y-1">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-foreground-subtle">
+                      파일 경로
+                    </p>
+                    <code className="block truncate font-mono text-[11px] text-foreground-subtle">{item.path}</code>
+                  </div>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      onClick={() => copyText(item.content)}
+                      className="rounded-md border border-border bg-surface px-3 py-2 font-mono text-xs text-foreground-muted transition hover:border-accent hover:text-foreground"
+                    >
+                      내용 복사
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => downloadText(item.path.split("/").pop() ?? "starter.txt", item.content)}
+                      className="rounded-md border border-border bg-surface px-3 py-2 font-mono text-xs text-foreground-muted transition hover:border-accent hover:text-foreground"
+                    >
+                      파일 다운로드
+                    </button>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        ) : null}
 
         <div className="grid gap-4 xl:grid-cols-[1.1fr_0.9fr]">
           <article className="rounded-2xl border border-border bg-surface px-5 py-5 shadow-[0_10px_30px_rgba(15,23,42,0.04)]">
@@ -609,7 +758,9 @@ export function CatalogPageShell(props: Props) {
                   description={item.description ?? "(설명 없음)"}
                   path={item.path}
                   badges={item.model ? [{ label: item.model }] : undefined}
-                />
+                >
+                  {renderItemActions(item)}
+                </CardShell>
               ))}
 
             {type === "agents" &&
@@ -634,7 +785,9 @@ export function CatalogPageShell(props: Props) {
                         ]
                       : []),
                   ]}
-                />
+                >
+                  {renderItemActions(item)}
+                </CardShell>
               ))}
 
             {type === "hooks" &&
@@ -653,6 +806,7 @@ export function CatalogPageShell(props: Props) {
                   <code className="block truncate rounded bg-surface-2 px-2 py-1 font-mono text-[11px] text-foreground-muted">
                     {item.command}
                   </code>
+                  {renderItemActions(item)}
                 </CardShell>
               ))}
 
@@ -671,7 +825,9 @@ export function CatalogPageShell(props: Props) {
                     },
                     ...(item.category ? [{ label: item.category }] : []),
                   ]}
-                />
+                >
+                  {renderItemActions(item)}
+                </CardShell>
               ))}
           </div>
         )}

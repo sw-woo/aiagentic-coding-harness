@@ -62,6 +62,33 @@ const BUILDING_BLOCKS = [
   },
 ] as const;
 
+const ORCHESTRATION_LAYERS = [
+  {
+    name: "oh-my-claudecode",
+    href: "https://github.com/Yeachan-Heo/oh-my-claudecode",
+    summary:
+      "Claude Code 위에 얹는 멀티에이전트 오케스트레이션 레이어입니다. team 중심 파이프라인, tmux CLI workers, skills, hooks, trace 계층을 제공합니다.",
+    note:
+      "README 기준으로 v4.1.7부터 Team이 표준이고, v4.4.0부터 Codex/Gemini는 MCP 서버가 아니라 tmux CLI worker 방식으로 전환됐습니다.",
+  },
+  {
+    name: "oh-my-codex",
+    href: "https://github.com/Yeachan-Heo/oh-my-codex",
+    summary:
+      "OpenAI Codex CLI 위에 얹는 workflow layer입니다. Codex를 실행 엔진으로 유지하면서 `$deep-interview`, `$ralplan`, `$team`, `$ralph` 같은 표준 workflow를 제공합니다.",
+    note:
+      "README 기준으로 `.omx/` 상태, native Codex hooks, team runtime, sparkshell/explore 같은 보조 표면을 함께 제공합니다.",
+  },
+  {
+    name: "oh-my-opencode",
+    href: "https://github.com/code-yeongyu/oh-my-opencode",
+    summary:
+      "OpenCode 위에 얹는 강한 orchestration/harness 레이어입니다. 다중 모델 오케스트레이션, built-in MCPs, skill-embedded MCPs, tmux, LSP, AST-Grep 같은 확장 표면을 강조합니다.",
+    note:
+      "README는 `ultrawork` 같은 단일 키워드 진입과 OpenCode 설정 파일 위의 plugin/compatibility layer를 핵심 UX로 설명합니다.",
+  },
+] as const;
+
 const MODELS = [
   {
     name: "Gemma 4 31B",
@@ -139,7 +166,31 @@ export default function OpenSourceStackPage() {
           ))}
         </div>
 
-        <ProseHeading level={2}>3. 같이 볼 만한 오픈 모델 축</ProseHeading>
+        <ProseHeading level={2}>3. 그 위에 얹는 오케스트레이션 레이어</ProseHeading>
+        <ProseParagraph>
+          최근 흐름은 런타임 하나만 두고 쓰는 것이 아니라, 그 위에 workflow / team orchestration / hooks / skills / traces를 얹는 방향으로 빠르게 움직이고 있습니다.
+          아래 프로젝트들은 각 런타임 위에 다른 방식의 하네스 레이어를 추가합니다.
+        </ProseParagraph>
+        <div className="mt-6 space-y-4">
+          {ORCHESTRATION_LAYERS.map((item) => (
+            <div key={item.name} className="rounded-xl border border-border bg-surface p-5">
+              <a href={item.href} target="_blank" rel="noreferrer" className="text-xl font-semibold text-foreground hover:text-accent">
+                {item.name}
+              </a>
+              <p className="mt-2 text-sm leading-7 text-foreground-muted">{item.summary}</p>
+              <p className="mt-3 text-sm leading-7 text-foreground">{item.note}</p>
+            </div>
+          ))}
+        </div>
+
+        <Callout tone="note" title="이 셋을 어떻게 읽으면 좋은가">
+          <p>
+            `oh-my-claudecode`는 Claude Code 위의 orchestration layer, `oh-my-codex`는 Codex CLI 위의 workflow layer,
+            `oh-my-opencode`는 OpenCode 위의 강한 harness layer로 보면 이해가 빠릅니다.
+          </p>
+        </Callout>
+
+        <ProseHeading level={2}>4. 같이 볼 만한 오픈 모델 축</ProseHeading>
         <div className="mt-6 grid gap-4 sm:grid-cols-3">
           {MODELS.map((item) => (
             <div key={item.name} className="rounded-xl border border-border bg-surface p-5">
@@ -151,7 +202,7 @@ export default function OpenSourceStackPage() {
           ))}
         </div>
 
-        <ProseHeading level={2}>4. 어디까지 가능한가</ProseHeading>
+        <ProseHeading level={2}>5. 어디까지 가능한가</ProseHeading>
         <ul className="mt-5 list-disc space-y-2 pl-6 text-[16px] leading-8 text-foreground">
           <li>로컬 또는 self-hosted coding assistant 구축</li>
           <li>오픈 모델 + provider-agnostic agent runtime 조합</li>
@@ -166,7 +217,7 @@ export default function OpenSourceStackPage() {
           오픈 런타임은 로컬 검증, 사내 프라이버시 워크플로, 실험 환경, 보조 에이전트 계층에 배치하는 식입니다.
         </ProseParagraph>
 
-        <ProseHeading level={2}>5. 최신 기준으로 추천할 만한 조합</ProseHeading>
+        <ProseHeading level={2}>6. 최신 기준으로 추천할 만한 조합</ProseHeading>
         <div className="mt-6 space-y-4">
           <div className="rounded-xl border border-border bg-surface p-5">
             <h3 className="text-xl font-semibold text-foreground">조합 A — 로컬 pair programming 후보</h3>
@@ -205,7 +256,7 @@ export default function OpenSourceStackPage() {
           </div>
         </div>
 
-        <ProseHeading level={2}>6. 하드웨어 기준으로 보면</ProseHeading>
+        <ProseHeading level={2}>7. 하드웨어 기준으로 보면</ProseHeading>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           <div className="rounded-xl border border-border bg-surface p-5">
             <h3 className="text-lg font-semibold text-foreground">노트북 급</h3>
@@ -230,16 +281,26 @@ export default function OpenSourceStackPage() {
           </div>
         </div>
 
-        <ProseHeading level={2}>7. 실제 사용성 기준으로 보면</ProseHeading>
+        <ProseHeading level={2}>8. 실제 사용성 기준으로 보면</ProseHeading>
         <ul className="mt-5 list-disc space-y-2 pl-6 text-[16px] leading-8 text-foreground">
           <li>빠르게 바로 쓰기: Aider</li>
           <li>provider-agnostic 오픈 런타임: OpenCode</li>
           <li>autonomous development 실험: OpenHands</li>
+          <li>Claude Code 위의 강한 오케스트레이션: oh-my-claudecode</li>
+          <li>Codex CLI 위의 workflow layer: oh-my-codex</li>
+          <li>OpenCode 위의 aggressive harness layer: oh-my-opencode</li>
           <li>오픈 모델만으로 팀 표준화: 가능은 하지만, 운영 편의성과 최신 도구 통합 면에서는 별도 검토가 더 필요합니다</li>
           <li>현실적인 접근 후보: 폐쇄형 메인 세션 + 오픈 런타임/오픈 모델 보조 레이어</li>
         </ul>
 
-        <ProseHeading level={2}>8. 이 사이트와의 연결</ProseHeading>
+        <Callout tone="warning" title="비공식 포크 / 논란성 프로젝트는 별도 취급이 맞습니다">
+          <p>
+            공개 리포가 존재하더라도, 비공식 포크이거나 source leak을 전제로 설명하는 프로젝트는 이 페이지의 주류 추천군에 넣지 않았습니다.
+            이 페이지는 장기 사용과 설명 가능성을 기준으로 주류 오픈소스 축만 정리합니다.
+          </p>
+        </Callout>
+
+        <ProseHeading level={2}>9. 이 사이트와의 연결</ProseHeading>
         <div className="mt-6 grid gap-4 sm:grid-cols-3">
           <Link href="/handbook" className="rounded-xl border border-border bg-surface p-5 transition hover:border-accent">
             <h3 className="text-lg font-semibold text-foreground">핸드북</h3>

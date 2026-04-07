@@ -6,6 +6,7 @@ import {
   catalogTypes,
   type CatalogType,
 } from "@/lib/catalog";
+import { getLocalStarterItems } from "@/lib/local-catalog-starters";
 import { CatalogPageShell } from "@/components/catalog/catalog-page-shell";
 
 export const dynamicParams = false;
@@ -45,6 +46,7 @@ export default async function CatalogTypePage({
         title={`${title} (${catalog.skills.length})`}
         description={description}
         items={catalog.skills}
+        starterItems={getLocalStarterItems("skills")}
         meta={catalog.meta}
       />
     );
@@ -57,6 +59,7 @@ export default async function CatalogTypePage({
         title={`${title} (${catalog.agents.length})`}
         description={description}
         items={catalog.agents}
+        starterItems={getLocalStarterItems("agents")}
         meta={catalog.meta}
       />
     );
@@ -69,6 +72,7 @@ export default async function CatalogTypePage({
         title={`${title} (${catalog.hooks.length})`}
         description={description}
         items={catalog.hooks}
+        starterItems={getLocalStarterItems("hooks")}
         meta={catalog.meta}
       />
     );
@@ -80,6 +84,7 @@ export default async function CatalogTypePage({
       title={`${title} (${catalog.rules.length})`}
       description={description}
       items={catalog.rules}
+      starterItems={getLocalStarterItems("rules")}
       meta={catalog.meta}
     />
   );
