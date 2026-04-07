@@ -24,7 +24,7 @@ const META: Record<Slug, { title: string; eyebrow: string; description: string }
     title: "Codex CLI 하네스 심화 설정 가이드",
     eyebrow: "플레이북 · 02",
     description:
-      "현재 공식 Codex 기능을 기준으로, Kotlin/JVM 프로젝트에 하네스를 깊게 심는 방법을 정리한 실전형 가이드입니다.",
+      "현재 공식 Codex 기능을 기준으로, Codex 하네스를 깊게 설계하는 방법을 정리한 실전형 가이드입니다.",
   },
 };
 
@@ -365,11 +365,11 @@ function CodexWikiPage({
                   Deep Setup Guide
                 </p>
                 <h2 className="mt-3 font-serif text-4xl tracking-tight text-foreground sm:text-5xl">
-                  Kotlin/JVM 저장소용 Codex 하네스를 위키처럼 설계합니다
+                  Codex 하네스를 위키처럼 설계합니다
                 </h2>
                 <p className="mt-5 max-w-4xl text-[17px] leading-8 text-foreground-muted">
                   이 페이지는 짧은 인문서가 아니라, 다른 사람이 그대로 따라 해서 설정을 복구할 수 있는 운영 문서입니다.
-                  서비스 도메인이나 Ktor 세부 구현은 빼고, 메모리·설정·skills·subagents·rules·hooks·MCP 같은 하네스 레이어만 깊게 다룹니다.
+                  서비스 도메인 세부 구현은 빼고, 메모리·설정·skills·subagents·rules·hooks·MCP 같은 하네스 레이어만 깊게 다룹니다.
                 </p>
               </section>
 
@@ -478,14 +478,14 @@ function CodexWikiPage({
                   AGENTS.md 는 작업 계약서처럼 씁니다
                 </h2>
                 <p className="mt-4 text-[16px] leading-8 text-foreground-muted">
-                  Kotlin/JVM 저장소에서 <code className="rounded bg-background px-1.5 py-0.5 font-mono text-sm">AGENTS.md</code> 는
+                  <code className="rounded bg-background px-1.5 py-0.5 font-mono text-sm">AGENTS.md</code> 는
                   “이 프로젝트에서 Codex가 어떻게 행동해야 하는가”를 고정하는 문서입니다. 도메인 설명을 길게 적기보다
                   검증 명령, 금지 명령, 디렉터리 구조, 완료 기준 같은 오래 살아남는 규칙만 두는 편이 낫습니다.
                 </p>
                 <CodeBlock filename="AGENTS.md" language="markdown" className="mt-6">
 {`# AGENTS.md
 
-- 이 저장소는 Kotlin/JVM + Python + frontend가 섞인 플랫폼 저장소입니다.
+- 이 저장소는 여러 계층이 함께 있는 애플리케이션/문서 저장소입니다.
 - 작업 전 우선 문서: README, docs/handoffs/current-state.md, docs/architecture/module-map.md
 - Gradle 검증은 항상 저장소 로컬 캐시를 사용합니다.
 - Python 검증은 PYTHONPATH를 명시합니다.
@@ -512,7 +512,7 @@ function CodexWikiPage({
                 <p className="mt-4 text-[16px] leading-8 text-foreground-muted">
                   <code className="rounded bg-background px-1.5 py-0.5 font-mono text-sm">.codex/config.toml</code> 은
                   모델, reasoning, sandbox, approval, profiles, MCP, subagent 등록을 한 번에 고정합니다.
-                  Kotlin/JVM 저장소에서는 특히 Gradle/JDK 셸 환경과 저장소 로컬 캐시 정책이 중요합니다.
+                  특히 빌드 도구나 런타임 환경이 사용자 셸 프로필에 의존하는 저장소에서는 shell policy 와 profile 분리가 중요합니다.
                 </p>
                 <CodeBlock filename=".codex/config.toml" language="toml" className="mt-6">
 {`# 기본 모델은 이해력과 설명 품질을 우선합니다.
@@ -592,7 +592,7 @@ url = "https://mcp.atlassian.com/v1/mcp"`}
                 </h2>
                 <p className="mt-4 text-[16px] leading-8 text-foreground-muted">
                   안전 장치는 한 층으로 끝내지 않는 편이 좋습니다. Rules 는 선언형 보호막이고, Hooks 는 동적 가드레일입니다.
-                  Kotlin/JVM 플랫폼 저장소에서는 두 층을 같이 써야 위험 명령 차단과 수정 직후 자동 검증이 동시에 살아납니다.
+                  일반적으로 두 층을 같이 써야 위험 명령 차단과 수정 직후 자동 검증이 동시에 살아납니다.
                 </p>
                 <CodeBlock filename=".codex/rules/default.rules" language="text" className="mt-6">
 {`# 파괴적 명령은 금지합니다.
@@ -679,7 +679,7 @@ system_prompt = """
                 <CodeBlock filename=".codex/skills/gradle-codex/SKILL.md" language="markdown" className="mt-6">
 {`# Gradle Codex
 
-이 스킬은 Kotlin/JVM 저장소에서 Gradle 명령을 안전하게 실행하기 위한 워크플로입니다.
+이 스킬은 Gradle 명령을 안전하게 실행하기 위한 워크플로입니다.
 
 ## 규칙
 - 항상 \`source ~/.zshrc >/dev/null 2>&1\` 를 먼저 고려합니다.

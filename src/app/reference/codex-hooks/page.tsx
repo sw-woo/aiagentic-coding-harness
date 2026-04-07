@@ -19,7 +19,7 @@ const SOURCE_LINKS = [
 export const metadata: Metadata = {
   title: "Codex Hooks 심화 가이드",
   description:
-    "OpenAI Codex hooks를 실제 저장소 하네스 관점에서 설명하는 상세 가이드입니다. 위치, 이벤트, JSON payload, Kotlin/JVM용 guardrail 예시, 디버깅 포인트까지 정리합니다.",
+    "OpenAI Codex hooks를 실제 저장소 하네스 관점에서 설명하는 상세 가이드입니다. 위치, 이벤트, JSON payload, guardrail 예시, 디버깅 포인트까지 정리합니다.",
 };
 
 export default function CodexHooksReferencePage() {
@@ -31,7 +31,7 @@ export default function CodexHooksReferencePage() {
         <ProseParagraph>
           이 페이지는 OpenAI Codex의 hooks를 “기능 소개” 수준이 아니라, 실제 저장소 하네스의 동적 guardrail 로 쓰는 관점에서 정리한 문서입니다.
           Claude Code 마스터 같은 사이트가 가진 장점은 훅을 실제 예시와 운영 습관까지 이어서 설명한다는 점인데,
-          그 형식을 참고하되 내용은 Codex 공식 문서와 Kotlin/JVM 저장소 운영 관점에 맞춰 재구성했습니다.
+          그 형식을 참고하되 내용은 Codex 공식 문서와 실제 저장소 운영 관점에 맞춰 재구성했습니다.
         </ProseParagraph>
 
         <Callout tone="note" title="핵심 요약">
@@ -146,9 +146,9 @@ export default function CodexHooksReferencePage() {
 }`}
         </CodeBlock>
 
-        <ProseHeading level={2}>6. Kotlin/JVM 저장소에서 가장 실용적인 PostToolUse</ProseHeading>
+        <ProseHeading level={2}>6. 파일 타입별 PostToolUse를 먼저 설계합니다</ProseHeading>
         <ProseParagraph>
-          이 저장소 같은 Kotlin/JVM 중심 프로젝트에서는 “모든 수정 후 전체 테스트”보다 “수정된 파일 타입에 맞춘 빠른 검증”이 더 중요합니다.
+          일반적으로는 “모든 수정 후 전체 테스트”보다 “수정된 파일 타입에 맞춘 빠른 검증”이 더 중요합니다.
           Kotlin 파일이 바뀌었을 때만 <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-sm">ktlintCheck</code> 를 자동으로 돌리면
           피드백 속도와 안전성이 모두 좋아집니다.
         </ProseParagraph>

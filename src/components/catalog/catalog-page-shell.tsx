@@ -61,6 +61,14 @@ type ExternalLink = {
   href: string;
 };
 
+type QuickStart = {
+  title: string;
+  checklist: string[];
+  snippet: string;
+  snippetLabel: string;
+  starterQueries: string[];
+};
+
 const TONE_STYLES = {
   default: "border-border text-foreground-muted",
   success: "border-success/50 text-success",
@@ -202,17 +210,17 @@ function getGuideCards(type: Props["type"]): GuideCard[] {
     {
       title: "무엇을 보는 페이지인가",
       description:
-        "에이전트가 무엇을 허용받고, 무엇을 차단당하고, 무엇은 승인 후에만 실행해야 하는지를 선언적으로 적어 둔 정책 목록입니다.",
+        "에이전트가 무엇을 허용받고, 무엇을 차단당하고, 무엇은 승인 후에만 실행해야 하는지를 선언적으로 적어 둔 정책 목록입니다. 읽기용 설명보다 실제 안전선 정의에 가깝습니다.",
     },
     {
-      title: "어떻게 고르면 좋은가",
+      title: "어떻게 적용하나",
       description:
-        "결정값부터 보십시오. 허용보다 prompt와 forbidden이 먼저 중요합니다. 실무에서는 위험 명령과 외부 반영 명령이 어디에 걸리는지가 핵심입니다.",
+        "먼저 `forbidden` 으로 정말 위험한 명령을 막고, 그 다음 `prompt` 로 사람 확인이 필요한 명령을 분리하십시오. Codex는 `.codex/rules/default.rules`, Claude는 `.claude/settings.json` permissions 쪽에 대응시켜 넣는 식이 기본입니다.",
     },
     {
-      title: "다음 단계",
+      title: "무엇부터 복사하면 좋은가",
       description:
-        "rules는 보안과 가드레일 관점에서 같이 읽어야 효과가 있습니다. sandbox, hooks, MCP governance와 묶어서 이해하는 편이 정확합니다.",
+        "처음에는 `git reset --hard`, `rm -rf`, `terraform destroy`, `kubectl delete` 같은 파괴 명령과 `git push`, `gh pr create` 같은 외부 반영 명령만 먼저 넣으십시오. 그 다음에 저장소 특화 정책을 추가하는 편이 가장 안전합니다.",
       href: "/reference/security-guardrails",
       hrefLabel: "보안 / 가드레일 보기",
     },
@@ -255,6 +263,66 @@ function getExternalLinks(type: Props["type"]): ExternalLink[] {
   ];
 }
 
+function getQuickStart(type: Props["type"]): QuickStart {
+  if (type === "skills") {
+    return {
+      title: "바로 적용 순서",
+      checklist: [
+        "플랫폼 필터를 먼저 고릅니다.",
+        "현재 작업과 가장 가까운 skill 이름으로 검색합니다.",
+        "카드 하단의 파일 경로를 기준으로 자기 프로젝트에 같은 구조를 만듭니다.",
+        "처음에는 review, verify, gradle 같이 반복성이 높은 skill만 가져갑니다.",
+      ],
+      snippetLabel: "예시 구조",
+      snippet: `.agents/skills/review/SKILL.md\n.agents/skills/verify/SKILL.md\n.codex/skills/<name>/SKILL.md`,
+      starterQueries: ["review", "verify", "gradle", "deploy"],
+    };
+  }
+
+  if (type === "agents") {
+    return {
+      title: "바로 적용 순서",
+      checklist: [
+        "메인 에이전트가 혼자 하기 부담스러운 역할을 먼저 고릅니다.",
+        "reviewer, verifier, docs-researcher처럼 좁은 역할부터 시작합니다.",
+        "카드 하단 파일 경로를 기준으로 `.codex/agents/*.toml` 또는 `.claude/agents/*.md`에 옮깁니다.",
+        "write 권한이 필요한 agent는 최소화합니다.",
+      ],
+      snippetLabel: "예시 구조",
+      snippet: `.codex/agents/reviewer.toml\n.codex/agents/verifier.toml\n.claude/agents/content-reviewer.md`,
+      starterQueries: ["reviewer", "verifier", "docs", "content"],
+    };
+  }
+
+  if (type === "hooks") {
+    return {
+      title: "바로 적용 순서",
+      checklist: [
+        "먼저 SessionStart와 PreToolUse 두 개만 넣습니다.",
+        "hook 스크립트는 짧고 결정적으로 유지합니다.",
+        "카드의 event와 matcher를 보고, 자기 프로젝트 수명주기와 맞는지 확인합니다.",
+        "무거운 전체 테스트는 hook보다 verify 스크립트로 내리는 편이 안전합니다.",
+      ],
+      snippetLabel: "예시 구조",
+      snippet: `.codex/hooks.json\n.codex/hooks/session_start_context.py\n.codex/hooks/pre_bash_guard.py`,
+      starterQueries: ["SessionStart", "PreToolUse", "PostToolUse", "ktlint"],
+    };
+  }
+
+  return {
+    title: "바로 적용 순서",
+    checklist: [
+      "처음에는 forbidden과 prompt 규칙만 잡습니다.",
+      "정말 위험한 명령은 forbidden, 사람 확인이 필요한 명령은 prompt로 둡니다.",
+      "카드 하단 경로를 기준으로 `.codex/rules/default.rules` 또는 `.claude/settings.json` permissions에 옮깁니다.",
+      "저장소 특화 규칙은 나중에 추가합니다.",
+    ],
+    snippetLabel: "예시 구조",
+    snippet: `prefix_rule(["git", "reset", "--hard"], "forbidden")\nprefix_rule(["rm", "-rf"], "forbidden")\nprefix_rule(["git", "push"], "prompt")`,
+    starterQueries: ["forbidden", "prompt", "git", "kubectl"],
+  };
+}
+
 /**
  * 카탈로그 페이지의 클라이언트 셸입니다.
  * type 별로 어떤 카드를 그릴지 내부에서 분기합니다 (RSC 경계 함수 prop 회피).
@@ -265,6 +333,7 @@ export function CatalogPageShell(props: Props) {
   const [platform, setPlatform] = React.useState<"all" | Platform>("all");
   const guideCards = React.useMemo(() => getGuideCards(type), [type]);
   const externalLinks = React.useMemo(() => getExternalLinks(type), [type]);
+  const quickStart = React.useMemo(() => getQuickStart(type), [type]);
 
   const filtered = React.useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -363,6 +432,48 @@ export function CatalogPageShell(props: Props) {
               </a>
             ))}
           </div>
+        </div>
+
+        <div className="grid gap-4 xl:grid-cols-[1.1fr_0.9fr]">
+          <article className="rounded-2xl border border-border bg-surface px-5 py-5 shadow-[0_10px_30px_rgba(15,23,42,0.04)]">
+            <p className="font-mono text-xs uppercase tracking-[0.18em] text-foreground-subtle">
+              {quickStart.title}
+            </p>
+            <ol className="mt-4 space-y-3">
+              {quickStart.checklist.map((step, index) => (
+                <li key={step} className="flex items-start gap-3">
+                  <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-border font-mono text-[11px] text-foreground-subtle">
+                    {index + 1}
+                  </span>
+                  <p className="text-sm leading-7 text-foreground-muted">{step}</p>
+                </li>
+              ))}
+            </ol>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {quickStart.starterQueries.map((starter) => (
+                <button
+                  key={starter}
+                  type="button"
+                  onClick={() => setQuery(starter)}
+                  className="rounded-md border border-border bg-background px-3 py-2 font-mono text-xs text-foreground-muted transition hover:border-accent hover:text-foreground"
+                >
+                  {starter}
+                </button>
+              ))}
+            </div>
+          </article>
+
+          <article className="rounded-2xl border border-border bg-surface px-5 py-5 shadow-[0_10px_30px_rgba(15,23,42,0.04)]">
+            <p className="font-mono text-xs uppercase tracking-[0.18em] text-foreground-subtle">
+              {quickStart.snippetLabel}
+            </p>
+            <pre className="mt-4 overflow-x-auto rounded-xl border border-border bg-background px-4 py-4 font-mono text-[12px] leading-6 text-foreground">
+              <code>{quickStart.snippet}</code>
+            </pre>
+            <p className="mt-4 text-sm leading-7 text-foreground-muted">
+              위 구조를 기준으로 자기 프로젝트에 동일한 파일/디렉터리를 만들고, 카드에서 고른 항목 내용을 옮기면 됩니다.
+            </p>
+          </article>
         </div>
 
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">

@@ -121,7 +121,7 @@ export default function CodexOfficialReferencePage() {
           <Link href="/reference/codex-hooks" className="rounded-xl border border-border bg-surface p-5 transition hover:border-accent">
             <h3 className="text-lg font-semibold text-foreground">Codex Hooks 심화 가이드</h3>
             <p className="mt-2 text-sm leading-7 text-foreground-muted">
-              공식 hooks 문서를 실제 Kotlin/JVM 하네스 관점으로 풀어 쓴 상세 가이드입니다.
+              공식 hooks 문서를 실제 저장소 하네스 관점으로 풀어 쓴 상세 가이드입니다.
             </p>
           </Link>
           <Link href="/playbook/setup-codex" className="rounded-xl border border-border bg-surface p-5 transition hover:border-accent">
