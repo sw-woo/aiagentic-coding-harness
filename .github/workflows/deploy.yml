@@ -1,0 +1,180 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  LAST_COMMIT_HASH: ${{ github.sha }}
+
+jobs:
+  build-check:
+    name: build-check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Install dependencies
+        shell: bash
+        run: |
+          if [ -f package.json ]; then
+            pnpm install
+          else
+            echo "package.json not found yet; skipping pnpm install."
+          fi
+
+      - name: Build site
+        shell: bash
+        run: |
+          if [ -f package.json ]; then
+            pnpm build
+          else
+            echo "package.json not found yet; skipping pnpm build."
+          fi
+
+  deploy-preview:
+    name: deploy-preview
+    runs-on: ubuntu-latest
+    needs: build-check
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Deploy preview to Vercel
+        id: deploy
+        shell: bash
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          if [ ! -f package.json ]; then
+            echo "deployment_url=" >> "$GITHUB_OUTPUT"
+            echo "package.json not found yet; skipping preview deployment."
+            exit 0
+          fi
+
+          vercel pull --yes --environment=preview --token="$VERCEL_TOKEN"
+          vercel build --token="$VERCEL_TOKEN"
+          vercel deploy --prebuilt --token="$VERCEL_TOKEN" > deployment-url.txt
+          deployment_url="$(cat deployment-url.txt)"
+          echo "deployment_url=$deployment_url" >> "$GITHUB_OUTPUT"
+
+      - name: Compose PR comment
+        id: comment-body
+        shell: bash
+        env:
+          DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment_url }}
+        run: |
+          {
+            echo "body<<'EOF'"
+            echo "<!-- vercel-preview-comment -->"
+            if [ -n "$DEPLOYMENT_URL" ]; then
+              echo "Vercel 프리뷰 배포가 준비되었습니다."
+              echo
+              echo "- Preview URL: $DEPLOYMENT_URL"
+              echo "- Commit SHA: \`$LAST_COMMIT_HASH\`"
+            else
+              echo "\`package.json\`이 아직 준비되지 않아 Vercel 프리뷰 배포를 건너뛰었습니다."
+            fi
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Comment preview URL on PR
+        uses: actions/github-script@v8
+        env:
+          COMMENT_BODY: ${{ steps.comment-body.outputs.body }}
+        with:
+          script: |
+            const marker = '<!-- vercel-preview-comment -->';
+            const body = process.env.COMMENT_BODY;
+            const issue_number = context.issue.number;
+            const { owner, repo } = context.repo;
+
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner,
+              repo,
+              issue_number,
+              per_page: 100,
+            });
+
+            const existing = comments.find((comment) => {
+              return comment.user?.type === 'Bot' && comment.body?.includes(marker);
+            });
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner,
+                repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number,
+                body,
+              });
+            }
+
+  deploy-production:
+    name: deploy-production
+    runs-on: ubuntu-latest
+    needs: build-check
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Deploy production to Vercel
+        shell: bash
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          if [ ! -f package.json ]; then
+            echo "package.json not found yet; skipping production deployment."
+            exit 0
+          fi
+
+          vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+          vercel build --prod --token="$VERCEL_TOKEN"
+          vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN"

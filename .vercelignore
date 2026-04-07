@@ -1,0 +1,11 @@
+.git
+node_modules
+.next
+.turbo
+docs/research/*.tmp
+.env*
+.DS_Store
+dist
+build
+out
+coverage

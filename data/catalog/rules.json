@@ -1,0 +1,671 @@
+{
+  "source": "kotlin-codex",
+  "sourceUrl": "ssh://git@rnd-app.innogrid.com:8102/sungwoo/kotlin-codex-harness.git",
+  "generatedAt": "2026-04-07",
+  "items": [
+    {
+      "id": "claude-api-security-md-aiops-api-auth",
+      "name": "API 인증/보안 규칙 (localdocs/07 기준)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/rules/api-security.md",
+      "pattern": "aiops-api/**/auth/**",
+      "decision": "allow",
+      "category": "api-security",
+      "frontmatter": {
+        "paths": [
+          "aiops-api/**/auth/**",
+          "aiops-api/**/Routes.kt",
+          "aiops-api/**/Plugins.kt",
+          "frontend/src/**/*.{ts,tsx}"
+        ]
+      },
+      "firstParagraph": "",
+      "content": "# API 인증/보안 규칙 (localdocs/07 기준)\n\n## 인증 흐름\n\n- **브라우저 UI**: Authorization Code Flow + PKCE (기본)\n- **내부/신뢰 1st-party 클라이언트**: Password Grant (내부 전용)\n- Keycloak client: Confidential — client_secret 필수\n\n## 엔드포인트 분류\n\n- **Public**: `/health`, `/metrics` (metrics는 프로덕션 노출 금지)\n- **Auth**: `/auth/login`, `/auth/callback`, `/auth/token`, `/auth/refresh`, `/auth/logout`\n- **Protected**: `/api/v1/*` — JWT + `authenticate(\"web\")` 필수\n\n## 보안 원칙\n\n- `/metrics`는 내부 스크래핑 경로로만 접근\n- 모든 `/api/v1/*` 라우트에 JWT + 역할 검증\n- 멀티테넌트: 역할 검증 외에 project_scope 검증도 필수\n- UI 숨김으로 권한 대체 금지 — 서버에서 차단\n\n## 로컬 개발 인증정보 (localdocs/11 기준)\n\n- 인증정보는 `.env.local`에만 저장 (Git 제외)\n- Keycloak realm: innogrid, client: aiops (Confidential)"
+    },
+    {
+      "id": "claude-api-security-md-aiops-api-routes-kt",
+      "name": "API 인증/보안 규칙 (localdocs/07 기준)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/rules/api-security.md",
+      "pattern": "aiops-api/**/Routes.kt",
+      "decision": "allow",
+      "category": "api-security",
+      "frontmatter": {
+        "paths": [
+          "aiops-api/**/auth/**",
+          "aiops-api/**/Routes.kt",
+          "aiops-api/**/Plugins.kt",
+          "frontend/src/**/*.{ts,tsx}"
+        ]
+      },
+      "firstParagraph": "",
+      "content": "# API 인증/보안 규칙 (localdocs/07 기준)\n\n## 인증 흐름\n\n- **브라우저 UI**: Authorization Code Flow + PKCE (기본)\n- **내부/신뢰 1st-party 클라이언트**: Password Grant (내부 전용)\n- Keycloak client: Confidential — client_secret 필수\n\n## 엔드포인트 분류\n\n- **Public**: `/health`, `/metrics` (metrics는 프로덕션 노출 금지)\n- **Auth**: `/auth/login`, `/auth/callback`, `/auth/token`, `/auth/refresh`, `/auth/logout`\n- **Protected**: `/api/v1/*` — JWT + `authenticate(\"web\")` 필수\n\n## 보안 원칙\n\n- `/metrics`는 내부 스크래핑 경로로만 접근\n- 모든 `/api/v1/*` 라우트에 JWT + 역할 검증\n- 멀티테넌트: 역할 검증 외에 project_scope 검증도 필수\n- UI 숨김으로 권한 대체 금지 — 서버에서 차단\n\n## 로컬 개발 인증정보 (localdocs/11 기준)\n\n- 인증정보는 `.env.local`에만 저장 (Git 제외)\n- Keycloak realm: innogrid, client: aiops (Confidential)"
+    },
+    {
+      "id": "claude-api-security-md-aiops-api-plugins-kt",
+      "name": "API 인증/보안 규칙 (localdocs/07 기준)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/rules/api-security.md",
+      "pattern": "aiops-api/**/Plugins.kt",
+      "decision": "allow",
+      "category": "api-security",
+      "frontmatter": {
+        "paths": [
+          "aiops-api/**/auth/**",
+          "aiops-api/**/Routes.kt",
+          "aiops-api/**/Plugins.kt",
+          "frontend/src/**/*.{ts,tsx}"
+        ]
+      },
+      "firstParagraph": "",
+      "content": "# API 인증/보안 규칙 (localdocs/07 기준)\n\n## 인증 흐름\n\n- **브라우저 UI**: Authorization Code Flow + PKCE (기본)\n- **내부/신뢰 1st-party 클라이언트**: Password Grant (내부 전용)\n- Keycloak client: Confidential — client_secret 필수\n\n## 엔드포인트 분류\n\n- **Public**: `/health`, `/metrics` (metrics는 프로덕션 노출 금지)\n- **Auth**: `/auth/login`, `/auth/callback`, `/auth/token`, `/auth/refresh`, `/auth/logout`\n- **Protected**: `/api/v1/*` — JWT + `authenticate(\"web\")` 필수\n\n## 보안 원칙\n\n- `/metrics`는 내부 스크래핑 경로로만 접근\n- 모든 `/api/v1/*` 라우트에 JWT + 역할 검증\n- 멀티테넌트: 역할 검증 외에 project_scope 검증도 필수\n- UI 숨김으로 권한 대체 금지 — 서버에서 차단\n\n## 로컬 개발 인증정보 (localdocs/11 기준)\n\n- 인증정보는 `.env.local`에만 저장 (Git 제외)\n- Keycloak realm: innogrid, client: aiops (Confidential)"
+    },
+    {
+      "id": "claude-api-security-md-frontend-src-ts-tsx",
+      "name": "API 인증/보안 규칙 (localdocs/07 기준)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/rules/api-security.md",
+      "pattern": "frontend/src/**/*.{ts,tsx}",
+      "decision": "allow",
+      "category": "api-security",
+      "frontmatter": {
+        "paths": [
+          "aiops-api/**/auth/**",
+          "aiops-api/**/Routes.kt",
+          "aiops-api/**/Plugins.kt",
+          "frontend/src/**/*.{ts,tsx}"
+        ]
+      },
+      "firstParagraph": "",
+      "content": "# API 인증/보안 규칙 (localdocs/07 기준)\n\n## 인증 흐름\n\n- **브라우저 UI**: Authorization Code Flow + PKCE (기본)\n- **내부/신뢰 1st-party 클라이언트**: Password Grant (내부 전용)\n- Keycloak client: Confidential — client_secret 필수\n\n## 엔드포인트 분류\n\n- **Public**: `/health`, `/metrics` (metrics는 프로덕션 노출 금지)\n- **Auth**: `/auth/login`, `/auth/callback`, `/auth/token`, `/auth/refresh`, `/auth/logout`\n- **Protected**: `/api/v1/*` — JWT + `authenticate(\"web\")` 필수\n\n## 보안 원칙\n\n- `/metrics`는 내부 스크래핑 경로로만 접근\n- 모든 `/api/v1/*` 라우트에 JWT + 역할 검증\n- 멀티테넌트: 역할 검증 외에 project_scope 검증도 필수\n- UI 숨김으로 권한 대체 금지 — 서버에서 차단\n\n## 로컬 개발 인증정보 (localdocs/11 기준)\n\n- 인증정보는 `.env.local`에만 저장 (Git 제외)\n- Keycloak realm: innogrid, client: aiops (Confidential)"
+    },
+    {
+      "id": "codex-brew-install",
+      "name": "brew install",
+      "source": "codex",
+      "platform": "codex",
+      "path": ".codex/rules/default.rules",
+      "pattern": "brew install",
+      "patternParts": [
+        "brew",
+        "install"
+      ],
+      "decision": "prompt",
+      "category": "brew",
+      "justification": "Installing system packages should always be confirmed explicitly.",
+      "match": [
+        "brew install openjdk@21",
+        "brew install gradle"
+      ],
+      "notMatch": [
+        "brew info openjdk@21"
+      ]
+    },
+    {
+      "id": "codex-gh-pr-create",
+      "name": "gh pr create",
+      "source": "codex",
+      "platform": "codex",
+      "path": ".codex/rules/default.rules",
+      "pattern": "gh pr create",
+      "patternParts": [
+        "gh",
+        "pr",
+        "create"
+      ],
+      "decision": "prompt",
+      "category": "gh",
+      "justification": "Opening pull requests should be confirmed explicitly.",
+      "match": [
+        "gh pr create --fill",
+        "gh pr create --title test --body body"
+      ],
+      "notMatch": [
+        "gh pr view 1"
+      ]
+    },
+    {
+      "id": "codex-git-push",
+      "name": "git push",
+      "source": "codex",
+      "platform": "codex",
+      "path": ".codex/rules/default.rules",
+      "pattern": "git push",
+      "patternParts": [
+        "git",
+        "push"
+      ],
+      "decision": "prompt",
+      "category": "git",
+      "justification": "Publishing commits outside the local repository should always be deliberate.",
+      "match": [
+        "git push origin main",
+        "git push --set-upstream origin feature/test"
+      ],
+      "notMatch": [
+        "git pull origin main"
+      ]
+    },
+    {
+      "id": "codex-git-reset-hard",
+      "name": "git reset --hard",
+      "source": "codex",
+      "platform": "codex",
+      "path": ".codex/rules/default.rules",
+      "pattern": "git reset --hard",
+      "patternParts": [
+        "git",
+        "reset",
+        "--hard"
+      ],
+      "decision": "forbidden",
+      "category": "git",
+      "justification": "Hard resets are destructive and should not run outside the sandbox.",
+      "match": [
+        "git reset --hard",
+        "git reset --hard HEAD~1"
+      ],
+      "notMatch": [
+        "git reset --soft HEAD~1"
+      ]
+    },
+    {
+      "id": "codex-helm-uninstall",
+      "name": "helm uninstall",
+      "source": "codex",
+      "platform": "codex",
+      "path": ".codex/rules/default.rules",
+      "pattern": "helm uninstall",
+      "patternParts": [
+        "helm",
+        "uninstall"
+      ],
+      "decision": "forbidden",
+      "category": "helm",
+      "justification": "Helm uninstall commands are destructive and should not run outside a human-controlled workflow.",
+      "match": [
+        "helm uninstall aiops"
+      ],
+      "notMatch": [
+        "helm list"
+      ]
+    },
+    {
+      "id": "codex-helm-upgrade",
+      "name": "helm upgrade",
+      "source": "codex",
+      "platform": "codex",
+      "path": ".codex/rules/default.rules",
+      "pattern": "helm upgrade",
+      "patternParts": [
+        "helm",
+        "upgrade"
+      ],
+      "decision": "prompt",
+      "category": "helm",
+      "justification": "Helm upgrade commands can mutate running platform workloads and should be confirmed.",
+      "match": [
+        "helm upgrade aiops chart/",
+        "helm upgrade --install aiops chart/"
+      ],
+      "notMatch": [
+        "helm template aiops chart/"
+      ]
+    },
+    {
+      "id": "claude-kotlin-md-kt",
+      "name": "Kotlin 규칙",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/rules/kotlin.md",
+      "pattern": "**/*.kt",
+      "decision": "allow",
+      "category": "kotlin",
+      "frontmatter": {
+        "paths": [
+          "**/*.kt",
+          "**/*.kts"
+        ]
+      },
+      "firstParagraph": "",
+      "content": "# Kotlin 규칙\n\n- `.editorconfig`와 `ktlint` 준수; 와일드카드 임포트 금지\n- 불변 값, 작은 함수, public 경계에서 명시적 타입 선호\n- 비동기 작업에 코루틴 사용; 프레임워크 배선을 도메인 코드에서 분리\n- JDK 21 타겟; Gradle wrapper 사용 (`./gradlew`)\n- 행동 변경 시 반드시 테스트 추가/수정\n- Gradle 실행 전 반드시: `source ~/.zshrc >/dev/null 2>&1; export GRADLE_USER_HOME=\"$PWD/.gradle-user\"`"
+    },
+    {
+      "id": "claude-kotlin-md-kts",
+      "name": "Kotlin 규칙",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/rules/kotlin.md",
+      "pattern": "**/*.kts",
+      "decision": "allow",
+      "category": "kotlin",
+      "frontmatter": {
+        "paths": [
+          "**/*.kt",
+          "**/*.kts"
+        ]
+      },
+      "firstParagraph": "",
+      "content": "# Kotlin 규칙\n\n- `.editorconfig`와 `ktlint` 준수; 와일드카드 임포트 금지\n- 불변 값, 작은 함수, public 경계에서 명시적 타입 선호\n- 비동기 작업에 코루틴 사용; 프레임워크 배선을 도메인 코드에서 분리\n- JDK 21 타겟; Gradle wrapper 사용 (`./gradlew`)\n- 행동 변경 시 반드시 테스트 추가/수정\n- Gradle 실행 전 반드시: `source ~/.zshrc >/dev/null 2>&1; export GRADLE_USER_HOME=\"$PWD/.gradle-user\"`"
+    },
+    {
+      "id": "claude-kotlin-patterns-md-aiops-api-kt",
+      "name": "Kotlin/Ktor 코드 패턴 (localdocs/09 기준)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/rules/kotlin-patterns.md",
+      "pattern": "aiops-api/**/*.kt",
+      "decision": "allow",
+      "category": "kotlin-patterns",
+      "frontmatter": {
+        "paths": [
+          "aiops-api/**/*.kt",
+          "mlops-orchestrator/**/*.kt"
+        ]
+      },
+      "firstParagraph": "모든 기능은 이 구조를 따른다:",
+      "content": "# Kotlin/Ktor 코드 패턴 (localdocs/09 기준)\n\n## 기능 추가 시 4-Layer 구조 (localdocs/04 기준)\n\n모든 기능은 이 구조를 따른다:\n```\nfeature/<name>/\n├── api/        → HTTP 라우트, Koin 주입, 응답 처리\n├── service/    → 비즈니스 로직, suspend 함수, DTO 매핑\n├── repository/ → jOOQ DSL, AbstractRepository 상속\n└── di/         → Koin 모듈 등록\n```\n\n의존 방향: `api → service → repository → DSLContext`\n\n## Ktor 패턴\n\n- Application extension function으로 라우트 진입점\n- `createApplicationPlugin()` + Configuration DSL로 커스텀 플러그인\n- `application.conf` 모듈: `com.innogrid.ApplicationKt.module`\n- HOCON → data class 매핑은 `toAppConfig()`\n- `Application.attributes`로 크로스모듈 리소스 공유\n\n## DI (Koin)\n\n- `single { }`: 싱글턴, `factory { }`: 임시\n- 직접 객체 생성 금지 — 항상 DI 경유\n- 라우트에서 `keycloakPrincipal` 추출 필수\n\n## 서비스 레이어\n\n- 모든 서비스 메서드는 `suspend` (코루틴)\n- HikariCP: Java 21 Virtual Thread factory 사용"
+    },
+    {
+      "id": "claude-kotlin-patterns-md-mlops-orchestrator-kt",
+      "name": "Kotlin/Ktor 코드 패턴 (localdocs/09 기준)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/rules/kotlin-patterns.md",
+      "pattern": "mlops-orchestrator/**/*.kt",
+      "decision": "allow",
+      "category": "kotlin-patterns",
+      "frontmatter": {
+        "paths": [
+          "aiops-api/**/*.kt",
+          "mlops-orchestrator/**/*.kt"
+        ]
+      },
+      "firstParagraph": "모든 기능은 이 구조를 따른다:",
+      "content": "# Kotlin/Ktor 코드 패턴 (localdocs/09 기준)\n\n## 기능 추가 시 4-Layer 구조 (localdocs/04 기준)\n\n모든 기능은 이 구조를 따른다:\n```\nfeature/<name>/\n├── api/        → HTTP 라우트, Koin 주입, 응답 처리\n├── service/    → 비즈니스 로직, suspend 함수, DTO 매핑\n├── repository/ → jOOQ DSL, AbstractRepository 상속\n└── di/         → Koin 모듈 등록\n```\n\n의존 방향: `api → service → repository → DSLContext`\n\n## Ktor 패턴\n\n- Application extension function으로 라우트 진입점\n- `createApplicationPlugin()` + Configuration DSL로 커스텀 플러그인\n- `application.conf` 모듈: `com.innogrid.ApplicationKt.module`\n- HOCON → data class 매핑은 `toAppConfig()`\n- `Application.attributes`로 크로스모듈 리소스 공유\n\n## DI (Koin)\n\n- `single { }`: 싱글턴, `factory { }`: 임시\n- 직접 객체 생성 금지 — 항상 DI 경유\n- 라우트에서 `keycloakPrincipal` 추출 필수\n\n## 서비스 레이어\n\n- 모든 서비스 메서드는 `suspend` (코루틴)\n- HikariCP: Java 21 Virtual Thread factory 사용"
+    },
+    {
+      "id": "codex-kubectl-apply",
+      "name": "kubectl apply",
+      "source": "codex",
+      "platform": "codex",
+      "path": ".codex/rules/default.rules",
+      "pattern": "kubectl apply",
+      "patternParts": [
+        "kubectl",
+        "apply"
+      ],
+      "decision": "prompt",
+      "category": "kubectl",
+      "justification": "Cluster apply commands should be deliberate in an AIOps/MLOps platform.",
+      "match": [
+        "kubectl apply -f manifest.yaml",
+        "kubectl apply -k overlays/staging"
+      ],
+      "notMatch": [
+        "kubectl diff -f manifest.yaml"
+      ]
+    },
+    {
+      "id": "codex-kubectl-delete",
+      "name": "kubectl delete",
+      "source": "codex",
+      "platform": "codex",
+      "path": ".codex/rules/default.rules",
+      "pattern": "kubectl delete",
+      "patternParts": [
+        "kubectl",
+        "delete"
+      ],
+      "decision": "forbidden",
+      "category": "kubectl",
+      "justification": "Cluster delete commands require a human-controlled workflow.",
+      "match": [
+        "kubectl delete pod api-0",
+        "kubectl delete -f manifest.yaml"
+      ],
+      "notMatch": [
+        "kubectl get pods"
+      ]
+    },
+    {
+      "id": "codex-mlflow-models-delete",
+      "name": "mlflow models delete",
+      "source": "codex",
+      "platform": "codex",
+      "path": ".codex/rules/default.rules",
+      "pattern": "mlflow models delete",
+      "patternParts": [
+        "mlflow",
+        "models",
+        "delete"
+      ],
+      "decision": "forbidden",
+      "category": "mlflow",
+      "justification": "Model deletion commands are destructive and should not run outside a human-controlled workflow.",
+      "match": [
+        "mlflow models delete -m my-model -v 3"
+      ],
+      "notMatch": [
+        "mlflow models list"
+      ]
+    },
+    {
+      "id": "claude-python-mlops-md-python-mlops-py",
+      "name": "Python MLOps 규칙",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/rules/python-mlops.md",
+      "pattern": "python-mlops/**/*.py",
+      "decision": "allow",
+      "category": "python-mlops",
+      "frontmatter": {
+        "paths": [
+          "python-mlops/**/*.py"
+        ]
+      },
+      "firstParagraph": "",
+      "content": "# Python MLOps 규칙\n\n- 오프라인 안전 로직만 — 프로덕션 모델 변이 금지\n- 타입 힌트, 결정론적 설정, 명시적 임계값 사용\n- 실험 코드와 프로덕션 서빙 코드 분리\n- 테스트: `PYTHONPATH=python-mlops python3 -m unittest discover python-mlops/tests -v`\n- 린트: `cd python-mlops && ruff check . && ruff format --check .`"
+    },
+    {
+      "id": "claude-python-integration-md-python-mlops-py",
+      "name": "Python-Kotlin 통합 규칙 (localdocs/06, 08 기준)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/rules/python-integration.md",
+      "pattern": "python-mlops/**/*.py",
+      "decision": "allow",
+      "category": "python-integration",
+      "frontmatter": {
+        "paths": [
+          "python-mlops/**/*.py",
+          "aiops-api/**/python/**",
+          "aiops-api/**/rabbitmq/**"
+        ]
+      },
+      "firstParagraph": "",
+      "content": "# Python-Kotlin 통합 규칙 (localdocs/06, 08 기준)\n\n## RabbitMQ 통합 패턴\n\n- **동기 (RPC)**: `rabbitRpc()` — 10초 이내 작업만 (드리프트 LLM 품질 검사, 임베딩)\n- **비동기 (async+callback)**: `rabbitPublish()` + 내부 콜백 라우트 — 장시간 작업\n\n## 메시지 형식\n\n```json\n{\n  \"correlationId\": \"uuid\",\n  \"replyTo\": \"queue-name\",\n  ...body\n}\n```\n- JSON camelCase\n- correlation_id로 요청-응답 매칭\n\n## Python 기능 유형\n\n- **Type A**: 패스스루 — 결과 그대로 반환\n- **Type B**: 상태 추적 — 진행률 콜백\n- **Type C**: 결과 영속화 — DB/아티팩트 저장 후 콜백\n\n## 체크리스트\n\n- 모든 Python 기능에는 대응하는 Ktor feature 모듈 필요\n- Python 핸들러 응답은 반드시 `/internal/{feature}/callback`으로 POST\n- 드리프트 감지: 4개 RabbitMQ 큐 (drift.quality.llm, drift.embed, drift.analyze, drift.insight)"
+    },
+    {
+      "id": "claude-python-integration-md-aiops-api-python",
+      "name": "Python-Kotlin 통합 규칙 (localdocs/06, 08 기준)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/rules/python-integration.md",
+      "pattern": "aiops-api/**/python/**",
+      "decision": "allow",
+      "category": "python-integration",
+      "frontmatter": {
+        "paths": [
+          "python-mlops/**/*.py",
+          "aiops-api/**/python/**",
+          "aiops-api/**/rabbitmq/**"
+        ]
+      },
+      "firstParagraph": "",
+      "content": "# Python-Kotlin 통합 규칙 (localdocs/06, 08 기준)\n\n## RabbitMQ 통합 패턴\n\n- **동기 (RPC)**: `rabbitRpc()` — 10초 이내 작업만 (드리프트 LLM 품질 검사, 임베딩)\n- **비동기 (async+callback)**: `rabbitPublish()` + 내부 콜백 라우트 — 장시간 작업\n\n## 메시지 형식\n\n```json\n{\n  \"correlationId\": \"uuid\",\n  \"replyTo\": \"queue-name\",\n  ...body\n}\n```\n- JSON camelCase\n- correlation_id로 요청-응답 매칭\n\n## Python 기능 유형\n\n- **Type A**: 패스스루 — 결과 그대로 반환\n- **Type B**: 상태 추적 — 진행률 콜백\n- **Type C**: 결과 영속화 — DB/아티팩트 저장 후 콜백\n\n## 체크리스트\n\n- 모든 Python 기능에는 대응하는 Ktor feature 모듈 필요\n- Python 핸들러 응답은 반드시 `/internal/{feature}/callback`으로 POST\n- 드리프트 감지: 4개 RabbitMQ 큐 (drift.quality.llm, drift.embed, drift.analyze, drift.insight)"
+    },
+    {
+      "id": "claude-python-integration-md-aiops-api-rabbitmq",
+      "name": "Python-Kotlin 통합 규칙 (localdocs/06, 08 기준)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/rules/python-integration.md",
+      "pattern": "aiops-api/**/rabbitmq/**",
+      "decision": "allow",
+      "category": "python-integration",
+      "frontmatter": {
+        "paths": [
+          "python-mlops/**/*.py",
+          "aiops-api/**/python/**",
+          "aiops-api/**/rabbitmq/**"
+        ]
+      },
+      "firstParagraph": "",
+      "content": "# Python-Kotlin 통합 규칙 (localdocs/06, 08 기준)\n\n## RabbitMQ 통합 패턴\n\n- **동기 (RPC)**: `rabbitRpc()` — 10초 이내 작업만 (드리프트 LLM 품질 검사, 임베딩)\n- **비동기 (async+callback)**: `rabbitPublish()` + 내부 콜백 라우트 — 장시간 작업\n\n## 메시지 형식\n\n```json\n{\n  \"correlationId\": \"uuid\",\n  \"replyTo\": \"queue-name\",\n  ...body\n}\n```\n- JSON camelCase\n- correlation_id로 요청-응답 매칭\n\n## Python 기능 유형\n\n- **Type A**: 패스스루 — 결과 그대로 반환\n- **Type B**: 상태 추적 — 진행률 콜백\n- **Type C**: 결과 영속화 — DB/아티팩트 저장 후 콜백\n\n## 체크리스트\n\n- 모든 Python 기능에는 대응하는 Ktor feature 모듈 필요\n- Python 핸들러 응답은 반드시 `/internal/{feature}/callback`으로 POST\n- 드리프트 감지: 4개 RabbitMQ 큐 (drift.quality.llm, drift.embed, drift.analyze, drift.insight)"
+    },
+    {
+      "id": "codex-rm-rf",
+      "name": "rm -rf",
+      "source": "codex",
+      "platform": "codex",
+      "path": ".codex/rules/default.rules",
+      "pattern": "rm -rf",
+      "patternParts": [
+        "rm",
+        "-rf"
+      ],
+      "decision": "forbidden",
+      "category": "rm",
+      "justification": "Recursive forced deletes are destructive and should not run outside the sandbox.",
+      "match": [
+        "rm -rf build",
+        "rm -rf /tmp/foo"
+      ],
+      "notMatch": [
+        "rm -r build"
+      ]
+    },
+    {
+      "id": "codex-terraform-apply",
+      "name": "terraform apply",
+      "source": "codex",
+      "platform": "codex",
+      "path": ".codex/rules/default.rules",
+      "pattern": "terraform apply",
+      "patternParts": [
+        "terraform",
+        "apply"
+      ],
+      "decision": "forbidden",
+      "category": "terraform",
+      "justification": "Infrastructure apply commands require a human-controlled workflow.",
+      "match": [
+        "terraform apply",
+        "terraform apply -auto-approve"
+      ],
+      "notMatch": [
+        "terraform plan"
+      ]
+    },
+    {
+      "id": "codex-terraform-destroy",
+      "name": "terraform destroy",
+      "source": "codex",
+      "platform": "codex",
+      "path": ".codex/rules/default.rules",
+      "pattern": "terraform destroy",
+      "patternParts": [
+        "terraform",
+        "destroy"
+      ],
+      "decision": "forbidden",
+      "category": "terraform",
+      "justification": "Infrastructure destroy commands require a human-controlled workflow.",
+      "match": [
+        "terraform destroy",
+        "terraform destroy -auto-approve"
+      ],
+      "notMatch": [
+        "terraform plan -destroy"
+      ]
+    },
+    {
+      "id": "claude-database-md-sql",
+      "name": "데이터베이스 규칙 (localdocs/03 기준)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/rules/database.md",
+      "pattern": "**/*.sql",
+      "decision": "allow",
+      "category": "database",
+      "frontmatter": {
+        "paths": [
+          "**/*.sql",
+          "**/repository/**/*.kt",
+          "**/db/migration/**"
+        ]
+      },
+      "firstParagraph": "",
+      "content": "# 데이터베이스 규칙 (localdocs/03 기준)\n\n## DDL-First 워크플로우\n\n1. SQL을 `core/src/main/resources/db/migration/V{N}__{description}.sql`에 작성\n2. `make jooq` 실행 → `build/generated-sources/jooq/`에 코드 생성\n3. 생성된 코드를 직접 수정하지 않음\n\n## pgvector 주의사항\n\n- PostgreSQL은 반드시 pgvector 확장 포함 이미지 사용\n- Vector 컬럼: 최초 TEXT로 선언, 이후 ALTER TYPE to vector(N)\n- pgvector 전용 구문은 `/* [jooq ignore start] */` ~ `/* [jooq ignore stop] */`로 감싸기\n\n## 소프트 삭제 패턴\n\n- `IS_DELETED` 컬럼 사용\n- Partial unique index 필수: `WHERE (IS_DELETED = FALSE)`\n\n## 주요 테이블 패턴\n\n- `T_GROUPS`: 자기참조 FK (계층), PATH+DEPTH로 트리 구조\n- `T_USERS`: EXTERNAL_ID로 Keycloak 연동\n- 드리프트 감지: `T_DRIFT_*` 6개 테이블, vector(384) 임베딩"
+    },
+    {
+      "id": "claude-database-md-repository-kt",
+      "name": "데이터베이스 규칙 (localdocs/03 기준)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/rules/database.md",
+      "pattern": "**/repository/**/*.kt",
+      "decision": "allow",
+      "category": "database",
+      "frontmatter": {
+        "paths": [
+          "**/*.sql",
+          "**/repository/**/*.kt",
+          "**/db/migration/**"
+        ]
+      },
+      "firstParagraph": "",
+      "content": "# 데이터베이스 규칙 (localdocs/03 기준)\n\n## DDL-First 워크플로우\n\n1. SQL을 `core/src/main/resources/db/migration/V{N}__{description}.sql`에 작성\n2. `make jooq` 실행 → `build/generated-sources/jooq/`에 코드 생성\n3. 생성된 코드를 직접 수정하지 않음\n\n## pgvector 주의사항\n\n- PostgreSQL은 반드시 pgvector 확장 포함 이미지 사용\n- Vector 컬럼: 최초 TEXT로 선언, 이후 ALTER TYPE to vector(N)\n- pgvector 전용 구문은 `/* [jooq ignore start] */` ~ `/* [jooq ignore stop] */`로 감싸기\n\n## 소프트 삭제 패턴\n\n- `IS_DELETED` 컬럼 사용\n- Partial unique index 필수: `WHERE (IS_DELETED = FALSE)`\n\n## 주요 테이블 패턴\n\n- `T_GROUPS`: 자기참조 FK (계층), PATH+DEPTH로 트리 구조\n- `T_USERS`: EXTERNAL_ID로 Keycloak 연동\n- 드리프트 감지: `T_DRIFT_*` 6개 테이블, vector(384) 임베딩"
+    },
+    {
+      "id": "claude-database-md-db-migration",
+      "name": "데이터베이스 규칙 (localdocs/03 기준)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/rules/database.md",
+      "pattern": "**/db/migration/**",
+      "decision": "allow",
+      "category": "database",
+      "frontmatter": {
+        "paths": [
+          "**/*.sql",
+          "**/repository/**/*.kt",
+          "**/db/migration/**"
+        ]
+      },
+      "firstParagraph": "",
+      "content": "# 데이터베이스 규칙 (localdocs/03 기준)\n\n## DDL-First 워크플로우\n\n1. SQL을 `core/src/main/resources/db/migration/V{N}__{description}.sql`에 작성\n2. `make jooq` 실행 → `build/generated-sources/jooq/`에 코드 생성\n3. 생성된 코드를 직접 수정하지 않음\n\n## pgvector 주의사항\n\n- PostgreSQL은 반드시 pgvector 확장 포함 이미지 사용\n- Vector 컬럼: 최초 TEXT로 선언, 이후 ALTER TYPE to vector(N)\n- pgvector 전용 구문은 `/* [jooq ignore start] */` ~ `/* [jooq ignore stop] */`로 감싸기\n\n## 소프트 삭제 패턴\n\n- `IS_DELETED` 컬럼 사용\n- Partial unique index 필수: `WHERE (IS_DELETED = FALSE)`\n\n## 주요 테이블 패턴\n\n- `T_GROUPS`: 자기참조 FK (계층), PATH+DEPTH로 트리 구조\n- `T_USERS`: EXTERNAL_ID로 Keycloak 연동\n- 드리프트 감지: `T_DRIFT_*` 6개 테이블, vector(384) 임베딩"
+    },
+    {
+      "id": "claude-infra-safety-md-infra",
+      "name": "인프라 안전 규칙",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/rules/infra-safety.md",
+      "pattern": "infra/**/*",
+      "decision": "allow",
+      "category": "infra-safety",
+      "frontmatter": {
+        "paths": [
+          "infra/**/*",
+          "docker-compose.yml",
+          "Makefile",
+          "scripts/**/*"
+        ]
+      },
+      "firstParagraph": "",
+      "content": "# 인프라 안전 규칙\n\n- read, diff, validate, plan 작업 우선\n- 파괴적/상태변경 프로덕션 명령은 명시적 사용자 요청 + 승인 없이 실행 금지\n- terraform apply/destroy, kubectl delete, helm uninstall은 고위험으로 취급\n- staging 경로와 비프로덕션 오버레이 우선\n- 프로덕션 영향 명령 전에 명시적 의도 확인\n- 좋은 출력: 영향 분석, 롤아웃 체크리스트, 설정 diff, staging 안전 제안"
+    },
+    {
+      "id": "claude-infra-safety-md-docker-compose-yml",
+      "name": "인프라 안전 규칙",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/rules/infra-safety.md",
+      "pattern": "docker-compose.yml",
+      "decision": "allow",
+      "category": "infra-safety",
+      "frontmatter": {
+        "paths": [
+          "infra/**/*",
+          "docker-compose.yml",
+          "Makefile",
+          "scripts/**/*"
+        ]
+      },
+      "firstParagraph": "",
+      "content": "# 인프라 안전 규칙\n\n- read, diff, validate, plan 작업 우선\n- 파괴적/상태변경 프로덕션 명령은 명시적 사용자 요청 + 승인 없이 실행 금지\n- terraform apply/destroy, kubectl delete, helm uninstall은 고위험으로 취급\n- staging 경로와 비프로덕션 오버레이 우선\n- 프로덕션 영향 명령 전에 명시적 의도 확인\n- 좋은 출력: 영향 분석, 롤아웃 체크리스트, 설정 diff, staging 안전 제안"
+    },
+    {
+      "id": "claude-infra-safety-md-makefile",
+      "name": "인프라 안전 규칙",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/rules/infra-safety.md",
+      "pattern": "Makefile",
+      "decision": "allow",
+      "category": "infra-safety",
+      "frontmatter": {
+        "paths": [
+          "infra/**/*",
+          "docker-compose.yml",
+          "Makefile",
+          "scripts/**/*"
+        ]
+      },
+      "firstParagraph": "",
+      "content": "# 인프라 안전 규칙\n\n- read, diff, validate, plan 작업 우선\n- 파괴적/상태변경 프로덕션 명령은 명시적 사용자 요청 + 승인 없이 실행 금지\n- terraform apply/destroy, kubectl delete, helm uninstall은 고위험으로 취급\n- staging 경로와 비프로덕션 오버레이 우선\n- 프로덕션 영향 명령 전에 명시적 의도 확인\n- 좋은 출력: 영향 분석, 롤아웃 체크리스트, 설정 diff, staging 안전 제안"
+    },
+    {
+      "id": "claude-infra-safety-md-scripts",
+      "name": "인프라 안전 규칙",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/rules/infra-safety.md",
+      "pattern": "scripts/**/*",
+      "decision": "allow",
+      "category": "infra-safety",
+      "frontmatter": {
+        "paths": [
+          "infra/**/*",
+          "docker-compose.yml",
+          "Makefile",
+          "scripts/**/*"
+        ]
+      },
+      "firstParagraph": "",
+      "content": "# 인프라 안전 규칙\n\n- read, diff, validate, plan 작업 우선\n- 파괴적/상태변경 프로덕션 명령은 명시적 사용자 요청 + 승인 없이 실행 금지\n- terraform apply/destroy, kubectl delete, helm uninstall은 고위험으로 취급\n- staging 경로와 비프로덕션 오버레이 우선\n- 프로덕션 영향 명령 전에 명시적 의도 확인\n- 좋은 출력: 영향 분석, 롤아웃 체크리스트, 설정 diff, staging 안전 제안"
+    },
+    {
+      "id": "claude-frontend-md-frontend-ts-tsx-js-jsx",
+      "name": "프론트엔드 규칙",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/rules/frontend.md",
+      "pattern": "frontend/**/*.{ts,tsx,js,jsx}",
+      "decision": "allow",
+      "category": "frontend",
+      "frontmatter": {
+        "paths": [
+          "frontend/**/*.{ts,tsx,js,jsx}",
+          "frontend/**/*.css"
+        ]
+      },
+      "firstParagraph": "",
+      "content": "# 프론트엔드 규칙\n\n- Next.js 15.4 + React 19 + TypeScript 사용\n- @innogrid/ui 컴포넌트 라이브러리 우선 활용\n- server mode와 mock mode 모두 동작하도록 구현\n- mock 단축키는 product 경로와 명확히 분리\n- 빌드: `cd frontend && npm run build`\n- E2E: `cd frontend && npx playwright test`"
+    },
+    {
+      "id": "claude-frontend-md-frontend-css",
+      "name": "프론트엔드 규칙",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/rules/frontend.md",
+      "pattern": "frontend/**/*.css",
+      "decision": "allow",
+      "category": "frontend",
+      "frontmatter": {
+        "paths": [
+          "frontend/**/*.{ts,tsx,js,jsx}",
+          "frontend/**/*.css"
+        ]
+      },
+      "firstParagraph": "",
+      "content": "# 프론트엔드 규칙\n\n- Next.js 15.4 + React 19 + TypeScript 사용\n- @innogrid/ui 컴포넌트 라이브러리 우선 활용\n- server mode와 mock mode 모두 동작하도록 구현\n- mock 단축키는 product 경로와 명확히 분리\n- 빌드: `cd frontend && npm run build`\n- E2E: `cd frontend && npx playwright test`"
+    }
+  ]
+}

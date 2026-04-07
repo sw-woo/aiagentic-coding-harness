@@ -1,0 +1,79 @@
+{
+  "source": "kotlin-codex",
+  "sourceUrl": "ssh://git@rnd-app.innogrid.com:8102/sungwoo/kotlin-codex-harness.git",
+  "generatedAt": "2026-04-07",
+  "items": [
+    {
+      "id": "claude-code-posttooluse-write-edit-bash-claude-project-dir-claude-hooks-post-kt-lint-sh",
+      "name": "PostToolUse Write|Edit",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "event": "PostToolUse",
+      "matcher": "Write|Edit",
+      "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/post_kt_lint.sh\"",
+      "type": "command",
+      "scriptPath": ".claude/hooks/post_kt_lint.sh",
+      "statusMessage": "Kotlin 파일 자동 lint 검사"
+    },
+    {
+      "id": "codex-posttooluse-write-edit-multiedit-applypatch-bash-git-rev-parse-show-toplevel-codex-hooks-post-kt-lint-sh",
+      "name": "PostToolUse Write|Edit|MultiEdit|ApplyPatch",
+      "platform": "codex",
+      "path": ".codex/hooks.json",
+      "event": "PostToolUse",
+      "matcher": "Write|Edit|MultiEdit|ApplyPatch",
+      "command": "bash \"$(git rev-parse --show-toplevel)/.codex/hooks/post_kt_lint.sh\"",
+      "type": "command",
+      "scriptPath": ".codex/hooks/post_kt_lint.sh",
+      "statusMessage": "Kotlin 파일 자동 lint 검사"
+    },
+    {
+      "id": "codex-pretooluse-bash-usr-bin-python3-git-rev-parse-show-toplevel-codex-hooks-pre-bash-guard-py",
+      "name": "PreToolUse Bash",
+      "platform": "codex",
+      "path": ".codex/hooks.json",
+      "event": "PreToolUse",
+      "matcher": "Bash",
+      "command": "/usr/bin/python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/pre_bash_guard.py\"",
+      "type": "command",
+      "scriptPath": ".codex/hooks/pre_bash_guard.py",
+      "statusMessage": "Checking command policy"
+    },
+    {
+      "id": "claude-code-pretooluse-bash-usr-bin-python3-claude-project-dir-claude-hooks-pre-bash-guard-py",
+      "name": "PreToolUse Bash",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "event": "PreToolUse",
+      "matcher": "Bash",
+      "command": "/usr/bin/python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/pre_bash_guard.py\"",
+      "type": "command",
+      "scriptPath": ".claude/hooks/pre_bash_guard.py",
+      "statusMessage": "명령 안전 정책 검사 중"
+    },
+    {
+      "id": "claude-code-sessionstart-any-usr-bin-python3-claude-project-dir-claude-hooks-session-start-context-py",
+      "name": "SessionStart",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "event": "SessionStart",
+      "matcher": "",
+      "command": "/usr/bin/python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/session_start_context.py\"",
+      "type": "command",
+      "scriptPath": ".claude/hooks/session_start_context.py",
+      "statusMessage": "저장소 하네스 컨텍스트 로딩"
+    },
+    {
+      "id": "codex-sessionstart-startup-resume-usr-bin-python3-git-rev-parse-show-toplevel-codex-hooks-session-start-context-py",
+      "name": "SessionStart startup|resume",
+      "platform": "codex",
+      "path": ".codex/hooks.json",
+      "event": "SessionStart",
+      "matcher": "startup|resume",
+      "command": "/usr/bin/python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/session_start_context.py\"",
+      "type": "command",
+      "scriptPath": ".codex/hooks/session_start_context.py",
+      "statusMessage": "Loading repository harness context"
+    }
+  ]
+}

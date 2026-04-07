@@ -1,0 +1,225 @@
+{
+  "source": "kotlin-codex",
+  "sourceUrl": "ssh://git@rnd-app.innogrid.com:8102/sungwoo/kotlin-codex-harness.git",
+  "generatedAt": "2026-04-07",
+  "items": [
+    {
+      "id": "codex-aiops-kotlin-service",
+      "name": "aiops-kotlin-service",
+      "platform": "codex",
+      "path": ".agents/skills/aiops-kotlin-service/SKILL.md",
+      "description": "Implement or review Kotlin service changes for an AIOps platform, especially APIs, orchestration, alerting, and backend integrations.",
+      "frontmatter": {
+        "name": "aiops-kotlin-service",
+        "description": "Implement or review Kotlin service changes for an AIOps platform, especially APIs, orchestration, alerting, and backend integrations."
+      },
+      "firstParagraph": "Use this skill for Kotlin backend work in an AIOps-style platform.",
+      "tools": [],
+      "model": null
+    },
+    {
+      "id": "claude-bootstrap",
+      "name": "bootstrap",
+      "platform": "claude-code",
+      "path": ".claude/skills/bootstrap/SKILL.md",
+      "description": "새 Kotlin 모듈 또는 기능을 프로젝트 컨벤션에 따라 스캐폴딩. 모듈명을 인자로 받는다.",
+      "frontmatter": {
+        "name": "bootstrap",
+        "description": "새 Kotlin 모듈 또는 기능을 프로젝트 컨벤션에 따라 스캐폴딩. 모듈명을 인자로 받는다.",
+        "argument-hint": "[모듈명]",
+        "disable-model-invocation": true
+      },
+      "firstParagraph": "`/bootstrap <이름>`",
+      "tools": [],
+      "model": null
+    },
+    {
+      "id": "codex-codex-sandbox-shell",
+      "name": "codex-sandbox-shell",
+      "platform": "codex",
+      "path": ".agents/skills/codex-sandbox-shell/SKILL.md",
+      "description": "Write and run AIOps shell scripts that work cleanly with Codex sandbox, approval rules, local env files, and fixed review/E2E port contracts.",
+      "frontmatter": {
+        "name": "codex-sandbox-shell",
+        "description": "Write and run AIOps shell scripts that work cleanly with Codex sandbox, approval rules, local env files, and fixed review/E2E port contracts."
+      },
+      "firstParagraph": "이 스킬은 이 저장소에서 `aiops sh`나 검증용 shell script를 만들 때 사용합니다.",
+      "tools": [],
+      "model": null
+    },
+    {
+      "id": "claude-deploy",
+      "name": "deploy",
+      "platform": "claude-code",
+      "path": ".claude/skills/deploy/SKILL.md",
+      "description": "staging 배포 준비. 빌드 검증 후 브랜치 생성 및 배포 체크리스트 실행.",
+      "frontmatter": {
+        "name": "deploy",
+        "description": "staging 배포 준비. 빌드 검증 후 브랜치 생성 및 배포 체크리스트 실행.",
+        "disable-model-invocation": true
+      },
+      "firstParagraph": "",
+      "tools": [],
+      "model": null
+    },
+    {
+      "id": "claude-deploy-check",
+      "name": "deploy-check",
+      "platform": "claude-code",
+      "path": ".claude/skills/deploy-check/SKILL.md",
+      "description": "프로젝트가 staging 배포 준비가 되었는지 8항목 체크리스트로 검증.",
+      "frontmatter": {
+        "name": "deploy-check",
+        "description": "프로젝트가 staging 배포 준비가 되었는지 8항목 체크리스트로 검증.",
+        "disable-model-invocation": true
+      },
+      "firstParagraph": "배포 준비 요약: 준비 완료 / 미완료, 차단 항목 목록.",
+      "tools": [],
+      "model": null
+    },
+    {
+      "id": "claude-document",
+      "name": "document",
+      "platform": "claude-code",
+      "path": ".claude/skills/document/SKILL.md",
+      "description": "현재 코드 상태 기반으로 모듈 맵, API 표면, 모델 카탈로그, 테스트 커버리지 문서를 자동 생성/갱신.",
+      "frontmatter": {
+        "name": "document",
+        "description": "현재 코드 상태 기반으로 모듈 맵, API 표면, 모델 카탈로그, 테스트 커버리지 문서를 자동 생성/갱신."
+      },
+      "firstParagraph": "",
+      "tools": [],
+      "model": null
+    },
+    {
+      "id": "codex-gradle-codex",
+      "name": "gradle-codex",
+      "platform": "codex",
+      "path": ".agents/skills/gradle-codex/SKILL.md",
+      "description": "Run Gradle commands safely in this repository's Codex sandbox by loading shell setup and keeping Gradle state inside the workspace.",
+      "frontmatter": {
+        "name": "gradle-codex",
+        "description": "Run Gradle commands safely in this repository's Codex sandbox by loading shell setup and keeping Gradle state inside the workspace."
+      },
+      "firstParagraph": "Use this skill whenever the task needs Gradle commands in this repository.",
+      "tools": [],
+      "model": null
+    },
+    {
+      "id": "codex-kotlin-review",
+      "name": "kotlin-review",
+      "platform": "codex",
+      "path": ".agents/skills/kotlin-review/SKILL.md",
+      "description": "Review Kotlin changes in this repository with emphasis on behavior regressions, missing tests, and Gradle-safe verification.",
+      "frontmatter": {
+        "name": "kotlin-review",
+        "description": "Review Kotlin changes in this repository with emphasis on behavior regressions, missing tests, and Gradle-safe verification."
+      },
+      "firstParagraph": "Use this skill for code review or post-change validation in this repository.",
+      "tools": [],
+      "model": null
+    },
+    {
+      "id": "codex-mlops-python-platform",
+      "name": "mlops-python-platform",
+      "platform": "codex",
+      "path": ".agents/skills/mlops-python-platform/SKILL.md",
+      "description": "Implement or review Python MLOps changes such as pipelines, drift detection, model registry integration, and offline validation workflows.",
+      "frontmatter": {
+        "name": "mlops-python-platform",
+        "description": "Implement or review Python MLOps changes such as pipelines, drift detection, model registry integration, and offline validation workflows."
+      },
+      "firstParagraph": "Use this skill for Python-side MLOps work in a mixed Kotlin/Python platform.",
+      "tools": [],
+      "model": null
+    },
+    {
+      "id": "codex-platform-safety",
+      "name": "platform-safety",
+      "platform": "codex",
+      "path": ".agents/skills/platform-safety/SKILL.md",
+      "description": "Review or change platform operations safely in an AIOps/MLOps repository, with emphasis on production guardrails and non-destructive workflows.",
+      "frontmatter": {
+        "name": "platform-safety",
+        "description": "Review or change platform operations safely in an AIOps/MLOps repository, with emphasis on production guardrails and non-destructive workflows."
+      },
+      "firstParagraph": "Use this skill when tasks touch deployment, orchestration, runbooks, clusters, or registry promotion workflows.",
+      "tools": [],
+      "model": null
+    },
+    {
+      "id": "codex-ralphup-codex",
+      "name": "ralphup-codex",
+      "platform": "codex",
+      "path": ".agents/skills/ralphup-codex/SKILL.md",
+      "description": "Use when the user wants Codex to act as the project's Ralphup: a spec-first semi-automated builder for repetitive, low-risk scaffolding across Kotlin, Python, and frontend layers, while deferring RBAC, approval, audit, and operational safety decisions to human review.",
+      "frontmatter": {
+        "name": "ralphup-codex",
+        "description": "Use when the user wants Codex to act as the project's Ralphup: a spec-first semi-automated builder for repetitive, low-risk scaffolding across Kotlin, Python, and frontend layers, while deferring RBAC, approval, audit, and operational safety decisions to human review."
+      },
+      "firstParagraph": "Use this skill when the user wants semi-automated scaffolding in this repository.",
+      "tools": [],
+      "model": null
+    },
+    {
+      "id": "claude-refactor",
+      "name": "refactor",
+      "platform": "claude-code",
+      "path": ".claude/skills/refactor/SKILL.md",
+      "description": "지정된 코드 영역의 중복, 복잡도, 네이밍, 아키텍처 경계 위반을 분석하고 리팩토링을 제안. 즉시 수정하지 않고 사용자 확인 후 진행.",
+      "frontmatter": {
+        "name": "refactor",
+        "description": "지정된 코드 영역의 중복, 복잡도, 네이밍, 아키텍처 경계 위반을 분석하고 리팩토링을 제안. 즉시 수정하지 않고 사용자 확인 후 진행.",
+        "argument-hint": "[파일 또는 모듈 경로]",
+        "disable-model-invocation": true
+      },
+      "firstParagraph": "`/refactor <경로>`",
+      "tools": [],
+      "model": null
+    },
+    {
+      "id": "claude-review",
+      "name": "review",
+      "platform": "claude-code",
+      "path": ".claude/skills/review/SKILL.md",
+      "description": "현재 변경사항의 코드 리뷰. git diff 기반으로 Kotlin/Python/Frontend/인프라 변경을 검토하고 품질, 안전성, 누락 테스트를 보고한다.",
+      "frontmatter": {
+        "name": "review",
+        "description": "현재 변경사항의 코드 리뷰. git diff 기반으로 Kotlin/Python/Frontend/인프라 변경을 검토하고 품질, 안전성, 누락 테스트를 보고한다."
+      },
+      "firstParagraph": "현재 커밋되지 않은 변경사항의 품질, 안전성, 정확성을 검토한다.",
+      "tools": [],
+      "model": null
+    },
+    {
+      "id": "claude-test-all",
+      "name": "test-all",
+      "platform": "claude-code",
+      "path": ".claude/skills/test-all/SKILL.md",
+      "description": "전체 테스트 스위트 실행. Kotlin(Gradle), Python(unittest), 프론트엔드(npm build), E2E를 순서대로 실행하고 결과를 요약한다.",
+      "frontmatter": {
+        "name": "test-all",
+        "description": "전체 테스트 스위트 실행. Kotlin(Gradle), Python(unittest), 프론트엔드(npm build), E2E를 순서대로 실행하고 결과를 요약한다.",
+        "disable-model-invocation": true
+      },
+      "firstParagraph": "각 스위트의 통과/실패/스킵 수를 요약. 실패가 있으면 첫 번째 에러를 파일:라인 참조와 함께 표시.",
+      "tools": [],
+      "model": null
+    },
+    {
+      "id": "claude-verify",
+      "name": "verify",
+      "platform": "claude-code",
+      "path": ".claude/skills/verify/SKILL.md",
+      "description": "하네스와 제품의 전체 검증 파이프라인 실행. Kotlin 린트+테스트, Python 테스트, 프론트엔드 빌드, E2E를 모두 통과해야 성공.",
+      "frontmatter": {
+        "name": "verify",
+        "description": "하네스와 제품의 전체 검증 파이프라인 실행. Kotlin 린트+테스트, Python 테스트, 프론트엔드 빌드, E2E를 모두 통과해야 성공.",
+        "disable-model-invocation": true
+      },
+      "firstParagraph": "모든 단계가 실패 0으로 통과해야 함. 각 단계를 통과/실패로 보고하고, 실패 시 상세 내용 포함.",
+      "tools": [],
+      "model": null
+    }
+  ]
+}

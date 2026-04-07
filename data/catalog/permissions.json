@@ -1,0 +1,427 @@
+{
+  "source": "kotlin-codex",
+  "sourceUrl": "ssh://git@rnd-app.innogrid.com:8102/sungwoo/kotlin-codex-harness.git",
+  "generatedAt": "2026-04-07",
+  "items": [
+    {
+      "id": "claude-allow-bash-gradlew",
+      "name": "Bash(./gradlew *)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(./gradlew *)",
+      "decision": "allow",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-allow-bash-cd-frontend-npm",
+      "name": "Bash(cd frontend && npm *)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(cd frontend && npm *)",
+      "decision": "allow",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-allow-bash-cd-python-mlops",
+      "name": "Bash(cd python-mlops && *)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(cd python-mlops && *)",
+      "decision": "allow",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-allow-bash-docker-compose-down",
+      "name": "Bash(docker compose down)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(docker compose down)",
+      "decision": "allow",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-allow-bash-docker-compose-logs",
+      "name": "Bash(docker compose logs*)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(docker compose logs*)",
+      "decision": "allow",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-allow-bash-docker-compose-ps",
+      "name": "Bash(docker compose ps*)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(docker compose ps*)",
+      "decision": "allow",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-allow-bash-docker-compose-up",
+      "name": "Bash(docker compose up*)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(docker compose up*)",
+      "decision": "allow",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-deny-bash-docker-system-prune",
+      "name": "Bash(docker system prune*)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(docker system prune*)",
+      "decision": "deny",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-allow-bash-find",
+      "name": "Bash(find *)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(find *)",
+      "decision": "allow",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-allow-bash-git-branch",
+      "name": "Bash(git branch*)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(git branch*)",
+      "decision": "allow",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-allow-bash-git-diff",
+      "name": "Bash(git diff*)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(git diff*)",
+      "decision": "allow",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-allow-bash-git-log",
+      "name": "Bash(git log*)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(git log*)",
+      "decision": "allow",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-deny-bash-git-push-force",
+      "name": "Bash(git push --force*)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(git push --force*)",
+      "decision": "deny",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-deny-bash-git-push-f",
+      "name": "Bash(git push -f *)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(git push -f *)",
+      "decision": "deny",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-deny-bash-git-reset-hard",
+      "name": "Bash(git reset --hard*)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(git reset --hard*)",
+      "decision": "deny",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-allow-bash-git-stash",
+      "name": "Bash(git stash*)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(git stash*)",
+      "decision": "allow",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-allow-bash-git-status",
+      "name": "Bash(git status*)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(git status*)",
+      "decision": "allow",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-allow-bash-grep",
+      "name": "Bash(grep *)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(grep *)",
+      "decision": "allow",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-allow-bash-head",
+      "name": "Bash(head *)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(head *)",
+      "decision": "allow",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-deny-bash-helm-delete",
+      "name": "Bash(helm delete*)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(helm delete*)",
+      "decision": "deny",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-deny-bash-helm-uninstall",
+      "name": "Bash(helm uninstall*)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(helm uninstall*)",
+      "decision": "deny",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-deny-bash-kubectl-delete",
+      "name": "Bash(kubectl delete*)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(kubectl delete*)",
+      "decision": "deny",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-allow-bash-make",
+      "name": "Bash(make *)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(make *)",
+      "decision": "allow",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-allow-bash-mkdir",
+      "name": "Bash(mkdir *)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(mkdir *)",
+      "decision": "allow",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-deny-bash-mlflow-models-delete",
+      "name": "Bash(mlflow models delete*)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(mlflow models delete*)",
+      "decision": "deny",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-allow-bash-npx-playwright",
+      "name": "Bash(npx playwright *)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(npx playwright *)",
+      "decision": "allow",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-allow-bash-python3-m-pytest",
+      "name": "Bash(python3 -m pytest *)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(python3 -m pytest *)",
+      "decision": "allow",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-allow-bash-python3-m-unittest",
+      "name": "Bash(python3 -m unittest *)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(python3 -m unittest *)",
+      "decision": "allow",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-allow-bash-pythonpath-python-mlops-python3",
+      "name": "Bash(PYTHONPATH=python-mlops python3 *)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(PYTHONPATH=python-mlops python3 *)",
+      "decision": "allow",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-deny-bash-rm-rf",
+      "name": "Bash(rm -rf .*)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(rm -rf .*)",
+      "decision": "deny",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-deny-bash-rm-rf",
+      "name": "Bash(rm -rf /*)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(rm -rf /*)",
+      "decision": "deny",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-allow-bash-source-zshrc",
+      "name": "Bash(source ~/.zshrc*)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(source ~/.zshrc*)",
+      "decision": "allow",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-allow-bash-tail",
+      "name": "Bash(tail *)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(tail *)",
+      "decision": "allow",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-deny-bash-terraform-apply",
+      "name": "Bash(terraform apply*)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(terraform apply*)",
+      "decision": "deny",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-deny-bash-terraform-destroy",
+      "name": "Bash(terraform destroy*)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(terraform destroy*)",
+      "decision": "deny",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-allow-bash-wc",
+      "name": "Bash(wc *)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Bash(wc *)",
+      "decision": "allow",
+      "category": "Bash"
+    },
+    {
+      "id": "claude-deny-read-env",
+      "name": "Read(.env.*)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Read(.env.*)",
+      "decision": "deny",
+      "category": "Read"
+    },
+    {
+      "id": "claude-deny-read-env",
+      "name": "Read(.env)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Read(.env)",
+      "decision": "deny",
+      "category": "Read"
+    },
+    {
+      "id": "claude-deny-read-key",
+      "name": "Read(**/*.key)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Read(**/*.key)",
+      "decision": "deny",
+      "category": "Read"
+    },
+    {
+      "id": "claude-deny-read-p12",
+      "name": "Read(**/*.p12)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Read(**/*.p12)",
+      "decision": "deny",
+      "category": "Read"
+    },
+    {
+      "id": "claude-deny-read-pem",
+      "name": "Read(**/*.pem)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Read(**/*.pem)",
+      "decision": "deny",
+      "category": "Read"
+    },
+    {
+      "id": "claude-deny-read-secrets",
+      "name": "Read(secrets/**)",
+      "source": "claude-code",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "pattern": "Read(secrets/**)",
+      "decision": "deny",
+      "category": "Read"
+    }
+  ]
+}
