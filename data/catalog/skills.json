@@ -220,6 +220,62 @@
       "firstParagraph": "모든 단계가 실패 0으로 통과해야 함. 각 단계를 통과/실패로 보고하고, 실패 시 상세 내용 포함.",
       "tools": [],
       "model": null
+    },
+    {
+      "id": "zt-review",
+      "name": "zero-trust-review",
+      "platform": "claude-code",
+      "path": ".claude/skills/zero-trust-review/SKILL.md",
+      "description": "신규 plugin 또는 MCP 서버 추가 시 4계층 방어(Allowlist, Sandbox, Credential Proxy, I/O Guardrails)를 모두 점검합니다. 사용자가 'mcp 서버 추가', '플러그인 설치', 'zero trust 점검' 같은 표현을 쓰면 자동 활성화됩니다.",
+      "frontmatter": {
+        "name": "zero-trust-review",
+        "description": "Zero-trust 4계층 점검 워크플로. 신규 plugin / MCP 서버 검토 시 자동 활성화."
+      },
+      "firstParagraph": "신규 외부 도구를 프로젝트에 붙이기 전에 4계층 점검을 강제합니다. 각 단계가 통과해야 다음 단계로 진행합니다.",
+      "tools": [],
+      "model": null
+    },
+    {
+      "id": "zt-sandbox-test",
+      "name": "sandbox-test",
+      "platform": "claude-code",
+      "path": ".claude/skills/sandbox-test/SKILL.md",
+      "description": "에이전트가 작성했거나 외부에서 가져온 코드를 격리된 환경에서 먼저 실행해서 검증합니다. 사용자가 '샌드박스 검증', 'sandbox test', '격리 실행' 같은 표현을 쓰면 자동 활성화됩니다.",
+      "frontmatter": {
+        "name": "sandbox-test",
+        "description": "sandbox 내에서 생성 코드 선실행 검증 워크플로."
+      },
+      "firstParagraph": "Vercel Sandbox, isolated-vm, Docker 중 상황에 맞는 격리 환경에서 먼저 돌린 뒤 메인 환경에 적용합니다.",
+      "tools": [],
+      "model": null
+    },
+    {
+      "id": "zt-guardrail-eval",
+      "name": "guardrail-eval",
+      "platform": "codex",
+      "path": ".agents/skills/guardrail-eval/SKILL.md",
+      "description": "I/O guardrails (NeMo Guardrails, Llama Guard, Prompt Guard 등) 의 통과율과 false positive 를 평가합니다. 사용자가 '가드레일 평가', 'guardrail eval', 'I/O 검사' 같은 표현을 쓰면 자동 활성화됩니다.",
+      "frontmatter": {
+        "name": "guardrail-eval",
+        "description": "guardrail 통과율과 false positive 측정 워크플로."
+      },
+      "firstParagraph": "fixture 세트를 입력에 통과시켜 guardrail 의 허용/차단 비율을 측정합니다. 제품 업데이트 후 회귀 검사로 사용합니다.",
+      "tools": [],
+      "model": null
+    },
+    {
+      "id": "token-budget-review",
+      "name": "token-budget-review",
+      "platform": "claude-code",
+      "path": ".claude/skills/token-budget-review/SKILL.md",
+      "description": "PR 단위로 토큰 사용량을 측정하고 비용 예산 초과 여부를 보고합니다. 사용자가 '토큰 예산', 'token budget', '토큰 비용' 같은 표현을 쓰면 자동 활성화됩니다.",
+      "frontmatter": {
+        "name": "token-budget-review",
+        "description": "PR 단위 토큰 사용량 측정·보고 워크플로."
+      },
+      "firstParagraph": "Anthropic prompt caching · OpenAI prompt caching 로그를 파싱해 PR 한 번에 소비한 토큰을 집계하고, 임계값을 초과하면 경고합니다.",
+      "tools": [],
+      "model": null
     }
   ]
 }

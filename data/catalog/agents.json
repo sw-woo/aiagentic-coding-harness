@@ -208,6 +208,46 @@
       "model": "gpt-5.4-mini",
       "effort": "medium",
       "sandboxMode": "read-only"
+    },
+    {
+      "id": "zt-security-auditor",
+      "name": "security_auditor",
+      "platform": "codex",
+      "path": ".codex/agents/security-auditor.toml",
+      "description": "Read-only zero-trust 위반 감사. 플러그인 서명, 크리덴셜 노출, 프롬프트 경계, 샌드박스 정책 준수를 검사.",
+      "config": {
+        "name": "security_auditor",
+        "description": "Read-only zero-trust 감사 전용 서브에이전트",
+        "model": "gpt-5.4-mini",
+        "model_reasoning_effort": "medium",
+        "sandbox_mode": "read-only",
+        "developer_instructions": "Zero-trust 4계층(Allowlist, Sandbox, Credential Proxy, I/O Guardrails) 기준으로 저장소 구성을 감사합니다.\n위반 사항만 나열하고 코드 수정은 제안하지 않습니다.\n모든 발견에 영향 범위와 참고 링크를 함께 기록합니다."
+      },
+      "firstParagraph": "Zero-trust 4계층 기준으로 저장소 구성을 감사합니다. 위반 사항만 나열하고 수정은 메인 에이전트에게 넘깁니다.",
+      "tools": [],
+      "model": "gpt-5.4-mini",
+      "effort": "medium",
+      "sandboxMode": "read-only"
+    },
+    {
+      "id": "zt-plugin-isolation-validator",
+      "name": "plugin_isolation_validator",
+      "platform": "codex",
+      "path": ".codex/agents/plugin-isolation-validator.toml",
+      "description": "신규 플러그인 또는 MCP 서버 설치 전 샌드박스 격리와 크리덴셜 스코프가 정책과 맞는지 검증.",
+      "config": {
+        "name": "plugin_isolation_validator",
+        "description": "플러그인 격리 검증",
+        "model": "gpt-5.4-mini",
+        "model_reasoning_effort": "medium",
+        "sandbox_mode": "read-only",
+        "developer_instructions": "신규 플러그인은 샌드박스 정책 + 크리덴셜 프록시 통과 여부를 검증합니다.\n통과 항목과 실패 항목을 리스트로 보고합니다."
+      },
+      "firstParagraph": "신규 플러그인이 sandbox-only-execution, scoped-credentials, allowlist-only-mcp-servers 세 규칙을 모두 통과하는지 검증합니다.",
+      "tools": [],
+      "model": "gpt-5.4-mini",
+      "effort": "medium",
+      "sandboxMode": "read-only"
     }
   ]
 }

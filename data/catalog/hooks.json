@@ -74,6 +74,54 @@
       "type": "command",
       "scriptPath": ".codex/hooks/session_start_context.py",
       "statusMessage": "Loading repository harness context"
+    },
+    {
+      "id": "zt-pretooluse-credential-mask",
+      "name": "PreToolUse 크리덴셜 마스킹",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "event": "PreToolUse",
+      "matcher": "Bash",
+      "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/credential_mask.py\"",
+      "type": "command",
+      "scriptPath": ".claude/hooks/credential_mask.py",
+      "statusMessage": "Bash 명령 안의 API 키 / 토큰 / 비밀번호 패턴을 차단하거나 마스킹"
+    },
+    {
+      "id": "zt-posttooluse-sensitive-output-filter",
+      "name": "PostToolUse 민감 출력 필터",
+      "platform": "claude-code",
+      "path": ".claude/settings.json",
+      "event": "PostToolUse",
+      "matcher": "Bash|Read",
+      "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/sensitive_output_filter.py\"",
+      "type": "command",
+      "scriptPath": ".claude/hooks/sensitive_output_filter.py",
+      "statusMessage": "도구 출력에서 주민등록번호, API 키, AWS credentials 같은 민감 패턴 자동 마스킹"
+    },
+    {
+      "id": "zt-sessionstart-mcp-allowlist",
+      "name": "SessionStart MCP 허용 목록 주입",
+      "platform": "codex",
+      "path": ".codex/hooks.json",
+      "event": "SessionStart",
+      "matcher": "*",
+      "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/mcp_allowlist.py\"",
+      "type": "command",
+      "scriptPath": ".codex/hooks/mcp_allowlist.py",
+      "statusMessage": "세션 시작 시 허용된 MCP 서버 목록을 컨텍스트에 주입"
+    },
+    {
+      "id": "token-posttooluse-token-counter",
+      "name": "PostToolUse 토큰 사용량 집계",
+      "platform": "codex",
+      "path": ".codex/hooks.json",
+      "event": "PostToolUse",
+      "matcher": "Bash|Read|Write",
+      "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/token_counter.py\"",
+      "type": "command",
+      "scriptPath": ".codex/hooks/token_counter.py",
+      "statusMessage": "도구 호출 직후 추정 토큰 사용량을 stderr 에 기록해 세션 누적 비용 가시화"
     }
   ]
 }
