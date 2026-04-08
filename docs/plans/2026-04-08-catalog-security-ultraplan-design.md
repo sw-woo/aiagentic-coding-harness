@@ -277,3 +277,74 @@ output 을 자동으로 truncate / summarize 하는 패턴)
 조항 4: "신규 4개 reference 페이지" → **"신규 5개 reference 페이지"**
 조항 5: "카탈로그 카드 그리드에 신규 14개 항목" → **"신규 17개 항목"**
 조항 2: "45개 이상 정적 페이지 prerender" → **"46개 이상"** (현재 41 + 신규 5)
+
+---
+
+## 11. 최종 결정 — 옵션 C 적용
+
+§10 addendum 후 사용자에게 페이지 수 / 시간 위험 trade-off 를 제시했고
+다음 옵션을 선택했습니다.
+
+**옵션 C — `/reference/token-economics` 신설, `/reference/io-guardrails` 다음 세션으로 미룸**
+
+이유:
+
+- 페이지 수 4개 유지 → 시간 budget 안에 안전하게 들어옴 (30분 버퍼 회복)
+- io-guardrails (NeMo / Llama Guard / Prompt Guard) 는 보안 reference 셋
+  중에 가장 분리해도 손해가 적은 페이지 — `/reference/zero-trust-plugins`
+  안에 한 섹션으로 짧게 언급하면 핵심 메시지는 유지됨
+- token-economics 는 사용자 본인이 매일 쓰는 RTK 의 사실 기반 grounding
+  이 강하고 (사용자 환경에 RTK.md global instruction 있음) 세미나 청중에게
+  바로 도움 되는 운영 노하우
+
+### 11.1 최종 신규 페이지 4개
+
+| # | 라우트 | 역할 | 시간 |
+|---|---|---|---|
+| 1 | `/reference/zero-trust-plugins` | 우산 페이지 — 4계층 방어 + 도구 오염 + (io-guardrails 짧은 섹션 흡수) | 40분 |
+| 2 | `/reference/agent-sandboxing` | Vercel Sandbox · isolated-vm · gVisor · E2B 비교 | 30분 |
+| 3 | `/reference/token-economics` | RTK + 캐싱 + 라우팅 + observability + 운영 원칙 | 35분 |
+| 4 | `/reference/ultraplan` | 검증된 만큼만 | 25분 |
+
+### 11.2 명시적으로 빠지는 항목
+
+- `/reference/io-guardrails` — 다음 세션. 이번에는 zero-trust-plugins 안에
+  3~4문단으로만 언급.
+- 자료조사 카테고리 B (NeMo Guardrails) · C (Llama Guard) · D (Prompt Guard)
+  는 dispatch 는 하되 우선순위 낮춤. 결과는 zero-trust-plugins 안의 짧은 섹션
+  에 사용.
+
+### 11.3 최종 시간 배분
+
+```
+0:00 ─ 디자인 doc commit (이 §11 포함된 최종본)
+0:00 ~ 0:25 ─ 자료조사 병렬 dispatch (12개 카테고리, 5~8 thread)
+              + 카탈로그 JSON 17개 항목 보강 시작
+0:25 ~ 1:05 ─ /reference/zero-trust-plugins (가장 긴 우산 페이지)
+1:05 ~ 1:35 ─ /reference/agent-sandboxing
+1:35 ~ 2:10 ─ /reference/token-economics
+2:10 ~ 2:35 ─ /reference/ultraplan (검증된 만큼만)
+2:35 ~ 2:50 ─ <ZeroTrustPipeline /> 컴포넌트 + 두 페이지에 임베드
+2:50 ~ 3:05 ─ /handbook #future + /architecture/claude-vs-codex 보강
+3:05 ~ 3:20 ─ npm run lint + npm run build + verify_codex_harness
+3:20 ~ 3:30 ─ commit + push + Vercel READY 확인
+3:30 ~ 4:00 ─ 30분 버퍼 (수정 / 사용자 직접 점검)
+```
+
+### 11.4 최종 성공 기준
+
+이 작업의 완료는 다음 모든 조건이 동시에 만족돼야 합니다.
+
+1. `npm run lint` exit 0
+2. `npm run build` exit 0, **45개 이상 정적 페이지 prerender** (현재 41 + 신규 4)
+3. `bash scripts/verify_codex_harness.sh` 통과
+4. 신규 4개 reference 페이지가 사이트에 존재하고 빌드에 포함됨
+5. 카탈로그 카드 그리드에 신규 17개 항목이 보임
+6. `/reference/zero-trust-plugins` 의 모든 사실 주장에 출처 URL 또는 `[출처 미확인]` 마커
+7. `<ZeroTrustPipeline />` 컴포넌트가 다크/라이트 모두 자연스럽게 렌더됨
+8. Vercel 자동 배포가 sw-woo 작성자로 READY 상태
+9. 라이브 URL `https://aiagentic-coding-harness.vercel.app/reference/zero-trust-plugins` 가 200
+10. README · MEMORY.md 갱신 (신규 페이지 4개 + 신규 컴포넌트 1개 기록)
+
+이 §11 으로 디자인 doc 의 모든 결정이 잠겼습니다. 다음 단계는
+`superpowers:writing-plans` 스킬 호출입니다.
