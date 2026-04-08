@@ -7,6 +7,7 @@ const TOC = [
   { id: "audience", label: "누가 읽으면 좋은가" },
   { id: "tour", label: "30분 투어 순서" },
   { id: "map", label: "페이지별 지도" },
+  { id: "reference", label: "참고자료 바로가기" },
   { id: "layers", label: "5-레이어 설명" },
   { id: "reading", label: "추천 읽기 코스" },
   { id: "bridge", label: "Claude / Codex 병행" },
@@ -48,7 +49,52 @@ const PAGE_MAP = [
     title: "참고자료",
     href: "/reference",
     description:
-      "외부 하네스 컬렉션, 원전 글, Codex 공식 자료 맵, hooks / MCP / security / metrics 심화 자료를 따라 들어가는 층입니다.",
+      "Claude Code · Codex 공식 자료 맵, 보안 · 샌드박스 · 토큰 비용 · 인기 하네스 레포까지 최신 심화 페이지를 따라 들어가는 층입니다.",
+  },
+] as const;
+
+const REFERENCE_SHORTCUTS = [
+  {
+    title: "Claude Code 공식 자료 맵",
+    href: "/reference/claude-code-official",
+    description:
+      "Claude Code 쪽에서 시작하실 때 가장 먼저 볼 페이지입니다. 설치, settings, hooks, skills, sub-agents, plugin 마켓 문서를 한 번에 이어 줍니다.",
+  },
+  {
+    title: "OpenAI Codex 공식 자료 맵",
+    href: "/reference/codex-official",
+    description:
+      "Codex 설정, rules, hooks, subagents, MCP, 모델 문서를 공식 자료 기준으로 다시 묶은 진입점입니다.",
+  },
+  {
+    title: "Zero Trust 플러그인",
+    href: "/reference/zero-trust-plugins",
+    description:
+      "외부 plugin 과 MCP 서버를 신뢰하지 않는다는 전제에서, allowlist · sandbox · credential proxy · I/O guardrail 네 층을 정리한 우산 페이지입니다.",
+  },
+  {
+    title: "에이전트 샌드박싱",
+    href: "/reference/agent-sandboxing",
+    description:
+      "Vercel Sandbox, Docker, gVisor, isolated-vm, E2B 를 언제 어떤 상황에 쓰는지 비교한 페이지입니다.",
+  },
+  {
+    title: "토큰 경제학",
+    href: "/reference/token-economics",
+    description:
+      "CLI 출력 압축, 프롬프트 캐싱, 모델 라우팅, observability 관점에서 비용을 줄이는 운영 패턴을 정리합니다.",
+  },
+  {
+    title: "인기 GitHub 하네스 레포 10선",
+    href: "/reference/popular-harness-repos",
+    description:
+      "이미 검증된 공개 하네스를 빠르게 둘러보고 자기 저장소에 어떤 구조를 가져올지 고를 때 유용한 페이지입니다.",
+  },
+  {
+    title: "Claude Code /ultraplan",
+    href: "/reference/ultraplan",
+    description:
+      "계획 수립을 클라우드로 오프로드하는 Claude Code 기능을 공식 문서 기준으로 정리한 페이지입니다.",
   },
 ] as const;
 
@@ -94,9 +140,10 @@ const READING_TRACKS = [
     title: "바로 적용하려는 사람",
     steps: [
       { label: "이 가이드", href: "/guide" },
+      { label: "Claude Code 설정 플레이북", href: "/playbook/setup-claude-code" },
       { label: "Codex 심화 플레이북", href: "/playbook/setup-codex" },
       { label: "카탈로그", href: "/catalog/skills" },
-      { label: "참고자료", href: "/reference" },
+      { label: "Zero Trust 플러그인", href: "/reference/zero-trust-plugins" },
     ],
   },
   {
@@ -105,6 +152,8 @@ const READING_TRACKS = [
       { label: "이 가이드", href: "/guide" },
       { label: "핸드북", href: "/handbook" },
       { label: "Claude vs Codex 비교", href: "/architecture/claude-vs-codex" },
+      { label: "Claude Code 공식 자료 맵", href: "/reference/claude-code-official" },
+      { label: "토큰 경제학", href: "/reference/token-economics" },
       { label: "Codex 심화 플레이북", href: "/playbook/setup-codex" },
     ],
   },
@@ -238,6 +287,26 @@ export default function GuidePage() {
                 </div>
               </section>
 
+              <section id="reference" className="rounded-2xl border border-border bg-surface p-7">
+                <h2 className="text-2xl font-semibold tracking-tight text-foreground">
+                  참고자료에서 먼저 볼 페이지
+                </h2>
+                <p className="mt-4 text-[16px] leading-8 text-foreground-muted">
+                  최근에는 참고자료 층에 실무 밀도가 높은 페이지가 많이 추가됐습니다. 특히 공식 문서 맵, zero-trust,
+                  샌드박스, 토큰 비용, 인기 하네스 레포 정리는 가이드 본문을 읽은 뒤 바로 이어 보기 좋은 흐름입니다.
+                </p>
+                <div className="mt-5 grid gap-4 xl:grid-cols-2">
+                  {REFERENCE_SHORTCUTS.map((page) => (
+                    <div key={page.href} className="rounded-xl border border-border bg-background px-5 py-4">
+                      <Link href={page.href} className="text-lg font-semibold text-foreground hover:text-accent">
+                        {page.title}
+                      </Link>
+                      <p className="mt-2 text-sm leading-7 text-foreground-muted">{page.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
               <section id="layers" className="rounded-2xl border border-border bg-surface p-7">
                 <h2 className="text-2xl font-semibold tracking-tight text-foreground">
                   이 사이트가 계속 말하는 5-레이어는 무엇인가요
@@ -322,22 +391,28 @@ export default function GuidePage() {
                       과거 발전사, 현재의 최신 스택, 미래 방향까지 한 흐름으로 읽는 설명 중심 페이지입니다.
                     </p>
                   </Link>
+                  <Link href="/playbook/setup-claude-code" className="rounded-xl border border-border bg-background p-5 transition hover:border-accent">
+                    <h3 className="text-lg font-semibold text-foreground">Claude Code 플레이북</h3>
+                    <p className="mt-2 text-sm leading-7 text-foreground-muted">
+                      Claude Code 의 CLAUDE.md, settings, hooks, skills, sub-agents 구성 순서를 실전 기준으로 정리한 문서입니다.
+                    </p>
+                  </Link>
                   <Link href="/playbook/setup-codex" className="rounded-xl border border-border bg-background p-5 transition hover:border-accent">
                     <h3 className="text-lg font-semibold text-foreground">Codex 심화 플레이북</h3>
                     <p className="mt-2 text-sm leading-7 text-foreground-muted">
                       실제 설정 파일, rule, hook, subagent, 외부 확장까지 한 번에 정리한 심화 문서입니다.
                     </p>
                   </Link>
-                  <Link href="/architecture/overview" className="rounded-xl border border-border bg-background p-5 transition hover:border-accent">
-                    <h3 className="text-lg font-semibold text-foreground">아키텍처 다이어그램</h3>
+                  <Link href="/reference/claude-code-official" className="rounded-xl border border-border bg-background p-5 transition hover:border-accent">
+                    <h3 className="text-lg font-semibold text-foreground">Claude 공식 자료 맵</h3>
                     <p className="mt-2 text-sm leading-7 text-foreground-muted">
-                      하네스를 구성하는 5개 레이어를 시각적으로 확인할 수 있습니다.
+                      Anthropic 공식 문서 기준으로 설치, settings, hooks, skills, sub-agents, plugin 마켓을 한 번에 따라갈 수 있습니다.
                     </p>
                   </Link>
-                  <Link href="/catalog/skills" className="rounded-xl border border-border bg-background p-5 transition hover:border-accent">
-                    <h3 className="text-lg font-semibold text-foreground">실제 카탈로그</h3>
+                  <Link href="/reference/zero-trust-plugins" className="rounded-xl border border-border bg-background p-5 transition hover:border-accent">
+                    <h3 className="text-lg font-semibold text-foreground">Zero Trust 보안층</h3>
                     <p className="mt-2 text-sm leading-7 text-foreground-muted">
-                      설명을 읽은 뒤 실제 파일 경로와 항목으로 내려가 확인하는 단계입니다.
+                      외부 plugin 과 MCP 를 붙일 때 가장 먼저 점검해야 하는 방어 원칙을 정리한 우산 페이지입니다.
                     </p>
                   </Link>
                 </div>
