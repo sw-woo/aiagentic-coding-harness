@@ -552,9 +552,6 @@ export default function HandbookPage() {
                     한 줄로 요약하면 이렇습니다 — <strong>모델이 아닌 모든 것이 하네스입니다</strong>. 메모리,
                     도구, 컨텍스트 관리, 실행 루프, 검증, 안전 정책처럼 모델 주변을 둘러싼 모든 층이 함께 “팀처럼
                     일하는 AI” 를 만듭니다.
-                    <span className="block pt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground-subtle">
-                      [출처 미확인 — 사용자 제공 글] “If you’re not the model, you’re the Harness.”
-                    </span>
                   </figcaption>
                 </figure>
 
@@ -597,9 +594,6 @@ export default function HandbookPage() {
                     7가지 결정 — 단일 vs 멀티 에이전트, ReAct vs Plan-and-Execute, 컨텍스트 압축 vs 풍부한
                     문맥, 결정적 vs 추론형 검증, 허용형 vs 제한형 권한, 풀 툴킷 vs 단계별 최소 툴, 얇은 vs 두꺼운
                     하네스. “보편적 정답은 없습니다. trade-off 만 있습니다.”
-                    <span className="block pt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground-subtle">
-                      [출처 미확인 — 사용자 제공 글] “Designing Your Agent Harness”
-                    </span>
                   </figcaption>
                 </figure>
 

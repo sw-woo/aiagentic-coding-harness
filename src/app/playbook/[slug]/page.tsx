@@ -365,7 +365,7 @@ function CodexWikiPage({
                   Deep Setup Guide
                 </p>
                 <h2 className="mt-3 font-serif text-4xl tracking-tight text-foreground sm:text-5xl">
-                  Codex 하네스를 위키처럼 설계합니다
+                  Codex 하네스를 설계합니다
                 </h2>
                 <p className="mt-5 max-w-4xl text-[17px] leading-8 text-foreground-muted">
                   이 페이지는 짧은 인문서가 아니라, 다른 사람이 그대로 따라 해서 설정을 복구할 수 있는 운영 문서입니다.
