@@ -118,6 +118,13 @@ export default function CodexOfficialReferencePage() {
 
         <ProseHeading level={2}>이 사이트와 어떻게 연결되나요</ProseHeading>
         <div className="mt-6 grid gap-4 sm:grid-cols-3">
+          <Link href="/reference/claude-code-official" className="rounded-xl border border-border bg-surface p-5 transition hover:border-accent">
+            <h3 className="text-lg font-semibold text-foreground">Claude Code 자료 맵</h3>
+            <p className="mt-2 text-sm leading-7 text-foreground-muted">
+              같은 구조로 정리한 Anthropic Claude Code 측 공식 문서 모음입니다. 두 런타임을 비교할
+              때 같이 봐 주십시오.
+            </p>
+          </Link>
           <Link href="/reference/codex-hooks" className="rounded-xl border border-border bg-surface p-5 transition hover:border-accent">
             <h3 className="text-lg font-semibold text-foreground">Codex Hooks 심화 가이드</h3>
             <p className="mt-2 text-sm leading-7 text-foreground-muted">
