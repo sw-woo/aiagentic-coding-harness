@@ -14,38 +14,38 @@ type TimelineItem = {
 
 const ITEMS: TimelineItem[] = [
   {
-    year: "2017",
-    title: "Software 2.0",
+    year: "2022.11",
+    title: "ChatGPT 출시",
     description:
-      "Karpathy 가 가중치로 학습된 모델 자체를 또 하나의 소프트웨어 층으로 정식 제시했습니다.",
+      "OpenAI 가 ChatGPT 를 공개해 일반 사용자가 처음으로 LLM 과 직접 대화하기 시작했습니다. AI 코딩 도구의 시작점이자 가장 친숙한 분기점입니다.",
     accent: "border-l-accent text-accent",
   },
   {
     year: "2023",
-    title: "LLM as Operating System",
+    title: "GPT-4 와 Copilot Chat",
     description:
-      "LLM 을 일종의 커널처럼 보고, 컨텍스트와 도구를 자원처럼 관리하기 시작한 시기입니다.",
+      "GPT-4 가 등장하면서 IDE 안의 자동완성에서 대화형 코딩 보조로 무게 중심이 옮겨갔습니다. LLM 을 도구처럼 다루는 흐름이 본격화된 해입니다.",
     accent: "border-l-violet-500 text-violet-400",
   },
   {
     year: "2024",
-    title: "Building Effective Agents",
+    title: "Workflow 와 Agent 구분",
     description:
-      "Anthropic 이 workflow 와 agent 를 구분하면서, 단순 체인이 더 안전한 상황을 명확히 정리했습니다.",
+      "Anthropic 의 “Building Effective Agents”(2024년 12월) 가 워크플로(고정 흐름) 와 에이전트(자율 결정) 를 구분했습니다. 무조건 복잡한 에이전트보다 단순한 흐름이 더 좋을 때가 있다는 기준이 잡혔습니다.",
     accent: "border-l-emerald-500 text-emerald-400",
   },
   {
     year: "2025",
-    title: "Ralph · Evals · Context Engineering",
+    title: "하네스 공학으로",
     description:
-      "Ralph loop, eval-driven dev, context engineering 같은 운영 기법이 묶여 하네스 공학으로 굳어졌습니다.",
+      "Ralph loop, 평가 루프, 컨텍스트 관리, MCP 같은 운영 기법이 한데 묶이면서 “AI 가 잘 일하는 작업 환경을 사람이 설계한다”는 관점이 자리잡았습니다.",
     accent: "border-l-orange-500 text-orange-400",
   },
   {
     year: "2026",
-    title: "Hot Stack",
+    title: "Codex · Claude Code 시대",
     description:
-      "Codex 와 Claude Code 런타임, MCP, Playwright, Context7, 강한 30B 오픈 coder 모델, 관측성과 검증 루프가 한 스택으로 묶이는 시기입니다.",
+      "Codex 와 Claude Code 같은 터미널 기반 AI 코딩 도구, MCP, Playwright, 강한 30B 오픈 coder 모델, 관측성과 검증 루프가 한 스택으로 묶이는 시기입니다.",
     accent: "border-l-sky-500 text-sky-400",
   },
 ];
@@ -55,14 +55,14 @@ export function HandbookTimeline() {
     <div className="rounded-2xl border border-border bg-background p-6 sm:p-8">
       <header className="mb-6">
         <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-foreground-subtle">
-          Timeline · 2017 → 2026
+          Timeline · 2022.11 → 2026
         </p>
         <h3 className="mt-2 font-serif text-2xl tracking-tight text-foreground sm:text-[28px]">
-          Agentic Coding Handbook Timeline
+          ChatGPT 출시부터 지금까지 — AI 코딩 도구의 흐름
         </h3>
         <p className="mt-2 max-w-[68ch] text-sm leading-7 text-foreground-muted">
-          자동완성 시절에서 출발해 하네스 공학으로 이어진 과거의 흐름입니다. 각 항목은
-          상위 사이트의 essay 페이지에서 더 깊게 다룹니다.
+          ChatGPT 가 등장한 2022년 11월부터, AI 코딩 도구가 지금의 “하네스 공학” 으로
+          이어진 4년 동안의 과정을 한눈에 보는 타임라인입니다.
         </p>
       </header>
 

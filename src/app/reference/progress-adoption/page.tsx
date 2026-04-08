@@ -92,12 +92,16 @@ export default function ProgressAdoptionPage() {
 
         <ProseHeading level={2}>4. 인프라 쪽에서는 TPU와 inference 최적화가 분명한 추세입니다</ProseHeading>
         <ProseParagraph>
-          Google은 2024년 Trillium(v6e), 2025년 Ironwood를 발표하며 TPU의 training+serving, 그리고 thinking/inference 모델 최적화를 강하게 밀고 있습니다.
-          Trillium 공식 문서는 v6e가 transformer, text-to-image, CNN 학습/서빙을 겨냥한다고 설명하고, Google은 Ironwood를 “age of inference”를 위한 TPU라고 직접 표현합니다.
+          Google 은 2024년 Trillium(v6e), 2025년 Ironwood 를 발표하며 TPU 의 training + serving, 그리고
+          thinking · inference 모델 최적화를 강하게 밀고 있습니다. Trillium 공식 문서는 v6e 가 transformer,
+          text-to-image, CNN 학습 · 서빙을 겨냥한다고 설명합니다. Google 은 Ironwood 를 “age of inference” 를
+          위한 TPU 라고 직접 표현합니다.
         </ProseParagraph>
         <ProseParagraph>
-          즉, 모델 자체만 발전하는 것이 아니라, 그 모델을 더 길고 더 자주 더 안정적으로 돌릴 수 있게 해 주는 하드웨어와 서빙 스택이 같이 발전하고 있습니다.
-          하네스 엔지니어링 관점에서는 이 변화가 매우 중요합니다. reasoning-heavy 모델과 long-running agent가 늘수록, latency, cost, availability 문제는 더 커지기 때문입니다.
+          즉, 모델 자체만 발전하는 것이 아니라, 그 모델을 더 길고 더 자주 더 안정적으로 돌릴 수 있게 해 주는
+          하드웨어와 서빙 스택이 같이 발전하고 있습니다. 하네스 엔지니어링 관점에서 이 변화는 매우 중요합니다.
+          reasoning-heavy 모델과 long-running agent 가 늘수록 latency, cost, availability 문제가 함께 커지기
+          때문입니다.
         </ProseParagraph>
 
         <ProseHeading level={2}>5. 회사 도입 사례는 이미 ‘실험’을 넘어서고 있습니다</ProseHeading>
@@ -105,7 +109,8 @@ export default function ProgressAdoptionPage() {
           <div className="rounded-xl border border-border bg-surface p-5">
             <h3 className="text-lg font-semibold text-foreground">Rakuten × OpenAI Codex</h3>
             <p className="mt-2 text-sm leading-7 text-foreground-muted">
-              OpenAI 2026년 사례는 Rakuten이 Codex를 incident recovery, code review, full-stack build에 연결해 “fixes issues twice as fast”라는 결과를 설명합니다.
+              OpenAI 2026년 사례에 따르면, Rakuten 은 Codex 를 incident recovery, code review, full-stack
+              build 에 연결했습니다. 그 결과 “fixes issues twice as fast” 라는 지표를 보고했습니다.
             </p>
           </div>
           <div className="rounded-xl border border-border bg-surface p-5">

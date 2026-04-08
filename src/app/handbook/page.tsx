@@ -21,8 +21,8 @@ const TOC = [
 
 const CURRENT_STACK = [
   {
-    title: "프런티어 런타임",
-    body: "Codex와 Claude Code 같은 런타임이 memory, rules, hooks, MCP, subagents 를 표면화하면서 프롬프트를 넘어선 작업 환경으로 진화했습니다.",
+    title: "Codex · Claude Code 같은 AI 코딩 도구",
+    body: "Codex 와 Claude Code 같은 터미널 기반 AI 코딩 도구가 메모리, 규칙, 훅, MCP, 서브에이전트를 표면화하면서 프롬프트를 넘어선 작업 환경으로 진화했습니다.",
   },
   {
     title: "오픈 coder 모델의 실용화",
@@ -90,8 +90,8 @@ const MODEL_LEVELS = [
 const ROLLOUT_STEPS = [
   "공통 검증 명령을 먼저 고정합니다.",
   "Claude Code 는 CLAUDE.md, Codex 는 AGENTS.md 와 config.toml 로 팀 공통 기본값을 맞춥니다. 두 파일은 보통 서로의 일부를 import 하거나 교차 참조하면 됩니다.",
-  "review / verify / docs-researcher 같은 좁은 역할부터 subagent 로 분리합니다 (Claude Code 는 .claude/agents/, Codex 는 .codex/agents/).",
-  "Playwright 와 Context7 처럼 가치가 즉시 보이는 MCP부터 붙입니다. 두 런타임 모두 같은 MCP 서버를 공유할 수 있습니다.",
+  "review / verify / docs-researcher 같은 좁은 역할부터 subagent 로 분리합니다. Claude Code 는 .claude/agents/, Codex 는 .codex/agents/ 디렉터리를 사용합니다.",
+  "Playwright 와 Context7 처럼 가치가 즉시 보이는 MCP 부터 붙입니다. Claude Code 와 Codex 두 도구 모두 같은 MCP 서버를 공유할 수 있습니다.",
   "위험 명령은 Rules 와 Hooks 두 층으로 막습니다 (Claude Code 는 settings.json permissions + hooks, Codex 는 execpolicy + hooks.json).",
   "도입 후에는 성능이 아니라 build 성공률, 리뷰 속도, 회귀 감소를 측정합니다.",
 ] as const;
@@ -187,7 +187,7 @@ const CONCEPT_MAPPING = [
     codex: "AGENTS.md (디렉터리 계층 자동 탐색 + override)",
   },
   {
-    concept: "런타임 설정",
+    concept: "도구 설정 파일",
     claude: ".claude/settings.json",
     codex: ".codex/config.toml + ~/.codex/config.toml",
   },
@@ -234,11 +234,11 @@ const CONCEPT_MAPPING = [
 ] as const;
 
 const COMMON_PATTERNS = [
-  "팀의 사실은 모두 메모리 파일(CLAUDE.md / AGENTS.md)에 박는 것이 첫 단계입니다. 두 런타임 모두 세션 시작 시 자동 로드합니다.",
+  "팀의 사실은 모두 메모리 파일(CLAUDE.md / AGENTS.md)에 박는 것이 첫 단계입니다. Claude Code 와 Codex 두 도구 모두 세션 시작 시 자동 로드합니다.",
   "위험 명령은 declarative rules + dynamic hooks 두 층으로 막습니다. 한 층만 믿으면 우회 가능합니다.",
   "reviewer / verifier / docs-researcher 처럼 좁은 역할의 read-only 서브에이전트를 먼저 만드는 것이 가장 효과적입니다.",
-  "MCP 서버는 두 런타임이 공유합니다. Playwright MCP 하나 설치하면 양쪽에서 같이 쓸 수 있습니다.",
-  "검증 루프 (build, test, lint, eval) 가 끝나야 작업 완료입니다. 두 런타임 모두 verify-before-completion 패턴이 권장됩니다.",
+  "MCP 서버는 두 도구가 공유합니다. Playwright MCP 하나 설치하면 Claude Code 와 Codex 양쪽에서 같이 쓸 수 있습니다.",
+  "검증 루프 (build, test, lint, eval) 가 끝나야 작업 완료입니다. 두 도구 모두 verify-before-completion 패턴이 권장됩니다.",
   "세션 시작 hook 으로 저장소 컨텍스트(검증 명령, 운영 원칙)를 매번 주입하면 컨텍스트 누락이 줄어듭니다.",
   "파일 경로 기반 path-specific 규칙을 분리해 두면, 모듈별로 다른 안전 기준을 적용할 수 있습니다.",
   "분기별로 모델, MCP, rules, hooks, skills 를 같이 갱신하는 운영 리듬이 필요합니다.",
@@ -309,7 +309,7 @@ const WHEN_TO_PICK = [
   {
     title: "둘 다 시도해 보고 싶다면",
     answer:
-      "공통 메모리(같은 내용을 CLAUDE.md / AGENTS.md 양쪽에 두기), 공통 검증 명령, 공통 MCP 세트를 먼저 만들고, 그 위에서 두 런타임을 동시에 운영해 보세요. 같은 작업을 양쪽에 던져 보는 것이 가장 빠른 비교입니다.",
+      "먼저 공통 기반을 맞추세요. 같은 내용을 CLAUDE.md 와 AGENTS.md 양쪽에 두고, 검증 명령과 MCP 세트도 공통으로 묶습니다. 그 위에서 두 도구를 동시에 운영하면서 같은 작업을 양쪽에 던져 보는 것이 가장 빠른 비교입니다.",
   },
   {
     title: "서로 보완해서 쓰고 싶다면",
@@ -392,27 +392,42 @@ export default function HandbookPage() {
 
               <section id="past" className="rounded-2xl border border-border bg-surface p-7">
                 <h2 className="text-2xl font-semibold tracking-tight text-foreground">
-                  과거 발전 과정: 자동완성에서 하네스 공학으로
+                  과거 발전 과정: ChatGPT 출시부터 지금까지 4년의 흐름
                 </h2>
+                <p className="mt-4 text-[16px] leading-8 text-foreground-muted">
+                  AI 코딩 도구의 실질적인 시작점은 2022년 11월 30일 ChatGPT 출시입니다. 그 이전의 자동완성과
+                  연구 단계 모델들은 일부 개발자만 알던 영역이었지만, ChatGPT 이후로 일반 사용자가 처음으로
+                  LLM 과 직접 대화하면서 “AI 와 함께 코드를 짜는 일” 이 모든 사람의 일이 됐습니다. 이 4년의
+                  흐름을 한눈에 보는 것이 이번 섹션의 목표입니다.
+                </p>
                 <div className="mt-6">
                   <HandbookTimeline />
                 </div>
                 <div className="mt-6 space-y-4 text-[16px] leading-8 text-foreground-muted">
                   <p>
-                    <strong>2017</strong> 에는 “사람이 직접 코드를 다 쓰지 않아도, 학습된 모델 자체가 하나의 소프트웨어처럼 작동할 수 있다”는 관점이 널리 정리되기 시작했습니다.
-                    지금 우리가 LLM을 도구로 다루는 흐름의 출발점 중 하나가 여기입니다.
+                    <strong>2022년 11월</strong> — OpenAI 가 ChatGPT 를 공개했습니다. 일반 사용자가 LLM 과 직접 대화할
+                    수 있게 되면서 “AI 가 코드를 짜 준다” 는 경험이 처음으로 대중화됐습니다. 사내 슬랙에 ChatGPT
+                    URL 이 공유되기 시작한 시점이기도 합니다.
                   </p>
                   <p>
-                    <strong>2023</strong> 에는 LLM 하나만 보는 게 아니라, 프롬프트, 컨텍스트, 메모리, 도구를 함께 관리하는 방식이 중요하다는 관점이 강해졌습니다.
-                    즉, 모델보다 “모델을 둘러싼 실행 환경”이 더 중요해지기 시작한 시기입니다.
+                    <strong>2023년</strong> — GPT-4 가 등장하고 GitHub Copilot Chat 같은 IDE 통합이 본격화되면서,
+                    단순 자동완성에서 “대화형 코딩 보조” 로 무게 중심이 옮겨갔습니다. 이때부터 사람들은 LLM 을
+                    “하나의 답을 받는 도구” 가 아니라 “여러 번 대화하며 같이 일하는 도구” 로 보기 시작했습니다.
                   </p>
                   <p>
-                    <strong>2024</strong> 에는 “무조건 복잡한 에이전트를 만들기보다, 단순한 작업 흐름이 더 나을 때가 많다”는 기준이 정리됐습니다.
-                    에이전트를 어디에 써야 하고, 어디에는 단순 workflow가 더 좋은지를 구분하는 감각이 생겼습니다.
+                    <strong>2024년</strong> — Anthropic 의 “Building Effective Agents” 가 워크플로(고정된 흐름) 와
+                    에이전트(자율 결정) 를 구분했습니다. 무조건 복잡한 에이전트를 만들기보다 단순한 작업 흐름이 더
+                    나을 때가 많다는 기준이 잡혔습니다.
                   </p>
                   <p>
-                    <strong>2025~2026</strong> 에는 Ralph loop, 평가 루프, 컨텍스트 관리, MCP 같은 기법이 한데 모이면서
-                    지금의 하네스 엔지니어링으로 이어졌습니다. 이제는 프롬프트를 잘 쓰는 것보다, 작업 환경을 잘 설계하는 것이 더 중요해졌습니다.
+                    <strong>2025년</strong> — Ralph loop, 평가 루프, 컨텍스트 관리, MCP 같은 운영 기법이 한데
+                    묶이면서 “AI 가 잘 일하는 작업 환경을 사람이 설계한다” 는 관점이 자리잡았습니다. 이때부터
+                    프롬프트보다 작업 환경(메모리, 규칙, 검증, 도구 연결) 이 더 중요해졌습니다.
+                  </p>
+                  <p>
+                    <strong>2026년</strong> — Codex 와 Claude Code 같은 터미널 기반 AI 코딩 도구가 한 단계 위로
+                    올라왔습니다. 모델 자체보다, AI 가 실제로 동작하는 작업 환경 — 즉 하네스 — 를 어떻게 설계하느냐가
+                    팀 단위 생산성을 가르는 변수가 됐습니다.
                   </p>
                 </div>
                 <div className="mt-6 rounded-xl border border-border bg-background p-4">
@@ -429,12 +444,13 @@ export default function HandbookPage() {
 
               <section id="present" className="rounded-2xl border border-border bg-surface p-7">
                 <h2 className="text-2xl font-semibold tracking-tight text-foreground">
-                  현재 가장 핫한 흐름: 모델보다 런타임과 확장성이 중요해졌습니다
+                  현재 가장 핫한 흐름: 모델보다 작업 환경이 중요해졌습니다
                 </h2>
                 <p className="mt-4 text-[16px] leading-8 text-foreground-muted">
-                  2026년의 agentic coding은 “좋은 모델 하나를 고르는 문제”로 설명하기 어렵습니다. 실제 체감 생산성은
-                  모델 자체보다 런타임의 능력, 외부 맥락의 품질, 자동화된 검증, 관측성, 조직 정책과 더 강하게 얽혀 있습니다.
-                  같은 모델을 써도 누군가는 매우 강한 결과를 얻고, 누군가는 실망하는 이유가 여기 있습니다.
+                  2026년의 AI 코딩은 “좋은 모델 하나를 고르는 문제” 로 설명하기 어렵습니다. 실제 체감 생산성은
+                  모델 자체보다 그 모델을 둘러싼 작업 환경의 품질에 더 크게 좌우됩니다. 메모리와 문서 인용, 자동화된
+                  검증, 도구 연결, 조직 정책이 모두 여기 들어갑니다. 같은 모델을 써도 누군가는 매우 강한 결과를
+                  얻고 누군가는 실망하는 이유가 여기 있습니다.
                 </p>
                 <div className="mt-6">
                   <HarnessLandscape />
@@ -456,9 +472,11 @@ export default function HandbookPage() {
                 </Callout>
                 <ProseHeading level={3}>지금 뜨는 조합은 무엇인가</ProseHeading>
                 <p className="mt-4 text-[16px] leading-8 text-foreground-muted">
-                  지금 가장 실용적인 조합은 대체로 비슷합니다. 메인 세션에는 강한 최상위 런타임을 두고, 문서 인용에는 Context7,
-                  UI 검증에는 Playwright MCP, 작업 추적에는 Linear나 GitHub, 팀 문서와 협업에는 Slack 또는 Atlassian 같은 외부 연결을 붙입니다.
-                  여기에 rules와 hooks로 안전 장치를 추가하고, build/test/verify 스크립트로 품질을 닫는 구조가 현재 가장 재현성이 높습니다.
+                  지금 가장 실용적인 조합은 대체로 비슷합니다. 메인 세션에는 Claude Code 또는 Codex 같은 강한
+                  AI 코딩 도구를 두고, 문서 인용에는 Context7, UI 검증에는 Playwright MCP, 작업 추적에는 Linear
+                  또는 GitHub, 팀 문서와 협업에는 Slack 또는 Atlassian 같은 외부 연결을 붙입니다. 여기에 규칙과
+                  훅으로 안전 장치를 추가하고 build · test · verify 스크립트로 품질을 닫는 구조가 현재 가장
+                  재현성이 높습니다.
                 </p>
                 <p className="mt-4 text-[16px] leading-8 text-foreground-muted">
                   특히 오픈 모델의 실용화는 중요한 변화입니다. 예전에는 오픈 모델이 “보조적인 분석 도구”에 가까웠다면,
@@ -658,9 +676,10 @@ export default function HandbookPage() {
                   Claude Code 와 Codex — 같은 개념, 다른 이름
                 </h2>
                 <p className="mt-4 max-w-[68ch] text-[16px] leading-8 text-foreground-muted">
-                  이 사이트의 카탈로그는 두 런타임을 모두 지원합니다. 기능적으로는 거의 같은 일을 합니다. 다만
-                  파일 이름, 설정 문법, 슬래시 명령, 안전 장치의 표현 방식이 조금씩 다릅니다. 같은 운영 사상을
-                  두 도구에 어떻게 옮기는지가 핵심이며, 이 섹션은 그 mapping 과 차이점을 한 번에 정리합니다.
+                  이 사이트의 카탈로그는 Claude Code 와 Codex 두 도구를 모두 지원합니다. 기능적으로 두 도구는
+                  거의 같은 일을 합니다. 다만 파일 이름, 설정 문법, 슬래시 명령, 안전 장치의 표현 방식이 조금씩
+                  다릅니다. 같은 운영 사상을 두 도구에 어떻게 옮기는지가 핵심이며, 이 섹션은 그 mapping 과
+                  차이점을 한 번에 정리합니다.
                 </p>
 
                 <ProseHeading level={3}>같은 개념의 자리</ProseHeading>
@@ -738,7 +757,7 @@ export default function HandbookPage() {
 
                 <ProseHeading level={3}>나란히 두는 도입 설정 예시</ProseHeading>
                 <p className="mt-3 max-w-[68ch] text-sm leading-7 text-foreground-muted">
-                  같은 팀 안전 기본값을 두 런타임에 어떻게 옮기는지 한 화면에 둡니다. 두 파일은 같은 사상을
+                  같은 팀 안전 기본값을 두 도구에 어떻게 옮기는지 한 화면에 둡니다. 두 파일은 같은 사상을
                   표현하지만 문법이 다릅니다.
                 </p>
                 <div className="mt-5 grid gap-4 lg:grid-cols-2">
@@ -826,9 +845,10 @@ prefix_rule("git push", prompt)
 
                 <Callout tone="tip" title="한 줄 정리">
                   <p>
-                    두 런타임은 사상은 거의 같습니다. 다른 것은 파일 이름과 문법뿐입니다. 같은 메모리, 같은 검증
-                    명령, 같은 안전 기본값을 두 곳에 모두 두면, 사실상 어느 도구를 쓰든 같은 팀 표준이 됩니다.
-                    그 다음에 각자의 강점(Codex 의 plan mode, Claude Code 의 플러그인 마켓)으로 분기하시면 됩니다.
+                    Claude Code 와 Codex 는 사상이 거의 같습니다. 다른 것은 파일 이름과 문법뿐입니다. 같은
+                    메모리, 같은 검증 명령, 같은 안전 기본값을 두 곳에 모두 두면, 사실상 어느 도구를 쓰든 같은
+                    팀 표준이 됩니다. 그 다음에 각자의 강점(Codex 의 plan mode, Claude Code 의 플러그인 마켓)으로
+                    분기하시면 됩니다.
                   </p>
                 </Callout>
 
@@ -901,7 +921,7 @@ prefix_rule("git push", prompt)
 
               <section id="future" className="rounded-2xl border border-border bg-surface p-7">
                 <h2 className="text-2xl font-semibold tracking-tight text-foreground">
-                  앞으로의 방향: 모델 경쟁이 런타임 경쟁으로 옮겨갑니다
+                  앞으로의 방향: 모델 경쟁이 작업 환경 경쟁으로 옮겨갑니다
                 </h2>
                 <p className="mt-4 text-[16px] leading-8 text-foreground-muted">
                   모델 자체의 지능 향상은 앞으로 1~3년도 계속됩니다. Epoch AI 의 컴퓨트 추정에 따르면 최상위 학습
@@ -970,7 +990,7 @@ prefix_rule("git push", prompt)
                 <div className="mt-5 grid gap-4 md:grid-cols-3">
                   <div className="rounded-xl border border-border bg-background p-5">
                     <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">하나</p>
-                    <h4 className="mt-2 text-base font-semibold text-foreground">런타임 관측성</h4>
+                    <h4 className="mt-2 text-base font-semibold text-foreground">도구 사용 관측성</h4>
                     <p className="mt-2 text-sm leading-7 text-foreground-muted">
                       어떤 도구가 병목인지, 어떤 MCP 가 자주 실패하는지, 어떤 워크플로에서 토큰 비용이 튀는지 보지
                       못하면 다음 단계 개선이 막힙니다. 도구 호출 추적, MCP 호출 지연시간, 세션당 토큰 사용량을
@@ -1079,6 +1099,22 @@ prefix_rule("git push", prompt)
                     결국 더 높은 생산성을 가져갑니다.
                   </p>
                 </Callout>
+
+                <p className="mt-6 text-[15px] leading-7 text-foreground-muted">
+                  여기서 더 깊게 보고 싶다면, 두 도구의 공식 자료부터 같은 구조로 정리된 자료 맵을 보십시오 —{" "}
+                  <Link href="/reference/claude-code-official" className="text-accent hover:underline">
+                    Claude Code 공식 자료 맵
+                  </Link>
+                  {" / "}
+                  <Link href="/reference/codex-official" className="text-accent hover:underline">
+                    Codex 공식 자료 맵
+                  </Link>
+                  . 클라우드 오프로드 planning 의 가장 신선한 사례는{" "}
+                  <Link href="/reference/ultraplan" className="text-accent hover:underline">
+                    /reference/ultraplan
+                  </Link>{" "}
+                  에 정리돼 있습니다.
+                </p>
               </section>
 
               <section id="sources" className="rounded-2xl border border-border bg-surface p-7">
@@ -1107,7 +1143,7 @@ function CodeBlockLike() {
   return (
     <pre className="mt-6 overflow-x-auto rounded-xl border border-border bg-background px-4 py-4 font-mono text-[13px] leading-relaxed text-foreground">
       <code>{`# 사내 도입 예시
-1. 루트 CLAUDE.md / AGENTS.md 초안 배포 (두 런타임 모두)
+1. 루트 CLAUDE.md / AGENTS.md 초안 배포 (두 도구 모두)
 2. 표준 verify 스크립트와 build 명령 고정
 3. reviewer / verifier / docs researcher 서브에이전트 제공
 4. Playwright + Context7 MCP 기본 세트 제공

@@ -75,7 +75,7 @@ const ORCHESTRATION_LAYERS = [
     name: "oh-my-codex",
     href: "https://github.com/Yeachan-Heo/oh-my-codex",
     summary:
-      "OpenAI Codex CLI 위에 얹는 workflow layer입니다. Codex를 실행 엔진으로 유지하면서 `$deep-interview`, `$ralplan`, `$team`, `$ralph` 같은 표준 workflow를 제공합니다.",
+      "OpenAI Codex CLI 위에 얹는 workflow layer 입니다. Codex 를 실행 엔진으로 유지하면서 `$deep-interview`, `$ralplan`, `$team`, `$ralph` 같은 표준 workflow 를 제공합니다.",
     note:
       "README 기준으로 `.omx/` 상태, native Codex hooks, team runtime, sparkshell/explore 같은 보조 표면을 함께 제공합니다.",
   },
@@ -83,7 +83,7 @@ const ORCHESTRATION_LAYERS = [
     name: "oh-my-opencode",
     href: "https://github.com/code-yeongyu/oh-my-opencode",
     summary:
-      "OpenCode 위에 얹는 강한 orchestration/harness 레이어입니다. 다중 모델 오케스트레이션, built-in MCPs, skill-embedded MCPs, tmux, LSP, AST-Grep 같은 확장 표면을 강조합니다.",
+      "OpenCode 위에 얹는 강한 orchestration · harness 레이어입니다. 다중 모델 오케스트레이션, built-in MCPs, skill-embedded MCPs, tmux, LSP, AST-Grep 같은 확장 표면을 강조합니다.",
     note:
       "README는 `ultrawork` 같은 단일 키워드 진입과 OpenCode 설정 파일 위의 plugin/compatibility layer를 핵심 UX로 설명합니다.",
   },

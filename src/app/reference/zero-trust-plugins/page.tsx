@@ -67,7 +67,7 @@ const RELATED_PAGES = [
 export const metadata: Metadata = {
   title: "Zero Trust 플러그인 — 4계층 방어 원칙",
   description:
-    "외부 플러그인과 MCP 서버를 신뢰하지 않는다는 전제로, 에이전트 하네스가 반드시 가져야 할 네 가지 방어 층(Allowlist, Sandbox, Credential Proxy, I/O Guardrails)을 정리한 우산 페이지입니다.",
+    "외부 플러그인과 MCP 서버를 신뢰하지 않는다는 전제로 시작합니다. 에이전트 하네스가 반드시 가져야 할 네 가지 방어 층 — Allowlist, Sandbox, Credential Proxy, I/O Guardrails — 을 정리한 우산 페이지입니다.",
 };
 
 export default function ZeroTrustPluginsPage() {

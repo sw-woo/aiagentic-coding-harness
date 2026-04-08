@@ -51,7 +51,7 @@ const RELATED_PAGES = [
 export const metadata: Metadata = {
   title: "Claude Code /ultraplan — 클라우드 오프로드 planning",
   description:
-    "Claude Code 의 ultraplan 슬래시 명령은 계획 수립 단계를 Anthropic 클라우드로 오프로드해 터미널을 점유 해제하고, 웹 기반 리뷰 UI 와 두 가지 실행 경로(Teleport 또는 PR) 를 제공합니다. 공식 문서 기반 정리 페이지입니다.",
+    "Claude Code 의 ultraplan 슬래시 명령은 계획 수립을 Anthropic 클라우드로 오프로드해 터미널을 비웁니다. 웹 리뷰 UI 와 Teleport · PR 두 가지 실행 경로를 공식 문서 기반으로 정리한 페이지입니다.",
 };
 
 export default function UltraplanPage() {

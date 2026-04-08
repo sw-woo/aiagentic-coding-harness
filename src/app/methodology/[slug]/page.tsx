@@ -566,7 +566,7 @@ function AgentTeams() {
           서브에이전트 정의(<code className="rounded bg-surface-2 px-1.5 py-0.5 font-mono text-[15px]">.claude/agents/</code>)를 그대로 사용하면서 “팀” 으로 묶을 수 있습니다.
         </li>
         <li>
-          <strong>OpenAI Swarm</strong> — 2024년 10월 공개된 OpenAI 의 실험 라이브러리. routine 과 handoff 라는 두 개의 1급 개념으로 멀티 에이전트를 모델링합니다. 후속으로 OpenAI Agents SDK 가 발표됐습니다.
+          <strong>OpenAI Swarm</strong> — 2024년 10월 공개된 OpenAI 의 실험 라이브러리입니다. routine 과 handoff 라는 두 개의 1급 개념으로 멀티 에이전트를 모델링합니다. 후속으로 OpenAI Agents SDK 가 발표됐습니다.
         </li>
         <li>
           <strong>LangGraph</strong> — LangChain 진영의 그래프 기반 멀티 에이전트 프레임워크. 노드 = 에이전트, 엣지 = 상태 전이입니다. 에이전트 사이의 데이터 흐름을 그래프로 모델링하고 싶을 때 강합니다.
@@ -613,13 +613,13 @@ function SelfImproving() {
           <strong>AlphaZero</strong> (DeepMind, 2017) — 도메인 지식 없이 self-play 만으로 바둑·체스·쇼기 세 종목에서 사람 챔피언을 능가했습니다. “AI 가 자기 자신과 게임만 해서” 학습한 사례입니다.
         </li>
         <li>
-          <strong>Constitutional AI / RLAIF</strong> (Anthropic, Bai et al. 2022) — 사람 라벨 대신 AI 의 비판으로 정렬을 학습합니다. 인간 피드백(RLHF) 의 비용과 일관성 문제를 보완하는 방향입니다.
+          <strong>Constitutional AI / RLAIF</strong> (Anthropic, Bai et al. 2022) — 사람 라벨 대신 AI 의 비판으로 정렬을 학습합니다. 인간 피드백(RLHF)의 비용과 일관성 문제를 보완하는 방향입니다.
         </li>
         <li>
           <strong>DSPy</strong> (Stanford NLP, Khattab et al.) — 프롬프트 자체를 자동 최적화합니다. “이 task 에 대해 어떤 프롬프트가 가장 잘 동작하는가” 를 사람 대신 라이브러리가 탐색합니다.
         </li>
         <li>
-          <strong>Sakana AI Scientist</strong> (2024) — 가설 생성 → 실험 코드 작성 → 결과 분석 → 논문 작성을 한 파이프라인에 묶었습니다. 실험이 “저렴한 ML 논문 한 편” 에 해당하는 작업을 자동화했다는 보고가 있습니다.
+          <strong>Sakana AI Scientist</strong> (2024) — 가설 생성, 실험 코드 작성, 결과 분석, 논문 작성을 한 파이프라인에 묶었습니다. 한 차례 실행이 “저렴한 ML 논문 한 편”에 해당한다는 보고가 있습니다.
         </li>
         <li>
           <strong>Self-Refine / Self-Rewarding LM / Self-Instruct</strong> — 모델이 자기 출력을 채점하고 개선하는 학습 루프 패밀리. 최근 정렬 연구에서 인용 빈도가 매우 높습니다.

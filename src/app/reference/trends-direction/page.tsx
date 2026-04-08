@@ -75,8 +75,10 @@ export default function TrendsDirectionPage() {
 
         <ProseHeading level={2}>4. tracing과 observability는 기본값이 되고 있습니다</ProseHeading>
         <ProseParagraph>
-          OpenAI Agents SDK tracing 문서는 tracing이 기본 활성 상태이며, LLM generations, tool calls, handoffs, guardrails까지 trace에 포함한다고 설명합니다.
-          이건 중요한 변화입니다. 이제 agent 시스템은 “결과만 보는 도구”가 아니라, 실행 기록을 남기고 다시 개선하는 운영 시스템으로 설계되는 방향으로 가고 있습니다.
+          OpenAI Agents SDK tracing 문서는 tracing 이 기본 활성 상태라고 설명합니다. LLM generations, tool
+          calls, handoffs, guardrails 까지 모두 trace 에 포함됩니다. 이건 중요한 변화입니다. 이제 agent
+          시스템은 “결과만 보는 도구”가 아니라 실행 기록을 남기고 다시 개선하는 운영 시스템으로 설계되고
+          있습니다.
         </ProseParagraph>
 
         <ProseHeading level={2}>5. MCP는 단순 연결이 아니라 governance 문제로 이동하고 있습니다</ProseHeading>

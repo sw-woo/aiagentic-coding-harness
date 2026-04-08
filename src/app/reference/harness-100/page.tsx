@@ -158,7 +158,7 @@ export default function Harness100Page() {
       <Prose className="mt-12">
         <ProseHeading level={2}>Harness 100 에서 배워야 할 것</ProseHeading>
         <ul className="mt-3 list-disc space-y-2 pl-6 font-serif text-foreground">
-          <li><strong>Framework-First Design</strong> — 에세이가 아니라 에이전트의 1급 단위로 도메인 방법론을 박아 넣는 접근입니다. 코딩 도메인에서도 SOLID, 12-factor app, clean architecture 같은 패턴을 같은 방식으로 박을 수 있습니다.</li>
+          <li><strong>Framework-First Design</strong> — 에세이가 아니라 에이전트의 1급 단위로 도메인 방법론을 박아 넣는 접근입니다. 코딩 도메인이라면 SOLID, 12-factor app, clean architecture 같은 패턴도 같은 방식으로 넣을 수 있습니다.</li>
           <li><strong>Explicit Scalability Modes</strong> — 같은 하네스에 full / reduced / single-agent 세 모드를 미리 정의합니다. 비용·시간 제약에 따라 유연하게 운영하기 좋은 패턴입니다.</li>
           <li><strong>Structured Output Templates</strong> — 각 에이전트의 출력 스키마를 미리 정의해 두면 다음 에이전트가 그것을 직접 입력으로 받을 수 있습니다.</li>
           <li><strong>Trigger Boundary Documentation</strong> — “이 하네스는 언제 호출되어야 하고, 언제 호출되어선 안 되는가” 를 명시적으로 적습니다. 오용 방지에 매우 효과적입니다.</li>
