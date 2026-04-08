@@ -542,6 +542,24 @@ export function CatalogPageShell(props: Props) {
           </p>
         </header>
 
+        <Link
+          href="/reference/popular-harness-repos"
+          className="block rounded-2xl border border-accent/40 bg-accent/[0.04] px-5 py-5 transition hover:border-accent"
+        >
+          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-accent-2">
+            먼저 검증된 것부터 보기
+          </p>
+          <h3 className="mt-2 font-sans text-lg font-semibold text-foreground">
+            지금 가장 인기 있는 GitHub 하네스 레포 10선
+          </h3>
+          <p className="mt-2 text-sm leading-7 text-foreground-muted">
+            카탈로그를 직접 채우기 전에, GitHub 공개 API 로 검증한 인기 하네스 레포 10개와 “바로 적용” 가이드를 먼저 보시면 시작이 훨씬 빠릅니다.
+          </p>
+          <span className="mt-3 inline-flex items-center font-mono text-xs text-accent hover:underline">
+            10선 페이지로 이동 →
+          </span>
+        </Link>
+
         <div className="grid gap-4 xl:grid-cols-3">
           {guideCards.map((card) => (
             <article

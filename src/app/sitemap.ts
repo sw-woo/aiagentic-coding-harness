@@ -41,6 +41,7 @@ const STATIC_PATHS = [
   "/reference/paper-to-code",
   "/reference/harness-100",
   "/reference/revfactory-harness",
+  "/reference/popular-harness-repos",
 ] as const;
 
 const METHODOLOGY_SLUGS = [

@@ -147,6 +147,13 @@ const operationsReference = [
 
 const externalReference = [
   {
+    href: "/reference/popular-harness-repos",
+    title: "지금 가장 인기 있는 GitHub 하네스 레포 10선",
+    summary:
+      "GitHub 공개 API 로 직접 검증한 인기 하네스 레포 10개와 각 레포를 자기 저장소에 바로 적용하는 짧은 가이드를 함께 정리한 페이지입니다 (2026-04-08 기준).",
+    badge: "내부 정리",
+  },
+  {
     href: "/reference/paper-to-code",
     title: "Paper-to-Code 시스템",
     summary:
@@ -240,8 +247,13 @@ const externalReference = [
   },
 ] as const satisfies readonly ReferenceCard[];
 
-/** 최근 추가된 5개 페이지 — 페이지 상단 highlight 카드에 사용합니다. */
+/** 최근 추가된 페이지 — 페이지 상단 highlight 카드에 사용합니다. */
 export const recentReferenceHighlights = [
+  {
+    href: "/reference/popular-harness-repos",
+    title: "인기 GitHub 하네스 레포 10선",
+    note: "GitHub 공개 API 로 직접 검증한 stars 순 인기 하네스 레포 10개와 “바로 적용” 가이드를 한 페이지에 정리했습니다 (2026-04-08 기준).",
+  },
   {
     href: "/reference/claude-code-official",
     title: "Claude Code 공식 자료 맵",
