@@ -276,19 +276,86 @@ export default async function PlaybookPage({
   const typedSlug = slug as Slug;
 
   if (typedSlug === "setup-codex") {
-    return <CodexWikiPage meta={META[typedSlug]} />;
+    return <CodexWikiPage meta={META[typedSlug]} activeSlug={typedSlug} />;
   }
 
-  return <ClaudePlaybookPage meta={META[typedSlug]} />;
+  return <ClaudePlaybookPage meta={META[typedSlug]} activeSlug={typedSlug} />;
+}
+
+/**
+ * 두 플레이북 페이지 (Claude Code / Codex) 사이를 사용자가 직접 전환할 수 있는 segmented control 입니다.
+ * 페이지 상단에 sticky 가 아닌 일반 inline 형태로 배치합니다.
+ */
+function PlaybookSwitcher({ activeSlug }: { activeSlug: Slug }) {
+  const tabs: { slug: Slug; label: string; sub: string }[] = [
+    {
+      slug: "setup-claude-code",
+      label: "Claude Code",
+      sub: "Anthropic · 설정 플레이북",
+    },
+    {
+      slug: "setup-codex",
+      label: "Codex",
+      sub: "OpenAI · 심화 설정 가이드",
+    },
+  ];
+
+  return (
+    <div className="mx-auto mb-8 max-w-7xl px-4 pt-10 sm:px-6 sm:pt-14">
+      <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-foreground-muted">
+        Choose a tool
+      </p>
+      <div
+        role="tablist"
+        aria-label="플레이북에서 다룰 도구 선택"
+        className="mt-3 inline-flex w-full max-w-2xl items-stretch rounded-2xl border border-border bg-surface p-1.5 shadow-[0_14px_40px_rgba(15,23,42,0.05)]"
+      >
+        {tabs.map((tab) => {
+          const isActive = tab.slug === activeSlug;
+          return (
+            <Link
+              key={tab.slug}
+              href={`/playbook/${tab.slug}`}
+              role="tab"
+              aria-selected={isActive}
+              className={
+                isActive
+                  ? "flex-1 rounded-xl border border-accent bg-accent/10 px-5 py-3 text-left transition"
+                  : "flex-1 rounded-xl border border-transparent px-5 py-3 text-left transition hover:border-border hover:bg-background"
+              }
+            >
+              <div
+                className={
+                  isActive
+                    ? "font-sans text-base font-semibold text-accent"
+                    : "font-sans text-base font-semibold text-foreground-muted"
+                }
+              >
+                {tab.label}
+              </div>
+              <div className="mt-0.5 text-xs text-foreground-muted">{tab.sub}</div>
+            </Link>
+          );
+        })}
+      </div>
+      <p className="mt-3 max-w-2xl text-xs leading-6 text-foreground-muted">
+        같은 사상으로 두 도구를 모두 다룹니다. 두 페이지를 자유롭게 오가시면서 같은 운영 원칙을
+        Claude Code 와 Codex 에 어떻게 옮기는지 비교해 보실 수 있습니다.
+      </p>
+    </div>
+  );
 }
 
 function ClaudePlaybookPage({
   meta,
+  activeSlug,
 }: {
   meta: { title: string; eyebrow: string; description: string };
+  activeSlug: Slug;
 }) {
   return (
-    <div className="border-b border-border bg-background py-16 sm:py-24">
+    <div className="border-b border-border bg-background pb-16 sm:pb-24">
+      <PlaybookSwitcher activeSlug={activeSlug} />
       <Prose>
         <ProseEyebrow>{meta.eyebrow}</ProseEyebrow>
         <ProseHeading level={1}>{meta.title}</ProseHeading>
@@ -310,12 +377,15 @@ function ClaudePlaybookPage({
 
 function CodexWikiPage({
   meta,
+  activeSlug,
 }: {
   meta: { title: string; eyebrow: string; description: string };
+  activeSlug: Slug;
 }) {
   return (
     <div className="border-b border-border bg-background">
-      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-18">
+      <PlaybookSwitcher activeSlug={activeSlug} />
+      <div className="mx-auto max-w-7xl px-4 pb-14 sm:px-6 sm:pb-18">
         <div className="grid gap-10 lg:grid-cols-[260px_minmax(0,1fr)]">
           <aside className="lg:sticky lg:top-20 lg:self-start">
             <div className="rounded-2xl border border-border bg-surface p-5 shadow-[0_14px_40px_rgba(15,23,42,0.05)]">
