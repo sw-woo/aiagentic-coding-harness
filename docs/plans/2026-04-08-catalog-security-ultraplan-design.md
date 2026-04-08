@@ -184,3 +184,96 @@ general-purpose agent thread로 구성합니다.
    병렬 thread 로 dispatch
 3. 위 §8 시간표대로 실행
 4. 매 마일스톤마다 task 상태 갱신 + 빌드 부분 verify
+
+---
+
+## 10. 추가 — 토큰 경제학 (RTK + 비용 인식 도구)
+
+세션 진행 중 사용자가 추가로 요청한 다섯 번째 주제입니다. 이 디자인 doc 의
+원래 두 주제(보안 + ultraplan)와 같은 흐름으로 흡수합니다.
+
+### 10.1 배경
+
+AI 코딩 도구의 토큰 비용은 빠르게 늘어납니다. 같은 작업도 어떤 도구·어떤
+프롬프트·어떤 컨텍스트 압축 전략을 쓰느냐에 따라 5~10배 차이가 날 수
+있습니다. 사용자는 자기 환경에서 **RTK (Rust Token Killer)** 라는 CLI
+프록시를 사용 중이며 (60~90% 토큰 절약), 이 부류의 도구가 사이트의
+"하네스 운영 원칙" 에 빠져 있다고 지적했습니다.
+
+### 10.2 신규 페이지 1개
+
+| # | 라우트 | 역할 | 예상 길이 |
+|---|---|---|---|
+| 5 | `/reference/token-economics` | AI 코딩에서 토큰 비용을 줄이는 도구·패턴 카탈로그. **사실 검증된 도구만 등록** | ~400~500줄 |
+
+페이지 구성:
+
+1. **왜 토큰 비용이 문제인가** — 같은 작업이 도구별로 5~10배 차이날 수
+   있는 이유 (verbose CLI 출력, 컨텍스트 누락으로 인한 retry, 컨텍스트 압축
+   부재)
+2. **CLI 출력 압축 도구** — RTK · git-summary CLI · 등
+3. **컨텍스트 캐싱 / 압축** — Anthropic prompt caching · OpenAI prompt caching ·
+   `/compact` 같은 슬래시 명령
+4. **모델 라우팅** — 작업 복잡도에 따라 메인↔서브에이전트 모델 분기
+5. **관측 / 측정** — Helicone · LangSmith · Phoenix 같은 LLM observability
+6. **운영 원칙** — front-load context, dispatch parallel 작은 task, 큰 task
+   는 plan 비용 ↑ 작성 비용 ↓
+
+### 10.3 검증할 출처 (자료조사 추가 카테고리 9 ~ 12)
+
+| # | 주제 | 1차 출처 후보 |
+|---|---|---|
+| I | RTK (Rust Token Killer) | GitHub `rust-token-killer` 또는 사용자 환경의 `~/.claude/RTK.md`, 만약 공개 저장소가 있으면 그곳을 1차 출처로 |
+| J | Anthropic prompt caching | https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching |
+| K | OpenAI prompt caching | https://platform.openai.com/docs/guides/prompt-caching |
+| L | LLM observability (Helicone, LangSmith, Phoenix) | helicone.ai · smith.langchain.com · phoenix.arize.com |
+
+자료조사 dispatch 는 8 → **12개 카테고리** 로 확장. 병렬 thread 수는 그대로
+유지 가능 (한 thread 가 여러 출처 fetch).
+
+### 10.4 카탈로그 추가 항목
+
+`data/catalog/skills.json` 에 1개 추가: `token-budget-review` (한 PR 의 토큰
+사용량을 측정해 보고하는 review 스킬)
+
+`data/catalog/hooks.json` 에 1개 추가: `posttooluse-token-counter` (도구 호출
+직후 토큰 비용을 집계해 stderr 에 찍는 hook)
+
+`data/catalog/rules.json` 에 1개 추가: `verbose-output-compression` (긴
+output 을 자동으로 truncate / summarize 하는 패턴)
+
+총 카탈로그 신규 항목: 14 → **17개**
+
+### 10.5 시간 영향 (§8 갱신)
+
+페이지 1개 추가는 약 30~40분. 따라서 §8 시간표는 다음과 같이 조정합니다:
+
+```
+0:00 ─ 디자인 doc commit
+0:00 ~ 0:30 ─ 병렬 자료조사 dispatch (12개 카테고리)
+              + 카탈로그 JSON 17개 항목 보강 시작
+0:30 ~ 1:10 ─ /reference/zero-trust-plugins (가장 긴 우산 페이지)
+1:10 ~ 1:40 ─ /reference/agent-sandboxing
+1:40 ~ 2:10 ─ /reference/io-guardrails
+2:10 ~ 2:40 ─ /reference/token-economics (신규)
+2:40 ~ 3:00 ─ /reference/ultraplan (검증된 만큼만)
+3:00 ~ 3:15 ─ <ZeroTrustPipeline /> 컴포넌트
+3:15 ~ 3:30 ─ /handbook #future + /architecture/claude-vs-codex 보강
+3:30 ~ 3:45 ─ npm run lint + npm run build + verify_codex_harness
+3:45 ~ 3:55 ─ commit + push + Vercel READY 확인
+3:55 ~ 4:00 ─ MEMORY.md 갱신
+```
+
+버퍼는 0분에 가까워졌으므로, 마일스톤별 페이지 축소 우선순위(§6 마지막)는
+다음 순서로 적용:
+
+1. /reference/ultraplan 을 stub 으로 축소 (출처 부족 시 자연히 축소됨)
+2. <ZeroTrustPipeline /> 을 카드 ordered list 로 대체
+3. /reference/io-guardrails 를 다음 세션으로 미룸
+4. 카탈로그 17 → 10개로 축소
+
+### 10.6 성공 기준 갱신 (§5)
+
+조항 4: "신규 4개 reference 페이지" → **"신규 5개 reference 페이지"**
+조항 5: "카탈로그 카드 그리드에 신규 14개 항목" → **"신규 17개 항목"**
+조항 2: "45개 이상 정적 페이지 prerender" → **"46개 이상"** (현재 41 + 신규 5)
