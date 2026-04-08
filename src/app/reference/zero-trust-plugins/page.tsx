@@ -8,6 +8,7 @@ import {
 } from "@/components/content/prose";
 import { Callout } from "@/components/content/callout";
 import { CodeBlock } from "@/components/content/code-block";
+import { ZeroTrustPipeline } from "@/components/diagrams/zero-trust-pipeline";
 
 const SOURCE_LINKS = [
   {
@@ -158,8 +159,13 @@ export default function ZeroTrustPluginsPage() {
         <ProseHeading level={2}>2. 4계층 방어 — 한 장의 요약</ProseHeading>
         <ProseParagraph>
           각 층은 서로 다른 종류의 공격을 막습니다. 한 층을 놓치면 다른 층이 보완해야 하는 구조로
-          설계됩니다.
+          설계됩니다. 아래 다이어그램은 외부 플러그인 입력(Stage 0) 이 네 개의 방어 층을 차례로
+          통과해야만 결과(Stage 5) 가 에이전트 컨텍스트에 도달하는 흐름을 보여줍니다.
         </ProseParagraph>
+
+        <div className="mt-6">
+          <ZeroTrustPipeline />
+        </div>
 
         <div className="mt-6 grid gap-4 md:grid-cols-2">
           <article className="rounded-xl border border-border bg-surface p-5">
