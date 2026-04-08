@@ -172,11 +172,39 @@ rtk gain
 which rtk`}
         </CodeBlock>
         <ProseParagraph>
-          RTK 의 공개 저장소 URL 은 이 글 작성 시점에 확정적으로 검증되지 않았습니다. 본 페이지는
-          사용자 로컬 환경의 가이드 파일을 1차 출처로 사용하고, 동일한 아이디어를 구현한 오픈소스
-          도구가 있다면 각자 자기 프로젝트 환경에 맞춰 도입하시면 됩니다. [출처 미확인 — 공개
-          저장소 URL 추가 검증 필요].
+          RTK 는 공개 저장소{" "}
+          <a
+            href="https://github.com/rtk-ai/rtk"
+            target="_blank"
+            rel="noreferrer"
+            className="text-accent hover:underline"
+          >
+            github.com/rtk-ai/rtk
+          </a>
+          {" "}에서 운영됩니다. Rust 단일 바이너리로 배포되며, macOS 에서는{" "}
+          <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-xs">brew install rtk</code>
+          {" "}한 줄로 설치할 수 있습니다. 100 여 개 이상의 명령어 (git, cargo, pytest, vitest,
+          AWS / Docker / Kubernetes CLI 등) 에 대한 압축 프로파일을 기본 제공합니다. 공식 문서에
+          기록된 구체 사례로는{" "}
+          <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-xs">git status</code>{" "}
+          약 80% 절감,{" "}
+          <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-xs">cargo test</code>{" "}
+          약 90% 절감, 30분 Claude Code 세션 150,000 → 45,000 토큰 (약 70% 감소) 이 언급됩니다.
         </ProseParagraph>
+        <Callout tone="warning" title="이름 충돌 주의">
+          <p>
+            GitHub 에는 같은 이름의{" "}
+            <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-xs">
+              reachingforthejack/rtk
+            </code>{" "}
+            (Rust Type Kit — TypeScript 도구) 프로젝트가 따로 있습니다. Token Killer 를 설치할 때는
+            반드시{" "}
+            <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-xs">rtk-ai/rtk</code>{" "}
+            저장소인지 확인해 주십시오. 설치 후{" "}
+            <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-xs">rtk gain</code>{" "}
+            명령이 동작하면 Token Killer 가 맞습니다.
+          </p>
+        </Callout>
 
         <ProseHeading level={2}>3. Layer 2 — Prompt Caching (Anthropic + OpenAI)</ProseHeading>
         <ProseParagraph>

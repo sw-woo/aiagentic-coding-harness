@@ -385,8 +385,10 @@ session:
           <article className="rounded-xl border border-border bg-surface p-5">
             <h4 className="text-base font-semibold text-foreground">Meta Llama Guard</h4>
             <p className="mt-2 text-sm leading-7 text-foreground-muted">
-              LLM 입력과 출력을 13개 카테고리 (S1 Violent Crimes 등) 로 분류하는 전용 분류 모델입니다.
-              Llama Guard 3 8B 는 멀티모달 입력과 도구 호출까지 다룰 수 있도록 확장됐습니다
+              Llama 3.1-8B 기반 콘텐츠 안전 분류 모델입니다. 8B 변형은 MLCommons 기본 13개
+              카테고리에 코드 인터프리터 남용(S14) 을 추가해 총 14개 카테고리로 분류하며, 8개
+              언어 (영어, 프랑스어, 독일어, 힌디어, 이탈리아어, 포르투갈어, 스페인어, 태국어) 와
+              도구 호출 안전성을 지원합니다
               {" "}
               (
               <a
@@ -403,8 +405,10 @@ session:
           <article className="rounded-xl border border-border bg-surface p-5">
             <h4 className="text-base font-semibold text-foreground">Meta Prompt Guard</h4>
             <p className="mt-2 text-sm leading-7 text-foreground-muted">
-              86M 파라미터의 소형 분류기로 jailbreak 시도와 간접 프롬프트 인젝션을 빠르게 탐지합니다.
-              Llama Guard 보다 훨씬 가볍고, 여러 언어에서 학습돼 다국어 공격도 감지합니다
+              mDeBERTa-v3-base 기반 86M 파라미터 (+192M 단어 임베딩) 분류기로 Benign · Injection ·
+              Jailbreak 3개 라벨을 출력합니다. Llama Guard 3 과 동일한 8개 언어를 지원하고 컨텍스트
+              창은 512 토큰이라 긴 입력은 분할해야 합니다. 분포 내 TPR 99.5~99.9%, 다국어 TPR
+              91.5% 를 보고합니다
               {" "}
               (
               <a
