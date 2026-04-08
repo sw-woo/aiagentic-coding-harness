@@ -590,7 +590,7 @@ export function CatalogPageShell(props: Props) {
               실제로 바로 가져갈 수 있는 starter
             </p>
             <p className="mt-2 text-sm leading-7 text-foreground-muted">
-              아래 항목은 이 저장소에 실제로 들어 있는 starter 파일입니다. 내용 복사나 파일 다운로드로 바로 가져가실 수 있습니다.
+              아래 항목은 이 저장소가 제공하는 copy-ready starter source에서 생성한 예시입니다. 표시된 경로는 프로젝트에 둘 권장 위치입니다.
             </p>
             <div className="mt-4 grid gap-4 xl:grid-cols-3">
               {starterFiltered.map((item) => (

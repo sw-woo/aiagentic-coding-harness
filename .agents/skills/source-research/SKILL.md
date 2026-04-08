@@ -1,3 +1,8 @@
+---
+name: source-research
+description: 최신성이 있는 주제를 추가할 때 공식 문서와 1차 자료를 우선 검증하는 project skill
+---
+
 # Source Research
 
 이 스킬은 최신성이 있는 주제를 사이트에 추가할 때 사용합니다.

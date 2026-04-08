@@ -17,6 +17,9 @@ test -f .agents/skills/verify/SKILL.md
 test -f .agents/skills/site-content/SKILL.md
 test -f .agents/skills/source-research/SKILL.md
 
+echo "[verify] starter catalog sync"
+python3 scripts/build_local_starters.py --check
+
 echo "[verify] lint"
 npm run lint
 

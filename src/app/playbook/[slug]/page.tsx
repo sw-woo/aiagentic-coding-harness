@@ -604,13 +604,13 @@ max_depth = 1
 job_max_runtime_seconds = 1800
 
 [agents.reviewer]
-config_file = ".codex/agents/reviewer.toml"
+config_file = "agents/reviewer.toml"
 
 [agents.gradle_verifier]
-config_file = ".codex/agents/gradle-verifier.toml"
+config_file = "agents/gradle-verifier.toml"
 
 [agents.docs_researcher]
-config_file = ".codex/agents/docs-researcher.toml"
+config_file = "agents/docs-researcher.toml"
 
 [mcp_servers.playwright]
 command = "npx"
@@ -717,10 +717,13 @@ cd "$ROOT"
                   reviewer, gradle_verifier, docs_researcher 같이 역할이 분명한 단위로 쪼개는 편이 유지보수와 병렬화 모두에 유리합니다.
                 </p>
                 <CodeBlock filename=".codex/agents/reviewer.toml" language="toml" className="mt-6">
-{`model = "gpt-5.4-mini"
+{`name = "reviewer"
+description = "Read-only reviewer for Kotlin and Gradle regressions."
+model = "gpt-5.4-mini"
+model_reasoning_effort = "medium"
 sandbox_mode = "read-only"
 
-system_prompt = """
+developer_instructions = """
 변경사항을 읽기 전용으로 검토합니다.
 행동 회귀, 누락 테스트, Gradle 오용, JDK 가정, 위험한 파일 수정 여부를 우선 확인합니다.
 요약보다 findings 를 먼저 적습니다.

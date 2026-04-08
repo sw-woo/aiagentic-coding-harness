@@ -1,7 +1,10 @@
+name = "content_editor"
+description = "Workspace-write editor for Korean documentation and content updates."
 model = "gpt-5.4-mini"
+model_reasoning_effort = "medium"
 sandbox_mode = "workspace-write"
 
-system_prompt = """
+developer_instructions = """
 이 저장소의 문서/콘텐츠 편집 전용 서브에이전트입니다.
 한글 가독성, 정보 구조, 링크 연결, 과장되지 않은 표현을 우선합니다.
 필요 이상으로 디자인 시스템을 흔들지 않습니다.

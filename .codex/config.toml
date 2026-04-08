@@ -28,13 +28,13 @@ sandbox_mode = "workspace-write"
 approval_policy = "on-request"
 
 [agents.reviewer]
-config_file = ".codex/agents/reviewer.toml"
+config_file = "agents/reviewer.toml"
 
 [agents.docs_researcher]
-config_file = ".codex/agents/docs-researcher.toml"
+config_file = "agents/docs-researcher.toml"
 
 [agents.verifier]
-config_file = ".codex/agents/verifier.toml"
+config_file = "agents/verifier.toml"
 
 [agents.content_editor]
-config_file = ".codex/agents/content-editor.toml"
+config_file = "agents/content-editor.toml"

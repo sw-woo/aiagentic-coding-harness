@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "command": "/usr/bin/python3 $(git rev-parse --show-toplevel)/.codex/hooks/session_start_context.py"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "command": "/usr/bin/python3 $(git rev-parse --show-toplevel)/.codex/hooks/pre_bash_guard.py"
+      }
+    ]
+  }
+}

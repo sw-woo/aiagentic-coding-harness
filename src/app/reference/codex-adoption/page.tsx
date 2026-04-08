@@ -181,7 +181,7 @@ model = "gpt-5.4-mini"
 sandbox_mode = "read-only"
 
 [agents.reviewer]
-config_file = ".codex/agents/reviewer.toml"
+config_file = "agents/reviewer.toml"
 
 [mcp_servers.context7]
 url = "https://mcp.context7.com/mcp"

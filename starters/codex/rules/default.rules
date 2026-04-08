@@ -1,0 +1,5 @@
+prefix_rule(["git", "reset", "--hard"], "forbidden")
+prefix_rule(["rm", "-rf"], "forbidden")
+prefix_rule(["terraform", "destroy"], "forbidden")
+prefix_rule(["kubectl", "delete"], "forbidden")
+prefix_rule(["git", "push"], "prompt")

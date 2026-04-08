@@ -97,10 +97,13 @@ model_reasoning_effort = "high"`}
           좁고 검증 가능한 역할을 가져야 병렬화 가치가 생깁니다.
         </ProseParagraph>
         <CodeBlock filename=".codex/agents/reviewer.toml" language="toml">
-{`model = "gpt-5.4-mini"
+{`name = "reviewer"
+description = "Read-only reviewer for regressions, missing tests, and risky edits."
+model = "gpt-5.4-mini"
+model_reasoning_effort = "medium"
 sandbox_mode = "read-only"
 
-system_prompt = """
+developer_instructions = """
 변경사항을 읽기 전용으로 검토합니다.
 행동 회귀, 누락 테스트, 위험한 수정, 계약 드리프트를 우선 확인합니다.
 """`}

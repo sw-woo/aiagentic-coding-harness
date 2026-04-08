@@ -1,3 +1,8 @@
+---
+name: site-content
+description: handbook, guide, methodology, reference, catalog 문서를 다듬는 project skill
+---
+
 # Site Content
 
 이 스킬은 이 저장소의 handbook, guide, methodology, reference, catalog 문서를 다듬을 때 사용합니다.
