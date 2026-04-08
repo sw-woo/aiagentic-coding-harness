@@ -127,7 +127,7 @@ export default function GuidePage() {
                 Site Guide
               </p>
               <h1 className="mt-3 font-serif text-3xl leading-tight tracking-tight text-foreground">
-                이 사이트를 30분 동안 설명할 수 있도록 정리한 안내서
+                이 사이트를 활용하기 쉽게 정리한 안내서
               </h1>
               <p className="mt-4 text-sm leading-7 text-foreground-muted">
                 홈, 방법론, 아키텍처, 카탈로그, 플레이북, 참고자료가 각각 어떤 역할을 하는지,
