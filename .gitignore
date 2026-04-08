@@ -48,7 +48,8 @@ next-env.d.ts
 .omx
 .claude/settings.local.json
 .task-output
+.venv-kss
+.playwright-mcp
 
 # Fumadocs generated source
 .source
-

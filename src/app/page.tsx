@@ -61,7 +61,7 @@ const SHORTCUTS = [
   },
   {
     title: "참고자료 보기",
-    description: "공식 문서, 비교 자료, 외부 컬렉션, Codex 공식 자료 맵으로 이동합니다.",
+    description: "공식 문서, 비교 자료, 외부 컬렉션, oh-my-claudecode 읽기 가이드까지 함께 봅니다.",
     href: "/reference",
   },
 ] as const;
@@ -90,10 +90,11 @@ const START_PATHS = [
   {
     title: "공식 자료부터 확인하려는 사람",
     description:
-      "Claude Code 와 Codex 두 도구의 공식 자료 맵, MCP 지형도, 참고자료 인덱스를 통해 원전과 최신 문서부터 따라갈 수 있습니다.",
+      "Claude Code 와 Codex 두 도구의 공식 자료 맵, OMC 읽기 가이드, MCP 지형도를 통해 원전과 최신 문서부터 따라갈 수 있습니다.",
     links: [
       { label: "Claude Code 공식 자료 맵", href: "/reference/claude-code-official" },
       { label: "Codex 공식 자료 맵", href: "/reference/codex-official" },
+      { label: "OMC 읽기 가이드", href: "/reference/oh-my-claudecode" },
       { label: "MCP 지형도", href: "/reference/mcp-landscape" },
       { label: "참고자료", href: "/reference" },
     ],
@@ -177,6 +178,7 @@ export default function Home() {
                   alt="Claude Code workflow cheatsheet"
                   width={565}
                   height={766}
+                  priority
                   areas={[
                     { label: "상단 확대", objectPosition: "center top" },
                     { label: "하단 확대", objectPosition: "center bottom" },

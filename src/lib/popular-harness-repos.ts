@@ -144,8 +144,9 @@ export const popularHarnessRepos: readonly PopularHarnessRepo[] = [
     lastPushed: "2026-04-08",
     worksWith: ["Claude Code (메인)", "Codex (worker)", "Gemini (worker)"],
     applyGuide: {
-      command: "git clone https://github.com/Yeachan-Heo/oh-my-claudecode.git",
-      note: "README 의 Teams 가이드를 먼저 보시고, 자기 저장소에 .claude/teams/ 와 hooks 를 복사하시면 됩니다. tmux 가 설치돼 있어야 worker 모드가 동작합니다.",
+      command:
+        "/plugin marketplace add https://github.com/Yeachan-Heo/oh-my-claudecode\n/plugin install oh-my-claudecode\n/omc-setup",
+      note: "현재 README 기준 기본 진입은 저장소 clone 이 아니라 Claude Code 안에서 plugin 설치 후 /omc-setup 을 다시 실행하는 방식입니다. native Team 은 settings.json 에 agent teams 활성화가 필요하고, `omc team` 으로 Codex · Gemini worker 를 쓰려면 tmux 와 해당 CLI 가 설치돼 있어야 합니다.",
     },
   },
   {

@@ -1144,10 +1144,12 @@ claude --version`}
           빠른 시작 — 스크립트 또는 플러그인
         </h2>
         <p className="mt-3 text-sm leading-7 text-foreground-muted">
-          Claude Code 는 두 가지 빠른 시작 경로가 있습니다. 하나는 이 저장소가 제공하는 starter 스크립트로
+          Claude Code 는 세 가지 빠른 시작 경로가 있습니다. 하나는 이 저장소가 제공하는 starter 스크립트로
           최소 표면을 한 번에 복사하는 방식이고, 다른 하나는{" "}
           <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-sm">revfactory/harness</code>{" "}
-          처럼 자연어 프롬프트로 하네스 골격을 생성하는 검증된 plugin 을 쓰는 방식입니다.
+          처럼 자연어 프롬프트로 하네스 골격을 생성하는 검증된 plugin 을 쓰는 방식이며, 나머지 하나는{" "}
+          <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-sm">oh-my-claudecode</code>{" "}
+          처럼 Team 중심 오케스트레이션 레이어를 Claude Code 위에 얹는 방식입니다.
         </p>
 
         <h3 className="mt-6 text-lg font-semibold text-foreground">A. starter 스크립트로 복사</h3>
@@ -1188,14 +1190,43 @@ claude --version`}
 풀스택 웹사이트 개발 하네스를 구성해줘`}
           </CodeBlock>
         </div>
+        <h3 className="mt-8 text-lg font-semibold text-foreground">C. oh-my-claudecode plugin 사용</h3>
+        <p className="mt-3 text-sm leading-7 text-foreground-muted">
+          Team 중심 오케스트레이션, 매직 키워드, tmux 기반 Codex · Gemini worker 까지 함께 쓰고 싶다면
+          OMC 경로가 더 맞습니다. README.ko.md 확인 기준으로는 <strong>Team이 표준</strong> 이고,
+          <strong> swarm 은 레거시 호환</strong> 으로 읽으시면 됩니다.
+        </p>
+        <div className="mt-3">
+          <CodeBlock filename="oh-my-claudecode 설치" language="bash">
+{`# 1) 마켓플레이스 등록
+/plugin marketplace add https://github.com/Yeachan-Heo/oh-my-claudecode
+
+# 2) 플러그인 설치
+/plugin install oh-my-claudecode
+
+# 3) 설정 반영
+/omc-setup`}
+          </CodeBlock>
+        </div>
+        <div className="mt-3">
+          <CodeBlock filename="설치 후 바로 써볼 흐름" language="text">
+{`/deep-interview "I want to build an internal admin portal"
+/team 3:executor "fix all TypeScript errors"
+autopilot: build a task management API`}
+          </CodeBlock>
+        </div>
         <Callout tone="tip" title="언제 어느 쪽이 좋은가">
           <p>
             처음이시면 A (starter 스크립트) 가 가장 빠릅니다. 이미 프로젝트 도메인이 분명히 정해져 있고
-            “팀 구조까지 자동 생성” 을 원하시면 B (revfactory/harness) 가 강점이 있습니다. 두 가지를
-            모두 시도해 보시고 익숙한 쪽을 표준으로 두시면 됩니다. RevFactory plugin 의 6가지 아키텍처
-            패턴은{" "}
+            “팀 구조까지 자동 생성” 을 원하시면 B (revfactory/harness) 가 강점이 있습니다. Claude Code
+            기본기 위에 Team 중심 오케스트레이션과 Codex · Gemini 교차 worker 까지 함께 운영하려면
+            C (oh-my-claudecode) 가 더 맞습니다. RevFactory plugin 의 6가지 아키텍처 패턴은{" "}
             <Link href="/reference/revfactory-harness" className="text-accent hover:underline">
               /reference/revfactory-harness
+            </Link>{" "}
+            에, OMC 전체 읽기 가이드는{" "}
+            <Link href="/reference/oh-my-claudecode" className="text-accent hover:underline">
+              /reference/oh-my-claudecode
             </Link>{" "}
             에 따로 정리돼 있습니다.
           </p>
@@ -1578,13 +1609,32 @@ sys.exit(0)
             <strong>codex 통합 plugin</strong> — Claude 세션 안에서 Codex 로 작업을 위임하실 수 있습니다.
           </li>
           <li>
+            <strong>oh-my-claudecode</strong> — Team 중심 오케스트레이션 레이어. README 기준으로 Team이 표준이며,
+            Codex · Gemini 는 `omc team` tmux worker 로 붙입니다.
+          </li>
+          <li>
             <strong>notebooklm-mcp</strong> — NotebookLM 노트북 자동화. 자료 조사 흐름에 강합니다.
           </li>
         </ul>
         <p className="mt-3 text-sm leading-7 text-foreground-muted">
+          OMC를 설치하셨다면 업데이트는{" "}
+          <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-sm">
+            /plugin marketplace update omc
+          </code>{" "}
+          다음{" "}
+          <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-sm">/omc-setup</code>{" "}
+          순서로 보시는 편이 맞습니다. 업데이트 후 꼬였을 때는{" "}
+          <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-sm">/omc-doctor</code>{" "}
+          로 상태를 점검하는 흐름이 README에 정리돼 있습니다.
+        </p>
+        <p className="mt-3 text-sm leading-7 text-foreground-muted">
           더 깊게 보고 싶으시면{" "}
           <Link href="/reference/popular-harness-repos" className="text-accent hover:underline">
             인기 GitHub 하네스 레포 10선
+          </Link>{" "}
+          과{" "}
+          <Link href="/reference/oh-my-claudecode" className="text-accent hover:underline">
+            oh-my-claudecode 읽기 가이드
           </Link>{" "}
           페이지에 stars · license · 적용 가이드를 함께 정리해 두었습니다.
         </p>
@@ -1701,6 +1751,21 @@ sys.exit(0)
               에 정리돼 있습니다.
             </dd>
           </div>
+          <div className="rounded-xl border border-border bg-background p-5">
+            <dt className="text-base font-semibold text-foreground">
+              Q. Team 이나 omc team 이 기대대로 동작하지 않습니다.
+            </dt>
+            <dd className="mt-2 text-sm leading-7 text-foreground-muted">
+              Claude Code 네이티브 Team 을 쓰실 때는{" "}
+              <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-xs">
+                CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
+              </code>{" "}
+              이 설정돼 있는지 먼저 보십시오. 반대로{" "}
+              <code className="rounded bg-surface-2 px-1 py-0.5 font-mono text-xs">omc team</code>{" "}
+              은 tmux 와 외부 CLI 설치가 전제입니다. Codex · Gemini worker 까지 붙이실 때는 해당 CLI 가 실제로
+              PATH 에 잡히는지까지 같이 확인하셔야 합니다.
+            </dd>
+          </div>
         </dl>
 
         <Callout tone="tip" title="이 사이트의 견본을 그대로 가져가시려면">
@@ -1730,4 +1795,3 @@ sys.exit(0)
     </>
   );
 }
-

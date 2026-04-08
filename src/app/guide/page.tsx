@@ -49,7 +49,7 @@ const PAGE_MAP = [
     title: "참고자료",
     href: "/reference",
     description:
-      "Claude Code · Codex 공식 자료 맵, 보안 · 샌드박스 · 토큰 비용 · 인기 하네스 레포까지 최신 심화 페이지를 따라 들어가는 층입니다.",
+      "Claude Code · Codex 공식 자료 맵, oh-my-claudecode 읽기 가이드, 보안 · 샌드박스 · 토큰 비용까지 최신 심화 페이지를 따라 들어가는 층입니다.",
   },
 ] as const;
 
@@ -83,6 +83,12 @@ const REFERENCE_SHORTCUTS = [
     href: "/reference/token-economics",
     description:
       "CLI 출력 압축, 프롬프트 캐싱, 모델 라우팅, observability 관점에서 비용을 줄이는 운영 패턴을 정리합니다.",
+  },
+  {
+    title: "oh-my-claudecode 읽기 가이드",
+    href: "/reference/oh-my-claudecode",
+    description:
+      "README.ko.md 전체를 읽고 Team 표준, tmux CLI worker, 업데이트 절차를 우리 관점으로 다시 정리한 페이지입니다.",
   },
   {
     title: "인기 GitHub 하네스 레포 10선",
@@ -292,8 +298,9 @@ export default function GuidePage() {
                   참고자료에서 먼저 볼 페이지
                 </h2>
                 <p className="mt-4 text-[16px] leading-8 text-foreground-muted">
-                  최근에는 참고자료 층에 실무 밀도가 높은 페이지가 많이 추가됐습니다. 특히 공식 문서 맵, zero-trust,
-                  샌드박스, 토큰 비용, 인기 하네스 레포 정리는 가이드 본문을 읽은 뒤 바로 이어 보기 좋은 흐름입니다.
+                  최근에는 참고자료 층에 실무 밀도가 높은 페이지가 많이 추가됐습니다. 특히 공식 문서 맵,
+                  oh-my-claudecode 읽기 가이드, zero-trust, 샌드박스, 토큰 비용, 인기 하네스 레포 정리는
+                  가이드 본문을 읽은 뒤 바로 이어 보기 좋은 흐름입니다.
                 </p>
                 <div className="mt-5 grid gap-4 xl:grid-cols-2">
                   {REFERENCE_SHORTCUTS.map((page) => (
@@ -407,6 +414,12 @@ export default function GuidePage() {
                     <h3 className="text-lg font-semibold text-foreground">Claude 공식 자료 맵</h3>
                     <p className="mt-2 text-sm leading-7 text-foreground-muted">
                       Anthropic 공식 문서 기준으로 설치, settings, hooks, skills, sub-agents, plugin 마켓을 한 번에 따라갈 수 있습니다.
+                    </p>
+                  </Link>
+                  <Link href="/reference/oh-my-claudecode" className="rounded-xl border border-border bg-background p-5 transition hover:border-accent">
+                    <h3 className="text-lg font-semibold text-foreground">OMC 읽기 가이드</h3>
+                    <p className="mt-2 text-sm leading-7 text-foreground-muted">
+                      oh-my-claudecode README를 그대로 복제하지 않고, 실제 도입 순서와 Team 표준만 다시 정리한 페이지입니다.
                     </p>
                   </Link>
                   <Link href="/reference/zero-trust-plugins" className="rounded-xl border border-border bg-background p-5 transition hover:border-accent">

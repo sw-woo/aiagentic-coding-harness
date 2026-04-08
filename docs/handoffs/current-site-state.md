@@ -1,6 +1,6 @@
 # 현재 사이트 상태
 
-작성일: 2026-04-07
+작성일: 2026-04-08
 
 이 문서는 다음 세션의 Claude / Codex가 지금 사이트 상태를 빠르게 복구하도록 만든 압축 문서입니다.
 
@@ -36,6 +36,11 @@
 
 - `/reference`
   - 참고자료 인덱스
+
+- `/reference/oh-my-claudecode`
+  - `README.ko.md` 전체를 읽고 다시 정리한 내부 페이지
+  - 빠른 시작 / Team 표준 / tmux CLI worker / 업데이트 절차를 분리해서 설명
+  - 외부 README 복제본이 아니라 우리 정보구조에 맞춘 해설 페이지로 유지
 
 - `/reference/codex-official`
   - Codex 공식 문서와 저장소를 한 번에 보는 자료 맵
@@ -121,6 +126,7 @@
 
 3. reference 정보 구조 재정리
    - 페이지 수가 많아졌으므로 묶음형 index 또는 category landing 검토 가능
+   - 단, `oh-my-claudecode` 같은 외부 하네스 해설은 “공식 자료 맵”과 별도 층으로 유지하는 편이 읽기 좋음
 
 ## 검증 명령
 
@@ -130,6 +136,12 @@ npm run build
 ```
 
 현재 두 명령 모두 통과하는 상태로 마무리됨.
+
+추가 확인:
+
+- `npm run spacing:ko`
+  - 로컬에서 `kss` 필요
+  - 현재는 저장소 로컬 가상환경 `.venv-kss/` 를 만들어 실행 가능하도록 맞춤
 
 ## 한국어 문장 점검 장치
 

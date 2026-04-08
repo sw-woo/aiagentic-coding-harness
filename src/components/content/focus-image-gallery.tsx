@@ -12,6 +12,7 @@ type FocusImageGalleryProps = {
   width: number;
   height: number;
   areas: FocusArea[];
+  priority?: boolean;
 };
 
 /**
@@ -24,6 +25,7 @@ export function FocusImageGallery({
   width,
   height,
   areas,
+  priority = false,
 }: FocusImageGalleryProps) {
   const cropHeight = Math.min(360, Math.max(220, Math.round(height * 0.34)));
 
@@ -38,6 +40,7 @@ export function FocusImageGallery({
           className="h-auto w-auto max-w-full rounded-xl border border-border"
           quality={100}
           unoptimized
+          priority={priority}
         />
       </div>
 

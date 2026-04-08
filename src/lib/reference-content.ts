@@ -154,6 +154,13 @@ const externalReference = [
     badge: "내부 정리",
   },
   {
+    href: "/reference/oh-my-claudecode",
+    title: "oh-my-claudecode 읽기 가이드",
+    summary:
+      "README.ko.md 전체를 읽고, 빠른 시작 · Team 표준 · tmux CLI worker · 업데이트 절차를 우리 사이트 관점으로 다시 정리한 내부 페이지입니다.",
+    badge: "내부 정리",
+  },
+  {
     href: "/reference/paper-to-code",
     title: "Paper-to-Code 시스템",
     summary:
@@ -255,6 +262,11 @@ export const recentReferenceHighlights = [
     note: "GitHub 공개 API 로 직접 검증한 stars 순 인기 하네스 레포 10개와 “바로 적용” 가이드를 한 페이지에 정리했습니다 (2026-04-08 기준).",
   },
   {
+    href: "/reference/oh-my-claudecode",
+    title: "oh-my-claudecode 읽기 가이드",
+    note: "README.ko.md 전체를 읽고 Team 표준, tmux worker, 업데이트 절차를 우리 관점으로 다시 정리한 신규 페이지입니다.",
+  },
+  {
     href: "/reference/claude-code-official",
     title: "Claude Code 공식 자료 맵",
     note: "Anthropic 공식 문서를 시작점·설정·학습·릴리스·모델 5개 묶음으로 정리한 신규 페이지입니다.",
@@ -263,16 +275,6 @@ export const recentReferenceHighlights = [
     href: "/reference/ultraplan",
     title: "Claude Code /ultraplan",
     note: "클라우드 오프로드 planning 슬래시 명령을 공식 문서 기반으로 정리한 신규 페이지입니다.",
-  },
-  {
-    href: "/reference/zero-trust-plugins",
-    title: "Zero Trust 플러그인 — 4계층 방어",
-    note: "외부 플러그인과 MCP 를 신뢰하지 않는 전제의 4계층 방어 원칙을 묶은 우산 페이지입니다.",
-  },
-  {
-    href: "/reference/agent-sandboxing",
-    title: "에이전트 샌드박스 5종 비교",
-    note: "Vercel Sandbox · isolated-vm · Docker · gVisor · E2B 격리 솔루션 비교 표 페이지입니다.",
   },
   {
     href: "/reference/token-economics",
