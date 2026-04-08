@@ -122,7 +122,7 @@ export default function AgentSandboxingPage() {
         <ProseParagraph>
           에이전트가 생성하거나 외부 플러그인이 실행하는 코드는 메인 개발 환경과 직접 접촉하면
           안 됩니다. 이 페이지는 실무에서 자주 쓰이는 다섯 가지 격리 솔루션을 같은 축으로 비교하고,
-          "브라우저 자동화" · "단일 함수 평가" · "컨테이너 격리" 같은 실제 시나리오에서 무엇을 고를지
+          &ldquo;브라우저 자동화&rdquo; · &ldquo;단일 함수 평가&rdquo; · &ldquo;컨테이너 격리&rdquo; 같은 실제 시나리오에서 무엇을 고를지
           정리합니다.
         </ProseParagraph>
 
@@ -143,8 +143,8 @@ export default function AgentSandboxingPage() {
         <Callout tone="note" title="이 페이지의 위치">
           <p>
             샌드박싱은 <Link href="/reference/zero-trust-plugins" className="text-accent hover:underline">/reference/zero-trust-plugins</Link>{" "}
-            의 4계층 방어 중 두 번째 층입니다. Allowlist 가 "무엇을 설치할 수 있는가"를 고정한다면,
-            Sandbox 는 "실행 시점에 무엇에 접근할 수 있는가"를 고정합니다.
+            의 4계층 방어 중 두 번째 층입니다. Allowlist 가 &ldquo;무엇을 설치할 수 있는가&rdquo;를 고정한다면,
+            Sandbox 는 &ldquo;실행 시점에 무엇에 접근할 수 있는가&rdquo;를 고정합니다.
           </p>
         </Callout>
 
@@ -284,7 +284,7 @@ async function evaluateUntrusted(code) {
 
         <ProseHeading level={2}>4. Docker — 표준 컨테이너 격리</ProseHeading>
         <ProseParagraph>
-          Docker 는 가장 널리 쓰이는 격리 기술이지만, 에이전트 관점에서는 "중간 수준의 격리" 에
+          Docker 는 가장 널리 쓰이는 격리 기술이지만, 에이전트 관점에서는 &ldquo;중간 수준의 격리&rdquo; 에
           가깝습니다. namespace 와 cgroup 으로 프로세스와 리소스를 분리하지만, 커널은 호스트와
           공유합니다. 신뢰 수준이 중간인 플러그인 (예: 내부 팀이 만든 도구) 실행에는 충분하지만,
           완전히 신뢰할 수 없는 외부 코드에는 다음 절의 gVisor 같은 추가 층이 권장됩니다.
@@ -314,7 +314,7 @@ async function evaluateUntrusted(code) {
 
         <ProseHeading level={2}>6. E2B — AI 코드 인터프리터에 특화된 SaaS</ProseHeading>
         <ProseParagraph>
-          E2B 는 "AI 에이전트가 생성한 코드를 안전하게 실행" 이라는 시나리오에 특화된 SaaS 입니다.
+          E2B 는 &ldquo;AI 에이전트가 생성한 코드를 안전하게 실행&rdquo; 이라는 시나리오에 특화된 SaaS 입니다.
           Firecracker microVM 위에 Python, Node.js, 패키지 매니저, Jupyter 커널 같은 코드 인터프리터
           환경이 pre-warmed 상태로 준비돼 있어서, 수백 ms 안에 격리 환경을 얻을 수 있습니다. 공식
           SDK 문서는 {" "}
@@ -384,11 +384,11 @@ async function evaluateUntrusted(code) {
         <ProseHeading level={2}>8. 같이 주의할 점</ProseHeading>
         <ul className="mt-5 list-disc space-y-2 pl-6 text-[16px] leading-8 text-foreground">
           <li>
-            Sandbox 는 "실행 권한의 경계" 일 뿐, credential 노출이나 간접 프롬프트 인젝션을 직접
+            Sandbox 는 &ldquo;실행 권한의 경계&rdquo; 일 뿐, credential 노출이나 간접 프롬프트 인젝션을 직접
             막지는 않습니다. 반드시 zero-trust 4계층 전체와 같이 써야 합니다.
           </li>
           <li>
-            네트워크 접근은 기본적으로 "deny by default" 로 시작합니다. Vercel Sandbox 도 network
+            네트워크 접근은 기본적으로 &ldquo;deny by default&rdquo; 로 시작합니다. Vercel Sandbox 도 network
             access 를 명시적으로 허용하지 않으면 차단되며, 필요한 도메인만 allowlist 로 여는 것이
             안전합니다.
           </li>
@@ -400,7 +400,7 @@ async function evaluateUntrusted(code) {
             격리 환경의 로그는 외부로 꼭 수집합니다. 실행 내역이 없으면 사고 대응이 불가능합니다.
           </li>
           <li>
-            가장 흔한 실수는 "첫 실험은 sandbox 없이 그냥 로컬에서" 하는 것입니다. 처음부터 격리
+            가장 흔한 실수는 &ldquo;첫 실험은 sandbox 없이 그냥 로컬에서&rdquo; 하는 것입니다. 처음부터 격리
             환경을 기본값으로 만드는 편이 안전합니다.
           </li>
         </ul>

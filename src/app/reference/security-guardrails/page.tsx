@@ -90,7 +90,37 @@ prefix_rule(["gh", "pr", "create"], "prompt")`}
           <li>새로운 MCP는 팀 공통 설정에 넣기 전에 별도 검증</li>
         </ul>
 
-        <ProseHeading level={2}>6. 같이 읽으면 좋은 페이지</ProseHeading>
+        <ProseHeading level={2}>6. 더 깊게 들어가려면</ProseHeading>
+        <ProseParagraph>
+          이 페이지는 기본 수준의 보안 경계를 다룹니다. 실제 플러그인 보안 사고를 가정하고 4계층
+          방어 원칙을 훨씬 자세히 정리한 새 페이지들이 있으니, 운영 환경을 만들 때는 함께 봐
+          주십시오.
+        </ProseParagraph>
+        <div className="mt-6 grid gap-4 sm:grid-cols-3">
+          <Link href="/reference/zero-trust-plugins" className="rounded-xl border border-border bg-surface p-5 transition hover:border-accent">
+            <h3 className="text-lg font-semibold text-foreground">Zero Trust 플러그인 (우산)</h3>
+            <p className="mt-2 text-sm leading-7 text-foreground-muted">
+              Allowlist · Sandbox · Credential Proxy · I/O Guardrails 네 층을 한 페이지에 정리한
+              우산 문서. 도구 오염과 간접 프롬프트 인젝션 위협 모델 포함.
+            </p>
+          </Link>
+          <Link href="/reference/agent-sandboxing" className="rounded-xl border border-border bg-surface p-5 transition hover:border-accent">
+            <h3 className="text-lg font-semibold text-foreground">에이전트 샌드박싱</h3>
+            <p className="mt-2 text-sm leading-7 text-foreground-muted">
+              Vercel Sandbox · isolated-vm · Docker · gVisor · E2B 다섯 솔루션을 격리 수준·시작
+              시간·언어·비용으로 비교하고 상황별 권장 기준을 정리했습니다.
+            </p>
+          </Link>
+          <Link href="/reference/token-economics" className="rounded-xl border border-border bg-surface p-5 transition hover:border-accent">
+            <h3 className="text-lg font-semibold text-foreground">토큰 경제학</h3>
+            <p className="mt-2 text-sm leading-7 text-foreground-muted">
+              CLI 출력 압축(RTK), prompt caching, 모델 라우팅, observability 도구를 한 페이지에
+              정리. 보안 이후에는 운영 비용이 다음 운영 축입니다.
+            </p>
+          </Link>
+        </div>
+
+        <ProseHeading level={2}>7. 이어서 볼 기본 자료</ProseHeading>
         <div className="mt-6 grid gap-4 sm:grid-cols-3">
           <Link href="/reference/codex-hooks" className="rounded-xl border border-border bg-surface p-5 transition hover:border-accent">
             <h3 className="text-lg font-semibold text-foreground">Codex Hooks 심화</h3>

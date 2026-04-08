@@ -103,7 +103,7 @@ export default function UltraplanPage() {
 
         <ProseHeading level={2}>1. 무엇인가 — 한 문단 요약</ProseHeading>
         <ProseParagraph>
-          Ultraplan 은 Claude Code 의 슬래시 명령으로, 사용자가 요청한 작업의 "계획" 을 로컬이 아니라
+          Ultraplan 은 Claude Code 의 슬래시 명령으로, 사용자가 요청한 작업의 &ldquo;계획&rdquo; 을 로컬이 아니라
           Anthropic 의 클라우드에서 작성합니다. 로컬 Claude Code 는 계획 요청을 전달한 즉시 제어권을
           돌려받고, 사용자는 터미널에서 다른 작업을 계속하면서 웹 브라우저에서 작성된 계획을 검토하고
           수정할 수 있습니다. 계획이 확정되면 두 가지 경로로 실행을 이어갈 수 있습니다. 클라우드 세션이

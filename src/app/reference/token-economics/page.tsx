@@ -90,13 +90,13 @@ export default function TokenEconomicsPage() {
 
         <Callout tone="note" title="왜 이 페이지가 필요한가">
           <p>
-            "AI 도구가 비싸다" 는 말의 상당 부분은 <strong>도구 그 자체가 아니라 운영 방식</strong> 의
+            &ldquo;AI 도구가 비싸다&rdquo; 는 말의 상당 부분은 <strong>도구 그 자체가 아니라 운영 방식</strong> 의
             문제입니다. 같은 모델을 쓰면서도 캐시 hit 비율이 낮거나, verbose 한 CLI 출력을 그대로
             컨텍스트에 흘리거나, 단순한 작업에 최상위 모델을 쓰는 습관이 누적되면 비용이 급증합니다.
           </p>
           <p>
             이 페이지의 네 층을 모두 적용하면 많은 경우 토큰 비용을 50~80% 수준까지 줄일 수 있습니다.
-            정확한 수치는 환경과 워크로드에 따라 다르므로, 마지막 절의 "실제로 측정하라" 부분을
+            정확한 수치는 환경과 워크로드에 따라 다르므로, 마지막 절의 &ldquo;실제로 측정하라&rdquo; 부분을
             반드시 참고해 주십시오.
           </p>
         </Callout>
@@ -157,7 +157,7 @@ export default function TokenEconomicsPage() {
         </Callout>
         <ProseParagraph>
           RTK 는 또한 토큰 절약량을 측정하는 메타 명령을 제공합니다. 이 부분이 이 페이지 관점에서
-          가장 중요합니다 — "절약했다" 고 주장하는 대신 실제 수치로 볼 수 있어야 합니다.
+          가장 중요합니다 — &ldquo;절약했다&rdquo; 고 주장하는 대신 실제 수치로 볼 수 있어야 합니다.
         </ProseParagraph>
         <CodeBlock filename="rtk-meta-commands.sh" language="bash">
 {`# 토큰 절약 분석 (사용자 환경: ~/.claude/RTK.md)
@@ -259,8 +259,8 @@ const response = await anthropic.messages.create({
           </li>
         </ul>
         <ProseParagraph>
-          실제 얼마나 절약되는지는 캐시 hit 비율과 prefix 길이에 따라 다르므로, 이 페이지는 "몇 배
-          절약" 같은 단정 수치를 피합니다. 양쪽 공식 문서에 명시된 정확한 요율을 직접 확인해
+          실제 얼마나 절약되는지는 캐시 hit 비율과 prefix 길이에 따라 다르므로, 이 페이지는 &ldquo;몇 배
+          절약&ldquo; 같은 단정 수치를 피합니다. 양쪽 공식 문서에 명시된 정확한 요율을 직접 확인해
           주십시오.
         </ProseParagraph>
 
@@ -271,7 +271,7 @@ const response = await anthropic.messages.create({
           많고, 설계·대규모 리팩토링만 Opus 급 모델에 맡기는 식으로 분기합니다.
         </ProseParagraph>
         <ProseParagraph>
-          Anthropic 은 이 패턴을 "Building effective agents" 에서 공식적으로 권장합니다 — 워크플로의
+          Anthropic 은 이 패턴을 &ldquo;Building effective agents&rdquo; 에서 공식적으로 권장합니다 — 워크플로의
           각 단계에 가장 단순한 모델을 배치하고, 필요할 때만 더 복잡한 모델을 호출하라는 원칙입니다
           (
           <a
@@ -333,7 +333,7 @@ const response = await anthropic.messages.create({
 
         <ProseHeading level={2}>5. Layer 4 — 관측성 (Observability)</ProseHeading>
         <ProseParagraph>
-          마지막 층은 "측정 없이는 개선도 없다" 원칙입니다. 어느 단계가 가장 많은 토큰을 쓰는지,
+          마지막 층은 &ldquo;측정 없이는 개선도 없다&rdquo; 원칙입니다. 어느 단계가 가장 많은 토큰을 쓰는지,
           어느 프롬프트가 캐시 hit 에 실패하는지, 어느 도구 호출이 비용을 튀게 만드는지 실제로
           측정하지 않으면 개선할 지점을 찾을 수 없습니다. 오픈소스 · SaaS 세 가지를 소개합니다.
         </ProseParagraph>
@@ -394,8 +394,8 @@ const response = await anthropic.messages.create({
           </article>
         </div>
         <ProseParagraph>
-          세 도구 모두 같은 질문에 답합니다. "어느 요청이 가장 많은 토큰을 썼는가", "캐시 hit 비율은
-          얼마인가", "평균 latency 는 어떻게 변하고 있는가", "어떤 사용자 플로가 가장 비싼가". 이
+          세 도구 모두 같은 질문에 답합니다. &ldquo;어느 요청이 가장 많은 토큰을 썼는가&rdquo;, &ldquo;캐시 hit 비율은
+          얼마인가&ldquo;, &rdquo;평균 latency 는 어떻게 변하고 있는가&ldquo;, &rdquo;어떤 사용자 플로가 가장 비싼가&ldquo;. 이
           수치를 매주 한 번이라도 보면 운영 원칙이 감에서 수치로 바뀝니다.
         </ProseParagraph>
 
@@ -437,7 +437,7 @@ const response = await anthropic.messages.create({
         </ProseParagraph>
         <Callout tone="tip" title="측정 없이 주장하지 마십시오">
           <p>
-            "캐시를 썼더니 빨라진 것 같다", "모델을 작은 걸로 바꿨더니 괜찮은 것 같다" 는 인상은
+            &ldquo;캐시를 썼더니 빨라진 것 같다&rdquo;, &ldquo;모델을 작은 걸로 바꿨더니 괜찮은 것 같다&rdquo; 는 인상은
             유지가 어렵습니다. 숫자로 남기고, 주간 리뷰에 포함시키는 순간부터 운영 원칙이 됩니다.
           </p>
         </Callout>

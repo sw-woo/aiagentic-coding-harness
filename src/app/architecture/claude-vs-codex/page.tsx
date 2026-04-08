@@ -82,6 +82,12 @@ const ROWS: Row[] = [
     codex: "AGENTS.md 계층 (코드 외부 영속 메모리는 별도)",
     shared: "세션 너머 사실만 적도록 권장",
   },
+  {
+    feature: "클라우드 오프로드 planning",
+    claude: "/ultraplan (v2.1.91+ · Pro/Max/Team/Enterprise 필수 · research preview)",
+    codex: "/plan (in-session, 로컬)",
+    shared: "긴 설계 작업을 구조화된 plan 단계로 분리",
+  },
 ];
 
 export default function ClaudeVsCodexPage() {
