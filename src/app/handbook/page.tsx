@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Callout } from "@/components/content/callout";
 import { ProseHeading } from "@/components/content/prose";
@@ -62,7 +63,45 @@ const HARNESS_SURFACES = [
   {
     title: "Hooks",
     detail:
-      "세션 시작 시 컨텍스트 주입, 위험한 bash 차단, 수정 후 자동 lint/test 같은 동적 안전 장치를 맡깁니다.",
+      "세션 시작 시 컨텍스트 주입, 위험한 bash 차단, 수정 후 자동 lint · test 같은 동적 안전 장치를 맡깁니다.",
+  },
+] as const;
+
+const HARNESS_DECISIONS = [
+  {
+    label: "1",
+    title: "단일 vs 멀티 에이전트",
+    body: "메인 에이전트 하나로 충분히 끝낼 수 있는 일에는 단일 에이전트가 더 빠르고 안정적입니다. 도구가 10개 이상 겹치거나 명확히 분리된 도메인이 있을 때만 멀티 에이전트로 분할하시는 편이 안전합니다.",
+  },
+  {
+    label: "2",
+    title: "ReAct vs Plan-and-Execute",
+    body: "ReAct 는 매 단계 reasoning 과 action 을 번갈아 합니다 — 유연하지만 단계당 비용이 듭니다. Plan-and-Execute 는 계획과 실행을 분리해 비용을 줄이지만 적응성이 떨어집니다. 두 패턴은 작업 유형에 따라 골라 쓰시면 됩니다.",
+  },
+  {
+    label: "3",
+    title: "컨텍스트 관리 전략",
+    body: "시간 기반 정리, 대화 요약, 관찰 마스킹, 구조화된 노트, 서브에이전트 위임 — 다섯 가지 패턴 중에 작업 길이와 도구 출력량에 맞는 조합을 고르시면 됩니다. 컨텍스트는 “많이” 가 아니라 “신호 대 노이즈 비율” 이 핵심입니다.",
+  },
+  {
+    label: "4",
+    title: "검증 루프 설계",
+    body: "결정적 검증(테스트, lint, 타입 체커) 은 빠르고 명확합니다. 추론형 검증(LLM-as-judge) 은 의미상의 오류를 잡지만 지연이 더 큽니다. 두 가지를 같은 파이프라인에 같이 두는 것이 안전합니다.",
+  },
+  {
+    label: "5",
+    title: "권한과 안전 정책",
+    body: "허용형(빠르지만 위험) vs 제한형(안전하지만 느림) 의 trade-off 입니다. 사내 도입에는 일반적으로 제한형 기본값에서 시작해, 안정화된 작업만 점진적으로 자동 승인을 늘리시는 편이 안전합니다.",
+  },
+  {
+    label: "6",
+    title: "도구 범위 설정",
+    body: "도구가 많을수록 선택이 어려워져서 결과가 오히려 나빠지는 경우가 많습니다. 매 단계에 필요한 최소 도구 세트만 노출하시는 편이 정확성이 더 높습니다. lazy loading, 단계별 도구 분리도 같은 맥락입니다.",
+  },
+  {
+    label: "7",
+    title: "하네스 두께",
+    body: "얇은 하네스는 모델 능력에 의존하고, 두꺼운 하네스는 코드로 흐름을 명시합니다. 모델이 좋아질수록 얇은 하네스가 유리해지므로, 쪽수보다 “지금 이 모델 세대에서 안정적인가” 를 기준으로 삼으시면 됩니다.",
   },
 ] as const;
 
@@ -499,7 +538,27 @@ export default function HandbookPage() {
                 <h2 className="text-2xl font-semibold tracking-tight text-foreground">
                   왜 “하네스 엔지니어링”이라고 부르는가
                 </h2>
-                <p className="mt-4 text-[16px] leading-8 text-foreground-muted">
+
+                <figure className="mt-6 overflow-hidden rounded-2xl border border-border bg-background">
+                  <Image
+                    src="/agent-harness/agent-harness.png"
+                    alt="모델을 중심에 두고 capabilities 와 safety · scale 층이 둘러싼 하네스 개념도. 'If you're not the model, you're the Harness.' 메인 카피 포함"
+                    width={1330}
+                    height={543}
+                    sizes="(min-width: 1024px) 760px, 100vw"
+                    className="h-auto w-full"
+                  />
+                  <figcaption className="border-t border-border px-5 py-3 text-xs leading-6 text-foreground-muted">
+                    한 줄로 요약하면 이렇습니다 — <strong>모델이 아닌 모든 것이 하네스입니다</strong>. 메모리,
+                    도구, 컨텍스트 관리, 실행 루프, 검증, 안전 정책처럼 모델 주변을 둘러싼 모든 층이 함께 “팀처럼
+                    일하는 AI” 를 만듭니다.
+                    <span className="block pt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground-subtle">
+                      [출처 미확인 — 사용자 제공 글] “If you’re not the model, you’re the Harness.”
+                    </span>
+                  </figcaption>
+                </figure>
+
+                <p className="mt-6 text-[16px] leading-8 text-foreground-muted">
                   하네스는 모델을 감싸는 운영 구조입니다. 즉흥적인 vibe coding 과 달리, 구조화된 하네스는 메모리, 스킬,
                   서브에이전트, 정책, 훅, 검증 루프를 설계합니다. 이것은 프롬프트 팁이 아니라 소프트웨어 엔지니어링의 새로운 하위 분야에 가깝습니다.
                 </p>
@@ -519,6 +578,60 @@ export default function HandbookPage() {
                     </div>
                   ))}
                 </div>
+
+                <ProseHeading level={3}>설계 단계의 7가지 결정</ProseHeading>
+                <p className="mt-3 text-[16px] leading-8 text-foreground-muted">
+                  하네스를 처음 설계하는 팀이 거의 항상 부딪히는 7가지 결정 지점입니다. 각각은 정답이 아니라
+                  trade-off 입니다. 어느 쪽을 선택하든 그 선택의 이유를 문서화해 두는 것이 가장 중요합니다.
+                </p>
+                <figure className="mt-6 overflow-hidden rounded-2xl border border-border bg-background">
+                  <Image
+                    src="/agent-harness/agent-harness2.png"
+                    alt="하네스 설계의 7가지 결정 트리: Agent Count, Reasoning Strategy, Context Strategy, Verification, Permissions, Tool Scoping, Harness Thickness 와 각각의 trade-off"
+                    width={1649}
+                    height={897}
+                    sizes="(min-width: 1024px) 760px, 100vw"
+                    className="h-auto w-full"
+                  />
+                  <figcaption className="border-t border-border px-5 py-3 text-xs leading-6 text-foreground-muted">
+                    7가지 결정 — 단일 vs 멀티 에이전트, ReAct vs Plan-and-Execute, 컨텍스트 압축 vs 풍부한
+                    문맥, 결정적 vs 추론형 검증, 허용형 vs 제한형 권한, 풀 툴킷 vs 단계별 최소 툴, 얇은 vs 두꺼운
+                    하네스. “보편적 정답은 없습니다. trade-off 만 있습니다.”
+                    <span className="block pt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground-subtle">
+                      [출처 미확인 — 사용자 제공 글] “Designing Your Agent Harness”
+                    </span>
+                  </figcaption>
+                </figure>
+
+                <ul className="mt-6 grid gap-3 md:grid-cols-2">
+                  {HARNESS_DECISIONS.map((decision) => (
+                    <li
+                      key={decision.title}
+                      className="rounded-xl border border-border bg-background p-5"
+                    >
+                      <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">
+                        {decision.label}
+                      </p>
+                      <h4 className="mt-2 text-base font-semibold text-foreground">{decision.title}</h4>
+                      <p className="mt-2 text-sm leading-7 text-foreground-muted">{decision.body}</p>
+                    </li>
+                  ))}
+                </ul>
+                <Callout tone="note" title="단단한 한 가지 원칙">
+                  <p>
+                    7가지 결정 모두에 공통으로 적용되는 원칙이 하나 있습니다 — Anthropic 의{" "}
+                    <a
+                      href="https://www.anthropic.com/engineering/building-effective-agents"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-accent hover:underline"
+                    >
+                      Building Effective Agents
+                    </a>{" "}
+                    가 정리한 “필요할 때만 에이전트, 그 외에는 단순 워크플로” 원칙입니다. 복잡도는 가장
+                    단순한 형태에서 시작해서 필요할 때만 늘리시면 됩니다.
+                  </p>
+                </Callout>
               </section>
 
               <section id="system" className="rounded-2xl border border-border bg-surface p-7">
