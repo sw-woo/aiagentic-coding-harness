@@ -13,19 +13,33 @@ export type ReferenceSection = {
   items: readonly ReferenceCard[];
 };
 
-const codexReference = [
+const officialDocsReference = [
+  {
+    href: "/reference/claude-code-official",
+    title: "Anthropic Claude Code 공식 자료 맵",
+    summary:
+      "Claude Code 의 시작점, 설정과 운영, 학습 자료, 릴리스, 모델 카드를 Anthropic 공식 문서 기준으로 묶은 내부 레퍼런스 페이지입니다. Claude Code 부터 시작할 때 가장 먼저 봐야 할 자료들이 한 곳에 모여 있습니다.",
+    badge: "내부 정리",
+  },
   {
     href: "/reference/codex-official",
     title: "OpenAI Codex 공식 자료 맵",
     summary:
-      "설정, 운영, 모델, 릴리스, 학습 자료를 OpenAI 공식 문서 기준으로 다시 묶은 내부 레퍼런스 페이지입니다. Codex 자료층이 부족해 보일 때 여기서 시작하면 됩니다.",
+      "Codex 의 설정, 운영, 모델, 릴리스, 학습 자료를 OpenAI 공식 문서 기준으로 다시 묶은 내부 레퍼런스 페이지입니다. Codex 자료층이 부족해 보일 때 여기서 시작하면 됩니다.",
+    badge: "내부 정리",
+  },
+  {
+    href: "/reference/ultraplan",
+    title: "Claude Code /ultraplan",
+    summary:
+      "Claude Code 의 ultraplan 슬래시 명령은 계획 수립을 Anthropic 클라우드로 오프로드해 터미널을 비웁니다. 웹 리뷰 UI 와 두 가지 실행 경로를 공식 문서 기반으로 정리한 페이지입니다.",
     badge: "내부 정리",
   },
   {
     href: "/reference/codex-hooks",
     title: "Codex Hooks 심화 가이드",
     summary:
-      "Codex hooks를 위치, 이벤트, JSON payload, Kotlin/JVM용 guardrail 예시, 디버깅 포인트까지 상세하게 풀어 쓴 내부 가이드입니다.",
+      "Codex hooks 를 위치, 이벤트, JSON payload, Kotlin · JVM 용 guardrail 예시, 디버깅 포인트까지 상세하게 풀어 쓴 내부 가이드입니다.",
     badge: "내부 정리",
   },
   {
@@ -39,7 +53,48 @@ const codexReference = [
     href: "/reference/profiles-subagents",
     title: "Profiles 와 Subagents 설계",
     summary:
-      "Codex 하네스에서 profiles와 subagents를 어떻게 역할 중심으로 나눠야 하는지 정리한 내부 가이드입니다.",
+      "Codex 하네스에서 profiles 와 subagents 를 어떻게 역할 중심으로 나눠야 하는지 정리한 내부 가이드입니다.",
+    badge: "내부 정리",
+  },
+] as const satisfies readonly ReferenceCard[];
+
+const securityReference = [
+  {
+    href: "/reference/zero-trust-plugins",
+    title: "Zero Trust 플러그인 — 4계층 방어 원칙",
+    summary:
+      "외부 플러그인과 MCP 서버를 신뢰하지 않는다는 전제로, 에이전트 하네스가 반드시 가져야 할 네 가지 방어 층 — Allowlist, Sandbox, Credential Proxy, I/O Guardrails — 을 정리한 우산 페이지입니다.",
+    badge: "내부 정리",
+  },
+  {
+    href: "/reference/agent-sandboxing",
+    title: "에이전트 샌드박스 5종 비교",
+    summary:
+      "Vercel Sandbox, isolated-vm, Docker, gVisor, E2B 다섯 가지 격리 솔루션을 isolation 모델, 시작 시간, 언어 지원, 비용, 사용 시점 기준으로 한 표에 비교한 페이지입니다.",
+    badge: "내부 정리",
+  },
+  {
+    href: "/reference/security-guardrails",
+    title: "하네스 보안과 가드레일",
+    summary:
+      "sandbox, rules, hooks, MCP governance 를 한 층으로 묶어 보안과 운영 가드레일을 설명하는 내부 가이드입니다.",
+    badge: "내부 정리",
+  },
+] as const satisfies readonly ReferenceCard[];
+
+const costObservabilityReference = [
+  {
+    href: "/reference/token-economics",
+    title: "토큰 절감과 비용 운영",
+    summary:
+      "CLI 출력 압축(RTK), 프롬프트 캐싱, 모델 라우팅, 관측성 4계층으로 토큰 비용을 줄이는 패턴을 Anthropic · OpenAI 공식 문서 기준으로 정리한 페이지입니다.",
+    badge: "내부 정리",
+  },
+  {
+    href: "/reference/metrics-observability",
+    title: "Metrics 와 Observability",
+    summary:
+      "trace, latency, tool calls, validation pass rate, observability 도구까지 포함해 계측 층을 설명하는 내부 가이드입니다.",
     badge: "내부 정리",
   },
 ] as const satisfies readonly ReferenceCard[];
@@ -63,7 +118,7 @@ const operationsReference = [
     href: "/reference/automation-patterns",
     title: "에이전트 자동화 패턴",
     summary:
-      "headless 실행, 구조화된 출력, 최소 권한 승인, 세션 이어가기, CI/CD 통합 같은 자동화 패턴을 정리한 내부 가이드입니다.",
+      "headless 실행, 구조화된 출력, 최소 권한 승인, 세션 이어가기, CI · CD 통합 같은 자동화 패턴을 정리한 내부 가이드입니다.",
     badge: "내부 정리",
   },
   {
@@ -74,13 +129,6 @@ const operationsReference = [
     badge: "내부 정리",
   },
   {
-    href: "/reference/security-guardrails",
-    title: "하네스 보안과 가드레일",
-    summary:
-      "sandbox, rules, hooks, MCP governance를 한 층으로 묶어 보안과 운영 가드레일을 설명하는 내부 가이드입니다.",
-    badge: "내부 정리",
-  },
-  {
     href: "/reference/debugging-playbook",
     title: "에이전트 디버깅 플레이북",
     summary:
@@ -88,17 +136,10 @@ const operationsReference = [
     badge: "내부 정리",
   },
   {
-    href: "/reference/metrics-observability",
-    title: "Metrics 와 Observability",
-    summary:
-      "trace, latency, tool calls, validation pass rate, observability 도구까지 포함해 계측 층을 설명하는 내부 가이드입니다.",
-    badge: "내부 정리",
-  },
-  {
     href: "https://github.com/robbiecalvin/codexmaster/tree/main/docs",
     title: "codexmaster docs",
     summary:
-      "workflow, guardrails, metrics, debugging playbook 중심으로 Codex를 운영 시스템처럼 설명하는 문서 구조 참고자료입니다.",
+      "workflow, guardrails, metrics, debugging playbook 중심으로 Codex 를 운영 시스템처럼 설명하는 문서 구조 참고자료입니다.",
     badge: "외부 참고",
     external: true,
   },
@@ -109,22 +150,29 @@ const externalReference = [
     href: "/reference/paper-to-code",
     title: "Paper-to-Code 시스템",
     summary:
-      "논문을 코드 저장소로 바꾸는 agentic workflow와 관련 오픈소스 프로젝트를 확인된 범위 안에서 정리한 페이지입니다.",
+      "논문을 코드 저장소로 바꾸는 agentic workflow 와 관련 오픈소스 프로젝트를 확인된 범위 안에서 정리한 페이지입니다.",
     badge: "내부 정리",
   },
   {
     href: "/reference/open-source-stack",
     title: "오픈소스 에이전트와 모델 스택",
     summary:
-      "OpenCode, OpenHands, Aider 같은 오픈소스 에이전트 런타임과 Gemma 4, Qwen3-Coder 같은 오픈 모델을 최신 기준으로 정리한 페이지입니다.",
+      "OpenCode, OpenHands, Aider 같은 오픈소스 에이전트 도구와 Gemma 4, Qwen3-Coder 같은 오픈 모델을 최신 기준으로 정리한 페이지입니다.",
     badge: "내부 정리",
   },
   {
     href: "/reference/harness-100",
     title: "Harness 100 (RevFactory)",
     summary:
-      "Minho Hwang(@revfactory) 가 공개한 200개의 production-grade Claude Code 하네스 컬렉션입니다. 콘텐츠·개발·데이터·전략 등 10개 도메인에 걸쳐 978개 에이전트와 630개 스킬을 모아 두었습니다.",
+      "Minho Hwang(@revfactory) 가 공개한 200개의 production-grade Claude Code 하네스 컬렉션입니다. 콘텐츠 · 개발 · 데이터 · 전략 등 10개 도메인에 걸쳐 978개 에이전트와 630개 스킬을 모아 두었습니다.",
     badge: "외부 컬렉션",
+  },
+  {
+    href: "/reference/revfactory-harness",
+    title: "RevFactory 하네스 분석",
+    summary:
+      "RevFactory 하네스 컬렉션이 어떤 구조로 200개의 production 하네스를 묶고 있는지, 그 구조에서 얻을 수 있는 운영 패턴을 정리한 내부 분석 페이지입니다.",
+    badge: "내부 정리",
   },
   {
     href: "https://docs.anthropic.com/en/docs/claude-code/overview",
@@ -192,26 +240,91 @@ const externalReference = [
   },
 ] as const satisfies readonly ReferenceCard[];
 
+/** 최근 추가된 5개 페이지 — 페이지 상단 highlight 카드에 사용합니다. */
+export const recentReferenceHighlights = [
+  {
+    href: "/reference/claude-code-official",
+    title: "Claude Code 공식 자료 맵",
+    note: "Anthropic 공식 문서를 시작점·설정·학습·릴리스·모델 5개 묶음으로 정리한 신규 페이지입니다.",
+  },
+  {
+    href: "/reference/ultraplan",
+    title: "Claude Code /ultraplan",
+    note: "클라우드 오프로드 planning 슬래시 명령을 공식 문서 기반으로 정리한 신규 페이지입니다.",
+  },
+  {
+    href: "/reference/zero-trust-plugins",
+    title: "Zero Trust 플러그인 — 4계층 방어",
+    note: "외부 플러그인과 MCP 를 신뢰하지 않는 전제의 4계층 방어 원칙을 묶은 우산 페이지입니다.",
+  },
+  {
+    href: "/reference/agent-sandboxing",
+    title: "에이전트 샌드박스 5종 비교",
+    note: "Vercel Sandbox · isolated-vm · Docker · gVisor · E2B 격리 솔루션 비교 표 페이지입니다.",
+  },
+  {
+    href: "/reference/token-economics",
+    title: "토큰 절감과 비용 운영",
+    note: "CLI 압축(RTK) · 프롬프트 캐싱 · 모델 라우팅 · 관측성 4계층 비용 절감 페이지입니다.",
+  },
+] as const;
+
+/** 목적별 읽는 순서 — 페이지 상단의 짧은 가이드 카드에 사용합니다. */
+export const referenceReadingPaths = [
+  {
+    title: "처음 보는 사람",
+    description:
+      "두 도구의 공식 자료 맵부터 보고, 운영 패턴은 그 다음입니다.",
+    steps: ["/reference/claude-code-official", "/reference/codex-official", "/reference/automation-patterns"],
+  },
+  {
+    title: "보안 · 거버넌스가 필요한 사람",
+    description:
+      "Zero Trust 우산 페이지부터, 그 다음 샌드박스 비교와 보안 가드레일로 내려가십시오.",
+    steps: ["/reference/zero-trust-plugins", "/reference/agent-sandboxing", "/reference/security-guardrails"],
+  },
+  {
+    title: "비용 · 관측성이 고민인 사람",
+    description:
+      "토큰 절감 4계층을 먼저 보고, observability 로 측정 체계까지 내려가십시오.",
+    steps: ["/reference/token-economics", "/reference/metrics-observability", "/reference/debugging-playbook"],
+  },
+] as const;
+
 export const referenceSections = [
   {
-    id: "codex",
-    title: "Codex 공식 문서와 설정 레이어",
+    id: "official-docs",
+    title: "Claude Code 와 Codex 공식 문서와 설정 레이어",
     description:
-      "설정, profiles, subagents, hooks, MCP 같은 실제 Codex 하네스 구성 요소를 확인하거나 바로 적용하려면 이 묶음부터 보시면 됩니다.",
-    items: codexReference,
+      "Claude Code 와 Codex 두 도구의 공식 자료 맵, hooks, profiles, subagents, ultraplan 같은 실제 하네스 구성 요소를 확인하거나 바로 적용하려면 이 묶음부터 보시면 됩니다.",
+    items: officialDocsReference,
+  },
+  {
+    id: "security",
+    title: "보안과 Zero Trust",
+    description:
+      "외부 플러그인 · MCP 서버 · AI 가 생성한 코드까지 신뢰하지 않는다는 전제로 시작하는 4계층 방어 원칙과 격리 솔루션을 묶은 섹션입니다. 사내 도입 시 가장 먼저 가져가야 할 안전 기본값입니다.",
+    items: securityReference,
+  },
+  {
+    id: "cost-observability",
+    title: "비용과 관측성",
+    description:
+      "토큰 비용을 줄이는 4계층 패턴(CLI 압축 · 프롬프트 캐싱 · 모델 라우팅 · 관측성) 과 trace · latency · tool call 같은 측정 지표를 묶은 섹션입니다. 사용량이 늘기 시작하면 이 섹션이 곧 운영의 중심이 됩니다.",
+    items: costObservabilityReference,
   },
   {
     id: "operations",
-    title: "운영 패턴과 심화 가이드",
+    title: "운영 패턴과 디버깅",
     description:
-      "보안, 가드레일, 자동화, 디버깅, metrics, observability처럼 팀 단위 운영에서 중요한 주제를 깊게 보는 묶음입니다.",
+      "최신 트렌드, 자동화 패턴, MCP 지형도, 디버깅 플레이북처럼 팀 단위 운영에서 실무로 이어지는 주제들을 묶었습니다. 도입 후 안정화 단계에 봐야 합니다.",
     items: operationsReference,
   },
   {
     id: "external",
     title: "외부 컬렉션과 원전 자료",
     description:
-      "바깥의 하네스 컬렉션, 원전 글, 논문, 교육용 코드 저장소 같은 자료를 따라가고 싶을 때 보는 묶음입니다.",
+      "바깥의 하네스 컬렉션, 1차 자료, 논문, 교육용 코드 저장소 같은 자료를 따라가고 싶을 때 보는 묶음입니다. 사이트의 모든 사실 주장은 이 묶음의 출처로 거슬러 올라갑니다.",
     items: externalReference,
   },
 ] as const satisfies readonly ReferenceSection[];

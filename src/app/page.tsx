@@ -90,8 +90,9 @@ const START_PATHS = [
   {
     title: "공식 자료부터 확인하려는 사람",
     description:
-      "Codex 공식 자료 맵과 MCP 지형도, 참고자료 인덱스를 통해 원전과 최신 문서부터 따라갈 수 있습니다.",
+      "Claude Code 와 Codex 두 도구의 공식 자료 맵, MCP 지형도, 참고자료 인덱스를 통해 원전과 최신 문서부터 따라갈 수 있습니다.",
     links: [
+      { label: "Claude Code 공식 자료 맵", href: "/reference/claude-code-official" },
       { label: "Codex 공식 자료 맵", href: "/reference/codex-official" },
       { label: "MCP 지형도", href: "/reference/mcp-landscape" },
       { label: "참고자료", href: "/reference" },
