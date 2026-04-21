@@ -82,11 +82,11 @@ export default function ReferenceIndexPage() {
               최근 추가
             </p>
             <p className="font-mono text-[11px] text-foreground-muted">
-              지난 2일 동안 추가된 5개 페이지
+              주요 참고 페이지 5개
             </p>
           </div>
           <h2 className="mt-3 font-serif text-2xl tracking-tight text-foreground sm:text-[28px]">
-            2026년 4월 8일 새로 들어온 자료
+            가장 많이 찾는 자료
           </h2>
           <ul className="mt-5 grid gap-3 sm:grid-cols-2">
             {recentReferenceHighlights.map((item) => (
