@@ -7,6 +7,13 @@ type MermaidProps = {
   caption?: string;
 };
 
+function scaleSvg(svg: string): string {
+  return svg.replace(
+    /(<svg[^>]*?)(?:\s+style="[^"]*")?>/,
+    '$1 style="width:100%;height:auto;min-height:400px">'
+  );
+}
+
 export function Mermaid({ chart, caption }: MermaidProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [svg, setSvg] = useState("");
@@ -26,9 +33,9 @@ export function Mermaid({ chart, caption }: MermaidProps) {
           secondaryColor: "#1e293b",
           tertiaryColor: "#0f172a",
           fontFamily: "Geist, system-ui, sans-serif",
-          fontSize: "14px",
+          fontSize: "16px",
         },
-        flowchart: { curve: "basis", padding: 16 },
+        flowchart: { curve: "basis", padding: 20 },
       });
       const id = `mermaid-${Math.random().toString(36).slice(2, 9)}`;
       const { svg: rendered } = await mermaid.render(id, chart);
@@ -42,7 +49,7 @@ export function Mermaid({ chart, caption }: MermaidProps) {
       <div
         ref={ref}
         className="overflow-x-auto rounded-xl border border-border bg-surface p-4"
-        dangerouslySetInnerHTML={{ __html: svg }}
+        dangerouslySetInnerHTML={{ __html: svg ? scaleSvg(svg) : "" }}
       />
       {caption && (
         <figcaption className="mt-2 text-center text-xs text-foreground-muted">
