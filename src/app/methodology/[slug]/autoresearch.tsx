@@ -96,10 +96,11 @@ export function AutoResearch() {
         &ldquo;에이전트가 실수할 때마다, 다시는 그 실수를 반복하지 못하도록 시스템을 설계하라.&rdquo;
       </ProseParagraph>
 
-      <Callout tone="tip" title="컴퓨터 아키텍처 비유 (Beren Millidge)">
-        CPU = LLM 모델, RAM = 컨텍스트 윈도우, 디스크 = 외부 DB, 디바이스 드라이버 = 도구/API,
-        <strong> 운영체제(OS) = 에이전트 하네스</strong>. &ldquo;에이전트를 만들었다&rdquo; 는
-        하네스를 만들고 모델을 연결했다는 뜻입니다 (LangChain).
+      <Callout tone="tip" title="컴퓨터 비유로 이해하기 (Beren Millidge)">
+        컴퓨터에서 CPU 가 아무리 빨라도, 운영체제(Windows, macOS)가 없으면 쓸모가 없습니다.
+        마찬가지로 AI 모델(CPU)이 아무리 똑똑해도, 그것을 감싸는 <strong>하네스(운영체제)</strong>가 없으면
+        실제 작업을 안정적으로 수행할 수 없습니다.
+        &ldquo;에이전트를 만들었다&rdquo; 는 하네스를 설계하고 그 안에 모델을 넣었다는 뜻입니다 (LangChain).
       </Callout>
 
       {/* ════════════════════════════════════════════════════════
@@ -119,23 +120,28 @@ export function AutoResearch() {
 
       <ProseParagraph>
         AutoResearch 의 설계에서 가장 영리한 부분은 &ldquo;누가 무엇을 수정할 수 있는가&rdquo;를 파일 단위로 엄격히 분리한 것입니다.
-        이 분리가 중요한 이유는 세 가지입니다. 첫째, 에이전트가 채점 기준을 고쳐서 점수를 부풀리는 부정행위(보상 해킹)를 구조적으로 차단합니다.
-        둘째, 에이전트가 건드릴 수 있는 범위를 630줄 단일 파일로 한정하여, AI 가 전체 코드를 한눈에 파악할 수 있게 합니다.
+        이 분리가 중요한 이유는 세 가지입니다.
+        첫째, 에이전트가 채점 기준을 고쳐서 점수를 부풀리는 부정행위(학생이 시험 답안지의 채점 기준을 바꾸는 것과 같습니다)를 구조적으로 차단합니다.
+        둘째, 에이전트가 건드릴 수 있는 범위를 630줄 단일 파일로 한정합니다.
+        현재 AI 는 한 번에 읽을 수 있는 분량에 한계가 있는데, 630줄은 그 한계 안에 여유 있게 들어오므로 AI 가 전체 코드를 빠짐없이 파악할 수 있습니다.
         셋째, 인간의 역할을 &ldquo;코드를 직접 쓰는 것&rdquo;에서 &ldquo;방향과 전략을 정하는 것&rdquo;으로 전환시킵니다.
       </ProseParagraph>
 
       <div className="my-6 grid gap-4 sm:grid-cols-3">
-        <RoleCard title="prepare.py" subtitle="불변의 평가자" color="text-green-400">
-          데이터, 토크나이저, <code>evaluate_bpb</code> 채점 함수. 에이전트도 인간도 수정 금지.
-          채점 기준 조작을 구조적으로 차단합니다.
+        <RoleCard title="prepare.py" subtitle="시험 채점지 — 아무도 수정 금지" color="text-green-400">
+          학습 데이터, 단어 분리기, 채점 함수(<code>evaluate_bpb</code>)가 들어 있습니다.
+          에이전트도 인간도 이 파일을 고칠 수 없습니다.
+          시험에서 학생이 채점 기준을 바꿀 수 없는 것과 같습니다.
         </RoleCard>
-        <RoleCard title="train.py" subtitle="에이전트의 샌드박스" color="text-amber-400">
-          GPT 아키텍처, Muon+AdamW 옵티마이저, 학습 루프. 에이전트가 자유롭게 수정할 수 있는
-          유일한 파일입니다. 630줄 = LLM 이 한눈에 파악 가능합니다.
+        <RoleCard title="train.py" subtitle="에이전트의 작업 공간 — 유일하게 수정 가능" color="text-amber-400">
+          모델 구조, 학습 방법, 설정값이 모두 이 파일 안에 있습니다.
+          에이전트가 자유롭게 고칠 수 있는 유일한 파일입니다.
+          630줄이므로 AI 가 전체를 한 번에 읽고 파악할 수 있습니다.
         </RoleCard>
-        <RoleCard title="program.md" subtitle="산문으로 된 프로그램" color="text-accent-2">
-          연구 방향, 제약, 9단계 루프 규칙. 인간이 작성하는 유일한 파일입니다.
-          핵심 지시: <strong>NEVER STOP</strong>.
+        <RoleCard title="program.md" subtitle="작업 지시서 — 인간만 작성" color="text-accent-2">
+          연구 방향, 제약 조건, 실험 루프 규칙이 한국어가 아닌 영어 산문으로 적혀 있습니다.
+          인간이 작성하는 유일한 파일입니다.
+          핵심 지시: <strong>절대 멈추지 마라(NEVER STOP)</strong>.
         </RoleCard>
       </div>
 
@@ -146,11 +152,12 @@ export function AutoResearch() {
       <ProseHeading level={3}>9단계 실행 루프</ProseHeading>
 
       <ProseParagraph>
-        program.md 에 정의된 실행 루프는 코드가 아니라 영어 산문으로 기술되어 있습니다.
-        에이전트는 이 마크다운 파일을 읽고 지시를 따릅니다.
-        핵심은 Git 을 에이전트의 기억 장치로 활용한다는 점입니다 — 벡터 데이터베이스도 임베딩도 필요 없습니다.
-        <code>git log</code>로 무엇이 효과가 있었는지, <code>results.tsv</code>로 이미 시도한 것을 확인합니다.
-        아침에 일어나면 성공한 변경만 남은 깨끗한 브랜치와, 실패를 포함한 전체 이력이 기다리고 있습니다.
+        program.md 에 정의된 실행 루프는 코드가 아니라 영어 문장으로 적혀 있습니다.
+        에이전트는 이 파일을 읽고 지시를 따릅니다.
+        특별한 데이터베이스나 복잡한 기억 장치가 필요 없습니다 —
+        에이전트는 Git(코드 변경 이력을 추적하는 도구)의 기록을 보고 &ldquo;이전에 무엇이 효과가 있었는지&rdquo;를 파악하고,
+        <code>results.tsv</code> 파일(실험 결과를 한 줄씩 기록한 표)을 보고 &ldquo;이미 시도한 것&rdquo;을 확인합니다.
+        아침에 일어나면 성공한 변경만 남은 깨끗한 코드와, 실패를 포함한 전체 실험 이력이 기다리고 있습니다.
       </ProseParagraph>
 
       <ol className="my-4 list-decimal space-y-1 pl-6 font-serif text-foreground">
@@ -333,29 +340,31 @@ class GPTConfig:
             <th className="py-2 pr-4">발견</th><th className="py-2">내용</th>
           </tr></thead>
           <tbody className="font-serif text-foreground">
-            <Tr cells={["QK-Norm 버그 수정", "수개월간 Karpathy 본인이 놓친 버그를 에이전트가 발견"]} />
-            <Tr cells={["배치 사이즈 최적화", "시간 고정 시 배치를 줄여 더 많은 스텝 확보가 유리"]} />
-            <Tr cells={["Weight decay / AdamW beta", "미세 하이퍼파라미터 스위트 스팟 발견"]} />
-            <Tr cells={["RoPE 주파수 조정", "인간이 일일이 시도하기 어려운 영역"]} />
+            <Tr cells={["QK-Norm 버그 수정", "어텐션 선명도 조절 장치에서 빠진 승수를 발견 — 인간이 수개월간 놓친 버그"]} />
+            <Tr cells={["한 번에 처리하는 데이터 양 조정", "5분 안에 더 많은 학습 횟수를 확보하는 최적 크기 발견"]} />
+            <Tr cells={["학습 속도 미세 조정", "학습률, 가중치 감쇠 등 수백 가지 조합 중 최적점 발견"]} />
+            <Tr cells={["위치 인코딩 주파수 조정", "텍스트에서 단어 위치를 인식하는 방식 — 인간이 일일이 시도하기 어려운 영역"]} />
           </tbody>
         </table>
       </div>
 
       <Callout tone="tip" title="핵심 수치">
-        20개 최적화 모두 누적 적용(additive) 가능 → depth=24 모델에도 전이 →
-        GPT-2 도달 시간 <strong>2.02시간 → 1.80시간 (11% 단축)</strong>.
+        발견된 20개의 개선점은 서로 충돌하지 않아 <strong>모두 동시에 적용</strong>할 수 있었습니다.
+        12층짜리 작은 모델에서 찾은 개선점이 24층짜리 큰 모델에도 그대로 효과가 있었습니다.
+        최종 결과: GPT-2 수준에 도달하는 학습 시간이 <strong>2.02시간 → 1.80시간 (11% 단축)</strong>.
       </Callout>
 
       <ProseHeading level={3}>Shopify CEO Tobi Lutke 의 적용 결과</ProseHeading>
 
       <ProseParagraph>
-        <strong>쿼리 확장 모델</strong> — 37회 실험, 8시간 야간 실행으로 검증 점수 19% 향상.
-        에이전트가 최적화한 0.8B 모델이 수동 튜닝 1.6B 모델을 능가했습니다.
-        &ldquo;더 크면 더 좋다&rdquo; 가 아니라, 하드웨어에 맞춰 최적화하면 작은 모델이 이깁니다.
+        <strong>쿼리 확장 모델</strong>(사용자가 검색어를 입력하면 관련 키워드를 자동으로 추가해 주는 AI) —
+        Lütke 가 잠들기 전에 에이전트를 실행하고, 8시간 뒤 일어났을 때 37회 실험이 완료되어 있었습니다.
+        검증 점수가 19% 향상되었고, 에이전트가 최적화한 0.8B 모델이 수동 튜닝 1.6B 모델을 능가했습니다.
       </ProseParagraph>
       <ProseParagraph>
-        <strong>Liquid 템플릿 엔진</strong>(Shopify 핵심 인프라) — 93개 자동 커밋으로
-        렌더링 속도 53% 향상, 메모리 할당 61% 감소.
+        <strong>Liquid 템플릿 엔진</strong>(Shopify 의 모든 온라인 상점 페이지를 생성하는 핵심 소프트웨어) —
+        에이전트가 93번 코드를 자동으로 수정한 결과,
+        페이지 생성 속도가 53% 빨라지고, 메모리 사용량이 61% 줄었습니다.
       </ProseParagraph>
 
       {/* ════════════════════════════════════════════════════════
@@ -421,20 +430,20 @@ class GPTConfig:
       </ProseParagraph>
 
       <div className="my-6 grid gap-4 sm:grid-cols-2">
-        <RoleCard title="가이드 (행동 전)" subtitle="Feedforward 통제" color="text-green-400">
+        <RoleCard title="가이드 (행동 전)" subtitle="에이전트가 일하기 전에 방향을 알려줍니다" color="text-green-400">
           <ul className="mt-2 list-disc space-y-1 pl-4 text-sm">
-            <li><strong>program.md</strong> — 방향, 규칙 제시</li>
-            <li><strong>Simplicity Criterion</strong> — 기술 부채 방지</li>
-            <li><strong>NEVER STOP</strong> — 야간 자율 실행 허용</li>
-            <li><strong>VRAM Soft Constraint</strong> — 메모리 폭발 방지</li>
+            <li><strong>program.md</strong> — &ldquo;이 방향으로 실험하라&rdquo;는 전략 지시</li>
+            <li><strong>단순함 기준</strong> — 코드가 복잡해지면 점수가 올라도 버리라는 원칙</li>
+            <li><strong>절대 멈추지 마라</strong> — 인간이 자는 동안에도 계속 실행</li>
+            <li><strong>GPU 메모리 제한</strong> — 메모리를 과도하게 쓰는 실험 방지</li>
           </ul>
         </RoleCard>
-        <RoleCard title="센서 (행동 후)" subtitle="Feedback 통제" color="text-amber-400">
+        <RoleCard title="센서 (행동 후)" subtitle="에이전트가 일한 뒤에 결과를 자동으로 판정합니다" color="text-amber-400">
           <ul className="mt-2 list-disc space-y-1 pl-4 text-sm">
-            <li><strong>prepare.py (val_bpb)</strong> — 결정론적 측정</li>
-            <li><strong>git commit/revert</strong> — 자동 롤백</li>
-            <li><strong>results.tsv</strong> — 반복 시도 방지</li>
-            <li><strong>10분 타임아웃</strong> — 폭주 방지</li>
+            <li><strong>prepare.py (val_bpb)</strong> — 코드가 자동으로 점수를 매김 (AI 판단 아님)</li>
+            <li><strong>git 되돌리기</strong> — 점수가 나빠지면 코드를 자동으로 원래대로</li>
+            <li><strong>results.tsv</strong> — 이미 시도한 실험을 기록하여 같은 것을 반복 방지</li>
+            <li><strong>10분 타임아웃</strong> — 실험이 멈추거나 폭주하면 강제 종료</li>
           </ul>
         </RoleCard>
       </div>
