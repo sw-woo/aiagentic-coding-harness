@@ -474,6 +474,25 @@ class GPTConfig:
         Generator-Evaluator 분리가 하네스에서 필수적인 이유입니다 (arxiv.org, 2604.05292).
       </ProseParagraph>
 
+      <ProseParagraph>
+        구체적으로 어떤 취약점이 발생하는지 살펴보겠습니다.
+        연구에서 가장 빈번하게 발견된 취약점은 SQL Injection(사용자 입력을 직접 쿼리에 삽입),
+        Path Traversal(<code>../</code>로 상위 디렉터리 접근), Buffer Overflow(경계 검사 누락)입니다.
+        흥미로운 점은 동일 모델에게 &ldquo;이 코드에 보안 취약점이 있는가?&rdquo; 라고 질문하면
+        방금 자신이 작성한 SQL Injection 을 정확히 지목한다는 것입니다.
+        이 현상의 원인은 토큰 생성과 토큰 평가가 서로 다른 확률 분포에서 작동하기 때문입니다 —
+        생성 시에는 &ldquo;자연스럽고 간결한 코드&rdquo; 가 높은 확률을 받지만,
+        리뷰 시에는 &ldquo;보안 패턴 매칭&rdquo; 이 활성화되어 취약점을 포착합니다.
+      </ProseParagraph>
+
+      <ProseParagraph>
+        더 충격적인 것은 기존 정적 분석 도구(ESLint, Bandit 등)의 탐지율이 <strong>2.2%</strong>에 불과하다는 점입니다.
+        97.8%의 취약점이 기존 도구를 통과합니다. 이것이 AutoResearch 의 prepare.py 같은 결정론적 센서와,
+        LLM 기반 자기 리뷰를 <strong>모두</strong> 갖추어야 하는 이유입니다.
+        하네스에서 Generator(코드 작성)와 Evaluator(코드 검증)를 반드시 분리하면,
+        같은 모델이라도 역할 전환만으로 78.7%의 취약점을 걸러낼 수 있습니다.
+      </ProseParagraph>
+
       <ProseHeading level={3}>LangChain Deep Agents — 독립적 수렴의 증거</ProseHeading>
 
       <ProseParagraph>
@@ -490,6 +509,20 @@ class GPTConfig:
         출시 5시간 만에 GitHub 9.9k stars 를 기록했습니다.
         LangChain 은 자사 생태계를 세 계층으로 공식 구분합니다 — <strong>LangChain</strong>(프레임워크),{" "}
         <strong>LangGraph</strong>(런타임), <strong>Deep Agents</strong>(하네스).
+      </ProseParagraph>
+
+      <ProseParagraph>
+        Harrison Chase 가 Claude Code 에서 역공학한 핵심 패턴은 세 가지입니다.
+        첫째, <strong>Todo 도구를 no-op 으로 구현</strong>합니다. Claude Code 의 <code>write_todos</code> 도구는
+        실제로 외부 시스템에 저장하지 않습니다 — 모델이 &ldquo;계획을 쓴다&rdquo; 는 행위 자체가
+        컨텍스트 윈도우에 구조화된 계획을 남기는 것이 목적입니다.
+        이것은 모델의 자기 조직화(self-organization)를 유도하는 인지적 장치입니다.
+        둘째, <strong>파일시스템을 공유 작업 공간</strong>으로 활용합니다.
+        에이전트가 임시 파일에 중간 결과를 쓰고, 서브에이전트가 그 파일을 읽는 방식으로
+        컨텍스트 윈도우의 한계를 우회합니다. 메모리가 아니라 디스크가 에이전트 간 통신 채널이 됩니다.
+        셋째, <strong>컨텍스트 85% 사용 시 자동 요약</strong>합니다.
+        컨텍스트 윈도우가 85%에 도달하면 대화 이력을 자동 압축하여 최신 상태만 유지합니다.
+        이 세 패턴이 결합되면 에이전트가 수 시간 동안 맥락을 잃지 않고 작업을 지속할 수 있습니다.
       </ProseParagraph>
 
       <Mermaid
@@ -580,6 +613,51 @@ class GPTConfig:
         </table>
       </div>
 
+      <ProseHeading level={3}>AI Scientist-v2 — 에이전틱 트리 탐색으로 논문 작성</ProseHeading>
+
+      <ProseParagraph>
+        Sakana AI 의 AI Scientist-v2 는 AutoResearch 의 단일 루프를 <strong>트리 탐색</strong>으로 확장합니다.
+        하나의 가설에서 시작하여 여러 갈래로 분기하고, 각 갈래의 실험 결과를 평가하여
+        가장 유망한 경로를 깊이 탐색합니다(Monte Carlo Tree Search 변형).
+        실험 결과를 바탕으로 LaTeX 논문까지 자동 생성하며, 실제로 ICLR 피어리뷰를 통과한 논문이 나왔습니다.
+        AutoResearch 가 &ldquo;하나의 메트릭을 개선하는 직선&rdquo;이라면,
+        AI Scientist-v2 는 &ldquo;연구 공간 전체를 탐색하는 나무&rdquo;입니다.
+      </ProseParagraph>
+
+      <ProseHeading level={3}>Darwin Gödel Machine — 자기 코드를 수정하는 AI</ProseHeading>
+
+      <ProseParagraph>
+        같은 Sakana AI 의 Darwin Gödel Machine(DGM)은 한 단계 더 나아갑니다.
+        AutoResearch 에서 에이전트는 train.py 만 수정하지만, DGM 에서 에이전트는 <strong>자기 자신의 추론 코드</strong>까지 수정합니다.
+        &ldquo;연구하는 AI&rdquo; 가 아니라 &ldquo;스스로 진화하는 AI&rdquo;입니다.
+        개방형 진화(open-ended evolution)를 채택하여, 사전에 정의된 메트릭 없이도
+        다양성과 신기함(novelty)을 기준으로 자기 개선 방향을 탐색합니다.
+        이 접근법의 위험성은 안전성 섹션에서 다룹니다.
+      </ProseParagraph>
+
+      <ProseHeading level={3}>AlphaEvolve — 진화적 코딩으로 수학 문제 해결</ProseHeading>
+
+      <ProseParagraph>
+        DeepMind 의 AlphaEvolve 는 코드 변이(mutation)와 선택(selection)을 반복하는
+        진화적 접근법을 사용합니다.
+        LLM 이 코드 변이를 제안하고, 자동 평가기가 적합도를 측정하고, 상위 후보만 다음 세대로 전달합니다.
+        이 방법으로 새로운 활성화 함수를 발견하고 행렬 곱셈 알고리즘을 개선한 사례가 보고되었습니다.
+        AutoResearch 의 &ldquo;수정-측정-선택&rdquo; 루프와 동일한 원리를 집단 수준에서 적용한 것입니다.
+      </ProseParagraph>
+
+      <ProseHeading level={3}>AutoSOTA — 8-에이전트 파이프라인</ProseHeading>
+
+      <ProseParagraph>
+        AutoSOTA(arXiv 2604.05550)는 가장 야심적인 시스템입니다.
+        8개의 전문화된 에이전트(PaperReader, DatasetCollector, AgentCoder, TrainRunner,
+        BenchmarkEvaluator, AgentDebugger, AgentReflector, AgentSupervisor)가
+        논문에서 아이디어를 읽고 → 데이터셋을 수집하고 → 코드를 작성하고 → 학습하고 → 벤치마크를 측정하고 →
+        디버깅하고 → 반성하고 → 감독합니다.
+        AgentSupervisor 가 <strong>Red Line System</strong>으로 7가지 치팅 패턴을 차단합니다.
+        특히 R1(메트릭 변경 금지)과 R3(출력 하드코딩 금지)은
+        AutoResearch 의 prepare.py 불변 원칙과 정확히 같은 철학입니다.
+      </ProseParagraph>
+
       <Mermaid
         chart={`graph TD
     AR["🔬 AutoResearch\n(Karpathy)\n단일 파일 · 단일 메트릭"]
@@ -629,6 +707,82 @@ class GPTConfig:
         셋째, <strong>회귀 위험 정량화</strong> — 이전 성과를 무효화하는 시점을 정량화하여 종료 기준을 제공합니다
         (arxiv.org, 2603.06333).
       </ProseParagraph>
+
+      <ProseHeading level={3}>파레토 프론티어 — 개선의 한계선</ProseHeading>
+
+      <ProseParagraph>
+        자기개선 루프를 시각화하면 파레토 곡선이 나타납니다.
+        X축은 &ldquo;성능 향상&rdquo;, Y축은 &ldquo;정렬 표류&rdquo;입니다.
+        초기 사이클(1~2회)에서는 오른쪽 아래 — 높은 성능, 낮은 표류 — 가 가능합니다.
+        그러나 사이클이 반복될수록 곡선의 기울기가 급격히 올라가서,
+        성능을 1% 올리기 위해 표류를 10% 감수해야 하는 영역에 진입합니다.
+        이 지점이 &ldquo;중단해야 할 때&rdquo;이며, SAHOO 의 회귀 위험 정량화가 이 임계점을 자동으로 감지합니다.
+      </ProseParagraph>
+
+      <ProseParagraph>
+        AutoResearch 는 이 문제를 우아하게 회피합니다.
+        val_bpb 는 단일 스칼라 메트릭이므로 &ldquo;정렬 표류&rdquo; 차원이 존재하지 않습니다 —
+        숫자가 낮아지면 무조건 좋고, 높아지면 무조건 revert 합니다.
+        그러나 이 접근법을 다차원 문제(예: 코드 품질 + 보안 + 성능)에 적용하면
+        하나의 메트릭을 최적화하다가 다른 메트릭이 퇴화하는 &ldquo;풍선 효과(Balloon Effect)&rdquo;가 발생합니다.
+        실무에서는 주 메트릭 1개 + 통과/실패 제약(guard rail) N개를 조합하는 것이 권장됩니다.
+        예를 들어, 주 메트릭은 <code>pytest 실행 시간</code>, 제약은 <code>테스트 통과율 100%</code> + <code>린터 경고 0건</code>입니다.
+      </ProseParagraph>
+
+      <Callout tone="warning" title="Darwin Gödel Machine 의 경고">
+        Sakana AI 의 DGM 은 자기 자신의 추론 코드까지 수정합니다.
+        만약 에이전트가 &ldquo;안전 검사 코드를 비효율적이라고 판단하여 삭제&rdquo;하면
+        더 이상 안전 검사가 작동하지 않습니다.
+        AutoResearch 의 prepare.py 불변 원칙은 이 시나리오를 물리적으로 차단하는 것이며,
+        자기개선 AI 를 설계할 때 <strong>평가자의 불변성</strong>은 타협할 수 없는 원칙입니다.
+      </Callout>
+
+      {/* ════════════════════════════════════════════════════════
+          Part 5.5. 컨텍스트 엔지니어링
+          ════════════════════════════════════════════════════════ */}
+      <ProseHeading level={2}>컨텍스트 엔지니어링 — 올바른 토큰을 공급하는 기술</ProseHeading>
+
+      <ProseParagraph>
+        Karpathy 는 &ldquo;프롬프트 엔지니어링&rdquo;이라는 용어가 오해를 유발한다고 지적했습니다.
+        실제로 중요한 것은 단일 프롬프트를 다듬는 것이 아니라,
+        LLM 의 컨텍스트 윈도우에 <strong>올바른 토큰을 올바른 순서로 공급</strong>하는 전체 시스템을 설계하는 것입니다.
+        이것이 <strong>컨텍스트 엔지니어링</strong>입니다.
+      </ProseParagraph>
+
+      <ProseParagraph>
+        AutoResearch 에서 컨텍스트 엔지니어링이 어떻게 작동하는지 구체적으로 살펴보겠습니다.
+        에이전트의 매 사이클마다 컨텍스트 윈도우에 들어가는 토큰은 다음과 같습니다:
+        (1) program.md 의 전략 지시(약 2,000 토큰),
+        (2) train.py 전체 소스(약 3,000 토큰 — 630줄이므로 한눈에 파악 가능),
+        (3) results.tsv 의 최근 실험 이력(약 500 토큰),
+        (4) git log 의 최근 커밋 메시지(약 300 토큰).
+        합계 약 6,000 토큰이면 에이전트가 전체 상황을 완벽히 파악합니다.
+        200K 컨텍스트 윈도우의 3%만 사용하므로 &ldquo;맥락 고갈(Context Exhaustion)&rdquo;이 발생할 수 없습니다.
+      </ProseParagraph>
+
+      <ProseParagraph>
+        이것을 범용 에이전트와 비교하면 차이가 극명합니다.
+        대규모 코드베이스를 다루는 에이전트는 수만 줄의 코드를 읽어야 하고,
+        컨텍스트 윈도우가 빠르게 포화되어 초기 지시를 잊기 시작합니다.
+        Deep Agents 가 &ldquo;컨텍스트 85% 도달 시 자동 요약&rdquo;을 구현한 것도 이 문제 때문입니다.
+        AutoResearch 의 630줄 제약은 단순한 편의가 아니라, <strong>컨텍스트 엔지니어링의 핵심 설계 결정</strong>입니다.
+      </ProseParagraph>
+
+      <div className="my-6 grid gap-4 sm:grid-cols-3">
+        <RoleCard title="Write (공급)" subtitle="무엇을 넣을 것인가" color="text-green-400">
+          program.md, AGENTS.md, 시스템 프롬프트, 규칙 파일 — 에이전트가 행동하기 전에 읽는 모든 문서
+        </RoleCard>
+        <RoleCard title="Select (선택)" subtitle="무엇을 빼낼 것인가" color="text-amber-400">
+          RAG 검색, 파일 선별, 자동 요약 — 200K 윈도우에서 관련 정보만 골라내는 필터
+        </RoleCard>
+        <RoleCard title="Compress (압축)" subtitle="같은 의미, 적은 토큰" color="text-accent-2">
+          대화 이력 압축, 결과 요약, 코드 범위 제한 — AutoResearch 의 630줄 제약이 대표적
+        </RoleCard>
+      </div>
+
+      <ProseQuote cite={{ label: "Andrej Karpathy", href: "https://pjfp.com/andrej-karpathy-on-autoresearch-ai-agents-and-why-he-stopped-writing-code-full-breakdown-of-his-2026-no-priors-interview/" }}>
+        프롬프트 엔지니어링이라고 부르지 마십시오. 실제로 하고 있는 것은 컨텍스트 엔지니어링입니다.
+      </ProseQuote>
 
       {/* ════════════════════════════════════════════════════════
           Part 6. 실습
@@ -764,6 +918,38 @@ autoresearch run --metric "pytest duration" \\
           </tbody>
         </table>
       </div>
+
+      <ProseHeading level={3}>레벨 2→3 실천 가이드: 첫 번째 하네스 만들기</ProseHeading>
+
+      <ProseParagraph>
+        대부분의 팀이 레벨 2(채팅 복붙)에 머물러 있습니다. 레벨 3으로 올라가려면 <strong>AGENTS.md</strong> 파일 하나만 작성하면 됩니다.
+        이 파일에 &ldquo;이 저장소의 테스트는 반드시 <code>pytest</code>로 실행한다&rdquo;,
+        &ldquo;Python 파일은 <code>ruff format</code>을 적용한다&rdquo; 같은 규칙을 산문으로 적습니다.
+        그 다음, 에이전트가 PR 을 올릴 때 자동으로 <code>pytest</code>와 <code>ruff check</code>를 실행하는 CI 훅을 추가합니다.
+        이것만으로 에이전트의 출력 품질이 극적으로 향상됩니다.
+      </ProseParagraph>
+
+      <ProseHeading level={3}>레벨 3→4 실천 가이드: 센서 추가</ProseHeading>
+
+      <ProseParagraph>
+        레벨 3 에서 레벨 4 로 올라가는 핵심은 &ldquo;인간의 전수 리뷰&rdquo;를 &ldquo;자동화된 센서&rdquo;로 대체하는 것입니다.
+        구체적으로: (1) 타입 체크(<code>tsc --noEmit</code>), (2) 린터(<code>eslint</code>),
+        (3) 단위 테스트(<code>jest/pytest</code>), (4) 빌드 검증(<code>next build</code>)을
+        에이전트의 작업 완료 조건으로 강제합니다.
+        에이전트가 이 네 가지를 모두 통과하지 않으면 커밋할 수 없도록 하는 것입니다.
+        AutoResearch 의 prepare.py 가 하는 역할과 정확히 동일합니다.
+      </ProseParagraph>
+
+      <ProseHeading level={3}>레벨 4→5 실천 가이드: 플라이휠</ProseHeading>
+
+      <ProseParagraph>
+        레벨 5 는 에이전트가 하네스 자체를 개선하는 단계입니다.
+        예를 들어, 에이전트가 반복적으로 같은 유형의 버그를 만든다면,
+        리뷰어 에이전트가 이 패턴을 감지하고 AGENTS.md 에 새 규칙을 제안합니다.
+        인간은 이 제안을 승인만 하면 됩니다.
+        이것이 바로 &ldquo;모델이 좋아져서가 아니라 시스템이 학습하기 때문에&rdquo; 에이전트 품질이 올라가는 구조입니다.
+        현재 이 수준에 도달한 조직은 전체의 약 5% 미만으로 추정됩니다.
+      </ProseParagraph>
 
       <Callout tone="tip" title="매주 금요일 5분 — 조향 루프">
         1) 이번 주 에이전트 실패 목록 확인 →
