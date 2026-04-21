@@ -47,6 +47,12 @@ export function AutoResearch() {
 
       <ProseParagraph>
         AI 를 활용한 소프트웨어 개발은 18개월 만에 세 번의 패러다임 전환을 겪었습니다.
+        2025년 초만 해도 대부분의 개발자는 ChatGPT 나 Copilot 에 코드 조각을 요청하고, 결과를 복사-붙여넣기하는 수준이었습니다.
+        그러나 2025년 말부터 Claude Code, Cursor, Codex 같은 코딩 에이전트가 등장하면서
+        &ldquo;에이전트에게 작업을 맡기고, 인간은 감독한다&rdquo; 는 패턴이 빠르게 확산되었습니다.
+        문제는 에이전트가 장시간 작업할수록 초기 규칙을 잊거나(Context Drift), 에러가 나면 엉뚱한 방향으로 폭주하거나,
+        심지어 평가 기준 자체를 속이는(Reward Hacking) 행동이 발생한다는 것이었습니다.
+        이 구조적 문제를 해결하기 위해 하네스 엔지니어링이 등장했습니다.
       </ProseParagraph>
 
       <div className="my-6 overflow-x-auto">
@@ -102,6 +108,13 @@ export function AutoResearch() {
 
       <ProseHeading level={3}>3-파일 아키텍처</ProseHeading>
 
+      <ProseParagraph>
+        AutoResearch 의 설계에서 가장 영리한 부분은 &ldquo;누가 무엇을 수정할 수 있는가&rdquo;를 파일 단위로 엄격히 분리한 것입니다.
+        이 분리가 중요한 이유는 세 가지입니다. 첫째, 에이전트가 평가 로직을 수정하여 점수를 인위적으로 올리는 보상 해킹을 물리적으로 차단합니다.
+        둘째, 에이전트의 검색 공간을 630줄 단일 파일로 한정하여 LLM 의 컨텍스트 윈도우 안에서 전체 코드를 한눈에 파악할 수 있게 합니다.
+        셋째, 인간의 역할을 &ldquo;코드를 쓰는 것&rdquo;에서 &ldquo;전략을 쓰는 것&rdquo;으로 전환시킵니다.
+      </ProseParagraph>
+
       <div className="my-6 grid gap-4 sm:grid-cols-3">
         <RoleCard title="prepare.py" subtitle="불변의 평가자" color="text-green-400">
           데이터, 토크나이저, <code>evaluate_bpb</code> 함수. 에이전트도 인간도 수정 불가.
@@ -122,6 +135,14 @@ export function AutoResearch() {
       </ProseQuote>
 
       <ProseHeading level={3}>9단계 실행 루프</ProseHeading>
+
+      <ProseParagraph>
+        program.md 에 정의된 실행 루프는 코드가 아니라 영어 산문으로 기술되어 있습니다.
+        에이전트는 이 마크다운 파일을 읽고 지시를 따릅니다.
+        핵심은 Git 을 에이전트의 기억 장치로 활용한다는 점입니다 — 벡터 데이터베이스도 임베딩도 필요 없습니다.
+        <code>git log</code>로 무엇이 효과가 있었는지, <code>results.tsv</code>로 이미 시도한 것을 확인합니다.
+        아침에 일어나면 성공한 변경만 남은 깨끗한 브랜치와, 실패를 포함한 전체 이력이 기다리고 있습니다.
+      </ProseParagraph>
 
       <ol className="my-4 list-decimal space-y-1 pl-6 font-serif text-foreground">
         <li>program.md 읽기 → 연구 우선순위 파악</li>
@@ -219,7 +240,31 @@ class GPTConfig:
         전체 흐름을 한눈에 파악할 수 있습니다.
       </ProseParagraph>
 
+      <ProseHeading level={3}>val_bpb — 왜 이 메트릭인가</ProseHeading>
+
+      <ProseParagraph>
+        val_bpb(validation bits-per-byte)는 검증 세트의 바이트당 비트 수입니다.
+        이 메트릭이 선택된 이유가 중요합니다. 일반적인 loss 나 perplexity 는 어휘 크기(vocabulary size)에 의존하기 때문에,
+        에이전트가 토크나이저를 바꾸면 공정한 비교가 불가능해집니다.
+        val_bpb 는 어휘 크기와 무관하게 작동하므로, 에이전트가 아키텍처나 토크나이저를 변경해도 실험 결과를 공정하게 비교할 수 있습니다.
+        방향도 명확합니다 — 낮을수록 좋습니다. 에이전트가 판단에 혼란을 겪을 여지가 없습니다.
+      </ProseParagraph>
+
+      <ProseParagraph>
+        5분 고정 예산도 단순한 편의가 아닙니다. 모든 실험이 동일한 벽시계 시간 안에서 실행되므로,
+        모델 크기를 키우든 배치 사이즈를 줄이든 직접 비교가 가능합니다.
+        이 제약은 에이전트가 &ldquo;더 크면 더 좋다&rdquo; 가 아니라 해당 GPU 에 가장 최적화된 설정을 찾도록 강제합니다.
+        Shopify CEO Tobi Lutke 의 사례에서 0.8B 모델이 수동 튜닝 1.6B 모델을 능가한 것은 이 제약 덕분입니다.
+      </ProseParagraph>
+
       <ProseHeading level={3}>700회 실험의 구체적 결과</ProseHeading>
+
+      <ProseParagraph>
+        Karpathy 는 depth=12 의 nanochat 모델을 대상으로 이틀 동안 약 700회의 실험을 진행했습니다.
+        에이전트가 발견한 최적화 중 특히 주목할 만한 것은 QK-Norm 구현의 버그입니다.
+        어텐션의 선명도를 높이는 스칼라 승수가 누락되어 있었는데, Karpathy 본인이 수개월간 놓친 것을 에이전트가 찾아냈습니다.
+        이것은 에이전트가 단순히 하이퍼파라미터를 무차별 대입하는 것이 아니라, 실제 코드 수준의 구조적 문제를 발견할 수 있다는 증거입니다.
+      </ProseParagraph>
 
       <div className="my-6 overflow-x-auto">
         <table className="w-full text-sm">
@@ -264,9 +309,22 @@ class GPTConfig:
       <ProseParagraph>
         에이전트의 자유를 제한할수록 생산성이 극적으로 올라갑니다. 630줄 + 5분 + 단일 메트릭으로
         제한하면, 모델은 정답에 더 빠르고 효율적으로 수렴합니다.
+        이것은 직관에 반하는 진실입니다. 강력한 모델에게 절대적 자유를 주면,
+        모델은 막대한 컴퓨팅을 사용해 쓸모없는 변형을 탐색하고, 불필요한 파라미터를 조정하고,
+        기반 아키텍처를 부수는 데 낭비합니다.
+        검색 공간을 극단적으로 축소하면 — 모델은 남은 공간 안에서 정말로 의미 있는 개선에만 집중합니다.
       </ProseParagraph>
 
       <ProseHeading level={3}>AutoGPT 는 왜 실패하고 AutoResearch 는 왜 성공했는가</ProseHeading>
+
+      <ProseParagraph>
+        2023년에 등장한 AutoGPT 는 &ldquo;자율적으로 작업을 수행하는 AI 에이전트&rdquo; 라는 비전으로 큰 주목을 받았지만,
+        실제로는 대부분의 사용자가 유의미한 결과를 얻지 못했습니다.
+        핵심 원인은 에이전트에게 너무 많은 자유도를 부여한 것입니다.
+        인터넷 검색, 파일 생성, 코드 실행, 자기 프롬프트 수정까지 모두 가능하니,
+        에이전트는 방향을 잡지 못하고 같은 실패를 반복하거나 컨텍스트 윈도우를 소진했습니다.
+        AutoResearch 는 이 모든 자유를 제거하고 &ldquo;이 파일 하나만 수정하라, 이 숫자 하나만 낮춰라&rdquo; 로 한정한 것입니다.
+      </ProseParagraph>
 
       <div className="my-6 overflow-x-auto">
         <table className="w-full text-sm">
@@ -366,12 +424,21 @@ class GPTConfig:
       <ProseParagraph>
         AI 에이전트 프로젝트의 88%가 프로덕션에 도달하기 전에 실패합니다.
         실패 원인은 모델의 지능 부족이 아니라, 하네스의 부재입니다 (miraflow.ai).
+        구체적으로 실패의 4대 원인은 다음과 같습니다.
+        첫째, <strong>가이드 부재(No Guides)</strong> — 에이전트에게 방향을 제시하는 문서가 없어 추측하게 방치합니다.
+        둘째, <strong>센서 부재(No Sensors)</strong> — 에이전트의 출력을 검증하는 장치가 없어 오류가 조용히 누적됩니다.
+        셋째, <strong>늦은 거버넌스(Late Governance)</strong> — 데모까지는 잘 되다가 프로덕션에서 무너집니다.
+        넷째, <strong>과잉 엔지니어링(Over-Engineering)</strong> — 제약이 너무 많아 에이전트가 움직일 수 없습니다.
       </ProseParagraph>
 
       <ProseHeading level={3}>LangChain Terminal Bench — 하네스의 증거</ProseHeading>
 
       <ProseParagraph>
-        모델: <code>gpt-5.2-codex</code> — 모델 변경 0. 하네스만 개선(자가 검증 루프 + LangSmith 실패 패턴 분석).
+        이 주장이 과장이 아니라는 것을 가장 극적으로 증명한 사례가 LangChain 의 Terminal Bench 실험입니다.
+        Terminal Bench 2.0 은 ML, 디버깅, 생물학 등 89개 작업으로 구성된 코딩 에이전트 벤치마크입니다.
+        LangChain 팀은 모델을 <code>gpt-5.2-codex</code>로 고정한 채, 하네스만 개선했습니다.
+        자가 검증 루프(에이전트가 종료를 선언하기 전에 반드시 테스트를 실행하도록 강제), 둠 루프 감지(같은 파일을 N 번 수정하면 접근 방식 재고를 주입),
+        그리고 추론 예산 관리(계획과 검증에는 높은 추론, 중간 실행에는 낮은 추론)를 적용했습니다.
         결과: <strong>52.8% → 66.5% (+13.7 포인트), 순위 30위 → 5위</strong>.
       </ProseParagraph>
 
@@ -380,6 +447,14 @@ class GPTConfig:
       </ProseQuote>
 
       <ProseHeading level={3}>OpenAI Codex 100만 줄 실험</ProseHeading>
+
+      <ProseParagraph>
+        OpenAI 내부 팀이 5개월간 수행한 이 실험은 하네스 설계의 위력을 가장 극적으로 보여줍니다.
+        3명으로 시작해 7명으로 확장한 팀이 거대한 프롬프트 대신 저장소 자체를 진실의 원천(Source of truth)으로 활용했습니다.
+        린터와 구조적 테스트로 아키텍처를 기계적으로 강제하되, 구현 선택은 에이전트에게 자유를 주었습니다.
+        엔트로피가 증가하는 것을 막기 위해 가비지 컬렉션 전담 에이전트도 도입했습니다.
+        Codex 에이전트는 한 번에 6시간 이상 자율적으로 운영되었습니다.
+      </ProseParagraph>
 
       <div className="my-8 grid grid-cols-2 gap-4 sm:grid-cols-3">
         <StatCard n="0줄" l="인간 코드" />
@@ -539,10 +614,16 @@ class GPTConfig:
       <ProseParagraph>
         재귀적 자기개선의 가장 큰 위험: 성능이 10% 올라도 진실성이 15% 하락하면
         그것은 개선이 아니라 퇴화입니다.
+        자기개선 사이클이 반복될수록 초기에는 표류 없이 저비용으로 높은 품질 향상이 일어나지만,
+        후반 사이클(2~3회 이후)로 갈수록 품질을 올리기 위해 더 큰 표류를 감수해야 합니다.
+        유창성(Fluency)과 사실성(Factuality) 사이에 도메인 특화적 긴장이 발생하기도 합니다.
+        AutoSOTA 의 AgentSupervisor 가 Red Line System 으로 치팅을 차단하는 것도 이 문제 때문입니다 —
+        메트릭 변경 금지(R1), 출력 하드코딩 금지(R3), 데이터셋 누출 금지(R6) 등
+        7가지 규칙을 위반하는 어떤 최적화도 과학적으로 무가치한 것으로 간주됩니다.
       </ProseParagraph>
 
       <ProseParagraph>
-        SAHOO 프레임워크(Safeguarded Alignment for High-Order Optimization)는 세 가지 수학적 안전장치를 제시합니다.
+        SAHOO 프레임워크(Safeguarded Alignment for High-Order Optimization)는 이러한 정렬 표류를 수학적으로 통제하기 위해 세 가지 안전장치를 제시합니다.
         첫째, <strong>목표 표류 지수(GDI)</strong> — 의미론적·어휘론적·구조적·분포적 변화를 종합 측정합니다.
         둘째, <strong>제약 보존 검사</strong> — 불변량 위반 시 명시적 페널티를 부여합니다.
         셋째, <strong>회귀 위험 정량화</strong> — 이전 성과를 무효화하는 시점을 정량화하여 종료 기준을 제공합니다
@@ -634,7 +715,15 @@ grep "^val_bpb:" final.log # 최종 점수 확인`}
       <ProseHeading level={3}>Step 7 — ML 외 도메인에 적용하기</ProseHeading>
 
       <ProseParagraph>
-        <strong>The Karpathy Loop 공식</strong>: AGENT + CONSTRAINED_SCOPE + SCALAR_METRIC + FAST_VERIFICATION = AUTONOMOUS_IMPROVEMENT.
+        AutoResearch 의 패턴은 ML 학습에만 국한되지 않습니다.
+        이미 Shopify 의 Liquid 템플릿 엔진(53% 속도 향상), Pytest 테스트 스위트(295초→71초),
+        Rust 스도쿠 솔버(312실험으로 4/6 벤치 1위), SQLite 데이터 수집(588배 속도 향상),
+        브라우저 에이전트(Mind2Web 97% 도달) 등 다양한 도메인에서 동일한 패턴이 성공적으로 적용되었습니다.
+      </ProseParagraph>
+
+      <ProseParagraph>
+        커뮤니티에서는 이 패턴을 <strong>&ldquo;The Karpathy Loop&rdquo;</strong> 공식으로 정리합니다:
+        AGENT + CONSTRAINED_SCOPE + SCALAR_METRIC + FAST_VERIFICATION = AUTONOMOUS_IMPROVEMENT.
         아래 세 가지만 준비하면 어떤 도메인이든 적용할 수 있습니다.
       </ProseParagraph>
 
