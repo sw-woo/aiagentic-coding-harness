@@ -455,23 +455,23 @@ class GPTConfig:
       </Callout>
 
       <Mermaid
-        chart={`flowchart LR
-    subgraph 가이드["🟢 가이드 (Feedforward)"]
-        P["program.md"] --> AG["에이전트"]
-        SC["Simplicity Criterion"] --> AG
-        NS["NEVER STOP"] --> AG
+        chart={`flowchart TD
+    subgraph 가이드["🟢 가이드 — 행동 전에 방향 제시"]
+        P["program.md\n전략 지시"] --> AG["에이전트"]
+        SC["단순함 기준"] --> AG
+        NS["절대 멈추지 마라"] --> AG
     end
 
-    AG --> EX["train.py 수정 + 5분 학습"]
+    AG --> EX["train.py 수정\n+ 5분 학습 실행"]
 
-    subgraph 센서["🟠 센서 (Feedback)"]
-        EX --> PP["prepare.py → val_bpb 측정"]
-        PP --> GIT{"개선?"}
-        GIT -->|Yes| KEEP["git keep ✅"]
-        GIT -->|No| RESET["git reset ❌"]
+    subgraph 센서["🟠 센서 — 행동 후에 자동 판정"]
+        EX --> PP["prepare.py\nval_bpb 점수 측정"]
+        PP --> GIT{"점수가\n낮아졌는가?"}
+        GIT -->|"Yes — 개선"| KEEP["유지 ✅"]
+        GIT -->|"No — 악화"| RESET["되돌리기 ❌"]
     end
 
-    KEEP --> TSV["results.tsv 기록"]
+    KEEP --> TSV["results.tsv\n실험 결과 기록"]
     RESET --> TSV
     TSV --> AG
 
@@ -742,13 +742,19 @@ class GPTConfig:
 
       <Mermaid
         chart={`graph TD
-    AR["🔬 AutoResearch\n(Karpathy)\n단일 파일 · 단일 메트릭"]
-    AR --> CLI["autoresearch-cli\n범용 CLI"]
-    AR --> MLX["autoresearch-mlx\nApple Silicon"]
-    AR --> EVERYWHERE["autoresearch-everywhere\n크로스 플랫폼"]
+    AR["🔬 AutoResearch\n(Karpathy)\n단일 파일 · 단일 메트릭\n75k+ stars"]
 
-    AR -.->|"같은 원리"| DA["Deep Agents\n(LangChain)\nClaude Code 영감"]
-    AR -.->|"같은 원리"| CODEX["Codex Harness\n(OpenAI)\n100만줄 실험"]
+    subgraph 파생["커뮤니티 파생 프로젝트"]
+        PI["pi-autoresearch\n3.6k+ stars"]
+        MLX["autoresearch-mlx\nApple Silicon\n1.5k stars"]
+    end
+    AR --> 파생
+
+    subgraph 산업["산업 하네스"]
+        DA["Deep Agents\n(LangChain)\n21k+ stars"]
+        CODEX["Codex Harness\n(OpenAI)\n약 100만줄"]
+    end
+    AR -.->|"같은 원리"| 산업
 
     subgraph 자기개선["AI Builds AI"]
         AIS["AI Scientist v2\n(Sakana AI)"]
@@ -756,14 +762,13 @@ class GPTConfig:
         AE["AlphaEvolve\n(DeepMind)"]
         SOTA["AutoSOTA\n8-에이전트"]
     end
-
     AR -.->|"확장"| 자기개선
 
     style AR fill:#1e3a5f,stroke:#3b82f6,color:#e2e8f0
-    style DA fill:#064e3b,stroke:#10b981,color:#e2e8f0
-    style CODEX fill:#064e3b,stroke:#10b981,color:#e2e8f0
+    style 파생 fill:#1e293b22,stroke:#64748b
+    style 산업 fill:#064e3b22,stroke:#10b981
     style 자기개선 fill:#7f1d1d22,stroke:#f59e0b`}
-        caption="AutoResearch 에서 시작된 생태계 — 플랫폼 포크, 산업 하네스, AI Builds AI 프레임워크로 확산"
+        caption="AutoResearch 에서 시작된 생태계 — 커뮤니티 포크, 산업 하네스, 자기개선 AI 로 확산"
       />
 
       {/* ════════════════════════════════════════════════════════
