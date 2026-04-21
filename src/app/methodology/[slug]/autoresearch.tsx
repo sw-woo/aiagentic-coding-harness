@@ -78,16 +78,22 @@ export function AutoResearch() {
         에이전트가 작동하는 <strong>환경 자체</strong>(규칙, 테스트, 피드백 장치)를 설계하는 위치를 뜻합니다.
       </ProseParagraph>
 
-      <Mermaid
-        chart={`timeline
-    title 하네스 엔지니어링 타임라인
-    2025.02 : Karpathy — Vibe Coding 명명
-    2026.02 : Hashimoto — 하네스 엔지니어링 명명
-         : LangChain — Terminal Bench 30위→5위
-    2026.03 : Karpathy — AutoResearch 출시 (75k+)
-         : LangChain — Deep Agents 업데이트 (21k+)`}
-        caption="하네스 엔지니어링 타임라인 — 세 흐름이 독립적으로 같은 결론에 수렴합니다"
-      />
+      <div className="my-6 overflow-x-auto">
+        <table className="w-full text-sm">
+          <thead><tr className="border-b border-border text-left text-foreground-muted">
+            <th className="py-2 pr-4">시기</th><th className="py-2 pr-4">주체</th><th className="py-2">사건</th>
+          </tr></thead>
+          <tbody className="font-serif text-foreground">
+            <Tr cells={["2025.02", "Karpathy", "\"Vibe Coding\" 명명"]} />
+            <Tr cells={["2025.12", "Karpathy", "코딩 방식 역전 (80% 수동 → 80% 에이전트)"]} />
+            <Tr cells={["2026.02.05", "Hashimoto", "\"하네스 엔지니어링\" 명명"]} />
+            <Tr cells={["2026.02.17", "LangChain", "Terminal Bench 30위 → 5위 (하네스만 변경)"]} />
+            <Tr cells={["2026.03.07", "Karpathy", "AutoResearch 출시 (75k+ stars)"]} highlight />
+            <Tr cells={["2026.03.11", "LangChain", "\"Agent Harness 해부학\" 발표"]} />
+            <Tr cells={["2026.03", "LangChain", "Deep Agents 메이저 업데이트 (21k+ stars)"]} />
+          </tbody>
+        </table>
+      </div>
 
       <ProseParagraph>
         Mitchell Hashimoto(Terraform 창시자)가 명명한 하네스 엔지니어링의 핵심 원칙은 한 줄입니다 —
