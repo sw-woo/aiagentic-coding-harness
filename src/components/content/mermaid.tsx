@@ -33,7 +33,7 @@ export function Mermaid({ chart, caption }: MermaidProps) {
           secondaryColor: "#1e293b",
           tertiaryColor: "#0f172a",
           fontFamily: "Geist, system-ui, sans-serif",
-          fontSize: "16px",
+          fontSize: "32px",
         },
         flowchart: { curve: "basis", padding: 20 },
       });
