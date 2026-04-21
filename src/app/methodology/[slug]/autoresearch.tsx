@@ -22,20 +22,20 @@ export function AutoResearch() {
       </Callout>
 
       <ProseParagraph>
-        2026년 3월, Andrej Karpathy 가 630줄의 파이썬 스크립트를 GitHub 에 올리고
-        잠자리에 들었습니다. 아침에 일어나니 AI 가 밤새 700번의 실험을 돌려 20가지
-        개선점을 발견해 놓았습니다. 수개월간 손으로 튜닝한 코드에서 인간이 놓친 버그까지
-        찾아냈습니다.
+        2026년 3월, Andrej Karpathy(전 Tesla AI 총괄, OpenAI 창립 멤버)가 630줄의 파이썬 스크립트를 GitHub 에 올리고
+        잠자리에 들었습니다. 이 스크립트는 작은 언어 모델(GPT-2 수준)을 학습시키는 코드였습니다.
+        아침에 일어나니 AI 에이전트가 밤새 700번의 실험을 돌려 20가지 개선점을 발견해 놓았습니다.
+        Karpathy 본인이 수개월간 손으로 튜닝하면서 놓친 버그까지 찾아냈습니다.
       </ProseParagraph>
       <ProseParagraph>
         이 이야기는 단순한 자동화가 아닙니다.
-        AI 가 스스로 실험하고, 스스로 평가하고, 스스로 개선하는 <strong>목표달성 루프</strong>(목표를 향해
-        시도→측정→개선을 반복하는 구조)가
-        현실이 되었다는 선언입니다. 이 글은 그 현상의 전체 지도를 그립니다.
+        AI 가 스스로 코드를 고치고, 결과를 측정하고, 좋아졌으면 유지하고 나빠졌으면 되돌리는 과정을 쉬지 않고 반복한 것입니다.
+        이러한 <strong>시도→측정→개선</strong>의 반복 구조를 이 글에서는 <strong>목표달성 루프</strong>라 부릅니다.
+        이 글은 그 루프가 어떻게 작동하고, 왜 효과가 있으며, 어디까지 확장될 수 있는지 전체 지도를 그립니다.
       </ProseParagraph>
 
       <div className="my-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
-        <StatCard n="74.5k" l="GitHub Stars" />
+        <StatCard n="75k+" l="GitHub Stars" />
         <StatCard n="700+" l="자율 실험 횟수" />
         <StatCard n="20" l="발견된 최적화" />
         <StatCard n="11%" l="GPT-2 시간 단축" />
@@ -71,6 +71,13 @@ export function AutoResearch() {
         </table>
       </div>
 
+      <ProseParagraph>
+        &ldquo;루프 밖&rdquo;이란 인간이 AI 출력을 받아서 직접 판단하는 위치이고,
+        &ldquo;루프 안&rdquo;이란 인간이 에이전트와 함께 작업 과정에 참여하는 위치입니다.
+        &ldquo;루프 위&rdquo;란 인간이 직접 코드를 쓰거나 감독하는 대신,
+        에이전트가 작동하는 <strong>환경 자체</strong>(규칙, 테스트, 피드백 장치)를 설계하는 위치를 뜻합니다.
+      </ProseParagraph>
+
       <Mermaid
         chart={`timeline
     title 에이전틱 엔지니어링 타임라인
@@ -78,9 +85,9 @@ export function AutoResearch() {
     2025.12 : Karpathy 코딩 방식 역전 (80% 수동→80% 에이전트)
     2026.02.05 : Hashimoto "하네스 엔지니어링" 명명
     2026.02.17 : LangChain Terminal Bench 30위→5위
-    2026.03.07 : Karpathy AutoResearch 출시 (74.5k stars)
+    2026.03.07 : Karpathy AutoResearch 출시 (75k+ stars)
     2026.03.11 : LangChain "Agent Harness 해부학" 발표
-    2026.03.15 : LangChain Deep Agents 출시 (9.9k stars/5h)`}
+    2026.03 : LangChain Deep Agents 메이저 업데이트 (9.9k stars/5h)`}
         caption="하네스 엔지니어링 타임라인 — 세 흐름이 독립적으로 같은 결론에 수렴합니다"
       />
 
@@ -104,7 +111,7 @@ export function AutoResearch() {
         공식 레포:{" "}
         <a href="https://github.com/karpathy/autoresearch" target="_blank" rel="noreferrer"
           className="text-accent-2 hover:underline">github.com/karpathy/autoresearch</a>{" "}
-        (74.5k stars). 630줄 Python + 1개 마크다운 파일. 단일 NVIDIA GPU, Python 3.10+, uv.
+        (75k+ stars). 630줄 Python + 1개 마크다운 파일. 단일 NVIDIA GPU, Python 3.10+, uv.
         Fortune 지는 이 방법론을 &ldquo;The Karpathy Loop&rdquo; 이라 명명했습니다.
       </ProseParagraph>
 
@@ -112,15 +119,15 @@ export function AutoResearch() {
 
       <ProseParagraph>
         AutoResearch 의 설계에서 가장 영리한 부분은 &ldquo;누가 무엇을 수정할 수 있는가&rdquo;를 파일 단위로 엄격히 분리한 것입니다.
-        이 분리가 중요한 이유는 세 가지입니다. 첫째, 에이전트가 채점 기준을 고쳐서 점수를 부풀리는 부정행위(보상 해킹)를 물리적으로 차단합니다.
+        이 분리가 중요한 이유는 세 가지입니다. 첫째, 에이전트가 채점 기준을 고쳐서 점수를 부풀리는 부정행위(보상 해킹)를 구조적으로 차단합니다.
         둘째, 에이전트가 건드릴 수 있는 범위를 630줄 단일 파일로 한정하여, AI 가 전체 코드를 한눈에 파악할 수 있게 합니다.
         셋째, 인간의 역할을 &ldquo;코드를 직접 쓰는 것&rdquo;에서 &ldquo;방향과 전략을 정하는 것&rdquo;으로 전환시킵니다.
       </ProseParagraph>
 
       <div className="my-6 grid gap-4 sm:grid-cols-3">
         <RoleCard title="prepare.py" subtitle="불변의 평가자" color="text-green-400">
-          데이터, 토크나이저, <code>evaluate_bpb</code> 채점 함수. 에이전트도 인간도 수정 불가.
-          채점 기준 조작을 원천 차단합니다.
+          데이터, 토크나이저, <code>evaluate_bpb</code> 채점 함수. 에이전트도 인간도 수정 금지.
+          채점 기준 조작을 구조적으로 차단합니다.
         </RoleCard>
         <RoleCard title="train.py" subtitle="에이전트의 샌드박스" color="text-amber-400">
           GPT 아키텍처, Muon+AdamW 옵티마이저, 학습 루프. 에이전트가 자유롭게 수정할 수 있는
@@ -258,7 +265,7 @@ class GPTConfig:
 
       <ProseParagraph>
         <code>from prepare import ... evaluate_bpb</code> — 평가 함수는 prepare.py 에서 import 합니다.
-        수정 불가의 신뢰 경계입니다. 전체 630줄이 단일 파일이므로 LLM 컨텍스트 윈도우 안에서
+        수정 금지의 신뢰 경계입니다. 전체 630줄이 단일 파일이므로 LLM 컨텍스트 윈도우 안에서
         전체 흐름을 한눈에 파악할 수 있습니다.
       </ProseParagraph>
 
@@ -283,10 +290,14 @@ class GPTConfig:
       <ProseHeading level={3}>700회 실험의 구체적 결과</ProseHeading>
 
       <ProseParagraph>
-        Karpathy 는 depth=12 의 nanochat 모델을 대상으로 이틀 동안 약 700회의 실험을 진행했습니다.
+        Karpathy 는 12층짜리 nanochat 모델을 대상으로 이틀 동안 약 700회의 실험을 진행했습니다.
         에이전트가 발견한 최적화 중 특히 주목할 만한 것은 QK-Norm 구현의 버그입니다.
-        어텐션의 선명도를 높이는 스칼라 승수가 누락되어 있었는데, Karpathy 본인이 수개월간 놓친 것을 에이전트가 찾아냈습니다.
-        이것은 에이전트가 단순히 하이퍼파라미터를 무차별 대입하는 것이 아니라, 실제 코드 수준의 구조적 문제를 발견할 수 있다는 증거입니다.
+        어텐션 메커니즘(모델이 입력의 어떤 부분에 집중할지 결정하는 장치)에서
+        선명도를 조절하는 스칼라 승수가 빠져 있었습니다.
+        이 버그는 Karpathy 본인이 수개월간 직접 코드를 검토하면서도 놓친 것인데,
+        에이전트가 야간 실험 중에 발견했습니다.
+        이 사례가 중요한 이유는, 에이전트가 단순히 숫자(학습률, 배치 크기 등)를 이리저리 바꿔보는 수준이 아니라
+        코드 자체의 구조적 결함을 찾아낼 수 있다는 것을 보여주기 때문입니다.
       </ProseParagraph>
 
       <div className="my-6 overflow-x-auto">
@@ -330,12 +341,15 @@ class GPTConfig:
       </ProseQuote>
 
       <ProseParagraph>
-        에이전트의 자유를 제한할수록 생산성이 극적으로 올라갑니다. 630줄 + 5분 + 단일 메트릭으로
-        제한하면, 모델은 정답에 더 빠르고 효율적으로 수렴합니다.
-        이것은 직관에 반하는 진실입니다. 강력한 모델에게 절대적 자유를 주면,
-        모델은 막대한 컴퓨팅을 사용해 쓸모없는 변형을 탐색하고, 불필요한 파라미터를 조정하고,
-        기반 아키텍처를 부수는 데 낭비합니다.
-        검색 공간을 극단적으로 축소하면 — 모델은 남은 공간 안에서 정말로 의미 있는 개선에만 집중합니다.
+        직관에 반하는 진실이 있습니다 — 에이전트의 자유를 제한할수록 생산성이 올라갑니다.
+        AutoResearch 에서 에이전트가 할 수 있는 일은 딱 세 가지로 제한됩니다:
+        (1) 630줄짜리 파일 하나만 수정할 수 있고,
+        (2) 실험 한 번에 5분만 쓸 수 있고,
+        (3) val_bpb 라는 숫자 하나만 낮추면 됩니다.
+        강력한 모델에게 절대적 자유를 주면 어떻게 될까요?
+        모델은 막대한 컴퓨팅을 사용해 쓸모없는 변형을 탐색하고, 불필요한 설정을 조정하고,
+        잘 작동하던 구조를 부수는 데 시간을 낭비합니다.
+        반대로, 선택지를 극단적으로 줄이면 — 모델은 남은 공간 안에서 정말로 의미 있는 개선에만 집중하게 됩니다.
       </ProseParagraph>
 
       <ProseHeading level={3}>AutoGPT 는 왜 실패하고 AutoResearch 는 왜 성공했는가</ProseHeading>
@@ -363,16 +377,20 @@ class GPTConfig:
       </div>
 
       <Callout tone="warning" title="제약을 풀면 무너집니다">
-        한 실무자(Jay Kim)가 에이전트에게 아키텍처를 더 자유롭게 변경하도록 범위를 열자,
-        에이전트는 흔들리기 시작했습니다 — 회귀, 역전, 이미 폐기한 아이디어로의 회귀 (softmaxdata.com).
+        실제로 에이전트에게 단일 파일을 넘어 여러 파일이나 시스템 수준의 변경 권한을 열면,
+        에이전트는 방향을 잃고 회귀, 역전, 이미 폐기한 아이디어로의 회귀가 발생합니다.
+        AutoResearch 가 단일 파일로 범위를 제한하는 것은 이 문제를 사전에 차단하기 위한 설계입니다
+        (<a href="https://softmaxdata.com/blog/autoresearch/" target="_blank" rel="noreferrer" className="text-accent-2 hover:underline">softmaxdata.com</a>).
       </Callout>
 
       <ProseHeading level={3}>Fowler/Böckeler 프레임워크로 본 AutoResearch</ProseHeading>
 
       <ProseParagraph>
-        Martin Fowler 사이트에 발표된 Birgitta Böckeler(ThoughtWorks)의 프레임워크로 분석하면,
-        AutoResearch 의 모든 구성 요소가 <strong>가이드</strong>(행동 전에 방향을 알려주는 것)와{" "}
-        <strong>센서</strong>(행동 후에 결과를 측정하는 것)로 깔끔하게 분류됩니다.
+        Martin Fowler 사이트에 발표된 Birgitta Böckeler(ThoughtWorks)의 프레임워크는
+        에이전트를 통제하는 수단을 두 종류로 나눕니다 —
+        행동 <strong>전</strong>에 방향을 알려주는 <strong>가이드(Feedforward)</strong>와,
+        행동 <strong>후</strong>에 결과를 측정하여 되돌릴지 유지할지를 판단하는 <strong>센서(Feedback)</strong>입니다.
+        AutoResearch 의 모든 구성 요소가 이 두 범주로 깔끔하게 분류됩니다.
       </ProseParagraph>
 
       <div className="my-6 grid gap-4 sm:grid-cols-2">
@@ -394,9 +412,10 @@ class GPTConfig:
         </RoleCard>
       </div>
 
-      <Callout tone="tip" title="센서가 모두 Computational(결정론적)입니다">
-        AutoResearch 의 센서는 전부 CPU 가 실행하는 결정론적 검사입니다.
-        LLM-as-Judge 에 의존하지 않으므로 환각 기반 자기기만이 원천적으로 불가능합니다.
+      <Callout tone="tip" title="센서가 모두 코드 기반(결정론적)입니다">
+        AutoResearch 의 센서는 전부 CPU 가 실행하는 고정된 프로그램입니다(같은 입력이면 항상 같은 결과).
+        점수를 매기는 것이 AI 가 아니라 코드이므로,
+        AI 가 잘못된 결과를 스스로 &ldquo;성공&rdquo;이라 판단하는 일이 구조적으로 차단됩니다.
       </Callout>
 
       <Mermaid
@@ -426,10 +445,13 @@ class GPTConfig:
       />
 
       <ProseParagraph>
-        <strong>AutoResearch 가 증명한 것</strong>: 둘 중 하나만으로는 부족합니다.
-        program.md(방향 지시)만 있고 prepare.py(자동 채점)가 없으면 에이전트가 채점 기준을 조작할 수 있습니다.
-        prepare.py 만 있고 program.md 가 없으면 에이전트가 방향을 잃습니다.
-        둘이 결합되어야 자는 동안 700번 실험이 가능해집니다.
+        <strong>AutoResearch 가 증명한 것</strong>: 가이드와 센서, 둘 중 하나만으로는 부족합니다.
+        program.md(가이드)만 있고 prepare.py(센서)가 없다면 어떻게 될까요?
+        에이전트가 &ldquo;개선되었다&rdquo;고 스스로 판단하지만 실제로는 채점 기준을 우회한 것일 수 있습니다.
+        반대로 prepare.py 만 있고 program.md 가 없다면?
+        에이전트가 점수는 측정할 수 있지만 어떤 방향으로 개선해야 하는지 모르고 무작위로 탐색합니다.
+        둘이 결합되어야 — 방향을 알려주고, 결과를 기계적으로 측정하고, 실패하면 자동으로 되돌리는 —
+        인간이 자는 동안 700번 실험이 가능해집니다.
       </ProseParagraph>
 
       {/* ════════════════════════════════════════════════════════
@@ -445,13 +467,14 @@ class GPTConfig:
       </div>
 
       <ProseParagraph>
-        AI 에이전트 프로젝트의 88%가 프로덕션에 도달하기 전에 실패합니다.
-        실패 원인은 모델의 지능 부족이 아니라, 하네스의 부재입니다 (miraflow.ai).
+        Gartner, McKinsey, IDC 의 조사를 교차 분석한 결과, AI 에이전트 프로젝트의 88%가 프로덕션에 도달하기 전에 실패합니다.
+        실패 원인은 모델의 지능 부족이 아니라, 하네스의 부재입니다
+        (<a href="https://miraflow.ai/blog/harness-engineering-why-88-percent-ai-agents-fail" target="_blank" rel="noreferrer" className="text-accent-2 hover:underline">miraflow.ai</a>).
         구체적으로 실패의 4대 원인은 다음과 같습니다.
-        첫째, <strong>가이드 부재(No Guides)</strong> — 에이전트에게 방향을 제시하는 문서가 없어 추측하게 방치합니다.
-        둘째, <strong>센서 부재(No Sensors)</strong> — 에이전트의 출력을 검증하는 장치가 없어 오류가 조용히 누적됩니다.
-        셋째, <strong>늦은 거버넌스(Late Governance)</strong> — 데모까지는 잘 되다가 프로덕션에서 무너집니다.
-        넷째, <strong>과잉 엔지니어링(Over-Engineering)</strong> — 제약이 너무 많아 에이전트가 움직일 수 없습니다.
+        첫째, <strong>가이드 부재</strong> — AGENTS.md 같은 방향 문서가 없어 에이전트가 매번 처음부터 추측합니다.
+        둘째, <strong>센서 부재</strong> — 에이전트의 출력을 자동으로 검증하는 장치(테스트, 린터, 빌드 검사)가 없어 오류가 조용히 누적됩니다.
+        셋째, <strong>늦은 거버넌스</strong> — 데모 환경에서는 잘 작동하지만, 프로덕션의 복잡성(동시 요청, 예외 상황, 보안)을 만나면 무너집니다.
+        넷째, <strong>과잉 엔지니어링</strong> — 반대로 제약을 너무 많이 걸면 에이전트가 유의미한 작업을 할 여지가 없어집니다.
       </ProseParagraph>
 
       <ProseHeading level={3}>LangChain Terminal Bench — 하네스의 증거</ProseHeading>
@@ -473,69 +496,69 @@ class GPTConfig:
 
       <ProseParagraph>
         OpenAI 내부 팀이 5개월간 수행한 이 실험은 하네스 설계의 위력을 가장 극적으로 보여줍니다.
-        3명으로 시작해 7명으로 확장한 팀이 거대한 프롬프트 대신 저장소 자체를 진실의 원천(Source of truth)으로 활용했습니다.
-        린터와 구조적 테스트로 아키텍처를 기계적으로 강제하되, 구현 선택은 에이전트에게 자유를 주었습니다.
-        엔트로피가 증가하는 것을 막기 위해 가비지 컬렉션 전담 에이전트도 도입했습니다.
-        Codex 에이전트는 한 번에 6시간 이상 자율적으로 운영되었습니다.
+        소규모 엔지니어 팀이 거대한 프롬프트 대신 저장소 자체를 진실의 원천(Source of truth)으로 활용했습니다.
+        엔지니어는 코드를 직접 쓰는 대신, 의도를 명확히 정의하고 구조화된 피드백을 제공하는 역할을 맡았습니다.
+        Codex 에이전트가 코드를 작성하고, 테스트를 생성하고, PR 을 열고, 변경 사항을 검증하는 과정을 자율적으로 반복했습니다.
+        아키텍처 경계(Types → Config → Repo → Service → Runtime → UI)를
+        린터와 구조적 테스트로 기계적으로 강제하되, 각 계층 안에서의 구현은 에이전트에게 자유를 주었습니다.
+        코드가 쌓이면서 불필요한 코드가 늘어나는 것을 막기 위해 가비지 컬렉션 전담 에이전트도 도입했습니다
+        (<a href="https://www.infoq.com/news/2026/02/openai-harness-engineering-codex/" target="_blank" rel="noreferrer" className="text-accent-2 hover:underline">InfoQ</a>).
       </ProseParagraph>
 
       <div className="my-8 grid grid-cols-2 gap-4 sm:grid-cols-3">
-        <StatCard n="0줄" l="인간 코드" />
-        <StatCard n="100만" l="프로덕션 코드" />
-        <StatCard n="1,500" l="병합된 PR" />
-        <StatCard n="3.5/일" l="엔지니어당 PR" />
-        <StatCard n="10x" l="속도 향상" />
-        <StatCard n="5개월" l="기간 (3→7명)" />
+        <StatCard n="0줄" l="인간이 직접 쓴 코드" />
+        <StatCard n="약 100만" l="프로덕션 코드 (줄)" />
+        <StatCard n="5개월" l="실험 기간" />
       </div>
 
-      <ProseHeading level={3}>생성과 검토의 비대칭 (Generation-Review Asymmetry)</ProseHeading>
+      <ProseHeading level={3}>생성과 검토의 비대칭</ProseHeading>
 
       <ProseParagraph>
         AI 는 코드를 쓸 때와 검토할 때 전혀 다른 성능을 보입니다.
-        &ldquo;Broken by Default&rdquo; 연구가 수학적 증명 도구(Z3 솔버)로 AI 가 작성한 코드 3,500개를 검증한 결과,
-        AI 는 코드를 쓸 때 55.8%의 보안 취약점을 만들지만, 같은 AI 에게 &ldquo;이 코드에 문제가 있는가?&rdquo;라고 물으면 78.7%를 정확히 찾아냅니다.
+        &ldquo;Broken by Default&rdquo; 연구(arXiv 2604.05292)는 7개 주요 LLM 이 5개 CWE(보안 취약점 분류) 카테고리에서 생성한 코드 3,500개를
+        수학적 증명 도구(Z3 솔버)로 검증했습니다.
+        결과는 놀랍습니다 — AI 는 코드를 쓸 때 55.8%의 보안 취약점을 만들지만, 같은 AI 에게 &ldquo;이 코드에 문제가 있는가?&rdquo;라고 물으면 78.7%를 정확히 찾아냅니다.
         즉, AI 는 안전한 코드를 쓸 능력은 있지만 쓰는 순간에는 그 능력을 발휘하지 못합니다.
-        코드를 쓰는 역할과 검토하는 역할을 분리하는 것이 하네스에서 필수적인 이유입니다 (arxiv.org, 2604.05292).
       </ProseParagraph>
 
       <ProseParagraph>
-        구체적으로 어떤 문제가 발생하는지 살펴보겠습니다.
-        가장 흔한 취약점은 SQL Injection(사용자가 입력한 값을 검증 없이 데이터베이스 쿼리에 넣어 해킹 통로를 여는 것),
-        Path Traversal(<code>../</code>을 이용해 접근 금지된 상위 폴더에 침입하는 것), Buffer Overflow(메모리 범위를 넘어서 쓰는 것)입니다.
-        재미있는 점은, 같은 AI 에게 &ldquo;이 코드에 보안 문제가 있니?&rdquo; 라고 물으면
-        방금 자신이 만든 SQL Injection 을 정확히 짚어낸다는 것입니다.
-        왜 이런 일이 벌어질까요? AI 가 코드를 쓸 때는 &ldquo;자연스럽고 간결한 코드&rdquo;를 우선하지만,
-        검토할 때는 &ldquo;보안 패턴&rdquo;에 집중하기 때문입니다 — 같은 모델이 역할에 따라 다르게 작동합니다.
+        왜 이런 비대칭이 발생할까요? AI 가 코드를 쓸 때는 &ldquo;자연스럽고 간결한 코드&rdquo;를 우선하지만,
+        검토 역할을 맡으면 &ldquo;보안 패턴 매칭&rdquo;에 집중하기 때문입니다 —
+        같은 모델이라도 프롬프트(역할)가 바뀌면 주목하는 패턴이 달라집니다.
+        코드를 쓰는 역할과 검토하는 역할을 분리하는 것이 하네스에서 필수적인 이유입니다.
       </ProseParagraph>
 
       <ProseParagraph>
-        더 충격적인 것은 ESLint, Bandit 같은 기존 코드 검사 도구의 탐지율이 <strong>2.2%</strong>에 불과하다는 점입니다.
-        97.8%의 취약점이 이 도구들을 아무 문제 없이 통과합니다. 그래서 AutoResearch 의 prepare.py 같은 자동 채점 장치와,
-        AI 가 스스로 자기 코드를 검토하는 장치를 <strong>둘 다</strong> 갖추어야 합니다.
-        하네스에서 &ldquo;코드를 쓰는 역할&rdquo;과 &ldquo;코드를 검증하는 역할&rdquo;을 분리하면,
-        같은 AI 라도 역할만 바꿔서 78.7%의 취약점을 걸러낼 수 있습니다.
+        더 충격적인 것은 ESLint, Bandit 같은 기존 정적 분석 도구의 탐지율이 <strong>2.2%</strong>에 불과하다는 점입니다.
+        이 도구들은 AI 가 등장하기 전부터 코드 품질을 지키는 1차 방어선이었는데,
+        AI 가 생성하는 새로운 유형의 취약점 앞에서는 97.8%를 놓칩니다.
+        그래서 하네스에는 두 가지 방어선이 모두 필요합니다 —
+        AutoResearch 의 prepare.py 처럼 <strong>코드가 자동으로 채점하는 장치</strong>와,
+        AI 에게 &ldquo;방금 네가 쓴 코드를 검토하라&rdquo;고 지시하는 <strong>역할 분리 장치</strong>입니다.
+        같은 AI 라도 &ldquo;코드를 쓰는 역할&rdquo;에서 &ldquo;코드를 검토하는 역할&rdquo;로 바꾸기만 하면
+        78.7%의 취약점을 스스로 걸러낼 수 있습니다.
       </ProseParagraph>
 
       <ProseHeading level={3}>LangChain Deep Agents — 독립적 수렴의 증거</ProseHeading>
 
       <ProseParagraph>
-        흥미로운 점은, AutoResearch(3/7)와 거의 같은 시기에 LangChain 도 독립적으로 같은 결론에 도달했다는 것입니다.
-        LangChain 의 하네스 엔지니어링 블로그(2/17)는 AutoResearch 보다 <strong>3주 먼저</strong> 발표되었습니다.
+        흥미로운 점은, AutoResearch 와 LangChain 이 독립적으로 같은 결론에 도달했다는 것입니다.
+        LangChain 의 하네스 엔지니어링 블로그(2026.2.17)는 AutoResearch(2026.3.7) 보다 약 <strong>3주 먼저</strong> 발표되었습니다.
         두 프로젝트는 서로를 참조하지 않았지만, 동일한 원리 — &ldquo;모델이 아니라 하네스가 성능을 결정한다&rdquo; — 에 수렴했습니다.
       </ProseParagraph>
 
       <ProseParagraph>
-        2026년 3월 15일, LangChain 이{" "}
-        <a href="https://github.com/langchain-ai/deepagents" target="_blank" rel="noreferrer" className="text-accent-2 hover:underline">Deep Agents</a>를
-        공개했습니다. Harrison Chase 가 <strong>Claude Code 를 역공학</strong>하여 만든 범용 에이전트 하네스입니다
-        (AutoResearch 가 아닌 Claude Code 가 영감의 출처입니다).
-        출시 5시간 만에 GitHub 9.9k stars 를 기록했습니다.
+        LangChain 의{" "}
+        <a href="https://github.com/langchain-ai/deepagents" target="_blank" rel="noreferrer" className="text-accent-2 hover:underline">Deep Agents</a>는
+        2025년 7월에 최초 공개된 범용 에이전트 하네스로,
+        Harrison Chase 가 <strong>Claude Code 의 핵심 패턴을 분석</strong>하여 만들었습니다.
+        2026년 3월 메이저 업데이트에서 5시간 만에 9.9k stars 를 기록했으며, 현재 21k+ stars 입니다.
         LangChain 은 자사 생태계를 세 계층으로 공식 구분합니다 — <strong>LangChain</strong>(프레임워크),{" "}
         <strong>LangGraph</strong>(런타임), <strong>Deep Agents</strong>(하네스).
       </ProseParagraph>
 
       <ProseParagraph>
-        Harrison Chase 가 Claude Code 를 분석해서 찾아낸 핵심 패턴은 세 가지입니다.
+        Harrison Chase 가 Claude Code 에서 영감을 받아 도입한 핵심 패턴은 세 가지입니다.
         첫째, <strong>Todo 도구를 아무것도 안 하게 만듭니다</strong>. Claude Code 의 <code>write_todos</code> 도구는
         실제로 어디에 저장하지 않습니다 — AI 가 &ldquo;할 일 목록을 쓴다&rdquo;는 행위 자체가
         대화 맥락 안에 체계적인 계획을 남기는 것이 목적입니다.
@@ -544,7 +567,7 @@ class GPTConfig:
         에이전트가 임시 파일에 중간 결과를 쓰고, 서브에이전트가 그 파일을 읽는 방식으로
         컨텍스트 윈도우의 한계를 우회합니다. 메모리가 아니라 디스크가 에이전트 간 통신 채널이 됩니다.
         셋째, <strong>대화가 길어지면 자동으로 요약</strong>합니다.
-        AI 가 기억할 수 있는 분량(컨텍스트 윈도우)의 85%를 채우면, 과거 대화를 자동 압축하여 최신 내용만 남깁니다.
+        AI 가 기억할 수 있는 분량(컨텍스트 윈도우)이 포화에 가까워지면, 과거 대화를 자동 압축하여 최신 내용만 남깁니다.
         이 세 패턴이 결합되면 에이전트가 수 시간 동안 맥락을 잃지 않고 작업을 지속할 수 있습니다.
       </ProseParagraph>
 
@@ -565,16 +588,16 @@ class GPTConfig:
             <li><strong>write_todos</strong> — 작업 분해 + 진행 추적</li>
             <li><strong>파일시스템</strong> — 컨텍스트 오프로딩 (윈도우 overflow 방지)</li>
             <li><strong>서브에이전트</strong> — context firewall (저렴한 모델 위임)</li>
-            <li><strong>자동 요약</strong> — 컨텍스트 85% 도달 시 자동 압축</li>
+            <li><strong>자동 요약</strong> — 컨텍스트 포화 시 자동 압축</li>
             <li><strong>영속 메모리</strong> — 세션/스레드 간 기억 유지</li>
           </ul>
         </RoleCard>
-        <RoleCard title="미들웨어 파이프라인" subtitle="Terminal Bench 30위→5위 구조" color="text-green-400">
+        <RoleCard title="Terminal Bench 30위→5위 기법" subtitle="LangChain 하네스 엔지니어링 블로그 기준" color="text-green-400">
           <ol className="mt-2 list-decimal space-y-1 pl-4 text-sm">
-            <li><strong>LocalContextMiddleware</strong> — 코드베이스 매핑</li>
-            <li><strong>LoopDetectionMiddleware</strong> — 둠 루프 감지</li>
-            <li><strong>ReasoningSandwichMiddleware</strong> — xhigh-high-xhigh</li>
-            <li><strong>PreCompletionChecklistMiddleware</strong> — 종료 전 검증</li>
+            <li><strong>코드베이스 매핑</strong> — 로컬 컨텍스트 주입</li>
+            <li><strong>둠 루프 감지</strong> — 같은 파일 반복 수정 시 접근 방식 재고</li>
+            <li><strong>추론 예산 관리</strong> — 계획·검증은 xhigh, 실행은 high</li>
+            <li><strong>종료 전 검증</strong> — 완료 선언 전 테스트 강제 실행</li>
           </ol>
         </RoleCard>
       </div>
@@ -626,7 +649,7 @@ class GPTConfig:
             <th className="py-2 pr-4">시스템</th><th className="py-2 pr-4">개발처</th><th className="py-2">핵심</th>
           </tr></thead>
           <tbody className="font-serif text-foreground">
-            <Tr cells={["AI Scientist-v2", "Sakana AI", "에이전틱 트리 탐색 → ICLR 피어리뷰 통과 논문"]} />
+            <Tr cells={["AI Scientist-v2", "Sakana AI", "에이전트 기반 트리 탐색 → ICLR 워크숍 피어리뷰 통과"]} />
             <Tr cells={["Darwin Gödel Machine", "Sakana AI", "자기 코드 수정 + 개방형 진화"]} />
             <Tr cells={["EvoAgentX", "EMNLP 2025", "멀티 에이전트 워크플로우 자동 진화"]} />
             <Tr cells={["Meta Hyperagents", "Meta", "자기 추론 메커니즘 재작성"]} />
@@ -636,13 +659,13 @@ class GPTConfig:
         </table>
       </div>
 
-      <ProseHeading level={3}>AI Scientist-v2 — 에이전틱 트리 탐색으로 논문 작성</ProseHeading>
+      <ProseHeading level={3}>AI Scientist-v2 — 에이전트 기반 트리 탐색으로 논문 작성</ProseHeading>
 
       <ProseParagraph>
-        Sakana AI 의 AI Scientist-v2 는 AutoResearch 의 단일 루프를 <strong>트리 탐색</strong>으로 확장합니다.
+        Sakana AI 의 AI Scientist-v2 는 AutoResearch 의 단일 루프를 <strong>에이전트 기반 트리 탐색(agentic tree search)</strong>으로 확장합니다.
         하나의 가설에서 시작하여 여러 갈래로 분기하고, 각 갈래의 실험 결과를 평가하여
-        가장 유망한 경로를 깊이 탐색합니다(바둑 AI AlphaGo 가 수를 탐색하는 것과 같은 방식입니다).
-        실험 결과를 바탕으로 LaTeX 논문까지 자동 생성하며, 실제로 ICLR 피어리뷰를 통과한 논문이 나왔습니다.
+        가장 유망한 경로를 깊이 탐색합니다.
+        실험 결과를 바탕으로 LaTeX 논문까지 자동 생성하며, ICLR <strong>워크숍</strong> 피어리뷰에서 인간 평균 수락 점수를 초과한 논문이 나왔습니다 (arXiv 2504.08066).
         AutoResearch 가 &ldquo;하나의 메트릭을 개선하는 직선&rdquo;이라면,
         AI Scientist-v2 는 &ldquo;연구 공간 전체를 탐색하는 나무&rdquo;입니다.
       </ProseParagraph>
@@ -688,7 +711,7 @@ class GPTConfig:
     AR --> MLX["autoresearch-mlx\nApple Silicon"]
     AR --> EVERYWHERE["autoresearch-everywhere\n크로스 플랫폼"]
 
-    AR -.->|"같은 원리"| DA["Deep Agents\n(LangChain)\nClaude Code 역공학"]
+    AR -.->|"같은 원리"| DA["Deep Agents\n(LangChain)\nClaude Code 영감"]
     AR -.->|"같은 원리"| CODEX["Codex Harness\n(OpenAI)\n100만줄 실험"]
 
     subgraph 자기개선["AI Builds AI"]
@@ -781,7 +804,7 @@ class GPTConfig:
         Sakana AI 의 DGM 은 자기 자신의 추론 코드까지 수정합니다.
         만약 에이전트가 &ldquo;안전 검사 코드를 비효율적이라고 판단하여 삭제&rdquo;하면
         더 이상 안전 검사가 작동하지 않습니다.
-        AutoResearch 의 prepare.py 불변 원칙은 이 시나리오를 물리적으로 차단하는 것이며,
+        AutoResearch 의 prepare.py 수정 금지 원칙은 이 시나리오를 구조적으로 차단하는 것이며,
         자기개선 AI 를 설계할 때 <strong>평가자의 불변성</strong>은 타협할 수 없는 원칙입니다.
       </Callout>
 
@@ -812,7 +835,7 @@ class GPTConfig:
         이것을 범용 에이전트와 비교하면 차이가 극명합니다.
         대규모 코드베이스를 다루는 에이전트는 수만 줄의 코드를 읽어야 하고,
         컨텍스트 윈도우가 빠르게 포화되어 초기 지시를 잊기 시작합니다.
-        Deep Agents 가 &ldquo;컨텍스트 85% 도달 시 자동 요약&rdquo;을 구현한 것도 이 문제 때문입니다.
+        Deep Agents 가 컨텍스트 포화 시 자동 요약을 구현한 것도 이 문제 때문입니다.
         AutoResearch 의 630줄 제약은 단순한 편의가 아니라, <strong>컨텍스트 엔지니어링의 핵심 설계 결정</strong>입니다.
       </ProseParagraph>
 
@@ -1020,7 +1043,7 @@ autoresearch run --metric "pytest duration" \\
         </p>
         <p className="mt-4 font-serif text-base text-foreground-muted">
           LangChain — 모델 변경 0, 하네스만으로 30위→5위<br />
-          OpenAI — 하네스 설계만으로 인간 코딩 0줄 → 100만줄<br />
+          OpenAI — 하네스 설계만으로 인간 코딩 0줄 → 약 100만줄<br />
           Karpathy — 630줄 + 제약 = 밤새 700번 실험, 20개 최적화
         </p>
       </div>
@@ -1032,12 +1055,11 @@ autoresearch run --metric "pytest duration" \\
 
       <ProseHeading level={3}>GitHub 레포</ProseHeading>
       <RefList refs={[
-        ["karpathy/autoresearch — 74.5k stars", "https://github.com/karpathy/autoresearch"],
-        ["trevin-creator/autoresearch-mlx — Apple Silicon", "https://github.com/trevin-creator/autoresearch-mlx"],
-        ["Entrpi/autoresearch-everywhere — 크로스 플랫폼", "https://github.com/Entrpi/autoresearch-everywhere"],
-        ["199-biotechnologies/autoresearch-cli — 범용 CLI", "https://github.com/199-biotechnologies/autoresearch-cli"],
-        ["alvinreal/awesome-autoresearch — 파생 큐레이션", "https://github.com/alvinreal/awesome-autoresearch"],
-        ["SakanaAI/AI-Scientist-v2 (2k stars)", "https://github.com/SakanaAI/AI-Scientist-v2"],
+        ["karpathy/autoresearch — 75k+ stars (원본)", "https://github.com/karpathy/autoresearch"],
+        ["davebcn87/pi-autoresearch — 3.6k+ stars (가장 인기 있는 파생 프로젝트)", "https://github.com/davebcn87/pi-autoresearch"],
+        ["trevin-creator/autoresearch-mlx — 1.5k stars (Apple Silicon MLX 포트)", "https://github.com/trevin-creator/autoresearch-mlx"],
+        ["yibie/awesome-autoresearch — 파생 생태계 큐레이션", "https://github.com/yibie/awesome-autoresearch"],
+        ["SakanaAI/AI-Scientist-v2", "https://github.com/SakanaAI/AI-Scientist-v2"],
         ["SakanaAI/AI-Scientist v1 — Nature 게재 (12k stars)", "https://github.com/SakanaAI/AI-Scientist"],
         ["EvoAgentX/EvoAgentX — 자기진화 멀티 에이전트", "https://github.com/EvoAgentX/EvoAgentX"],
         ["kayba-ai/recursive-improve — 재귀적 자기개선", "https://github.com/kayba-ai/recursive-improve"],
