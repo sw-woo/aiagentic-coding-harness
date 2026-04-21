@@ -639,7 +639,7 @@ function SelfImproving() {
       <ProseParagraph>
         이 흐름은 “사람이 더 이상 필요 없다” 는 의미가 아닙니다. “학습 파이프라인의 어떤 구간은 사람이 아닌 다른 모델로 더 빠르고 일관되게 채울 수 있다”
         는 의미입니다. 비용 단가가 낮아지고 처리량이 늘어나면, 같은 시간·같은 예산 안에서 시도할 수 있는 실험의 개수가 늘어납니다. 이건 “지능” 의 정의와는
-        무관한, 단순히 “초당 행렬 곱셈” 의 함수입니다. 우리가 사이트의 manifesto 에서 “속도와 스케일이 본질적 변수” 라고 적는 이유입니다.
+        무관한, 단순히 “초당 행렬 곱셈” 의 함수입니다. 속도와 스케일이 본질적 변수라는 의미입니다.
       </ProseParagraph>
       <Callout tone="note" title="자료조사 진행 중">
         각 항목의 arxiv URL, 저자, 발표 연도가 verbatim 으로 정리된 source pack 이 docs/research/06-ai-substrate-trends.md 에 들어 있습니다.

@@ -3,8 +3,7 @@ import { siteConfig } from "@/lib/site-config";
 
 /**
  * 사이트 sitemap.
- * - /manifesto 와 그 하위는 robots noindex 이므로 sitemap 에서 제외합니다.
- * - 카탈로그 동적 라우트와 단순 정적 페이지를 한 번에 나열합니다.
+ * 카탈로그 동적 라우트와 단순 정적 페이지를 한 번에 나열합니다.
  */
 
 const STATIC_PATHS = [

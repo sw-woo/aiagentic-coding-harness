@@ -47,7 +47,7 @@ pnpm lint && pnpm build 2>&1 | tail -40
 - [ ] 빌드 출력에 "Compiled successfully" 포함
 - [ ] 빌드 출력에 "Generating static pages (22/22)" 포함
 - [ ] 빌드 결과 라우트 목록에 다음이 모두 있어야 함:
-  - `/`, `/handbook`, `/guide`, `/manifesto`, `/manifesto/[slug]`,
+  - `/`, `/handbook`, `/guide`,
   - `/methodology/[slug]`, `/methodology/codex-best-practices`,
   - `/architecture/overview`, `/architecture/claude-vs-codex`,
   - `/catalog/[type]`, `/playbook/[slug]`, `/reference`, `/reference/[slug]`

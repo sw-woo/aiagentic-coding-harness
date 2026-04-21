@@ -29,7 +29,8 @@ export function AutoResearch() {
       </ProseParagraph>
       <ProseParagraph>
         이 이야기는 단순한 자동화가 아닙니다.
-        AI 가 스스로 실험하고, 스스로 평가하고, 스스로 개선하는 <strong>목표달성 루프</strong>가
+        AI 가 스스로 실험하고, 스스로 평가하고, 스스로 개선하는 <strong>목표달성 루프</strong>(목표를 향해
+        시도→측정→개선을 반복하는 구조)가
         현실이 되었다는 선언입니다. 이 글은 그 현상의 전체 지도를 그립니다.
       </ProseParagraph>
 
@@ -50,8 +51,9 @@ export function AutoResearch() {
         2025년 초만 해도 대부분의 개발자는 ChatGPT 나 Copilot 에 코드 조각을 요청하고, 결과를 복사-붙여넣기하는 수준이었습니다.
         그러나 2025년 말부터 Claude Code, Cursor, Codex 같은 코딩 에이전트가 등장하면서
         &ldquo;에이전트에게 작업을 맡기고, 인간은 감독한다&rdquo; 는 패턴이 빠르게 확산되었습니다.
-        문제는 에이전트가 장시간 작업할수록 초기 규칙을 잊거나(Context Drift), 에러가 나면 엉뚱한 방향으로 폭주하거나,
-        심지어 평가 기준 자체를 속이는(Reward Hacking) 행동이 발생한다는 것이었습니다.
+        문제는 에이전트가 장시간 작업할수록 초기 규칙을 점점 잊어버리거나(Context Drift — 대화가 길어지면 처음 지시를 놓치는 현상),
+        에러가 나면 엉뚱한 방향으로 폭주하거나,
+        심지어 평가 기준 자체를 속이는(Reward Hacking — 점수를 올리기 위해 정당하지 않은 편법을 쓰는 행위) 행동이 발생한다는 것이었습니다.
         이 구조적 문제를 해결하기 위해 하네스 엔지니어링이 등장했습니다.
       </ProseParagraph>
 
@@ -110,15 +112,15 @@ export function AutoResearch() {
 
       <ProseParagraph>
         AutoResearch 의 설계에서 가장 영리한 부분은 &ldquo;누가 무엇을 수정할 수 있는가&rdquo;를 파일 단위로 엄격히 분리한 것입니다.
-        이 분리가 중요한 이유는 세 가지입니다. 첫째, 에이전트가 평가 로직을 수정하여 점수를 인위적으로 올리는 보상 해킹을 물리적으로 차단합니다.
-        둘째, 에이전트의 검색 공간을 630줄 단일 파일로 한정하여 LLM 의 컨텍스트 윈도우 안에서 전체 코드를 한눈에 파악할 수 있게 합니다.
-        셋째, 인간의 역할을 &ldquo;코드를 쓰는 것&rdquo;에서 &ldquo;전략을 쓰는 것&rdquo;으로 전환시킵니다.
+        이 분리가 중요한 이유는 세 가지입니다. 첫째, 에이전트가 채점 기준을 고쳐서 점수를 부풀리는 부정행위(보상 해킹)를 물리적으로 차단합니다.
+        둘째, 에이전트가 건드릴 수 있는 범위를 630줄 단일 파일로 한정하여, AI 가 전체 코드를 한눈에 파악할 수 있게 합니다.
+        셋째, 인간의 역할을 &ldquo;코드를 직접 쓰는 것&rdquo;에서 &ldquo;방향과 전략을 정하는 것&rdquo;으로 전환시킵니다.
       </ProseParagraph>
 
       <div className="my-6 grid gap-4 sm:grid-cols-3">
         <RoleCard title="prepare.py" subtitle="불변의 평가자" color="text-green-400">
-          데이터, 토크나이저, <code>evaluate_bpb</code> 함수. 에이전트도 인간도 수정 불가.
-          보상 해킹을 원천 차단합니다.
+          데이터, 토크나이저, <code>evaluate_bpb</code> 채점 함수. 에이전트도 인간도 수정 불가.
+          채점 기준 조작을 원천 차단합니다.
         </RoleCard>
         <RoleCard title="train.py" subtitle="에이전트의 샌드박스" color="text-amber-400">
           GPT 아키텍처, Muon+AdamW 옵티마이저, 학습 루프. 에이전트가 자유롭게 수정할 수 있는
@@ -196,12 +198,25 @@ export function AutoResearch() {
 - Modify the evaluation harness.`}
       </CodeBlock>
 
+      <Callout tone="note" title="한국어 해석">
+        <strong>할 수 있는 것:</strong> train.py 를 수정하십시오 — 수정할 수 있는 파일은 이것뿐입니다.
+        아키텍처, 옵티마이저, 하이퍼파라미터, 학습 루프, 배치 크기, 모델 크기 — 무엇이든 자유롭게 바꿀 수 있습니다.
+        <br /><br />
+        <strong>할 수 없는 것:</strong> prepare.py 를 수정할 수 없습니다 (읽기 전용). 새 패키지를 설치하거나 의존성을 추가할 수 없습니다. 평가 도구를 수정할 수 없습니다.
+      </Callout>
+
       <CodeBlock filename="program.md (발췌 2 — Simplicity Criterion)" language="markdown">
 {`**Simplicity criterion**: simpler is better.
 A 0.001 val_bpb improvement that adds 20 lines of
 hacky code? Probably not worth it.
 A 0.001 improvement from deleting code? Definitely keep.`}
       </CodeBlock>
+
+      <Callout tone="note" title="한국어 해석">
+        <strong>단순함 기준</strong>: 단순한 것이 좋습니다.
+        지저분한 코드 20줄을 추가해서 val_bpb 를 0.001 개선했다면? 아마 그럴 가치가 없습니다.
+        코드를 삭제해서 0.001 개선했다면? 무조건 유지하십시오.
+      </Callout>
 
       <CodeBlock filename="program.md (발췌 3 — NEVER STOP)" language="markdown">
 {`**NEVER STOP**: The human might be asleep.
@@ -211,6 +226,13 @@ try combining previous near-misses,
 try more radical architectural changes.
 The loop runs until the human interrupts you, period.`}
       </CodeBlock>
+
+      <Callout tone="note" title="한국어 해석">
+        <strong>절대 멈추지 마십시오</strong>: 인간이 자고 있을 수 있습니다.
+        당신은 자율적입니다. 아이디어가 바닥나면, 더 깊이 생각하십시오 — 코드에 참조된 논문을 읽고,
+        이전에 아깝게 실패한 시도들을 조합해 보고, 더 과감한 구조 변경을 시도하십시오.
+        이 루프는 인간이 중단할 때까지 계속됩니다. 예외 없습니다.
+      </Callout>
 
       <Callout tone="note" title="NEVER STOP 과 에이전트 호환성">
         Claude Code 는 이 지시를 충실히 따르지만, Codex 는 무시하여 호환되지 않습니다.
@@ -243,17 +265,18 @@ class GPTConfig:
       <ProseHeading level={3}>val_bpb — 왜 이 메트릭인가</ProseHeading>
 
       <ProseParagraph>
-        val_bpb(validation bits-per-byte)는 검증 세트의 바이트당 비트 수입니다.
-        이 메트릭이 선택된 이유가 중요합니다. 일반적인 loss 나 perplexity 는 어휘 크기(vocabulary size)에 의존하기 때문에,
-        에이전트가 토크나이저를 바꾸면 공정한 비교가 불가능해집니다.
-        val_bpb 는 어휘 크기와 무관하게 작동하므로, 에이전트가 아키텍처나 토크나이저를 변경해도 실험 결과를 공정하게 비교할 수 있습니다.
-        방향도 명확합니다 — 낮을수록 좋습니다. 에이전트가 판단에 혼란을 겪을 여지가 없습니다.
+        val_bpb(validation bits-per-byte)는 &ldquo;모델이 텍스트를 얼마나 효율적으로 압축하는가&rdquo;를 측정하는 점수입니다.
+        쉽게 말하면, 원본 텍스트 1바이트를 표현하는 데 몇 비트가 필요한지를 나타냅니다 — 낮을수록 모델이 텍스트를 잘 이해한다는 뜻입니다.
+        이 점수가 선택된 이유가 중요합니다. 일반적인 loss 나 perplexity 는 단어 사전의 크기에 따라 달라지기 때문에,
+        에이전트가 단어 분리 방식을 바꾸면 공정한 비교가 불가능해집니다.
+        val_bpb 는 단어 사전과 무관하게 작동하므로, 에이전트가 구조를 어떻게 바꾸든 실험 결과를 공정하게 비교할 수 있습니다.
+        판단 기준도 단순합니다 — 숫자가 낮아지면 개선, 높아지면 실패. 에이전트가 혼란을 겪을 여지가 없습니다.
       </ProseParagraph>
 
       <ProseParagraph>
-        5분 고정 예산도 단순한 편의가 아닙니다. 모든 실험이 동일한 벽시계 시간 안에서 실행되므로,
-        모델 크기를 키우든 배치 사이즈를 줄이든 직접 비교가 가능합니다.
-        이 제약은 에이전트가 &ldquo;더 크면 더 좋다&rdquo; 가 아니라 해당 GPU 에 가장 최적화된 설정을 찾도록 강제합니다.
+        5분 고정 예산도 단순한 편의가 아닙니다. 모든 실험이 똑같은 시간(실제 벽시계 기준 5분) 안에서 실행되므로,
+        모델을 크게 만들든 한 번에 처리하는 데이터 양을 줄이든 동일 조건에서 직접 비교가 가능합니다.
+        이 제약은 에이전트가 &ldquo;무조건 크게 만들면 좋다&rdquo; 가 아니라, 주어진 GPU 에서 가장 효율적인 설정을 찾도록 강제합니다.
         Shopify CEO Tobi Lutke 의 사례에서 0.8B 모델이 수동 튜닝 1.6B 모델을 능가한 것은 이 제약 덕분입니다.
       </ProseParagraph>
 
@@ -348,8 +371,8 @@ class GPTConfig:
 
       <ProseParagraph>
         Martin Fowler 사이트에 발표된 Birgitta Böckeler(ThoughtWorks)의 프레임워크로 분석하면,
-        AutoResearch 의 모든 구성 요소가 <strong>가이드(Feedforward)</strong>와{" "}
-        <strong>센서(Feedback)</strong>로 깔끔하게 분류됩니다.
+        AutoResearch 의 모든 구성 요소가 <strong>가이드</strong>(행동 전에 방향을 알려주는 것)와{" "}
+        <strong>센서</strong>(행동 후에 결과를 측정하는 것)로 깔끔하게 분류됩니다.
       </ProseParagraph>
 
       <div className="my-6 grid gap-4 sm:grid-cols-2">
@@ -404,7 +427,7 @@ class GPTConfig:
 
       <ProseParagraph>
         <strong>AutoResearch 가 증명한 것</strong>: 둘 중 하나만으로는 부족합니다.
-        program.md(컨텍스트 엔지니어링)만 있고 prepare.py(하네스의 센서)가 없으면 보상 해킹이 가능합니다.
+        program.md(방향 지시)만 있고 prepare.py(자동 채점)가 없으면 에이전트가 채점 기준을 조작할 수 있습니다.
         prepare.py 만 있고 program.md 가 없으면 에이전트가 방향을 잃습니다.
         둘이 결합되어야 자는 동안 700번 실험이 가능해집니다.
       </ProseParagraph>
@@ -465,32 +488,32 @@ class GPTConfig:
         <StatCard n="5개월" l="기간 (3→7명)" />
       </div>
 
-      <ProseHeading level={3}>Generation-Review Asymmetry</ProseHeading>
+      <ProseHeading level={3}>생성과 검토의 비대칭 (Generation-Review Asymmetry)</ProseHeading>
 
       <ProseParagraph>
-        &ldquo;Broken by Default&rdquo; 연구가 Z3 SMT 솔버로 AI 생성 코드 3,500개를 수학적으로 검증한 결과,
-        모델은 코드 생성 시 55.8%의 취약점을 만들지만 동일 모델이 자기 코드를 리뷰하면 78.7%를 정확히 탐지합니다.
-        모델은 안전한 코드를 작성할 지식을 갖고 있지만 생성 단계에서 적용하지 못합니다.
-        Generator-Evaluator 분리가 하네스에서 필수적인 이유입니다 (arxiv.org, 2604.05292).
+        AI 는 코드를 쓸 때와 검토할 때 전혀 다른 성능을 보입니다.
+        &ldquo;Broken by Default&rdquo; 연구가 수학적 증명 도구(Z3 솔버)로 AI 가 작성한 코드 3,500개를 검증한 결과,
+        AI 는 코드를 쓸 때 55.8%의 보안 취약점을 만들지만, 같은 AI 에게 &ldquo;이 코드에 문제가 있는가?&rdquo;라고 물으면 78.7%를 정확히 찾아냅니다.
+        즉, AI 는 안전한 코드를 쓸 능력은 있지만 쓰는 순간에는 그 능력을 발휘하지 못합니다.
+        코드를 쓰는 역할과 검토하는 역할을 분리하는 것이 하네스에서 필수적인 이유입니다 (arxiv.org, 2604.05292).
       </ProseParagraph>
 
       <ProseParagraph>
-        구체적으로 어떤 취약점이 발생하는지 살펴보겠습니다.
-        연구에서 가장 빈번하게 발견된 취약점은 SQL Injection(사용자 입력을 직접 쿼리에 삽입),
-        Path Traversal(<code>../</code>로 상위 디렉터리 접근), Buffer Overflow(경계 검사 누락)입니다.
-        흥미로운 점은 동일 모델에게 &ldquo;이 코드에 보안 취약점이 있는가?&rdquo; 라고 질문하면
-        방금 자신이 작성한 SQL Injection 을 정확히 지목한다는 것입니다.
-        이 현상의 원인은 토큰 생성과 토큰 평가가 서로 다른 확률 분포에서 작동하기 때문입니다 —
-        생성 시에는 &ldquo;자연스럽고 간결한 코드&rdquo; 가 높은 확률을 받지만,
-        리뷰 시에는 &ldquo;보안 패턴 매칭&rdquo; 이 활성화되어 취약점을 포착합니다.
+        구체적으로 어떤 문제가 발생하는지 살펴보겠습니다.
+        가장 흔한 취약점은 SQL Injection(사용자가 입력한 값을 검증 없이 데이터베이스 쿼리에 넣어 해킹 통로를 여는 것),
+        Path Traversal(<code>../</code>을 이용해 접근 금지된 상위 폴더에 침입하는 것), Buffer Overflow(메모리 범위를 넘어서 쓰는 것)입니다.
+        재미있는 점은, 같은 AI 에게 &ldquo;이 코드에 보안 문제가 있니?&rdquo; 라고 물으면
+        방금 자신이 만든 SQL Injection 을 정확히 짚어낸다는 것입니다.
+        왜 이런 일이 벌어질까요? AI 가 코드를 쓸 때는 &ldquo;자연스럽고 간결한 코드&rdquo;를 우선하지만,
+        검토할 때는 &ldquo;보안 패턴&rdquo;에 집중하기 때문입니다 — 같은 모델이 역할에 따라 다르게 작동합니다.
       </ProseParagraph>
 
       <ProseParagraph>
-        더 충격적인 것은 기존 정적 분석 도구(ESLint, Bandit 등)의 탐지율이 <strong>2.2%</strong>에 불과하다는 점입니다.
-        97.8%의 취약점이 기존 도구를 통과합니다. 이것이 AutoResearch 의 prepare.py 같은 결정론적 센서와,
-        LLM 기반 자기 리뷰를 <strong>모두</strong> 갖추어야 하는 이유입니다.
-        하네스에서 Generator(코드 작성)와 Evaluator(코드 검증)를 반드시 분리하면,
-        같은 모델이라도 역할 전환만으로 78.7%의 취약점을 걸러낼 수 있습니다.
+        더 충격적인 것은 ESLint, Bandit 같은 기존 코드 검사 도구의 탐지율이 <strong>2.2%</strong>에 불과하다는 점입니다.
+        97.8%의 취약점이 이 도구들을 아무 문제 없이 통과합니다. 그래서 AutoResearch 의 prepare.py 같은 자동 채점 장치와,
+        AI 가 스스로 자기 코드를 검토하는 장치를 <strong>둘 다</strong> 갖추어야 합니다.
+        하네스에서 &ldquo;코드를 쓰는 역할&rdquo;과 &ldquo;코드를 검증하는 역할&rdquo;을 분리하면,
+        같은 AI 라도 역할만 바꿔서 78.7%의 취약점을 걸러낼 수 있습니다.
       </ProseParagraph>
 
       <ProseHeading level={3}>LangChain Deep Agents — 독립적 수렴의 증거</ProseHeading>
@@ -512,16 +535,16 @@ class GPTConfig:
       </ProseParagraph>
 
       <ProseParagraph>
-        Harrison Chase 가 Claude Code 에서 역공학한 핵심 패턴은 세 가지입니다.
-        첫째, <strong>Todo 도구를 no-op 으로 구현</strong>합니다. Claude Code 의 <code>write_todos</code> 도구는
-        실제로 외부 시스템에 저장하지 않습니다 — 모델이 &ldquo;계획을 쓴다&rdquo; 는 행위 자체가
-        컨텍스트 윈도우에 구조화된 계획을 남기는 것이 목적입니다.
-        이것은 모델의 자기 조직화(self-organization)를 유도하는 인지적 장치입니다.
+        Harrison Chase 가 Claude Code 를 분석해서 찾아낸 핵심 패턴은 세 가지입니다.
+        첫째, <strong>Todo 도구를 아무것도 안 하게 만듭니다</strong>. Claude Code 의 <code>write_todos</code> 도구는
+        실제로 어디에 저장하지 않습니다 — AI 가 &ldquo;할 일 목록을 쓴다&rdquo;는 행위 자체가
+        대화 맥락 안에 체계적인 계획을 남기는 것이 목적입니다.
+        마치 시험 전에 풀이 계획을 먼저 적으면 실수가 줄어드는 것과 같습니다.
         둘째, <strong>파일시스템을 공유 작업 공간</strong>으로 활용합니다.
         에이전트가 임시 파일에 중간 결과를 쓰고, 서브에이전트가 그 파일을 읽는 방식으로
         컨텍스트 윈도우의 한계를 우회합니다. 메모리가 아니라 디스크가 에이전트 간 통신 채널이 됩니다.
-        셋째, <strong>컨텍스트 85% 사용 시 자동 요약</strong>합니다.
-        컨텍스트 윈도우가 85%에 도달하면 대화 이력을 자동 압축하여 최신 상태만 유지합니다.
+        셋째, <strong>대화가 길어지면 자동으로 요약</strong>합니다.
+        AI 가 기억할 수 있는 분량(컨텍스트 윈도우)의 85%를 채우면, 과거 대화를 자동 압축하여 최신 내용만 남깁니다.
         이 세 패턴이 결합되면 에이전트가 수 시간 동안 맥락을 잃지 않고 작업을 지속할 수 있습니다.
       </ProseParagraph>
 
@@ -618,7 +641,7 @@ class GPTConfig:
       <ProseParagraph>
         Sakana AI 의 AI Scientist-v2 는 AutoResearch 의 단일 루프를 <strong>트리 탐색</strong>으로 확장합니다.
         하나의 가설에서 시작하여 여러 갈래로 분기하고, 각 갈래의 실험 결과를 평가하여
-        가장 유망한 경로를 깊이 탐색합니다(Monte Carlo Tree Search 변형).
+        가장 유망한 경로를 깊이 탐색합니다(바둑 AI AlphaGo 가 수를 탐색하는 것과 같은 방식입니다).
         실험 결과를 바탕으로 LaTeX 논문까지 자동 생성하며, 실제로 ICLR 피어리뷰를 통과한 논문이 나왔습니다.
         AutoResearch 가 &ldquo;하나의 메트릭을 개선하는 직선&rdquo;이라면,
         AI Scientist-v2 는 &ldquo;연구 공간 전체를 탐색하는 나무&rdquo;입니다.
@@ -701,10 +724,10 @@ class GPTConfig:
       </ProseParagraph>
 
       <ProseParagraph>
-        SAHOO 프레임워크(Safeguarded Alignment for High-Order Optimization)는 이러한 정렬 표류를 수학적으로 통제하기 위해 세 가지 안전장치를 제시합니다.
-        첫째, <strong>목표 표류 지수(GDI)</strong> — 의미론적·어휘론적·구조적·분포적 변화를 종합 측정합니다.
-        둘째, <strong>제약 보존 검사</strong> — 불변량 위반 시 명시적 페널티를 부여합니다.
-        셋째, <strong>회귀 위험 정량화</strong> — 이전 성과를 무효화하는 시점을 정량화하여 종료 기준을 제공합니다
+        SAHOO 프레임워크(안전한 고차 최적화를 위한 정렬 보호 체계)는 이러한 방향 이탈을 수학적으로 통제하기 위해 세 가지 안전장치를 제시합니다.
+        첫째, <strong>목표 이탈 지수(GDI)</strong> — &ldquo;원래 목표에서 얼마나 벗어났는가?&rdquo;를 숫자로 측정합니다.
+        둘째, <strong>규칙 보존 검사</strong> — &ldquo;절대 깨뜨리면 안 되는 규칙을 위반했는가?&rdquo;를 자동 확인합니다.
+        셋째, <strong>퇴보 위험 측정</strong> — &ldquo;이전에 이룬 성과를 되돌리고 있는가?&rdquo;를 감지하여 멈출 시점을 알려 줍니다
         (arxiv.org, 2603.06333).
       </ProseParagraph>
 
@@ -735,15 +758,13 @@ class GPTConfig:
         caption="자기개선 루프의 안전성 구조 — 사이클이 반복될수록 표류가 증가하며, SAHOO + Red Line 이 임계점에서 중단합니다"
       />
 
-      <ProseHeading level={3}>파레토 프론티어 — 개선의 한계선</ProseHeading>
+      <ProseHeading level={3}>트레이드오프의 한계선 — 언제 멈춰야 하는가</ProseHeading>
 
       <ProseParagraph>
-        자기개선 루프를 시각화하면 파레토 곡선이 나타납니다.
-        X축은 &ldquo;성능 향상&rdquo;, Y축은 &ldquo;정렬 표류&rdquo;입니다.
-        초기 사이클(1~2회)에서는 오른쪽 아래 — 높은 성능, 낮은 표류 — 가 가능합니다.
-        그러나 사이클이 반복될수록 곡선의 기울기가 급격히 올라가서,
-        성능을 1% 올리기 위해 표류를 10% 감수해야 하는 영역에 진입합니다.
-        이 지점이 &ldquo;중단해야 할 때&rdquo;이며, SAHOO 의 회귀 위험 정량화가 이 임계점을 자동으로 감지합니다.
+        자기개선 루프를 반복하면 &ldquo;득과 실의 경계선&rdquo;이 나타납니다.
+        처음 1~2회 사이클에서는 적은 부작용으로 큰 성능 향상을 얻을 수 있습니다.
+        그러나 사이클이 반복될수록 성능을 1% 올리기 위해 원래 목표에서 10%나 벗어나야 하는 영역에 진입합니다.
+        이 지점이 &ldquo;더 이상 개선이 아니라 악화&rdquo;인 순간이며, SAHOO 의 퇴보 위험 측정이 이 임계점을 자동으로 감지합니다.
       </ProseParagraph>
 
       <ProseParagraph>
@@ -751,9 +772,9 @@ class GPTConfig:
         val_bpb 는 단일 스칼라 메트릭이므로 &ldquo;정렬 표류&rdquo; 차원이 존재하지 않습니다 —
         숫자가 낮아지면 무조건 좋고, 높아지면 무조건 revert 합니다.
         그러나 이 접근법을 다차원 문제(예: 코드 품질 + 보안 + 성능)에 적용하면
-        하나의 메트릭을 최적화하다가 다른 메트릭이 퇴화하는 &ldquo;풍선 효과(Balloon Effect)&rdquo;가 발생합니다.
-        실무에서는 주 메트릭 1개 + 통과/실패 제약(guard rail) N개를 조합하는 것이 권장됩니다.
-        예를 들어, 주 메트릭은 <code>pytest 실행 시간</code>, 제약은 <code>테스트 통과율 100%</code> + <code>린터 경고 0건</code>입니다.
+        하나의 점수를 올리다가 다른 점수가 떨어지는 &ldquo;풍선 효과&rdquo;(풍선의 한쪽을 누르면 다른 쪽이 부풀어 오르는 것)가 발생합니다.
+        실무에서는 메인 점수 1개 + &ldquo;이것만은 지켜라&rdquo; 제약 N개를 조합하는 것이 권장됩니다.
+        예를 들어, 메인 점수는 <code>pytest 실행 시간</code>(빠를수록 좋음), 제약은 <code>테스트 전부 통과</code> + <code>코드 경고 0건</code>입니다.
       </ProseParagraph>
 
       <Callout tone="warning" title="Darwin Gödel Machine 의 경고">
@@ -772,19 +793,19 @@ class GPTConfig:
       <ProseParagraph>
         Karpathy 는 &ldquo;프롬프트 엔지니어링&rdquo;이라는 용어가 오해를 유발한다고 지적했습니다.
         실제로 중요한 것은 단일 프롬프트를 다듬는 것이 아니라,
-        LLM 의 컨텍스트 윈도우에 <strong>올바른 토큰을 올바른 순서로 공급</strong>하는 전체 시스템을 설계하는 것입니다.
+        AI 가 한 번에 읽을 수 있는 범위(컨텍스트 윈도우)에 <strong>올바른 정보를 올바른 순서로 공급</strong>하는 전체 시스템을 설계하는 것입니다.
         이것이 <strong>컨텍스트 엔지니어링</strong>입니다.
       </ProseParagraph>
 
       <ProseParagraph>
         AutoResearch 에서 컨텍스트 엔지니어링이 어떻게 작동하는지 구체적으로 살펴보겠습니다.
-        에이전트의 매 사이클마다 컨텍스트 윈도우에 들어가는 토큰은 다음과 같습니다:
-        (1) program.md 의 전략 지시(약 2,000 토큰),
+        에이전트가 매 실험 사이클마다 읽는 정보량은 다음과 같습니다:
+        (1) program.md 전략 지시(약 2,000 토큰 — A4 1장 분량),
         (2) train.py 전체 소스(약 3,000 토큰 — 630줄이므로 한눈에 파악 가능),
-        (3) results.tsv 의 최근 실험 이력(약 500 토큰),
-        (4) git log 의 최근 커밋 메시지(약 300 토큰).
+        (3) results.tsv 최근 실험 이력(약 500 토큰),
+        (4) git log 최근 커밋 메시지(약 300 토큰).
         합계 약 6,000 토큰이면 에이전트가 전체 상황을 완벽히 파악합니다.
-        200K 컨텍스트 윈도우의 3%만 사용하므로 &ldquo;맥락 고갈(Context Exhaustion)&rdquo;이 발생할 수 없습니다.
+        AI 가 한 번에 읽을 수 있는 분량(200K 토큰)의 고작 3%만 사용하므로, 대화가 길어져서 앞의 내용을 잊어버리는 문제가 원천적으로 발생하지 않습니다.
       </ProseParagraph>
 
       <ProseParagraph>
