@@ -708,6 +708,46 @@ class GPTConfig:
         (arxiv.org, 2603.06333).
       </ProseParagraph>
 
+      <Mermaid
+        chart={`flowchart TD
+    subgraph 안전영역["안전 영역"]
+        S1["사이클 1\n성능 +8% · 표류 2%"]
+        S2["사이클 2\n성능 +5% · 표류 5%"]
+    end
+
+    subgraph 위험영역["위험 영역"]
+        S3["사이클 3\n성능 +2% · 표류 12%"]
+        S4["사이클 4\n성능 +1% · 표류 25%"]
+    end
+
+    START["초기 상태"] --> S1
+    S1 --> S2
+    S2 --> S3
+    S3 --> S4
+    S4 --> STOP{"SAHOO\n중단 판정"}
+
+    subgraph 안전장치["안전장치 계층"]
+        R1["R1: 메트릭 변경 금지"]
+        R3["R3: 출력 하드코딩 금지"]
+        R6["R6: 데이터 누출 금지"]
+        GDI["GDI: 목표 표류 지수"]
+        IMMUTABLE["prepare.py 불변"]
+    end
+
+    STOP -->|"위반"| REVERT["❌ 전체 revert"]
+    STOP -->|"통과"| NEXT["✅ 다음 사이클"]
+
+    안전장치 -.->|"매 사이클 검사"| STOP
+
+    style 안전영역 fill:#064e3b22,stroke:#10b981
+    style 위험영역 fill:#7f1d1d22,stroke:#ef4444
+    style 안전장치 fill:#1e3a5f22,stroke:#3b82f6
+    style REVERT fill:#7f1d1d,stroke:#ef4444,color:#e2e8f0
+    style NEXT fill:#064e3b,stroke:#10b981,color:#e2e8f0
+    style STOP fill:#1e3a5f,stroke:#f59e0b,color:#e2e8f0`}
+        caption="자기개선 루프의 안전성 구조 — 사이클이 반복될수록 표류가 증가하며, SAHOO + Red Line 이 임계점에서 중단합니다"
+      />
+
       <ProseHeading level={3}>파레토 프론티어 — 개선의 한계선</ProseHeading>
 
       <ProseParagraph>
