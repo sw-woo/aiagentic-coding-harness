@@ -5,6 +5,7 @@ import {
 } from "@/components/content/prose";
 import { Callout } from "@/components/content/callout";
 import { CodeBlock } from "@/components/content/code-block";
+import { Mermaid } from "@/components/content/mermaid";
 
 /* ──────────────────────────────────────────────────────────────
    AutoResearch 심층 분석 — 40-60분 세미나 자료
@@ -61,6 +62,19 @@ export function AutoResearch() {
           </tbody>
         </table>
       </div>
+
+      <Mermaid
+        chart={`timeline
+    title 에이전틱 엔지니어링 타임라인
+    2025.02 : Karpathy "Vibe Coding" 명명
+    2025.12 : Karpathy 코딩 방식 역전 (80% 수동→80% 에이전트)
+    2026.02.05 : Hashimoto "하네스 엔지니어링" 명명
+    2026.02.17 : LangChain Terminal Bench 30위→5위
+    2026.03.07 : Karpathy AutoResearch 출시 (74.5k stars)
+    2026.03.11 : LangChain "Agent Harness 해부학" 발표
+    2026.03.15 : LangChain Deep Agents 출시 (9.9k stars/5h)`}
+        caption="하네스 엔지니어링 타임라인 — 세 흐름이 독립적으로 같은 결론에 수렴합니다"
+      />
 
       <ProseParagraph>
         Mitchell Hashimoto(Terraform 창시자)가 명명한 하네스 엔지니어링의 핵심 원칙은 한 줄입니다 —
@@ -120,8 +134,31 @@ export function AutoResearch() {
         <li>val_bpb + 메모리 측정, results.tsv 기록</li>
         <li>개선됨? → <span className="text-green-400">git keep</span> | 안 됨? → <span className="text-red-400">git reset HEAD~1</span></li>
       </ol>
+      <Mermaid
+        chart={`flowchart TD
+    A["1. program.md 읽기"] --> B["2. train.py + results.tsv 검토"]
+    B --> C["3. 가설 제안"]
+    C --> D["4. train.py 수정"]
+    D --> E["5. git commit"]
+    E --> F["6. 5분간 학습 실행"]
+    F --> G{"크래시?"}
+    G -->|Yes| H["로그 확인 → 수정 or 포기"]
+    H --> A
+    G -->|No| I["8. val_bpb 측정"]
+    I --> J{"개선됨?"}
+    J -->|"Yes (낮아짐)"| K["✅ git keep"]
+    J -->|"No"| L["❌ git reset HEAD~1"]
+    K --> A
+    L --> A
+
+    style F fill:#1e3a5f,stroke:#3b82f6,color:#e2e8f0
+    style K fill:#064e3b,stroke:#10b981,color:#e2e8f0
+    style L fill:#7f1d1d,stroke:#ef4444,color:#e2e8f0`}
+        caption="AutoResearch 9단계 실행 루프 — 무한 반복하며 개선만 누적합니다"
+      />
+
       <ProseParagraph>
-        그리고 1번으로 돌아가 <strong>무한 반복</strong>합니다. 시간당 약 12회, 하룻밤에 약 100회 실험이 실행됩니다.
+        이 루프는 <strong>무한 반복</strong>됩니다. 시간당 약 12회, 하룻밤에 약 100회 실험이 실행됩니다.
       </ProseParagraph>
 
       <ProseHeading level={3}>실제 소스코드 — program.md 핵심 발췌</ProseHeading>
@@ -281,6 +318,32 @@ class GPTConfig:
         LLM-as-Judge 에 의존하지 않으므로 환각 기반 자기기만이 원천적으로 불가능합니다.
       </Callout>
 
+      <Mermaid
+        chart={`flowchart LR
+    subgraph 가이드["🟢 가이드 (Feedforward)"]
+        P["program.md"] --> AG["에이전트"]
+        SC["Simplicity Criterion"] --> AG
+        NS["NEVER STOP"] --> AG
+    end
+
+    AG --> EX["train.py 수정 + 5분 학습"]
+
+    subgraph 센서["🟠 센서 (Feedback)"]
+        EX --> PP["prepare.py → val_bpb 측정"]
+        PP --> GIT{"개선?"}
+        GIT -->|Yes| KEEP["git keep ✅"]
+        GIT -->|No| RESET["git reset ❌"]
+    end
+
+    KEEP --> TSV["results.tsv 기록"]
+    RESET --> TSV
+    TSV --> AG
+
+    style 가이드 fill:#064e3b22,stroke:#10b981
+    style 센서 fill:#7f1d1d22,stroke:#f59e0b`}
+        caption="AutoResearch 의 조향 루프 — 가이드(행동 전)와 센서(행동 후)가 결합되어 자율 개선 사이클을 형성합니다"
+      />
+
       <ProseParagraph>
         <strong>AutoResearch 가 증명한 것</strong>: 둘 중 하나만으로는 부족합니다.
         program.md(컨텍스트 엔지니어링)만 있고 prepare.py(하네스의 센서)가 없으면 보상 해킹이 가능합니다.
@@ -353,6 +416,19 @@ class GPTConfig:
         LangChain 은 자사 생태계를 세 계층으로 공식 구분합니다 — <strong>LangChain</strong>(프레임워크),{" "}
         <strong>LangGraph</strong>(런타임), <strong>Deep Agents</strong>(하네스).
       </ProseParagraph>
+
+      <Mermaid
+        chart={`block-beta
+    columns 3
+    A["LangChain\n(Framework)\n모델·도구·프롬프트"]:1
+    B["LangGraph\n(Runtime)\n상태·그래프·체크포인트"]:1
+    C["Deep Agents\n(Harness)\n계획·파일시스템·서브에이전트"]:1
+
+    style A fill:#1e293b,stroke:#64748b,color:#e2e8f0
+    style B fill:#1e293b,stroke:#3b82f6,color:#e2e8f0
+    style C fill:#1e3a5f,stroke:#3b82f6,color:#e2e8f0`}
+        caption="LangChain 생태계 3계층 — Framework → Runtime → Harness"
+      />
 
       <div className="my-6 grid gap-4 sm:grid-cols-2">
         <RoleCard title="Deep Agents 핵심 기능" subtitle="하네스 내장 도구" color="text-accent-2">
@@ -430,6 +506,32 @@ class GPTConfig:
           </tbody>
         </table>
       </div>
+
+      <Mermaid
+        chart={`graph TD
+    AR["🔬 AutoResearch\n(Karpathy)\n단일 파일 · 단일 메트릭"]
+    AR --> CLI["autoresearch-cli\n범용 CLI"]
+    AR --> MLX["autoresearch-mlx\nApple Silicon"]
+    AR --> EVERYWHERE["autoresearch-everywhere\n크로스 플랫폼"]
+
+    AR -.->|"같은 원리"| DA["Deep Agents\n(LangChain)\nClaude Code 역공학"]
+    AR -.->|"같은 원리"| CODEX["Codex Harness\n(OpenAI)\n100만줄 실험"]
+
+    subgraph 자기개선["AI Builds AI"]
+        AIS["AI Scientist v2\n(Sakana AI)"]
+        DGM["Darwin Gödel Machine\n(Sakana AI)"]
+        AE["AlphaEvolve\n(DeepMind)"]
+        SOTA["AutoSOTA\n8-에이전트"]
+    end
+
+    AR -.->|"확장"| 자기개선
+
+    style AR fill:#1e3a5f,stroke:#3b82f6,color:#e2e8f0
+    style DA fill:#064e3b,stroke:#10b981,color:#e2e8f0
+    style CODEX fill:#064e3b,stroke:#10b981,color:#e2e8f0
+    style 자기개선 fill:#7f1d1d22,stroke:#f59e0b`}
+        caption="AutoResearch 에서 시작된 생태계 — 플랫폼 포크, 산업 하네스, AI Builds AI 프레임워크로 확산"
+      />
 
       {/* ════════════════════════════════════════════════════════
           Part 5. 안전성
