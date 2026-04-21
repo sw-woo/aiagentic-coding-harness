@@ -10,7 +10,7 @@ type MermaidProps = {
 function scaleSvg(svg: string): string {
   return svg.replace(
     /(<svg[^>]*?)(?:\s+style="[^"]*")?>/,
-    '$1 style="width:100%;height:auto;min-height:500px">'
+    '$1 style="width:100%;height:auto;min-height:300px">'
   );
 }
 
@@ -33,9 +33,9 @@ export function Mermaid({ chart, caption }: MermaidProps) {
           secondaryColor: "#1e293b",
           tertiaryColor: "#0f172a",
           fontFamily: "Geist, system-ui, sans-serif",
-          fontSize: "40px",
+          fontSize: "24px",
         },
-        flowchart: { curve: "basis", padding: 32, nodeSpacing: 60, rankSpacing: 80 },
+        flowchart: { curve: "basis", padding: 16, nodeSpacing: 40, rankSpacing: 50 },
       });
       const id = `mermaid-${Math.random().toString(36).slice(2, 9)}`;
       const { svg: rendered } = await mermaid.render(id, chart);
