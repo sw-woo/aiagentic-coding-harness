@@ -80,14 +80,12 @@ export function AutoResearch() {
 
       <Mermaid
         chart={`timeline
-    title 에이전틱 엔지니어링 타임라인
-    2025.02 : Karpathy "Vibe Coding" 명명
-    2025.12 : Karpathy 코딩 방식 역전 (80% 수동→80% 에이전트)
-    2026.02.05 : Hashimoto "하네스 엔지니어링" 명명
-    2026.02.17 : LangChain Terminal Bench 30위→5위
-    2026.03.07 : Karpathy AutoResearch 출시 (75k+ stars)
-    2026.03.11 : LangChain "Agent Harness 해부학" 발표
-    2026.03 : LangChain Deep Agents 메이저 업데이트 (9.9k stars/5h)`}
+    title 하네스 엔지니어링 타임라인
+    2025.02 : Karpathy — Vibe Coding 명명
+    2026.02 : Hashimoto — 하네스 엔지니어링 명명
+         : LangChain — Terminal Bench 30위→5위
+    2026.03 : Karpathy — AutoResearch 출시 (75k+)
+         : LangChain — Deep Agents 업데이트 (21k+)`}
         caption="하네스 엔지니어링 타임라인 — 세 흐름이 독립적으로 같은 결론에 수렴합니다"
       />
 
@@ -797,20 +795,22 @@ class GPTConfig:
 
       <Mermaid
         chart={`flowchart TD
-    START["Initial State"] --> S1["Cycle 1: +8% perf / 2% drift"]
-    S1 --> S2["Cycle 2: +5% perf / 5% drift"]
-    S2 --> S3["Cycle 3: +2% perf / 12% drift"]
-    S3 --> S4["Cycle 4: +1% perf / 25% drift"]
-    S4 --> STOP{"SAHOO Halt?"}
+    START["시작"] --> S1["사이클 1\n성능 +8% / 이탈 2%"]
+    S1 --> S2["사이클 2\n성능 +5% / 이탈 5%"]
+    S2 --> S3["사이클 3\n성능 +2% / 이탈 12%"]
+    S3 --> S4["사이클 4\n성능 +1% / 이탈 25%"]
+    S4 --> STOP{"SAHOO\n중단 판정"}
 
-    STOP -->|"Violation"| REVERT["Revert All"]
-    STOP -->|"Pass"| NEXT["Next Cycle"]
+    STOP -->|"규칙 위반"| REVERT["전부 되돌리기"]
+    STOP -->|"통과"| NEXT["다음 사이클"]
 
-    R1["R1: No metric change"] -.-> STOP
-    R3["R3: No hardcoded output"] -.-> STOP
-    R6["R6: No data leak"] -.-> STOP
-    GDI["GDI: Goal Drift Index"] -.-> STOP
-    IMM["prepare.py immutable"] -.-> STOP
+    subgraph 안전규칙["🔴 안전 규칙 (Red Line)"]
+        R1["메트릭 변경 금지"]
+        R3["출력 하드코딩 금지"]
+        R6["데이터 누출 금지"]
+        GDI["목표 이탈 지수(GDI)"]
+    end
+    안전규칙 -.-> STOP
 
     style S1 fill:#064e3b,stroke:#10b981,color:#e2e8f0
     style S2 fill:#064e3b,stroke:#10b981,color:#e2e8f0
@@ -818,8 +818,9 @@ class GPTConfig:
     style S4 fill:#7f1d1d,stroke:#ef4444,color:#e2e8f0
     style STOP fill:#1e3a5f,stroke:#f59e0b,color:#e2e8f0
     style REVERT fill:#7f1d1d,stroke:#ef4444,color:#e2e8f0
-    style NEXT fill:#064e3b,stroke:#10b981,color:#e2e8f0`}
-        caption="자기개선 루프의 안전성 구조 — 사이클이 반복될수록 표류가 증가하며, SAHOO + Red Line 이 임계점에서 중단합니다"
+    style NEXT fill:#064e3b,stroke:#10b981,color:#e2e8f0
+    style 안전규칙 fill:#7f1d1d22,stroke:#ef4444`}
+        caption="자기개선 루프의 안전성 구조 — 사이클이 반복될수록 이탈이 증가하며, SAHOO + Red Line 이 임계점에서 중단합니다"
       />
 
       <ProseHeading level={3}>트레이드오프의 한계선 — 언제 멈춰야 하는가</ProseHeading>
