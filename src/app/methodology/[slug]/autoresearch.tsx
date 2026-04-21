@@ -805,7 +805,7 @@ class GPTConfig:
     S4 --> STOP{"SAHOO\n중단?"}
     STOP -->|"위반"| REV["되돌리기"]
     STOP -->|"통과"| NEXT["계속"]
-    R["🔴 Red Line\n메트릭 변경 금지\n출력 하드코딩 금지\n데이터 누출 금지\n목표 이탈 지수"] -.-> STOP
+    R["Red Line 안전 규칙\n- 메트릭 변경 금지\n- 출력 하드코딩 금지\n- 데이터 누출 금지\n- 목표 이탈 지수 감시"] -.-> STOP
 
     style S1 fill:#064e3b,stroke:#10b981,color:#e2e8f0
     style S2 fill:#064e3b,stroke:#10b981,color:#e2e8f0
@@ -814,7 +814,7 @@ class GPTConfig:
     style STOP fill:#1e3a5f,stroke:#f59e0b,color:#e2e8f0
     style REV fill:#7f1d1d,stroke:#ef4444,color:#e2e8f0
     style NEXT fill:#064e3b,stroke:#10b981,color:#e2e8f0
-    style R fill:#7f1d1d22,stroke:#ef4444,color:#e2e8f0`}
+    style R fill:#7f1d1d,stroke:#ef4444,color:#e2e8f0`}
         caption="자기개선 루프의 안전성 구조 — 사이클이 반복될수록 이탈이 증가하며, SAHOO + Red Line 이 임계점에서 중단합니다"
       />
 
