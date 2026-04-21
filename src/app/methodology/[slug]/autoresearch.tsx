@@ -794,32 +794,21 @@ class GPTConfig:
       </ProseParagraph>
 
       <Mermaid
-        chart={`flowchart TD
-    START["시작"] --> S1["사이클 1\n성능 +8% / 이탈 2%"]
-    S1 --> S2["사이클 2\n성능 +5% / 이탈 5%"]
-    S2 --> S3["사이클 3\n성능 +2% / 이탈 12%"]
-    S3 --> S4["사이클 4\n성능 +1% / 이탈 25%"]
-    S4 --> STOP{"SAHOO\n중단 판정"}
-
-    STOP -->|"규칙 위반"| REVERT["전부 되돌리기"]
-    STOP -->|"통과"| NEXT["다음 사이클"]
-
-    subgraph 안전규칙["🔴 안전 규칙 (Red Line)"]
-        R1["메트릭 변경 금지"]
-        R3["출력 하드코딩 금지"]
-        R6["데이터 누출 금지"]
-        GDI["목표 이탈 지수(GDI)"]
-    end
-    안전규칙 -.-> STOP
+        chart={`flowchart LR
+    S1["사이클 1\n+8% 성능\n2% 이탈"] --> S2["사이클 2\n+5% 성능\n5% 이탈"] --> S3["사이클 3\n+2% 성능\n12% 이탈"] --> S4["사이클 4\n+1% 성능\n25% 이탈"]
+    S4 --> STOP{"SAHOO\n중단?"}
+    STOP -->|"위반"| REV["되돌리기"]
+    STOP -->|"통과"| NEXT["계속"]
+    R["🔴 Red Line\n메트릭 변경 금지\n출력 하드코딩 금지\n데이터 누출 금지\n목표 이탈 지수"] -.-> STOP
 
     style S1 fill:#064e3b,stroke:#10b981,color:#e2e8f0
     style S2 fill:#064e3b,stroke:#10b981,color:#e2e8f0
     style S3 fill:#7f1d1d,stroke:#ef4444,color:#e2e8f0
     style S4 fill:#7f1d1d,stroke:#ef4444,color:#e2e8f0
     style STOP fill:#1e3a5f,stroke:#f59e0b,color:#e2e8f0
-    style REVERT fill:#7f1d1d,stroke:#ef4444,color:#e2e8f0
+    style REV fill:#7f1d1d,stroke:#ef4444,color:#e2e8f0
     style NEXT fill:#064e3b,stroke:#10b981,color:#e2e8f0
-    style 안전규칙 fill:#7f1d1d22,stroke:#ef4444`}
+    style R fill:#7f1d1d22,stroke:#ef4444,color:#e2e8f0`}
         caption="자기개선 루프의 안전성 구조 — 사이클이 반복될수록 이탈이 증가하며, SAHOO + Red Line 이 임계점에서 중단합니다"
       />
 
