@@ -10,6 +10,7 @@ import {
 import { Callout } from "@/components/content/callout";
 import { CodeBlock } from "@/components/content/code-block";
 import { Infographic } from "@/components/content/infographic";
+import { AutoResearch } from "./autoresearch";
 
 type Slug =
   | "karpathy"
@@ -17,7 +18,8 @@ type Slug =
   | "eval-driven"
   | "context-engineering"
   | "agent-teams"
-  | "self-improving-systems";
+  | "self-improving-systems"
+  | "autoresearch";
 
 const SLUGS: readonly Slug[] = [
   "karpathy",
@@ -26,6 +28,7 @@ const SLUGS: readonly Slug[] = [
   "context-engineering",
   "agent-teams",
   "self-improving-systems",
+  "autoresearch",
 ] as const;
 
 const META: Record<Slug, { title: string; eyebrow: string; description: string }> = {
@@ -58,6 +61,11 @@ const META: Record<Slug, { title: string; eyebrow: string; description: string }
     title: "Self-Improving Systems",
     eyebrow: "방법론 · 06",
     description: "“AI 가 AI 를 만든다” 라는 표현 뒤에 실제로 무엇이 있는지 — AutoML, AlphaZero, Constitutional AI, DSPy, Sakana AI Scientist.",
+  },
+  autoresearch: {
+    title: "AutoResearch \uC2EC\uCE35 \uBD84\uC11D",
+    eyebrow: "\uC138\uBBF8\uB098 \u00B7 \uD2B9\uBCC4\uD3B8",
+    description: "Karpathy \uC758 AutoResearch \uAC00 \uCEE8\uD14D\uC2A4\uD2B8 \uC5D4\uC9C0\uB2C8\uC5B4\uB9C1\uACFC \uD558\uB124\uC2A4 \uC5D4\uC9C0\uB2C8\uC5B4\uB9C1\uC744 \uACB0\uD569\uD574 \uC791\uB3D9\uD558\uB294 \uC6D0\uB9AC, AI Builds AI \uC0DD\uD0DC\uACC4, \uADF8\uB9AC\uACE0 \uC9C1\uC811 \uC2E4\uD589\uD558\uB294 \uC2E4\uC2B5\uAE4C\uC9C0 \u2014 55\uAC1C \uC18C\uC2A4 \uAE30\uBC18 40\u201360\uBD84 \uC138\uBBF8\uB098 \uC790\uB8CC\uC785\uB2C8\uB2E4.",
   },
 };
 
@@ -106,6 +114,7 @@ export default async function MethodologyPage({
         {slug === "context-engineering" && <ContextEngineering />}
         {slug === "agent-teams" && <AgentTeams />}
         {slug === "self-improving-systems" && <SelfImproving />}
+        {slug === "autoresearch" && <AutoResearch />}
 
         <hr className="my-12 border-border" />
         <p className="font-mono text-sm text-foreground-muted">
