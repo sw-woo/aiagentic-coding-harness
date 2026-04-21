@@ -418,11 +418,9 @@ class GPTConfig:
       </ProseParagraph>
 
       <Mermaid
-        chart={`block-beta
-    columns 3
-    A["LangChain\n(Framework)\n모델·도구·프롬프트"]:1
-    B["LangGraph\n(Runtime)\n상태·그래프·체크포인트"]:1
-    C["Deep Agents\n(Harness)\n계획·파일시스템·서브에이전트"]:1
+        chart={`graph LR
+    A["LangChain\n(Framework)\n모델 · 도구 · 프롬프트"] --> B["LangGraph\n(Runtime)\n상태 · 그래프 · 체크포인트"]
+    B --> C["Deep Agents\n(Harness)\n계획 · 파일시스템 · 서브에이전트"]
 
     style A fill:#1e293b,stroke:#64748b,color:#e2e8f0
     style B fill:#1e293b,stroke:#3b82f6,color:#e2e8f0
